@@ -1,271 +1,480 @@
-import { useEffect, useState } from "react";
-import { Ic, SESSEmblem } from "./SharedUI";
-import logo from "../assets/sess_logo_png_color.png";
-// import favlogo from "../assets/sess-logo.png"
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaBars, FaTimes, FaChevronDown, FaPhone, FaEnvelope,
+  FaSun, FaMoon, FaPlus, FaInstagram, FaFacebookF, FaTwitter, FaBlog,
+} from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext";
+import Logo from "../assets/sess_logo_png_color.png";
+import LogoWhite from "../assets/sess_logo_white.png";
 
-const NAV_ITEMS = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#" },
-  { label: "Products", href: "#" },
-  { label: "Services", href: "#" },
-  { label: "Contact", href: "#" },
-];
-
-const THEME_KEY = "sess-theme";
-
-const THEME_TOKENS = {
-  dark: {
-    "--bg": "#0a0f1e",
-    "--surf": "#151e2f",
-    "--txt": "#ffffff",
-    "--txt-dim": "#94a3b8",
-    "--border": "rgba(34, 229, 245, 0.15)",
-    "--border2": "rgba(34, 229, 245, 0.4)",
-    "--pink": "#ff4d8f",
-    "--blue": "#6b8aff",
-    "--cyan": "#5ef0ff",
-    "--gradient": "linear-gradient(135deg, #5ef0ff, #6b8aff, #ff4d8f, #ffb86b)",
-  },
-  light: {
-    "--bg": "#ffffff",
-    "--surf": "#f8faff",
-    "--txt": "#0a0f1e",
-    "--txt-dim": "#4a5568",
-    "--border": "rgba(59, 91, 255, 0.12)",
-    "--border2": "rgba(59, 91, 255, 0.3)",
-    "--pink": "#e8006a",
-    "--blue": "#3b5bff",
-    "--cyan": "#22e5f5",
-    "--gradient": "linear-gradient(135deg, #22e5f5, #3b5bff, #e8006a, #f5a623)",
-  },
-};
-
-const SUN_ICON = [
-  "M12 2v2",
-  "M12 20v2",
-  "M4.93 4.93l1.41 1.41",
-  "M17.66 17.66l1.41 1.41",
-  "M2 12h2",
-  "M20 12h2",
-  "M4.93 19.07l1.41-1.41",
-  "M17.66 6.34l1.41-1.41",
-  "M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8",
-];
-
-const MOON_ICON = "M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z";
-
-function getInitialTheme() {
-  if (typeof window === "undefined") {
-    return "dark";
-  }
-
-  const storedTheme = window.localStorage.getItem(THEME_KEY);
-  if (storedTheme === "light" || storedTheme === "dark") {
-    return storedTheme;
-  }
-
-  return window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark";
-}
-
-export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [theme, setTheme] = useState(getInitialTheme);
+const Header = () => {
+  const [isOpen, setIsOpen]               = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [showTopBar]                      = useState(true);
+  const [showSocialIcons, setShowSocialIcons] = useState(false);
+  const location  = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
-    const isLight = theme === "light";
-    const themeTokens = THEME_TOKENS[theme];
+    setIsOpen(false);
+    setActiveDropdown(null);
+    setShowSocialIcons(false);
+  }, [location]);
 
-    Object.entries(themeTokens).forEach(([token, value]) => {
-      document.documentElement.style.setProperty(token, value);
-    });
+  /* ── DATA ─────────────────────────────────────────────── */
+  const socialLinks = [
+    { icon: <FaInstagram />, name: "Instagram", url: "https://instagram.com" },
+    { icon: <FaFacebookF />, name: "Facebook",  url: "https://facebook.com" },
+    { icon: <FaTwitter />,   name: "Twitter",   url: "https://twitter.com" },
+    { icon: <FaBlog />,      name: "Blog",      url: "https://blog.com" },
+  ];
 
-    document.documentElement.classList.toggle("light-mode", isLight);
-    document.body.classList.toggle("light-mode", isLight);
-    document.documentElement.style.colorScheme = theme;
-    document.body.style.backgroundColor = "var(--bg)";
-    document.body.style.color = "var(--txt)";
-    window.localStorage.setItem(THEME_KEY, theme);
-  }, [theme]);
+  const marqueeItems = [
+    "🏭 Leading Environmental Test Chamber Manufacturer",
+    "⭐ 25+ Years of Excellence",
+    "🌍 Serving 500+ Clients Globally",
+    "🔬 ISO Certified Company",
+    "📦 Fast Delivery Across India",
+    "💡 Custom Solutions Available",
+  ];
 
-  const toggleTheme = () => {
-    setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/about", label: "About Us" },
+    {
+      label: "Products",
+      dropdown: true,
+      items: [
+        {
+          category: "Industry",
+          links: [
+            { name: "Climatic Test Chamber",   path: "/environmental_test_chamber" },
+            { name: "Salt Spray Test Chamber", path: "/salt_spray_test_chamber" },
+            { name: "Rain Test Chamber",       path: "/rain_test_chamber" },
+            { name: "Vibration Test Chamber",  path: "#" },
+            { name: "Thermal Cycling Chamber", path: "/thermal_cycling_chamber" },
+          ],
+        },
+        {
+          category: "Pharma",
+          links: [
+            { name: "Humidity Test Chamber",  path: "#" },
+            { name: "Stability Test Chamber", path: "#" },
+            { name: "Co2 Incubators",         path: "#" },
+            { name: "Deep-freezer",           path: "#" },
+          ],
+        },
+        {
+          category: "Medical",
+          links: [
+            { name: "Blood Bank Refrigerator", path: "#" },
+            { name: "BOD Incubator",           path: "#" },
+            { name: "Incubators",              path: "#" },
+            { name: "Plasma Freezer",          path: "#" },
+          ],
+        },
+      ],
+    },
+    { path: "/services", label: "Services" },
+    {
+      label: "Company",
+      dropdown: true,
+      items: [
+        { path: "/career",  label: "Career" },
+        { path: "/gallery", label: "Gallery" },
+        { path: "/news",    label: "News and Events" },
+      ],
+    },
+    { path: "/contact", label: "Contact Us" },
+  ];
+
+  /* ── SHARED INLINE STYLE HELPERS ─────────────────────── */
+  const socialBtnStyle = {
+    background: isDark ? "var(--surface-raised)" : "rgba(255,255,255,0.20)",
+    color: "var(--color-neutral-0)",
+    borderRadius: "var(--border-radius-full)",
+    padding: "6px",
+    transition: "var(--transition-base)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
 
-  const themeLabel = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+  const themeBtnStyle = {
+    background: isDark ? "var(--color-primary-400)" : "var(--color-neutral-800)",
+    color: isDark ? "var(--color-neutral-900)" : "var(--color-neutral-0)",
+    borderRadius: "var(--border-radius-full)",
+    padding: "6px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "var(--transition-base)",
+  };
 
   return (
-    <header
-      className="sticky top-0 z-50 border-b backdrop-blur-xl"
-      style={{
-        background: "var(--surf)",
-        borderColor: "var(--border)",
-        boxShadow: "0 18px 48px rgba(10, 15, 30, 0.08)",
-      }}
-    >
-      <div
-        className="h-1 w-full"
+    <>
+      {/* ═══ TOP BAR ══════════════════════════════════════════ */}
+      <motion.div
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed top-0 left-0 right-0 z-50"
         style={{
-          background: "linear-gradient(90deg, var(--cyan) 0%, var(--blue) 50%, var(--pink) 100%)",
+          background: isDark ? "var(--color-neutral-900)" : "var(--gradient-brand)",
+          borderBottom: isDark ? "1px solid var(--border-default)" : "none",
+          backdropFilter: "blur(10px)",
         }}
-      />
+      >
+        <div className="mx-auto px-4">
+          <div className="flex items-center justify-between h-10 text-xs" style={{ color: "var(--color-neutral-0)" }}>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="h-18 min-h-[72px] flex items-center justify-between gap-4">
-          <a href="#" className="flex items-center gap-3 min-w-0">
-            <div className="w-15 h-15" style={{width: "200px", height: "50px"}}>
-              <img src={logo} alt="" />
-            </div>
-            
-
-            {/* <div className="min-w-0">
-              <p
-                className="font-syne text-sm sm:text-base font-bold leading-none truncate"
-                style={{ color: "var(--txt)" }}
-              >
-                SESS
-              </p>
-              <p
-                className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em] truncate mt-1"
-                style={{ color: "var(--pink)" }}
-              >
-                Scientific Solutions
-              </p>
-            </div> */}
-          </a>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <nav className="hidden md:flex items-center gap-2">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-4 py-2 rounded-xl text-sm font-medium border transition-all duration-200"
-                  style={{
-                    color: "var(--txt-dim)",
-                    borderColor: "transparent",
-                    background: "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "var(--bg)";
-                    e.currentTarget.style.borderColor = "var(--border)";
-                    e.currentTarget.style.color = "var(--txt)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.borderColor = "transparent";
-                    e.currentTarget.style.color = "var(--txt-dim)";
-                  }}
-                >
-                  {item.label}
-                </a>
-              ))}
-
-              <a
-                href="#"
-                className="ml-2 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-transform duration-200"
-                style={{
-                  color: "#fff",
-                  background: "linear-gradient(90deg,var(--pink),var(--blue))",
-                  boxShadow: "0 10px 30px rgba(59,91,255,0.22)",
-                }}
-              >
-                <Ic d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" size={15} />
-                Enquire
+            {/* Contact — Desktop */}
+            <div className="hidden md:flex items-center space-x-4">
+              <a href="tel:+919444427748" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+                <FaPhone style={{ fontSize: "10px" }} />
+                <span>+91 94444 27748</span>
               </a>
-            </nav>
+              <span className="opacity-50">|</span>
+              <a href="mailto:easwari.kjsb@gmail.com" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+                <FaEnvelope style={{ fontSize: "10px" }} />
+                <span>easwari.kjsb@gmail.com</span>
+              </a>
+            </div>
 
-            <button
-              type="button"
-              className="h-11 px-3 sm:px-4 rounded-xl border inline-flex items-center justify-center gap-2 text-sm font-medium transition-all duration-200"
-              style={{
-                color: "var(--txt-dim)",
-                borderColor: "var(--border)",
-                background: "var(--bg)",
-              }}
-              onClick={toggleTheme}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--border2)";
-                e.currentTarget.style.color = "var(--txt)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--border)";
-                e.currentTarget.style.color = "var(--txt-dim)";
-              }}
-              aria-label={themeLabel}
-              title={themeLabel}
-            >
-              <Ic d={theme === "dark" ? SUN_ICON : MOON_ICON} size={17} />
-              <span className="hidden sm:inline">{theme === "dark" ? "Light" : "Dark"}</span>
-            </button>
+            {/* Contact — Mobile (icons only) */}
+            <div className="flex md:hidden items-center space-x-3">
+              <a href="tel:+919444427748"           className="hover:opacity-80"><FaPhone /></a>
+              <a href="mailto:easwari.kjsb@gmail.com" className="hover:opacity-80"><FaEnvelope /></a>
+            </div>
 
-            <button
-              type="button"
-              className="md:hidden w-11 h-11 rounded-xl border flex items-center justify-center transition-colors duration-200"
-              style={{
-                color: "var(--txt)",
-                borderColor: "var(--border)",
-                background: "var(--bg)",
-              }}
-              onClick={() => setMobileOpen((prev) => !prev)}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--border2)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--border)";
-              }}
-              aria-label="Toggle navigation"
-              aria-expanded={mobileOpen}
-            >
-              <Ic
-                d={
-                  mobileOpen
-                    ? ["M18 6L6 18", "M6 6l12 12"]
-                    : ["M4 7h16", "M4 12h16", "M4 17h16"]
-                }
-                size={18}
-              />
-            </button>
+            {/* Marquee — Desktop */}
+            <div className="hidden md:flex flex-1 overflow-hidden items-center" style={{ marginLeft: "5rem", marginRight: "12rem" }}>
+              <motion.div
+                animate={{ x: [0, -1000] }}
+                transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
+                className="whitespace-nowrap"
+              >
+                {marqueeItems.map((item, i) => (
+                  <span key={i} className="mx-4">
+                    {item}
+                    {i < marqueeItems.length - 1 && <span className="mx-4 opacity-50">✦</span>}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Social Icons + Plus — Desktop */}
+            <div className="hidden md:flex items-center mr-2 absolute right-10">
+              <AnimatePresence>
+                {showSocialIcons && (
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -20, opacity: 0 }} transition={{ duration: 0.3 }}
+                    className="flex items-center space-x-2 mr-2"
+                  >
+                    {socialLinks.map((s, i) => (
+                      <motion.a key={i} href={s.url} target="_blank" rel="noopener noreferrer"
+                        initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.05 }}
+                        whileHover={{ scale: 1.1 }} style={socialBtnStyle} title={s.name}
+                      >
+                        <span style={{ fontSize: "12px" }}>{s.icon}</span>
+                      </motion.a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowSocialIcons(!showSocialIcons)}
+                style={socialBtnStyle} aria-label="Social media"
+              >
+                <FaPlus size={12} />
+              </motion.button>
+            </div>
+
+            {/* Marquee — Mobile */}
+            <div className="flex md:hidden flex-1 overflow-hidden" style={{ marginLeft: "1rem", marginRight: "8.3rem" }}>
+              <motion.div
+                animate={{ x: [0, -500] }}
+                transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 15, ease: "linear" } }}
+                className="whitespace-nowrap"
+              >
+                {marqueeItems.map((item, i) => (
+                  <span key={i} className="mx-2" style={{ fontSize: "10px" }}>
+                    {item}
+                    {i < marqueeItems.length - 1 && <span className="mx-2 opacity-50">✦</span>}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Social + Theme — Mobile overlay */}
+            <div className="md:hidden fixed right-3 z-50 flex items-center space-x-1">
+              <AnimatePresence>
+                {showSocialIcons && (
+                  <motion.div
+                    initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 20, opacity: 0 }} transition={{ duration: 0.3 }}
+                    className="flex items-center space-x-1"
+                  >
+                    {socialLinks.map((s, i) => (
+                      <motion.a key={i} href={s.url} target="_blank" rel="noopener noreferrer"
+                        initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.05 }}
+                        style={{ ...socialBtnStyle, padding: "4px" }}
+                      >
+                        <span style={{ fontSize: "10px" }}>{s.icon}</span>
+                      </motion.a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowSocialIcons(!showSocialIcons)}
+                style={{ ...socialBtnStyle, padding: "4px" }}
+              >
+                <FaPlus size={10} />
+              </motion.button>
+              <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme}
+                style={{ ...themeBtnStyle, padding: "4px" }}
+              >
+                {isDark ? <FaSun size={10} /> : <FaMoon size={10} />}
+              </motion.button>
+            </div>
+
+            {/* Theme Toggle — Desktop */}
+            <div className="hidden md:flex items-center space-x-3">
+              <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme}
+                style={{ ...themeBtnStyle, padding: "6px" }} aria-label="Toggle theme"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div key={theme}
+                    initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 20, opacity: 0 }} transition={{ duration: 0.2 }}
+                  >
+                    {isDark ? <FaSun size={14} /> : <FaMoon size={14} />}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.button>
+            </div>
+
           </div>
         </div>
+      </motion.div>
 
-        {mobileOpen && (
-          <div
-            className="md:hidden pb-4"
-            style={{ borderTop: "1px solid var(--border)" }}
-          >
-            <nav className="flex flex-col gap-2 pt-4">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-4 py-3 rounded-xl text-sm font-medium"
-                  style={{
-                    color: "var(--txt-dim)",
-                    background: "var(--bg)",
-                    border: "1px solid var(--border)",
-                  }}
-                  onClick={() => setMobileOpen(false)}
+      {/* ═══ MAIN HEADER ══════════════════════════════════════ */}
+      <header
+        className="fixed w-full z-40 transition-all duration-300 py-4"
+        style={{
+          top: showTopBar ? "40px" : "0",
+          background: isDark ? "var(--color-neutral-900)" : "var(--surface-default)",
+          color: isDark ? "var(--text-heading)" : "var(--color-neutral-900)",
+          boxShadow: isDark
+            ? "0 0px 2px var(--color-neutral-0)"
+            : "var(--shadow-lg)",
+        }}
+      >
+        <nav className="mx-auto px-4">
+          <div className="flex items-center justify-between">
+
+            {/* Logo */}
+            <Link to="/" className="relative z-50">
+              <img src={isDark ? LogoWhite : Logo} alt="SESS" style={{ height: "48px" }} />
+            </Link>
+
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center space-x-1">
+              {navItems.map((item, index) => (
+                <div key={index} className="relative group"
+                  onMouseEnter={() => item.dropdown && setActiveDropdown(index)}
+                  onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
                 >
-                  {item.label}
-                </a>
-              ))}
+                  {item.path ? (
+                    <Link to={item.path}
+                      className="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-300 block"
+                      style={{
+                        color: location.pathname === item.path
+                          ? "var(--color-primary-500)"
+                          : isDark ? "var(--text-body)" : "var(--color-neutral-700)",
+                        fontFamily: "var(--font-body)",
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.color = "var(--color-primary-500)"; e.currentTarget.style.background = "rgba(0,0,0,0.05)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = location.pathname === item.path ? "var(--color-primary-500)" : isDark ? "var(--text-body)" : "var(--color-neutral-700)"; e.currentTarget.style.background = "transparent"; }}
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <button
+                      className="px-4 py-2 text-sm font-medium flex items-center gap-1 rounded-lg transition-colors duration-300"
+                      style={{
+                        color: isDark ? "var(--text-body)" : "var(--color-neutral-700)",
+                        fontFamily: "var(--font-body)",
+                        background: "transparent",
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.color = "var(--color-primary-500)"; e.currentTarget.style.background = "rgba(0,0,0,0.05)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--color-neutral-700)"; e.currentTarget.style.background = "transparent"; }}
+                    >
+                      {item.label}
+                      <FaChevronDown style={{ fontSize: "10px" }} />
+                    </button>
+                  )}
 
-              <a
-                href="#"
-                className="mt-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold"
-                style={{
-                  color: "#fff",
-                  background: "linear-gradient(90deg,var(--pink),var(--blue))",
-                }}
-                onClick={() => setMobileOpen(false)}
-              >
-                <Ic d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" size={15} />
-                Enquire
-              </a>
-            </nav>
+                  {/* Dropdown */}
+                  <AnimatePresence>
+                    {item.dropdown && activeDropdown === index && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.2 }}
+                        className="absolute top-full right-0 mt-2 rounded-lg"
+                        style={{
+                          background: isDark ? "var(--surface-raised)" : "var(--surface-default)",
+                          boxShadow: "var(--shadow-xl)",
+                        }}
+                      >
+                        {item.label === "Products" ? (
+                          /* Mega menu */
+                          <div className="grid grid-cols-3 gap-4 p-6" style={{ minWidth: "600px" }}>
+                            {item.items.map((col, idx) => (
+                              <div key={idx}>
+                                <h4 className="font-bold mb-2" style={{ color: "var(--color-primary-500)", fontFamily: "var(--font-display)" }}>
+                                  {col.category}
+                                </h4>
+                                <ul className="space-y-2">
+                                  {col.links.map((link, li) => (
+                                    <li key={li}>
+                                      <Link to={link.path}
+                                        className="text-sm transition-colors"
+                                        style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                        onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                        onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                      >
+                                        {link.name}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          /* Single column */
+                          <div className="p-4" style={{ minWidth: "220px" }}>
+                            <ul className="space-y-2">
+                              {item.items.map((sub, idx) => (
+                                <li key={idx}>
+                                  <Link to={sub.path}
+                                    className="block text-sm transition-colors"
+                                    style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                    onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                    onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile hamburger */}
+            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden relative z-50 p-2">
+              {isOpen
+                ? <FaTimes  style={{ fontSize: "24px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
+                : <FaBars   style={{ fontSize: "24px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
+              }
+            </button>
+
+            {/* Mobile drawer */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ x: "100%" }} animate={{ x: 0 }}
+                  exit={{ x: "100%" }} transition={{ type: "tween" }}
+                  className="fixed inset-y-0 right-0 w-full md:w-96 lg:hidden overflow-y-auto"
+                  style={{
+                    top: showTopBar ? "40px" : "0",
+                    background: isDark ? "var(--color-neutral-900)" : "var(--surface-default)",
+                    boxShadow: "var(--shadow-2xl)",
+                  }}
+                >
+                  <div className="pt-24 pb-8 px-6">
+                    {navItems.map((item, index) => (
+                      <div key={index} className="mb-4">
+                        {item.path ? (
+                          <Link to={item.path}
+                            className="block py-2 text-lg font-medium transition-colors"
+                            style={{ color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
+                            onClick={() => setIsOpen(false)}
+                            onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                            onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-heading)" : "var(--color-neutral-800)"}
+                          >
+                            {item.label}
+                          </Link>
+                        ) : (
+                          <>
+                            <div className="py-2 text-lg font-medium"
+                              style={{ color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
+                            >
+                              {item.label}
+                            </div>
+                            <div className="pl-4 mt-2">
+                              {item.label === "Products"
+                                ? item.items.map((col, ci) => (
+                                    <div key={ci} className="mb-3">
+                                      <p className="text-xs font-bold mb-1" style={{ color: "var(--color-primary-500)" }}>{col.category}</p>
+                                      <ul className="space-y-1">
+                                        {col.links.map((link, li) => (
+                                          <li key={li}>
+                                            <Link to={link.path} className="block text-sm"
+                                              style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                              onClick={() => setIsOpen(false)}
+                                              onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                              onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                            >
+                                              {link.name}
+                                            </Link>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  ))
+                                : (
+                                  <ul className="space-y-2">
+                                    {item.items.map((sub, idx) => (
+                                      <li key={idx}>
+                                        <Link to={sub.path} className="block text-sm"
+                                          style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                          onClick={() => setIsOpen(false)}
+                                          onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                          onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                        >
+                                          {sub.label}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )
+                              }
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
           </div>
-        )}
-      </div>
-    </header>
+        </nav>
+      </header>
+    </>
   );
-}
+};
+
+export default Header;

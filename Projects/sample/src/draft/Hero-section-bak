@@ -1,0 +1,497 @@
+import { useState, useEffect, useRef, useCallback } from "react";
+import img1 from "./assets/product1.jpeg"
+import img2 from "./assets/comname.jpeg"
+import img3 from "./assets/product2.jpeg"
+import img4 from "./assets/product3.jpeg"
+import img5 from "./assets/login-bg.jpeg"
+
+// ─── Slide Data ───────────────────────────────────────────────────────────────
+const SLIDES = [
+  {
+    url: img1,
+    num: "01",
+    title: "Alpine",
+    subtitle: "Where glaciers carve the world below",
+    location: "Swiss Alps",
+  },
+  {
+    url: img2,
+    num: "02",
+    title: "Meridian",
+    subtitle: "The horizon dissolves into blue",
+    location: "Pacific Coast",
+  },
+  {
+    url: img3,
+    num: "03",
+    title: "Canopy",
+    subtitle: "Ancient light filtered through old growth",
+    location: "Olympic Forest",
+  },
+  {
+    url: img4,
+    num: "04",
+    title: "Dunes",
+    subtitle: "Wind sculpts the silence of centuries",
+    location: "Sahara Desert",
+  },
+  {
+    url: img5,
+    num: "05",
+    title: "Nocturne",
+    subtitle: "The city breathes in amber and shadow",
+    location: "Pittsburgh, PA",
+  },
+];
+
+// ─── Config ───────────────────────────────────────────────────────────────────
+const SLICE_COUNT = 8;        // Number of vertical strips
+const SLICE_DURATION = 650;    // ms — per-slice animation duration
+const STAGGER_DELAY = 55;      // ms — delay between each strip
+const TOTAL_ANIM_TIME = SLICE_DURATION + (SLICE_COUNT - 1) * STAGGER_DELAY + 150;
+const AUTO_PLAY_MS = 3500;     // ms — time between auto-advances
+
+// ─── Component ────────────────────────────────────────────────────────────────
+export default function SlicerSlider() {
+  const [current, setCurrent] = useState(0);
+  const [pending, setPending] = useState(null);
+  const [animating, setAnimating] = useState(false);
+
+  // Refs so callbacks never go stale
+  const animRef    = useRef(false);
+  const currentRef = useRef(0);
+  const rafRef     = useRef(null);
+  const progBarRef = useRef(null);
+  const progStart  = useRef(null);
+  const autoTimer  = useRef(null);
+
+  // ── Preload images ──────────────────────────────────────────────────────────
+  useEffect(() => {
+    SLIDES.forEach(({ url }) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []);
+
+  // ── Progress bar (direct DOM — no state re-renders) ─────────────────────────
+  const startProgress = useCallback(() => {
+    cancelAnimationFrame(rafRef.current);
+    progStart.current = Date.now();
+
+    const tick = () => {
+      if (!progBarRef.current) return;
+      const p = Math.min(((Date.now() - progStart.current) / AUTO_PLAY_MS) * 100, 100);
+      progBarRef.current.style.width = `${p}%`;
+      if (p < 100) rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  // ── Navigate ────────────────────────────────────────────────────────────────
+  const navigate = useCallback(
+    (idx) => {
+      if (animRef.current || idx === currentRef.current) return;
+
+      clearTimeout(autoTimer.current);
+      cancelAnimationFrame(rafRef.current);
+      if (progBarRef.current) progBarRef.current.style.width = "0%";
+
+      animRef.current = true;
+      setAnimating(true);
+      setPending(idx);
+
+      setTimeout(() => {
+        currentRef.current = idx;
+        setCurrent(idx);
+        setPending(null);
+        setAnimating(false);
+        animRef.current = false;
+        startProgress();
+      }, TOTAL_ANIM_TIME);
+    },
+    [startProgress]
+  );
+
+  const goNext = useCallback(
+    () => navigate((currentRef.current + 1) % SLIDES.length),
+    [navigate]
+  );
+  const goPrev = useCallback(
+    () => navigate((currentRef.current - 1 + SLIDES.length) % SLIDES.length),
+    [navigate]
+  );
+
+  // ── Auto-play ───────────────────────────────────────────────────────────────
+  useEffect(() => {
+    startProgress();
+    const schedule = () => {
+      clearTimeout(autoTimer.current);
+      autoTimer.current = setTimeout(() => {
+        if (!animRef.current) goNext();
+      }, AUTO_PLAY_MS);
+    };
+    schedule();
+    return () => {
+      clearTimeout(autoTimer.current);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [current]); // re-schedules each time the slide actually changes
+
+  // ─── Render ─────────────────────────────────────────────────────────────────
+  return (
+    <>
+      {/* ── Global styles & font imports ── */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400;500&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        @keyframes sliceReveal {
+          from { transform: translateY(-100%); }
+          to   { transform: translateY(0%);   }
+        }
+
+        @keyframes textFadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to   { opacity: 1; transform: translateY(0);    }
+        }
+
+        @keyframes lineExpand {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+
+        .slicer-nav-btn:hover {
+          background: rgba(255,255,255,0.16) !important;
+          border-color: rgba(255,255,255,0.65) !important;
+        }
+
+        .slicer-dot:hover {
+          background: rgba(255,255,255,0.72) !important;
+        }
+      `}</style>
+
+      {/* ── Slider root ── */}
+      <div
+        style={{
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+          background: "#111",
+          fontFamily: "'Jost', sans-serif",
+          userSelect: "none",
+        }}
+      >
+        {/* ── Current slide background ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${SLIDES[current].url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        {/* ── Gradient vignette overlay ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(135deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.16) 55%, rgba(0,0,0,.44) 100%)",
+          }}
+        />
+
+        {/* ── Slicer animation — incoming slide ── */}
+        {animating && pending !== null && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              zIndex: 2,
+            }}
+          >
+            {Array.from({ length: SLICE_COUNT }).map((_, i) => (
+              <div
+                key={i}
+                style={{ flex: 1, position: "relative", overflow: "hidden" }}
+              >
+                {/* Image strip — full image offset so only this slice's portion shows */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    width: `${SLICE_COUNT * 100}%`,
+                    left: `${-i * 100}%`,
+                    backgroundImage: `url(${SLIDES[pending].url})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    animation: `sliceReveal ${SLICE_DURATION}ms cubic-bezier(0.86, 0, 0.07, 1) ${i * STAGGER_DELAY}ms both`,
+                  }}
+                />
+                {/* Gradient on the incoming strip */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    width: `${SLICE_COUNT * 100}%`,
+                    left: `${-i * 100}%`,
+                    background:
+                      "linear-gradient(135deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.16) 55%, rgba(0,0,0,.44) 100%)",
+                    animation: `sliceReveal ${SLICE_DURATION}ms cubic-bezier(0.86, 0, 0.07, 1) ${i * STAGGER_DELAY}ms both`,
+                  }}
+                />
+                {/* Thin strip separator */}
+                {i < SLICE_COUNT - 1 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: "1px",
+                      background: "rgba(255,255,255,0.07)",
+                      zIndex: 1,
+                    }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ── Large decorative slide number (top-right) ── */}
+        <div
+          style={{
+            position: "absolute",
+            top: "32px",
+            right: "52px",
+            zIndex: 10,
+            fontFamily: "'Cormorant', serif",
+            fontSize: "80px",
+            fontWeight: 300,
+            color: "rgba(255,255,255,0.07)",
+            lineHeight: 1,
+            letterSpacing: "-3px",
+          }}
+        >
+          {SLIDES[current].num}
+        </div>
+
+        {/* ── Text content (bottom-left) ── */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 10,
+            padding: "0 52px 48px",
+          }}
+        >
+          {/* Meta row: number + line + location */}
+          <div
+            key={`meta-${current}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+              marginBottom: "18px",
+              animation: "textFadeUp 0.7s cubic-bezier(0.25,0.46,0.45,0.94) both",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "10px",
+                fontWeight: 300,
+                letterSpacing: "4px",
+                color: "rgba(255,255,255,0.45)",
+                textTransform: "uppercase",
+              }}
+            >
+              {SLIDES[current].num}
+            </span>
+            <div
+              style={{
+                width: "36px",
+                height: "1px",
+                background: "rgba(255,255,255,0.28)",
+                transformOrigin: "left",
+                animation: "lineExpand 0.5s ease 0.28s both",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "10px",
+                fontWeight: 300,
+                letterSpacing: "3px",
+                color: "rgba(255,255,255,0.35)",
+                textTransform: "uppercase",
+              }}
+            >
+              {SLIDES[current].location}
+            </span>
+          </div>
+
+          {/* Main heading */}
+          <h1
+            key={`title-${current}`}
+            style={{
+              fontFamily: "'Cormorant', serif",
+              fontSize: "clamp(68px, 9.5vw, 118px)",
+              fontWeight: 300,
+              lineHeight: 0.88,
+              letterSpacing: "-2px",
+              color: "#fff",
+              marginBottom: "18px",
+              animation: "textFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.1s both",
+            }}
+          >
+            {SLIDES[current].title}
+          </h1>
+
+          {/* Subtitle */}
+          <p
+            key={`sub-${current}`}
+            style={{
+              fontSize: "13px",
+              fontWeight: 200,
+              letterSpacing: "1.5px",
+              color: "rgba(255,255,255,0.6)",
+              maxWidth: "340px",
+              lineHeight: 1.65,
+              marginBottom: "44px",
+              animation: "textFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s both",
+            }}
+          >
+            {SLIDES[current].subtitle}
+          </p>
+
+          {/* Bottom bar: dots + nav buttons */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Dot indicators */}
+            <div style={{ display: "flex", gap: "7px", alignItems: "center" }}>
+              {SLIDES.map((_, i) => (
+                <div
+                  key={i}
+                  className="slicer-dot"
+                  onClick={() => navigate(i)}
+                  style={{
+                    width: i === current ? "28px" : "6px",
+                    height: "6px",
+                    borderRadius: "3px",
+                    background:
+                      i === current ? "#fff" : "rgba(255,255,255,0.28)",
+                    cursor: "pointer",
+                    transition:
+                      "all 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Prev / Next buttons */}
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button
+                className="slicer-nav-btn"
+                onClick={goPrev}
+                aria-label="Previous slide"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  background: "rgba(255,255,255,0.05)",
+                  color: "#fff",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.22s ease",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  opacity: animating ? 0.4 : 1,
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path
+                    d="M9 3L4.5 7.5L9 12"
+                    stroke="white"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className="slicer-nav-btn"
+                onClick={goNext}
+                aria-label="Next slide"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  background: "rgba(255,255,255,0.08)",
+                  color: "#fff",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.22s ease",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  opacity: animating ? 0.4 : 1,
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path
+                    d="M6 3L10.5 7.5L6 12"
+                    stroke="white"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Auto-play progress bar (bottom edge) ── */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "2px",
+            background: "rgba(255,255,255,0.1)",
+            zIndex: 20,
+          }}
+        >
+          <div
+            ref={progBarRef}
+            style={{
+              height: "100%",
+              width: "0%",
+              background: "rgba(255,255,255,0.46)",
+            }}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
