@@ -24,6 +24,18 @@ const Header = () => {
     setShowSocialIcons(false);
   }, [location]);
 
+  // 🔧 FIX 1: Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   /* ── DATA ─────────────────────────────────────────────── */
   const socialLinks = [
     { icon: <FaInstagram />, name: "Instagram", url: "https://instagram.com" },
@@ -91,6 +103,11 @@ const Header = () => {
     { path: "/contact", label: "Contact Us" },
   ];
 
+  // 🔧 FIX 2: Mobile dropdown toggle function
+  const toggleMobileDropdown = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
   /* ── SHARED INLINE STYLE HELPERS ─────────────────────── */
   const socialBtnStyle = {
     background: isDark ? "var(--surface-raised)" : "rgba(255,255,255,0.20)",
@@ -117,12 +134,14 @@ const Header = () => {
   return (
     <>
       {/* ═══ TOP BAR ══════════════════════════════════════════ */}
+      {/* 🔧 FIX 3: Reduced z-index to prevent overlap */}
       <motion.div
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-0 right-0"
         style={{
+          zIndex: 40, // Changed from 50 to 40
           background: isDark ? "var(--color-neutral-900)" : "var(--gradient-brand)",
           borderBottom: isDark ? "1px solid var(--border-default)" : "none",
           backdropFilter: "blur(10px)",
@@ -262,10 +281,12 @@ const Header = () => {
       </motion.div>
 
       {/* ═══ MAIN HEADER ══════════════════════════════════════ */}
+      {/* 🔧 FIX 4: Adjusted z-index and positioning */}
       <header
-        className="fixed w-full z-40 transition-all duration-300 py-4"
+        className="fixed w-full transition-all duration-300 py-4"
         style={{
           top: showTopBar ? "40px" : "0",
+          zIndex: 35, // Changed from 40 to 35
           background: isDark ? "var(--color-neutral-900)" : "var(--surface-default)",
           color: isDark ? "var(--text-heading)" : "var(--color-neutral-900)",
           boxShadow: isDark
@@ -318,7 +339,7 @@ const Header = () => {
                     </button>
                   )}
 
-                  {/* Dropdown */}
+                  {/* Dropdown - Desktop */}
                   <AnimatePresence>
                     {item.dropdown && activeDropdown === index && (
                       <motion.div
@@ -326,6 +347,7 @@ const Header = () => {
                         exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.2 }}
                         className="absolute top-full right-0 mt-2 rounded-lg"
                         style={{
+                          zIndex: 45, // 🔧 FIX 5: Added proper z-index for dropdown
                           background: isDark ? "var(--surface-raised)" : "var(--surface-default)",
                           boxShadow: "var(--shadow-xl)",
                         }}
@@ -389,90 +411,142 @@ const Header = () => {
               }
             </button>
 
-            {/* Mobile drawer */}
+            {/* 🔧 FIX 6: Completely redesigned mobile drawer with proper dropdowns */}
             <AnimatePresence>
               {isOpen && (
-                <motion.div
-                  initial={{ x: "100%" }} animate={{ x: 0 }}
-                  exit={{ x: "100%" }} transition={{ type: "tween" }}
-                  className="fixed inset-y-0 right-0 w-full md:w-96 lg:hidden overflow-y-auto"
-                  style={{
-                    top: showTopBar ? "40px" : "0",
-                    background: isDark ? "var(--color-neutral-900)" : "var(--surface-default)",
-                    boxShadow: "var(--shadow-2xl)",
-                  }}
-                >
-                  <div className="pt-24 pb-8 px-6">
-                    {navItems.map((item, index) => (
-                      <div key={index} className="mb-4">
-                        {item.path ? (
-                          <Link to={item.path}
-                            className="block py-2 text-lg font-medium transition-colors"
-                            style={{ color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
-                            onClick={() => setIsOpen(false)}
-                            onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
-                            onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-heading)" : "var(--color-neutral-800)"}
-                          >
-                            {item.label}
-                          </Link>
-                        ) : (
-                          <>
-                            <div className="py-2 text-lg font-medium"
+                <>
+                  {/* Backdrop overlay */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setIsOpen(false)}
+                    className="fixed inset-0 bg-black/50 lg:hidden"
+                    style={{
+                      top: showTopBar ? "40px" : "0",
+                      zIndex: 40,
+                    }}
+                  />
+                  
+                  {/* Drawer */}
+                  <motion.div
+                    initial={{ x: "100%" }}
+                    animate={{ x: 0 }}
+                    exit={{ x: "100%" }}
+                    transition={{ type: "tween" }}
+                    className="fixed inset-y-0 right-0 w-full md:w-96 lg:hidden overflow-y-auto"
+                    style={{
+                      top: showTopBar ? "40px" : "0",
+                      zIndex: 45,
+                      background: isDark ? "var(--color-neutral-900)" : "var(--surface-default)",
+                      boxShadow: "var(--shadow-2xl)",
+                    }}
+                  >
+                    <div className="pt-24 pb-8 px-6">
+                      {navItems.map((item, index) => (
+                        <div key={index} className="mb-4 border-b border-gray-200 dark:border-gray-700 last:border-0">
+                          {item.path ? (
+                            <Link to={item.path}
+                              className="block py-3 text-lg font-medium transition-colors"
                               style={{ color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
+                              onClick={() => setIsOpen(false)}
+                              onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                              onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-heading)" : "var(--color-neutral-800)"}
                             >
                               {item.label}
-                            </div>
-                            <div className="pl-4 mt-2">
-                              {item.label === "Products"
-                                ? item.items.map((col, ci) => (
-                                    <div key={ci} className="mb-3">
-                                      <p className="text-xs font-bold mb-1" style={{ color: "var(--color-primary-500)" }}>{col.category}</p>
-                                      <ul className="space-y-1">
-                                        {col.links.map((link, li) => (
-                                          <li key={li}>
-                                            <Link to={link.path} className="block text-sm"
+                            </Link>
+                          ) : (
+                            <>
+                              {/* Mobile dropdown button */}
+                              <button
+                                onClick={() => toggleMobileDropdown(index)}
+                                className="w-full flex items-center justify-between py-3 text-lg font-medium transition-colors"
+                                style={{ color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
+                              >
+                                <span>{item.label}</span>
+                                <motion.div
+                                  animate={{ rotate: activeDropdown === index ? 180 : 0 }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <FaChevronDown style={{ fontSize: "12px" }} />
+                                </motion.div>
+                              </button>
+                              
+                              {/* Mobile dropdown content */}
+                              <AnimatePresence>
+                                {activeDropdown === index && (
+                                  <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden pl-4 mb-3"
+                                  >
+                                    {item.label === "Products" ? (
+                                      /* Products mega menu for mobile */
+                                      <div className="space-y-4">
+                                        {item.items.map((col, ci) => (
+                                          <div key={ci}>
+                                            <p className="text-xs font-bold mb-2" style={{ color: "var(--color-primary-500)" }}>
+                                              {col.category}
+                                            </p>
+                                            <ul className="space-y-2">
+                                              {col.links.map((link, li) => (
+                                                <li key={li}>
+                                                  <Link
+                                                    to={link.path}
+                                                    className="block text-sm py-1 transition-colors"
+                                                    style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                                    onClick={() => setIsOpen(false)}
+                                                    onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                                    onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                                  >
+                                                    {link.name}
+                                                  </Link>
+                                                </li>
+                                              ))}
+                                            </ul>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      /* Regular dropdown for mobile */
+                                      <ul className="space-y-2">
+                                        {item.items.map((sub, idx) => (
+                                          <li key={idx}>
+                                            <Link
+                                              to={sub.path}
+                                              className="block text-sm py-1 transition-colors"
                                               style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
                                               onClick={() => setIsOpen(false)}
                                               onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
                                               onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
                                             >
-                                              {link.name}
+                                              {sub.label}
                                             </Link>
                                           </li>
                                         ))}
                                       </ul>
-                                    </div>
-                                  ))
-                                : (
-                                  <ul className="space-y-2">
-                                    {item.items.map((sub, idx) => (
-                                      <li key={idx}>
-                                        <Link to={sub.path} className="block text-sm"
-                                          style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
-                                          onClick={() => setIsOpen(false)}
-                                          onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
-                                          onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
-                                        >
-                                          {sub.label}
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )
-                              }
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
+                                    )}
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </>
               )}
             </AnimatePresence>
 
           </div>
         </nav>
       </header>
+
+      {/* 🔧 FIX 7: Spacer to prevent content from hiding behind fixed header */}
+      <div style={{ height: showTopBar ? "calc(40px + 80px)" : "80px" }} />
     </>
   );
 };

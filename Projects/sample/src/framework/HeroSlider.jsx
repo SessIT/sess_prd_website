@@ -79,7 +79,7 @@ const HeroSlider = () => {
         width: "100%",
         overflow: "hidden",
         minHeight: "calc(100vh - 100px)",
-        marginTop: "100px",
+        // marginTop: "100px",
         background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
       }}
     >

@@ -30,7 +30,7 @@ const EnquiryButtons = () => {
 
   return (
     <>
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col" style={{ gap: 'var(--space-2)' }}>
+      <div className="fixed right-0 top-1/2 -translate-y-1/3 z-40 flex flex-col" style={{ gap: 'var(--space-4)' }}>
 
         {/* Enquiry Button */}
         <motion.button
@@ -38,7 +38,7 @@ const EnquiryButtons = () => {
           animate={{ x: 0 }}
           transition={{ delay: 1, type: 'spring' }}
           onClick={() => setIsModalOpen(true)}
-          style={{ ...baseStyle, background: 'var(--color-primary-500)' }}
+          style={{ ...baseStyle, background: 'var(--color-primary-500)', height:'150px' }}
           onMouseEnter={e => e.currentTarget.style.background = 'var(--color-primary-700)'}
           onMouseLeave={e => e.currentTarget.style.background = 'var(--color-primary-500)'}
         >
@@ -55,7 +55,7 @@ const EnquiryButtons = () => {
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            ...baseStyle,
+            ...baseStyle, height : '190px', textAlign: 'center',
             background: isDark ? 'var(--color-neutral-700)' : 'var(--color-neutral-800)',
           }}
           onMouseEnter={e => e.currentTarget.style.background = isDark ? 'var(--color-neutral-600)' : 'var(--color-neutral-900)'}

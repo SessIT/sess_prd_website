@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 
 // Home Components
 import HeroSlider from '../framework/HeroSlider';
-import AboutSection from './AboutSection';
-import ProductsSection from './ProductsSection';
-import ServicesSection from './ServicesSection';
-import CounterSection from './CounterSection';
-import TestimonialsSection from './TestimonialsSection';
-import ClientsSection from './ClientsSection';
-import NewsSection from './NewsSection';
+import AboutSection from '../framework/AboutSection';
+import ProductsSection from '../framework/ProductsSection';
+import ServicesSection from '../framework/ServicesSection';
+import CounterSection from '../framework/CounterSection';
+import TestimonialsSection from '../framework/TestimonialsSection';
+import ClientsSection from '../framework/ClientsSection';
+import NewsSection from '../framework/NewsSection';
 import CTASection from './CTASection';
-import OtherDept from './OtherDept';
+import OtherDept from '../framework/OtherDept';
 
 const HomePage = () => {
   return (

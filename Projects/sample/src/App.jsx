@@ -14,10 +14,11 @@ import ScrollToTop from './framework/ScrollToTop';
 
 // Page Components
 import HomePage from './pages/Home';
-import AboutPage from './pages/AboutSection';
-import ProductsPage from './pages/ProductsSection';
-import ServicesPage from './pages/ServicesSection';
-import NewsPage from './pages/NewsSection';
+import Contact from './pages/ContactUs'
+// import AboutPage from './pages/AboutSection';
+// import ProductsPage from './pages/ProductsSection';
+// import ServicesPage from './pages/ServicesSection';
+// import NewsPage from './pages/NewsSection';
 
 
 function AppContent() {
@@ -48,11 +49,12 @@ function AppContent() {
           <EnquiryButtons />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<Contact />} />
             {/* <Route path="/about" element={<AboutPage />} /> */}
             {/* <Route path="/products" element={<ProductsPage />} /> */}
-            <Route path="/services" element={<ServicesPage />} />
+            {/* <Route path="/services" element={<ServicesPage />} /> */}
             {/* <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            
             <Route path="/career" element={<CareerPage />} /> */}
             {/* <Route path="/news" element={<NewsPage />} /> */}
           </Routes>

@@ -174,7 +174,7 @@ const Footer = () => {
                     +91 94444 27748
                   </a>
                 </p>
-                <a href="#"
+                <a href="/#/contact"
                   style={{ color: 'var(--color-primary-400)', textDecoration: 'underline', transition: 'var(--transition-fast)', width: 'fit-content' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--color-primary-300)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--color-primary-400)'}
