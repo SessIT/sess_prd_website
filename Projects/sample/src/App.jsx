@@ -14,7 +14,8 @@ import ScrollToTop from './framework/ScrollToTop';
 
 // Page Components
 import HomePage from './pages/Home';
-import Contact from './pages/ContactUs'
+import Contact from './pages/ContactUs';
+import About from './pages/AboutUs';
 // import AboutPage from './pages/AboutSection';
 // import ProductsPage from './pages/ProductsSection';
 // import ServicesPage from './pages/ServicesSection';
@@ -50,7 +51,7 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<Contact />} />
-            {/* <Route path="/about" element={<AboutPage />} /> */}
+            <Route path="/about" element={<About />} />
             {/* <Route path="/products" element={<ProductsPage />} /> */}
             {/* <Route path="/services" element={<ServicesPage />} /> */}
             {/* <Route path="/gallery" element={<GalleryPage />} />
