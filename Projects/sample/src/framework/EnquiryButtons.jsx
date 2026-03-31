@@ -46,23 +46,31 @@ const EnquiryButtons = () => {
         </motion.button>
 
         {/* Download Brochure Button */}
-        <motion.a
-          initial={{ x: 100 }}
-          animate={{ x: 0 }}
-          transition={{ delay: 1.2, type: 'spring' }}
-          href="/images/products/product6.pdf"
-          download
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            ...baseStyle, height : '190px', textAlign: 'center',
-            background: isDark ? 'var(--color-neutral-700)' : 'var(--color-neutral-800)',
-          }}
-          onMouseEnter={e => e.currentTarget.style.background = isDark ? 'var(--color-neutral-600)' : 'var(--color-neutral-900)'}
-          onMouseLeave={e => e.currentTarget.style.background = isDark ? 'var(--color-neutral-700)' : 'var(--color-neutral-800)'}
-        >
-          Download Brochure
-        </motion.a>
+        {/* Download Brochure Button */}
+<motion.a
+  initial={{ x: 100 }}
+  animate={{ x: 0 }}
+  transition={{ delay: 1.2, type: 'spring' }}
+  href="/#/brochure"
+  style={{
+    ...baseStyle,
+    height: '190px',
+    textAlign: 'center',
+    background: isDark ? 'var(--color-neutral-700)' : 'var(--color-neutral-800)',
+  }}
+  onMouseEnter={e =>
+    (e.currentTarget.style.background = isDark
+      ? 'var(--color-neutral-600)'
+      : 'var(--color-neutral-900)')
+  }
+  onMouseLeave={e =>
+    (e.currentTarget.style.background = isDark
+      ? 'var(--color-neutral-700)'
+      : 'var(--color-neutral-800)')
+  }
+>
+  Download Brochure
+</motion.a>
 
       </div>
 

@@ -16,10 +16,11 @@ import ScrollToTop from './framework/ScrollToTop';
 import HomePage from './pages/Home';
 import Contact from './pages/ContactUs';
 import About from './pages/AboutUs';
+import FlipBook from './pages/Pdfflipbook';
 // import AboutPage from './pages/AboutSection';
 // import ProductsPage from './pages/ProductsSection';
 // import ServicesPage from './pages/ServicesSection';
-// import NewsPage from './pages/NewsSection';
+import Career from './pages/Preview';
 
 
 function AppContent() {
@@ -52,11 +53,12 @@ function AppContent() {
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path='/brochure' element={<FlipBook />} />
             {/* <Route path="/products" element={<ProductsPage />} /> */}
             {/* <Route path="/services" element={<ServicesPage />} /> */}
-            {/* <Route path="/gallery" element={<GalleryPage />} />
+            {/* <Route path="/gallery" element={<GalleryPage />} /> */}
             
-            <Route path="/career" element={<CareerPage />} /> */}
+            <Route path="/career" element={<Career />} /> 
             {/* <Route path="/news" element={<NewsPage />} /> */}
           </Routes>
           <Footer />

@@ -526,203 +526,6 @@ function TweetFeed() {
   );
 }
 
-// Social Media Section Component
-// function SocialMediaSection() {
-//   const [isVisible, setIsVisible] = useState(false);
-//   const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
-//   const [expanded, setExpanded] = useState(null);
-//   const sectionRef = useRef(null);
-
-//   useEffect(() => {
-//     const observer = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting) {
-//           setIsVisible(true);
-//           observer.disconnect();
-//         }
-//       },
-//       { threshold: 0.2 }
-//     );
-    
-//     if (sectionRef.current) {
-//       observer.observe(sectionRef.current);
-//     }
-    
-//     return () => observer.disconnect();
-//   }, []);
-
-//   const socialItems = [
-//     {
-//       id: "fb",
-//       color: "#1877f2",
-//       label: "Follow on Facebook",
-//       header: (
-//         <div className="flex items-center gap-2">
-//           <span className="bg-white text-[#1877f2] font-black text-sm w-6 h-6 rounded flex items-center justify-center">f</span>
-//           <span className="text-white font-bold text-sm">Facebook</span>
-//         </div>
-//       ),
-//       content: <FbFeed />,
-//       fullContent: <FbFeed />
-//     },
-//     {
-//       id: "ig",
-//       color: "linear-gradient(90deg,#f09433,#dc2743,#bc1888)",
-//       label: "Follow on Instagram",
-//       header: (
-//         <div className="flex items-center gap-2">
-//           <span className="text-lg">📸</span>
-//           <span className="text-white font-bold text-sm">Instagram</span>
-//         </div>
-//       ),
-//       content: <IgFeed />,
-//       fullContent: <IgFeed />
-//     },
-//     {
-//       id: "tw",
-//       color: "#000000",
-//       label: "Follow on X",
-//       header: (
-//         <div className="flex items-center gap-2">
-//           <span className="text-white font-black text-base font-serif">𝕏</span>
-//           <span className="text-white font-bold text-sm">X (Twitter)</span>
-//         </div>
-//       ),
-//       content: <TweetFeed />,
-//       fullContent: <TweetFeed />
-//     }
-//   ];
-
-//   const currentSocial = socialItems[activeCarouselIndex];
-
-//   return (
-//     <section 
-//       ref={sectionRef}
-//       className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800"
-//     >
-//       <div className="max-w-5xl mx-auto">
-//         <FadeIn dir="up" className="text-center">
-//           <div className="text-[11px] font-bold tracking-[3px] uppercase text-cyan-400 mb-2.5 text-center">
-//             Connect With Us
-//           </div>
-//           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-4">
-//             Our <span className="text-cyan-400">Social Media</span> Timelines
-//           </h2>
-//           <div className="w-14 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400 mx-auto mb-5 rounded-full" />
-//           <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
-//             Follow our latest updates, product launches and industry insights
-//             across all platforms. Swipe or use arrows to browse feeds, tap{" "}
-//             <strong className="text-cyan-400">View Full</strong> to expand any feed.
-//           </p>
-//         </FadeIn>
-
-//         {/* Mobile Carousel View */}
-//         <div className="block md:hidden mt-12">
-//           <IphoneFrame isVisible={isVisible}>
-//             <SocialCarousel 
-//               activeIndex={activeCarouselIndex} 
-//               onIndexChange={setActiveCarouselIndex}
-//             >
-//               {socialItems.map((item, idx) => (
-//                 <SocialPanelMobile
-//                   key={idx}
-//                   color={item.color}
-//                   header={item.header}
-//                   onViewClick={() => setExpanded(item.id)}
-//                 >
-//                   {item.content}
-//                 </SocialPanelMobile>
-//               ))}
-//             </SocialCarousel>
-//           </IphoneFrame>
-//         </div>
-
-//         {/* Desktop View - Original Three Panel Layout */}
-//         <div className="hidden md:block">
-//           <FadeIn dir="up" delay={0.15}>
-//             <div className="flex justify-center mt-12 sm:mt-16">
-//               <div className="w-full max-w-7xl h-[380px] bg-black rounded-3xl border-8 border-neutral-800 shadow-2xl relative overflow-hidden">
-//                 <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-neutral-700 z-10" />
-//                 <div className="flex h-full overflow-hidden rounded-xl">
-//                   {socialItems.map((item) => (
-//                     <SocialPanel
-//                       key={item.id}
-//                       expanded={expanded === item.id}
-//                       color={item.color}
-//                       header={item.header}
-//                       onExpand={() => setExpanded(item.id)}
-//                       onClose={() => setExpanded(null)}
-//                     >
-//                       {item.fullContent}
-//                     </SocialPanel>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-
-//             <div className="text-center mt-5 text-gray-500 text-xs uppercase tracking-wider">
-//               Tap "View" to expand a platform · Tap "Close" to return
-//             </div>
-
-//             <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8">
-//               {socialItems.map((s, i) => (
-//                 <a
-//                   key={i}
-//                   href="#"
-//                   className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs font-bold transition-transform hover:-translate-y-0.5"
-//                   style={{
-//                     background: s.color,
-//                     color: "#fff",
-//                     boxShadow: i === 0 
-//                       ? "0 4px 20px rgba(24,119,242,.35)"
-//                       : i === 1 
-//                         ? "0 4px 20px rgba(220,39,67,.3)"
-//                         : "0 4px 20px rgba(255,255,255,.15)",
-//                   }}
-//                 >
-//                   {s.label}
-//                 </a>
-//               ))}
-//             </div>
-//           </FadeIn>
-//         </div>
-//       </div>
-
-//       {/* Full Screen Modal for Mobile View */}
-//       <AnimatePresence>
-//         {expanded && (
-//           <motion.div
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             exit={{ opacity: 0 }}
-//             className="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg flex items-center justify-center p-4"
-//             onClick={() => setExpanded(null)}
-//           >
-//             <motion.div
-//               initial={{ scale: 0.9, y: 50 }}
-//               animate={{ scale: 1, y: 0 }}
-//               exit={{ scale: 0.9, y: 50 }}
-//               className="relative w-full max-w-md h-[80vh] bg-black rounded-3xl overflow-hidden"
-//               onClick={(e) => e.stopPropagation()}
-//             >
-//               <div className="absolute top-4 right-4 z-10">
-//                 <button
-//                   onClick={() => setExpanded(null)}
-//                   className="bg-white/20 backdrop-blur-sm text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-white/30 transition-all"
-//                 >
-//                   ✕
-//                 </button>
-//               </div>
-//               <div className="h-full overflow-y-auto">
-//                 {socialItems.find(item => item.id === expanded)?.fullContent}
-//               </div>
-//             </motion.div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </section>
-//   );
-// }
 
 function SocialMediaSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -1001,7 +804,7 @@ export default function AboutUs() {
           />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 md:py-20 mb-20">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1020,10 +823,10 @@ export default function AboutUs() {
               </span>
               ISO & CE Certified Company
             </motion.div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            <h1 className="text-4xl sm:text-5xl md:text-4xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
               About Sess
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed px-4">
+            <p className="text-base sm:text-lg md:text-lg text-gray-200 leading-relaxed px-4">
               Sri Easwari Scientific Solution Pvt. Ltd. — a pioneering leader in
               environmental test solutions, delivering precision, innovation and
               excellence since 2010.
@@ -1031,7 +834,7 @@ export default function AboutUs() {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 lg:h-56">
+        {/* <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 lg:h-56">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 320"
@@ -1042,7 +845,7 @@ export default function AboutUs() {
               d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
             ></path>
           </svg>
-        </div>
+        </div> */}
       </section>
 
       {/* Company Section */}

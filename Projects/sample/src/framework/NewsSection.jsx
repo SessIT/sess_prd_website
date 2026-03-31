@@ -507,7 +507,7 @@ function GridCard({ item, onClick }) {
       </motion.div>
 
       {/* Title tooltip at bottom on hover */}
-      <motion.div
+      {/* <motion.div
         className="absolute inset-x-0 bottom-0 flex items-end px-1.5 pb-1"
         initial={{ opacity: 0, y: 6 }}
         whileHover={{ opacity: 1, y: 0 }}
@@ -530,7 +530,7 @@ function GridCard({ item, onClick }) {
         >
           {item.title}
         </span>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 }

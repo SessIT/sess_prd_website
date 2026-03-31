@@ -82,7 +82,7 @@ const Contact = () => {
           />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:py-16 mb-28">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:py-16 py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ const Contact = () => {
               </span>
               ISO & CE Certified Company
             </motion.div>
-            <h1 className="text-5xl md:text-3xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            <h1 className="text-4xl md:text-3xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
               Get In Touch
             </h1>
             <p className="text-xl text-gray-200 leading-relaxed">
@@ -111,15 +111,15 @@ const Contact = () => {
         </div>
 
         {/* Curved Bottom Edge */}
-        <div className="absolute bottom-0 left-0 right-0" style={{height: '15rem'}}>
+        {/* <div className="absolute bottom-0 left-0 right-0">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto text-slate-50 fill-current">
             <path fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
           </svg>
-        </div>
+        </div> */}
       </section>
 
       {/* Main Contact Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pb-20 mt-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"

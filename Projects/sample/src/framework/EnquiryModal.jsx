@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes } from 'react-icons/fa';
-import axios from 'axios';
+// import axios from 'axios';
 import { useTheme } from '../context/ThemeContext';
+import emailjs from '@emailjs/browser';
 
 const EnquiryModal = ({ isOpen, onClose }) => {
   const { theme } = useTheme();
@@ -52,19 +53,52 @@ const EnquiryModal = ({ isOpen, onClose }) => {
   /* ── Handlers ─────────────────────────────────────────── */
   const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await axios.post('/api/enquiry', formData);
-      setSubmitStatus('success');
-      setTimeout(() => { onClose(); setSubmitStatus(null); }, 2000);
-    } catch {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   try {
+  //     await axios.post('/api/enquiry', formData);
+  //     setSubmitStatus('success');
+  //     setTimeout(() => { onClose(); setSubmitStatus(null); }, 2000);
+  //   } catch {
+  //     setSubmitStatus('error');
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  try {
+    await emailjs.send(
+      'service_zn4c4ej',   // replace
+      'template_xv44i0b',  // replace
+      formData,
+      '4Kmy8AeCLSCskdNlt'    // replace
+    );
+
+    setSubmitStatus('success');
+
+    // reset form
+    setFormData({
+      name: '', email: '', phone: '', company: '',
+      country: '', state: '', city: '', website: '', message: ''
+    });
+
+    setTimeout(() => {
+      onClose();
+      setSubmitStatus(null);
+    }, 2000);
+
+  } catch (error) {
+    console.error(error);
+    setSubmitStatus('error');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   /* ── Field config ─────────────────────────────────────── */
   const fields = [
