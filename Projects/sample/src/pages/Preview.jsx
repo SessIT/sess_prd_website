@@ -399,33 +399,15 @@ function IgFeed() {
 
 function TweetFeed() {
   return (
-    <div className="flex flex-col gap-2.5">
-      <div className="flex items-center gap-2.5 pb-2 border-b border-neutral-800">
-        <div className="w-9 h-9 rounded-full bg-black border border-neutral-700 flex items-center justify-center text-white font-black text-base flex-shrink-0">
-          𝕏
-        </div>
-        <div>
-          <div className="text-gray-200 font-bold text-xs">@SESS_India</div>
-          <div className="text-gray-600 text-[10px]">
-            Sri Easwari Scientific Solution
-          </div>
-        </div>
-      </div>
-      {tweets.map((t, i) => (
-        <div
-          key={i}
-          className="bg-black rounded-xl p-3 border border-neutral-800"
-        >
-          <div className="text-gray-600 text-[10px] mb-1.5">{t.time}</div>
-          <div className="text-gray-200 text-xs leading-relaxed mb-2.5">
-            {t.text}
-          </div>
-          <div className="flex gap-4 border-t border-neutral-800 pt-2">
-            <span className="text-[#1d9bf0] text-[11px]">🔁 {t.rt}</span>
-            <span className="text-[#f91880] text-[11px]">❤️ {t.likes}</span>
-          </div>
-        </div>
-      ))}
+    <div className="flex justify-center w-full">
+      <a
+        className="twitter-timeline"
+        href="https://twitter.com/sesschennai?ref_src=twsrc%5Etfw"
+        data-height="500"
+        data-theme="dark"
+      >
+        Tweets by sesschennai
+      </a>
     </div>
   );
 }
@@ -458,6 +440,26 @@ export default function SocialMediaSection() {
     script.async = true;
     script.defer = true;
     script.crossOrigin = "anonymous";
+
+    document.body.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    // If already loaded → re-render
+    if (window.twttr) {
+      window.twttr.widgets.load();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+
+    script.onload = () => {
+      if (window.twttr) {
+        window.twttr.widgets.load();
+      }
+    };
 
     document.body.appendChild(script);
   }, []);
