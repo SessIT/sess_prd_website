@@ -244,7 +244,7 @@ const DepartmentSection = () => {
                 />
               </div>
 
-              {/* Icon Badge */}
+             {/* Icon Badge */}
               <div className={`absolute top-6 left-6 p-3.5 rounded-2xl text-white shadow-lg ${dept.color}`}>
                 {dept.icon}
               </div>

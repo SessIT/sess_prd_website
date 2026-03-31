@@ -333,6 +333,7 @@ function SocialPanelMobile({ color, header, children, onViewClick }) {
 //   );
 // }
 
+//fbfeed
 function FbFeed() {
   return (
     <div className="flex justify-center w-full">
@@ -397,14 +398,32 @@ function IgFeed() {
   );
 }
 
-function TweetFeed() {
+function TweetFeed({ isActive }) {
+  const ref = useRef(null);
+  const loadedRef = useRef(false); // 👈 prevent multiple loads
+
+  useEffect(() => {
+    if (!isActive) return; // only load when visible
+    if (!window.twttr) return;
+    if (loadedRef.current) return; // 👈 stop reloading
+
+    const timer = setTimeout(() => {
+      if (ref.current) {
+        window.twttr.widgets.load(ref.current);
+        loadedRef.current = true; // ✅ mark as loaded
+      }
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, [isActive]);
+
   return (
-    <div className="flex justify-center w-full">
+    <div ref={ref} className="flex justify-center w-full">
       <a
         className="twitter-timeline"
-        href="https://twitter.com/sesschennai?ref_src=twsrc%5Etfw"
-        data-height="500"
+        data-height="300"
         data-theme="dark"
+        href="https://twitter.com/sesschennai"
       >
         Tweets by sesschennai
       </a>
@@ -418,6 +437,7 @@ export default function SocialMediaSection() {
   const [expanded, setExpanded] = useState(null);
   const sectionRef = useRef(null);
 
+  //fb useeffects
   useEffect(() => {
     if (window.FB) {
       window.FB.XFBML.parse();
@@ -444,25 +464,16 @@ export default function SocialMediaSection() {
     document.body.appendChild(script);
   }, []);
 
+  //twitter
   useEffect(() => {
-    // If already loaded → re-render
-    if (window.twttr) {
-      window.twttr.widgets.load();
-      return;
-    }
+  if (window.twttr) return;
 
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
+  const script = document.createElement("script");
+  script.src = "https://platform.twitter.com/widgets.js";
+  script.async = true;
 
-    script.onload = () => {
-      if (window.twttr) {
-        window.twttr.widgets.load();
-      }
-    };
-
-    document.body.appendChild(script);
-  }, []);
+  document.body.appendChild(script);
+}, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -519,8 +530,12 @@ export default function SocialMediaSection() {
           <span className="text-white font-bold text-sm">X (Twitter)</span>
         </div>
       ),
-      content: <TweetFeed />,
-      fullContent: <TweetFeed />
+      content: (
+  <TweetFeed isActive={activeCarouselIndex === 2} />
+),
+fullContent: (
+  <TweetFeed isActive={expanded === "tw"} />
+)
     }
   ];
 
@@ -530,6 +545,9 @@ export default function SocialMediaSection() {
       className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800"
     >
       <div id="fb-root"></div>
+      <div>
+        
+      </div>
       <div className="max-w-7xl mx-auto">
         <FadeIn dir="up" className="text-center">
           <span
