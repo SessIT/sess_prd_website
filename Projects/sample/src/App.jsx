@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
+
 // Layout Components
 import Header from './framework/Header';
 import Footer from './framework/Footer';
@@ -10,7 +11,7 @@ import Footer from './framework/Footer';
 // Common Components
 import EnquiryButtons from './framework/EnquiryButtons';
 import ScrollToTop from './framework/ScrollToTop';
-// import WhatsAppWidget from './framework/WhatsAppWidget';
+import WhatsAppWidget from './framework/WhatsAppWidget';
 
 // Page Components
 import HomePage from './pages/Home';
@@ -18,9 +19,11 @@ import Contact from './pages/ContactUs';
 import About from './pages/AboutUs';
 import FlipBook from './pages/Pdfflipbook';
 // import AboutPage from './pages/AboutSection';
-// import ProductsPage from './pages/ProductsSection';
-// import ServicesPage from './pages/ServicesSection';
-import Career from './pages/Preview';
+import Gallery from './pages/Gallery';
+import ServicesPage from './pages/Services';
+import Career from './pages/Career';
+import Product from './pages/Product';
+import NewsBlogs from './pages/NewsBlogs';
 
 
 function AppContent() {
@@ -54,12 +57,12 @@ function AppContent() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
             <Route path='/brochure' element={<FlipBook />} />
-            {/* <Route path="/products" element={<ProductsPage />} /> */}
-            {/* <Route path="/services" element={<ServicesPage />} /> */}
-            {/* <Route path="/gallery" element={<GalleryPage />} /> */}
+            <Route path="/products" element={<Product />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/gallery" element={<Gallery />} />
             
             <Route path="/career" element={<Career />} /> 
-            {/* <Route path="/news" element={<NewsPage />} /> */}
+            <Route path="/news" element={<NewsBlogs />} />
           </Routes>
           <Footer />
           <ScrollToTop />

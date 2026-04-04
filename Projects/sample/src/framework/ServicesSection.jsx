@@ -48,37 +48,6 @@ const ServicesSection = () => {
       }} />
 
       <div className="container mx-auto px-4" style={{ position: 'relative', zIndex: 1 }}>
-
-        {/* Header */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
-        >
-          <span style={{
-            display: 'block',
-            color: 'var(--color-primary-400)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 'var(--font-weight-semibold)',
-            fontSize: 'var(--text-sm)',
-            letterSpacing: 'var(--tracking-wider)',
-            textTransform: 'uppercase',
-            marginBottom: 'var(--space-2)',
-          }}>
-            Our Services
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 'var(--font-weight-bold)',
-            fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
-            lineHeight: 'var(--leading-tight)',
-            color: 'var(--color-neutral-0)',
-            margin: 0,
-          }}>
-            What We Offer
-          </h2>
-        </motion.div> */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

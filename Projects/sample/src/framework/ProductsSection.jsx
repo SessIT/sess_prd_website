@@ -4,39 +4,44 @@ import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { useTheme } from '../context/ThemeContext';
 
-import Product1  from '../assets/product1.jpeg';
-import Product2  from '../assets/product2.jpeg';
-import Product3  from '../assets/product3.jpeg';
-import Product4  from '../assets/prd2.jpeg';
-import Product5 from '../assets/prd3.jpeg';
-import prd6 from '../assets/prd1.jpeg';
+import Product1  from '../assets/product/1.png';
+import Product2  from '../assets/product/2.png';
+import Product3  from '../assets/product/3.png';
+import Product4  from '../assets/product/4.png';
+import Product5 from '../assets/product/5.png';
+import Product6 from '../assets/product/6.png';
+import Product7 from '../assets/product/7.png';
+import Product8 from '../assets/product/8.png';
+import Product9 from '../assets/product/9.png';
+import Product10 from '../assets/product/10.png';
+
 
 const products = [
-  { id: 1,  name: 'Climatic Test Chamber',      category: 'industry', image: Product1, link: '/environmental_test_chamber',  description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 2,  name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product3, link: '/salt_spray_test_chamber',     description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 3,  name: 'Rain Test Chamber',           category: 'medical',  image: Product2, link: '/rain_test_chamber',           description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
+  { id: 1,  name: 'Climatic Test Chamber',      category: 'industry', image: Product1, link: '/products',  description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
+  { id: 2,  name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product2, link: '/salt_spray_test_chamber',     description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
+  { id: 3,  name: 'Rain Test Chamber',           category: 'medical',  image: Product3, link: '/rain_test_chamber',           description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
   { id: 4,  name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                            description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
   { id: 5,  name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',    description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  { id: 6,  name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 7,  name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product3, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 8,  name: 'Rain Test Chamber',           category: 'medical',  image: Product2, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 9,  name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 10, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: prd6,     link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
+  { id: 6,  name: 'Climatic Test Chamber',       category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
+  { id: 7,  name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product7, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
+  { id: 8,  name: 'Rain Test Chamber',           category: 'medical',  image: Product8, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
+  { id: 9,  name: 'Vibration Test Chamber',      category: 'trading',  image: Product9, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
+  { id: 10, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product10,     link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
   { id: 11, name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 12, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product3, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 13, name: 'Rain Test Chamber',           category: 'medical',  image: Product2, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
+  { id: 12, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product2, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
+  { id: 13, name: 'Rain Test Chamber',           category: 'medical',  image: Product3, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
   { id: 14, name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
   { id: 15, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  { id: 16, name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 17, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product3, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 18, name: 'Rain Test Chamber',           category: 'medical',  image: prd6,     link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 19, name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 20, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product3, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  { id: 21, name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 22, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product3, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 23, name: 'Rain Test Chamber',           category: 'medical',  image: Product2, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 24, name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 25, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
+  { id: 16, name: 'Climatic Test Chamber',       category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
+  { id: 17, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product7, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
+  { id: 18, name: 'Rain Test Chamber',           category: 'medical',  image: Product8,     link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
+  { id: 19, name: 'Vibration Test Chamber',      category: 'trading',  image: Product9, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
+  { id: 20, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product10, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
+  // { id: 21, name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
+  // { id: 22, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product2, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
+  // { id: 23, name: 'Rain Test Chamber',           category: 'medical',  image: Product3, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
+  // { id: 24, name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
+  // { id: 25, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
 ];
 
 const categories = [
@@ -260,12 +265,12 @@ const ProductsSection = () => {
                         decoding="async"
                       />
                       <div className="flip-scrim" />
-                      <div className="flip-front-label">
+                      {/* <div className="flip-front-label">
                         <span className="flip-front-name">{product.name}</span>
                         <span className="flip-front-cat">
                           {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Back — details */}
@@ -282,10 +287,10 @@ const ProductsSection = () => {
 
                         <p className="flip-back-desc">{product.description}</p>
 
-                        <div className="flip-back-specs">
+                        {/* <div className="flip-back-specs">
                           <p className="flip-specs-label">Key Specifications</p>
                           <p className="flip-specs-value">{product.specs}</p>
-                        </div>
+                        </div> */}
 
                         <Link
                           to={product.link}
@@ -431,7 +436,7 @@ const ProductsSection = () => {
           gap: 1.25rem;
         }
         @media (min-width: 540px)  { .ps-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .ps-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1024px) { .ps-grid { grid-template-columns: repeat(5, 1fr); } }
 
         /* ── Flip card shell ───────────────────────────────── */
         .flip-card {
@@ -461,7 +466,7 @@ const ProductsSection = () => {
           overflow: hidden;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          border: 1px solid var(--card-border);
+          border: 1px solid rgba(45,212,191,0.25);
           box-shadow: var(--card-shadow);
         }
 
@@ -475,13 +480,7 @@ const ProductsSection = () => {
         }
         .flip-card:hover .flip-img { transform: scale(1.07); }
         .flip-scrim {
-          position: absolute; inset: 0;
-          background: linear-gradient(
-            to top,
-            rgba(0,0,0,0.74) 0%,
-            rgba(0,0,0,0.18) 48%,
-            transparent 100%
-          );
+          position: absolute; inset: 0;          
         }
         .flip-front-label {
           position: absolute;
@@ -598,7 +597,7 @@ const ProductsSection = () => {
         .flip-cta:hover {
           background: var(--btn-primary-bg);
           color: var(--btn-primary-text);
-          border-color: var(--btn-primary-border);
+          border-color: rgba(45,212,191,0.25);
           transform: translateY(-1px);
           box-shadow: 0 6px 18px rgba(59,130,246,0.3);
         }

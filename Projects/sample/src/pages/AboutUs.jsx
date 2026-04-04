@@ -970,7 +970,7 @@ export default function AboutUs() {
                 </div>
                 <div className="absolute -bottom-4 -right-4 bg-cyan-500 text-slate-900 font-bold p-4 rounded-xl shadow-lg z-20 text-center">
                   <strong className="block font-serif text-2xl sm:text-3xl">
-                    18+
+                    {new Date().getFullYear() - 2010}+
                   </strong>
                   Years of Trust
                 </div>
@@ -1226,9 +1226,6 @@ export default function AboutUs() {
           </div>
         </div>
       </section>
-
-      {/* Social Media Section - Updated with iPhone Animation */}
-      <SocialMediaSection />      
     </div>
   );
 }

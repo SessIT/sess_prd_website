@@ -10,9 +10,9 @@ import CounterSection from '../framework/CounterSection';
 import TestimonialsSection from '../framework/TestimonialsSection';
 import ClientsSection from '../framework/ClientsSection';
 import NewsSection from '../framework/NewsSection';
-import CTASection from './CTASection';
+// import CTASection from './CTASection';
 import OtherDept from '../framework/OtherDept';
-import Sample from '../framework/Sample';
+import Social from '../framework/SocialMedia';
 
 const HomePage = () => {
   return (
@@ -31,8 +31,8 @@ const HomePage = () => {
       <CounterSection />
       <TestimonialsSection />
       <ClientsSection />      
-      <NewsSection />
-      <Sample />
+      <NewsSection /> 
+      <Social />
       {/* <CTASection /> */}
     </motion.div>
   );

@@ -9,6 +9,8 @@ import {
 import dsteam from "../assets/clients/design.png";
 import bgImage from "../assets/clients/bg-square.jpeg";
 import labview from "../assets/clients/labview.svg";
+import bgplc from '../assets/Website_Gallery_img/labview.png';
+import bgit from '../assets/Website_Gallery_img/ITbg.png'
 
 /* ═══════════════════════════════════════════════════════════
    SOCIAL ICON SVGs
@@ -165,14 +167,30 @@ const departments = [
     ],
   },
   {
+    id: "it",
+    name: "IT & Infrastructure",
+    description:
+      "We provide reliable IT and software development services tailored to meet modern business needs. We specialize in developing custom software applications, web applications, and automation solutions that improve efficiency and streamline operations. Our services include software design, development, testing, deployment, and maintenance.",
+    icon: <Terminal className="w-7 h-7" />,
+    color: "bg-emerald-600",
+    image: bgit,
+    stats: "24 Engineers",
+    teamUrl: "https://www.sesstech.sess.co.in/",
+    socials: [
+      { icon: <LinkedInIcon />, href: "https://linkedin.com/in/sess-chennai/", label: "LinkedIn" },
+      { icon: <GitHubIcon />,   href: "https://github.com",   label: "GitHub"   },
+      { icon: <TwitterIcon />,  href: "https://twitter.com/sesschennai",  label: "Twitter"  },
+    ],
+    // no toolChips — footer uses original social layout
+  },
+  {
     id: "plc",
     name: "PLC Programming",
     description:
       "We provide expert PLC and LabVIEW solutions for industrial automation, control systems, and testing applications. We specialize in PLC programming, HMI/SCADA integration, control panel design, and system troubleshooting, along with custom LabVIEW development for data acquisition, instrument control, and real-time monitoring.",
     icon: <ComputerIcon className="w-7 h-7" />,
     color: "bg-blue-600",
-    image:
-      "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800",
+    image: bgplc ,
     stats: "15 Automation Engineers",
     teamUrl: "/departments/plc",
     socials: [], // no socials → alternate footer
@@ -180,24 +198,7 @@ const departments = [
       { icon: <LabVIEWIcon />, color: "#1A2B5C" },
     ],
   },
-  {
-    id: "it",
-    name: "IT & Infrastructure",
-    description:
-      "We provide reliable IT and software development services tailored to meet modern business needs. We specialize in developing custom software applications, web applications, and automation solutions that improve efficiency and streamline operations. Our services include software design, development, testing, deployment, and maintenance.",
-    icon: <Terminal className="w-7 h-7" />,
-    color: "bg-emerald-600",
-    image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
-    stats: "24 Engineers",
-    teamUrl: "https://www.sesstech.sess.co.in/",
-    socials: [
-      { icon: <LinkedInIcon />, href: "https://linkedin.com", label: "LinkedIn" },
-      { icon: <GitHubIcon />,   href: "https://github.com",   label: "GitHub"   },
-      { icon: <TwitterIcon />,  href: "https://twitter.com",  label: "Twitter"  },
-    ],
-    // no toolChips — footer uses original social layout
-  },
+  
 ];
 
 /* ═══════════════════════════════════════════════════════════
@@ -245,9 +246,9 @@ const DepartmentSection = () => {
               </div>
 
              {/* Icon Badge */}
-              <div className={`absolute top-6 left-6 p-3.5 rounded-2xl text-white shadow-lg ${dept.color}`}>
+              {/* <div className={`absolute top-6 left-6 p-3.5 rounded-2xl text-white shadow-lg ${dept.color}`}>
                 {dept.icon}
-              </div>
+              </div> */}
 
               {/* Card Body */}
               <div className="p-7 flex flex-col flex-grow">

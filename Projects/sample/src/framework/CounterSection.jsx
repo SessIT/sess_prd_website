@@ -86,22 +86,7 @@ const CounterSection = () => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="container mx-auto px-4 relative z-10">
-
-        {/* Header */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <span className="text-sm uppercase tracking-widest text-gray-400" style={{color: 'var(--color-primary-400)', fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--text-sm)'}}>
-            Projects and Testimonial
-          </span>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Our Achievements
-          </h2>
-        </motion.div> */}
+      <div className="container mx-auto px-4 relative z-10">        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

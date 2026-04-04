@@ -14,8 +14,11 @@ const MILESTONES = [
   { year: '2010', tag: 'Founded', label: 'Initial Growth',  desc: 'Sri Easwari Scientific Solutions Pvt Ltd incorporated in Chennai — beginning 15+ years of excellence.', side: 'right' },
 ];
 
+const startYear = 2010;
+const currentYear = new Date().getFullYear();
+const yearsOfExperience = currentYear - startYear;
 const STATS = [
-  { value: '15+',  label: 'Years' },
+  { value: `${yearsOfExperience}+`,  label: 'Years' },
   { value: '250+', label: 'Clients'       },
   { value: 'ISO',  label: 'Certified'       },
 ];
@@ -152,10 +155,10 @@ const AboutSection = () => {
             {/* Image wrapper with animated bg lines and gradient background */}
 <div style={{ position: 'relative', borderRadius: 'var(--border-radius-xl)', flex: 1 }}>
   {/* Gradient background div - exact style from your example */}
-  <div 
+  {/* <div 
     className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-blue-600 rounded-full opacity-60"
     style={{ transform: `rotate(${randomRotation.current}deg) translateZ(0px)` }}
-  />
+  /> */}
   <BgLines isDark={isDark} />
   <img
     src={AboutImage}
@@ -239,7 +242,7 @@ Sri Easwari Scientific Solution Pvt Ltd is a leading provider of environmental t
                       transition={{ delay: 0.3 }}
                       className="text-center"
                     >
-                      <Link to="/products" className="ps-view-all">
+                      <Link to="/about" className="ps-view-all">
                         <span>Discover Our Story</span>
                         {/* <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
