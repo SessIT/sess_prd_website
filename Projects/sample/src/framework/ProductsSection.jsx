@@ -1,633 +1,579 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { useTheme } from '../context/ThemeContext';
 
-import Product1  from '../assets/product/1.png';
-import Product2  from '../assets/product/2.png';
-import Product3  from '../assets/product/3.png';
-import Product4  from '../assets/product/4.png';
-import Product5 from '../assets/product/5.png';
-import Product6 from '../assets/product/6.png';
-import Product7 from '../assets/product/7.png';
-import Product8 from '../assets/product/8.png';
-import Product9 from '../assets/product/9.png';
-import Product10 from '../assets/product/10.png';
+// Import the floating components
+import FloatingParticles from './UI/FloatingParticles';
+import FloatingIcons from './UI/FloatingIcons';
+import FloatingOrbs from './UI/FloatingOrbs';
 
+// Import your product images
+import Product1 from '../assets/product/Environmetal.png';
+import Product2 from '../assets/product/Salt Spray.png';
+import Product3 from '../assets/product/Rain Test.png';
+import Product4 from '../assets/product/Walk In.png';
+import Product5 from '../assets/product/Thermal Cyclic.png';
+import Product6 from '../assets/product/Thermal Shock.png';
+import Product7 from '../assets/product/CO2 Test Chamber.png';
+import Product8 from '../assets/product/Climatic Test Chamber.png';
+import Product9 from '../assets/product/Flame-Proof Hot Air Oven.png';
+import Product10 from '../assets/product/Battery.png';
 
 const products = [
-  { id: 1,  name: 'Climatic Test Chamber',      category: 'industry', image: Product1, link: '/products',  description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 2,  name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product2, link: '/salt_spray_test_chamber',     description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 3,  name: 'Rain Test Chamber',           category: 'medical',  image: Product3, link: '/rain_test_chamber',           description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 4,  name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                            description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 5,  name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',    description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  { id: 6,  name: 'Climatic Test Chamber',       category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 7,  name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product7, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 8,  name: 'Rain Test Chamber',           category: 'medical',  image: Product8, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 9,  name: 'Vibration Test Chamber',      category: 'trading',  image: Product9, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 10, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product10,     link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  { id: 11, name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 12, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product2, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 13, name: 'Rain Test Chamber',           category: 'medical',  image: Product3, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 14, name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 15, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  { id: 16, name: 'Climatic Test Chamber',       category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  { id: 17, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product7, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  { id: 18, name: 'Rain Test Chamber',           category: 'medical',  image: Product8,     link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  { id: 19, name: 'Vibration Test Chamber',      category: 'trading',  image: Product9, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  { id: 20, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product10, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
-  // { id: 21, name: 'Climatic Test Chamber',       category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing',   specs: 'Temp: -70°C to 180°C, Humidity: 20% to 98%' },
-  // { id: 22, name: 'Salt Spray Test Chamber',     category: 'pharma',   image: Product2, link: '/salt_spray_test_chamber',    description: 'Corrosion resistance testing made easy',           specs: 'ASTM B117, JIS Z2371 compliant' },
-  // { id: 23, name: 'Rain Test Chamber',           category: 'medical',  image: Product3, link: '/rain_test_chamber',          description: 'IPX1 to IPX6 water ingress testing',              specs: 'Adjustable flow rate: 1-100 L/min' },
-  // { id: 24, name: 'Vibration Test Chamber',      category: 'trading',  image: Product4, link: '#',                           description: 'Simulate real-world vibration conditions',         specs: 'Frequency: 5-2000Hz, Payload: 100kg' },
-  // { id: 25, name: 'Thermal Cyclic Test Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber',   description: 'Accelerated thermal stress testing',              specs: 'Ramp rate: 5°C/min, Cycles: Customizable' },
+  { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/products', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
+  { id: 2, name: 'Salt Spray Test Chamber', category: 'pharma', image: Product2, link: '/salt_spray_test_chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
+  { id: 3, name: 'Rain Test Chamber', category: 'medical', image: Product3, link: '/rain_test_chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
+  { id: 4, name: 'Vibration Test Chamber', category: 'trading', image: Product4, link: '#', description: 'Simulate real-world vibration conditions', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
+  { id: 5, name: 'Thermal Cyclic Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber', description: 'Accelerated thermal stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
+  { id: 6, name: 'Environmental Chamber', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Pro' },
+  { id: 7, name: 'Salt Spray Chamber', category: 'pharma', image: Product7, link: '/salt_spray_test_chamber', description: 'Advanced corrosion resistance testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
+  { id: 8, name: 'Rain Test System', category: 'medical', image: Product8, link: '/rain_test_chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
+  { id: 9, name: 'Vibration System', category: 'trading', image: Product9, link: '#', description: 'High-precision vibration simulation', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
+  { id: 10, name: 'Thermal Stress Chamber', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Accelerated thermal stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
+  { id: 11, name: 'Climatic Chamber Pro', category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control — next generation', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Pro' },
+  { id: 12, name: 'Corrosion Test Chamber', category: 'pharma', image: Product2, link: '/salt_spray_test_chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
+  { id: 13, name: 'Rain Ingress System', category: 'medical', image: Product3, link: '/rain_test_chamber', description: 'Full IPX rating water ingress platform', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
+  { id: 14, name: 'Dynamic Vibration Unit', category: 'trading', image: Product4, link: '#', description: 'Simulate real-world vibration for durability', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
+  { id: 15, name: 'Rapid Thermal Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber', description: 'Ultra-fast thermal cycling for stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
+  { id: 16, name: 'Precision Climate Unit', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Engineering-grade climate control chamber', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
+  { id: 17, name: 'Pharma Salt Spray', category: 'pharma', image: Product7, link: '/salt_spray_test_chamber', description: 'Pharmaceutical-grade corrosion testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'GMP Ready' },
+  { id: 18, name: 'Medical Rain Test Unit', category: 'medical', image: Product8, link: '/rain_test_chamber', description: 'Medical device water ingress compliance', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'ISO 60529' },
+  { id: 19, name: 'Industrial Vibration Lab', category: 'trading', image: Product9, link: '#', description: 'Multi-axis vibration testing platform', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'Multi-Axis' },
+  { id: 20, name: 'Advanced Thermal System', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Next-gen accelerated life testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'ALT Ready' },
 ];
 
 const categories = [
-  { value: '*',        label: 'All'      },
-  { value: 'industry', label: 'Industry' },
-  { value: 'pharma',   label: 'Pharma'   },
-  { value: 'medical',  label: 'Medical'  },
-  { value: 'trading',  label: 'Trading'  },
+  { value: '*', label: 'All Products', icon: '◈' },
+  { value: 'industry', label: 'Industry', icon: '⚙' },
+  { value: 'pharma', label: 'Pharma', icon: '⚗' },
+  { value: 'medical', label: 'Medical', icon: '⊕' },
+  // { value: 'trading', label: 'Trading', icon: '◎' },
 ];
 
-// Section entrance — fires once on scroll-in, never on filter change
-const sectionVariants = {
-  hidden:  { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+// Category → accent colour (used only in dynamic inline styles)
+const categoryColors = {
+  industry: { main: '#00b3b3', soft: 'rgba(0,179,179,0.15)', pill: 'linear-gradient(135deg,#00b3b3cc,#00b3b388)' },
+  pharma: { main: '#2a56a6', soft: 'rgba(42,86,166,0.15)', pill: 'linear-gradient(135deg,#2a56a6cc,#2a56a688)' },
+  medical: { main: '#16a34a', soft: 'rgba(22,163,74,0.15)', pill: 'linear-gradient(135deg,#16a34acc,#16a34a88)' },
+  // trading: { main: '#f500db55', soft: 'rgba(245,0,217,0.15)', pill: 'linear-gradient(135deg,#f500dbc7,#f500db55)' },
 };
 
-// Zig-zag animation variants for staggered entrance
-const getStaggeredVariants = (index) => ({
-  hidden: {
-    opacity: 0,
-    x: index % 2 === 0 ? -50 : 50,
-    y: index % 3 === 0 ? -30 : 30,
-    rotate: index % 2 === 0 ? -8 : 8,
-    scale: 0.8
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    rotate: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 25,
-      delay: index * 0.03, // Staggered delay for wave effect
-      duration: 0.4
-    }
-  },
-  exit: {
-    opacity: 0,
-    x: index % 2 === 0 ? 30 : -30,
-    y: index % 3 === 0 ? 20 : -20,
-    scale: 0.9,
-    transition: {
-      duration: 0.2
-    }
-  }
-});
+// Badge colour map (dynamic inline only)
+const getBadgeStyle = (badge) => {
+  const map = {
+    'Top Rated': { bg: 'rgba(245,184,0,0.18)', color: '#f500db55', border: 'rgba(245,184,0,0.4)' },
+    'Certified': { bg: 'rgba(22,163,74,0.15)', color: '#16a34a', border: 'rgba(22,163,74,0.4)' },
+    'IPX6': { bg: 'rgba(42,86,166,0.15)', color: '#4a70b4', border: 'rgba(42,86,166,0.4)' },
+    'New': { bg: 'rgba(220,38,38,0.15)', color: '#ef4444', border: 'rgba(220,38,38,0.4)' },
+    'Best Seller': { bg: 'rgba(0,179,179,0.15)', color: '#00b3b3', border: 'rgba(0,179,179,0.4)' },
+    'Pro': { bg: 'rgba(99,102,241,0.15)', color: '#818cf8', border: 'rgba(99,102,241,0.4)' },
+    'GMP Ready': { bg: 'rgba(22,163,74,0.15)', color: '#16a34a', border: 'rgba(22,163,74,0.4)' },
+    'ISO 60529': { bg: 'rgba(42,86,166,0.15)', color: '#4a70b4', border: 'rgba(42,86,166,0.4)' },
+    'Multi-Axis': { bg: 'rgba(245,184,0,0.18)', color: '#f500db55', border: 'rgba(245,184,0,0.4)' },
+    'ALT Ready': { bg: 'rgba(0,179,179,0.15)', color: '#00b3b3', border: 'rgba(0,179,179,0.4)' },
+  };
+  return map[badge] || { bg: 'rgba(0,179,179,0.15)', color: '#00b3b3', border: 'rgba(0,179,179,0.4)' };
+};
 
+// ─────────────────────────────────────────────
+// 3-D Tilt wrapper  (motion values only, no CSS)
+// ─────────────────────────────────────────────
+const TiltCard = ({ children, isDark }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
+  const scale = useSpring(1, { stiffness: 300, damping: 30 });
+
+  const [spotX, setSpotX] = useState(50);
+  const [spotY, setSpotY] = useState(50);
+  const [hovered, setHovered] = useState(false);
+
+  const onMove = useCallback((e) => {
+    const r = ref.current?.getBoundingClientRect();
+    if (!r) return;
+    x.set((e.clientX - r.left) / r.width - 0.5);
+    y.set((e.clientY - r.top) / r.height - 0.5);
+    setSpotX(((e.clientX - r.left) / r.width) * 100);
+    setSpotY(((e.clientY - r.top) / r.height) * 100);
+  }, [x, y]);
+
+  const onEnter = () => { scale.set(1.03); setHovered(true); };
+  const onLeave = () => { x.set(0); y.set(0); scale.set(1); setHovered(false); };
+
+  return (
+    <motion.div
+      ref={ref}
+      /* Card shell — Tailwind */
+      className={[
+        'relative rounded-[18px] overflow-hidden cursor-pointer',
+        'border transition-[border-color,box-shadow] duration-300 will-change-transform',
+        isDark
+          ? 'bg-gradient-to-br from-[#1c2230] to-[#161b22] border-white/[0.07] shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)]'
+          : 'bg-gradient-to-br from-white to-[#f5f7fa] border-black/[0.07] shadow-[0_4px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]',
+        'hover:border-[rgba(0,179,179,0.35)]',
+        isDark
+          ? 'hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_0_1px_rgba(0,179,179,0.2),inset_0_1px_0_rgba(255,255,255,0.05)]'
+          : 'hover:shadow-[0_20px_60px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,179,179,0.25),inset_0_1px_0_rgba(255,255,255,0.9)]',
+        /* hover: scale handled by motion spring, so no Tailwind hover:scale */
+      ].join(' ')}
+      style={{ rotateX, rotateY, scale, transformStyle: 'preserve-3d' }}
+      onMouseMove={onMove}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      {/* Spotlight */}
+      <div
+        className="absolute inset-0 rounded-[18px] pointer-events-none z-[3] transition-all duration-150"
+        style={{
+          background: hovered
+            ? `radial-gradient(200px circle at ${spotX}% ${spotY}%, rgba(255,255,255,0.10), transparent 70%)`
+            : 'transparent',
+        }}
+      />
+      {children}
+    </motion.div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// Single product card
+// ─────────────────────────────────────────────
+const ProductCard = ({ product, index, isAnimating, isDark }) => {
+  const [hovered, setHovered] = useState(false);
+  const col = categoryColors[product.category] || categoryColors.industry;
+  const badgeStyle = getBadgeStyle(product.badge);
+  const delay = (index % 5) * 0.06 + Math.floor(index / 5) * 0.04;
+
+  const variants = {
+    hidden: { opacity: 0, y: 40, scale: 0.92 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 280, damping: 22, delay } },
+    exit: { opacity: 0, y: -20, scale: 0.95, transition: { duration: 0.2 } },
+  };
+
+  return (
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate={isAnimating ? 'hidden' : 'visible'}
+      exit="exit"
+      style={{ perspective: '1200px' }}
+    >
+      <TiltCard isDark={isDark}>
+        {/* ── Glow ring (dynamic colour via inline) ── */}
+        <div
+          className="absolute -inset-px rounded-[19px] p-px pointer-events-none opacity-0 transition-opacity duration-300 z-[2] group-hover:opacity-100"
+          style={{
+            background: `linear-gradient(135deg, ${col.main}, transparent 60%)`,
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'destination-out',
+            maskComposite: 'exclude',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ── Image container ── */}
+        <div
+          className={[
+            'relative w-full overflow-hidden',
+            isDark ? 'bg-[#0d1117]' : 'bg-[#f0f2f5]',
+          ].join(' ')}
+          style={{ aspectRatio: '4/3' }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {/* Product image */}
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover block will-change-transform transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ transform: hovered ? 'scale(1.08)' : 'scale(1)' }}
+          />
+
+          {/* Shimmer sweep */}
+          <div
+            className="absolute inset-0 pointer-events-none z-[2]"
+            style={{
+              background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%)',
+              backgroundSize: '200% 100%',
+              backgroundPosition: hovered ? '200% 0' : '-100% 0',
+              transition: hovered ? 'background-position 0.7s ease' : 'none',
+            }}
+          />
+
+          {/* Colour wash bottom */}
+          <div
+            className="absolute inset-0 pointer-events-none z-[2] transition-opacity duration-300"
+            style={{
+              background: `linear-gradient(to top, ${col.main}55 0%, transparent 60%)`,
+              opacity: hovered ? 1 : 0.75,
+            }}
+          />
+
+          {/* Badge */}
+          {/* <div
+            className="absolute top-[10px] right-[10px] z-[4] px-[0.6rem] py-[0.22rem] rounded-full text-[0.6rem] font-bold tracking-[0.06em] uppercase backdrop-blur-[8px] transition-[transform,box-shadow] duration-200"
+            style={{
+              background:  badgeStyle.bg,
+              color:       badgeStyle.color,
+              border:      `1px solid ${badgeStyle.border}`,
+              transform:   hovered ? 'scale(1.08)' : 'scale(1)',
+              boxShadow:   hovered ? '0 4px 12px rgba(0,0,0,0.2)' : 'none',
+            }}
+          >
+            {product.badge}
+          </div> */}
+        </div>
+
+        {/* ── Content ── */}
+        <div
+          className="flex flex-col gap-2 px-[1.15rem] pt-[1.1rem] pb-[1.2rem] relative z-[2]"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {/* Category pill */}
+          {/* <span
+            className="inline-flex self-start px-[0.6rem] py-[0.18rem] rounded-full text-[0.62rem] font-bold tracking-[0.05em] uppercase"
+            style={{ background: col.soft, color: col.main }}
+          >
+            {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+          </span> */}
+
+          {/* Product name */}
+          <h3
+            className="font-display text-sm font-bold leading-[1.3] m-0 line-clamp-2 transition-colors duration-200"
+            style={{ color: hovered ? col.main : 'var(--text-heading)' }}
+          >
+            {product.name}
+          </h3>
+
+          {/* Explore CTA */}
+          <Link
+            to={product.link}
+            className="mt-1 inline-flex items-center justify-between gap-2 px-[0.85rem] py-[0.52rem] rounded-[10px] text-[0.73rem] font-bold no-underline transition-all duration-[220ms]"
+            style={{
+              color: col.main,
+              background: hovered ? col.main : col.soft,
+              color: hovered ? '#fff' : col.main,
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,
+              borderColor: hovered ? 'transparent' : undefined,
+              transform: hovered ? 'translateY(-1px)' : 'none',
+              boxShadow: hovered ? `0 6px 20px ${col.main}55` : 'none',
+            }}
+            onClick={(e) => product.link === '#' && e.preventDefault()}
+          >
+            <span>Explore Product</span>
+            <span
+              className="inline-flex transition-transform duration-200"
+              style={{ transform: hovered ? 'translateX(3px)' : 'none' }}
+            >
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </Link>
+        </div>
+
+        {/* Bottom accent line */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[2px] transition-opacity duration-300"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${col.main}, transparent)`,
+            opacity: hovered ? 1 : 0,
+          }}
+        />
+      </TiltCard>
+    </motion.div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// Main section
+// ─────────────────────────────────────────────
 const ProductsSection = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
-  const [filter, setFilter]   = useState('*');
+  const [filter, setFilter] = useState('*');
   const [isAnimating, setIsAnimating] = useState(false);
-  const pendingFilter         = useRef(null);
-  const rafRef                = useRef(null);
-  const timerRef              = useRef(null);
+  const [filterCount, setFilterCount] = useState({});
+  const pendingFilter = useRef(null);
+  const timerRef = useRef(null);
+  const sectionRef = useRef(null);
 
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.06 });
 
-  // Enhanced filter change with zig-zag animation
+  const setRefs = useCallback((node) => {
+    sectionRef.current = node;
+    ref(node);
+  }, [ref]);
+
+  useEffect(() => {
+    const counts = { '*': products.length };
+    products.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+    setFilterCount(counts);
+  }, []);
+
   const handleFilterChange = useCallback((val) => {
     if (val === filter || isAnimating) return;
-    
     if (timerRef.current) clearTimeout(timerRef.current);
-    if (rafRef.current)   cancelAnimationFrame(rafRef.current);
-
     pendingFilter.current = val;
     setIsAnimating(true);
-
-    // Quick fade out with slight scale
     timerRef.current = setTimeout(() => {
       setFilter(pendingFilter.current);
-      
-      // Allow new products to render before animation
-      rafRef.current = requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setIsAnimating(false);
-        });
-      });
-    }, 150);
+      requestAnimationFrame(() => requestAnimationFrame(() => setIsAnimating(false)));
+    }, 180);
   }, [filter, isAnimating]);
 
-  const filteredProducts = filter === '*'
-    ? products
-    : products.filter(p => p.category === filter);
+  const filteredProducts = filter === '*' ? products : products.filter(p => p.category === filter);
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  };
+  const filterBarVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] } },
+  };
 
   return (
     <section
-      ref={ref}
-      className="ps-section py-20 relative overflow-hidden"
+      ref={setRefs}
+      className="relative min-h-screen py-20 overflow-hidden"
       style={{ background: 'var(--surface-default)' }}
     >
-      {/* Ambient blobs */}
-      <div className="ps-blobs" aria-hidden="true">
-        <div className="ps-blob ps-blob--tl" />
-        <div className="ps-blob ps-blob--br" />
+      {/* ── Floating ambient elements ── */}
+      <FloatingParticles isDark={isDark} containerRef={sectionRef} />
+      <FloatingIcons isDark={isDark} containerRef={sectionRef} />
+      <FloatingOrbs isDark={isDark} />
+
+      {/* ── Mesh blobs ── */}
+      <div className="absolute inset-0 pointer-events-none z-[1]" aria-hidden="true">
+        {/* Blob A */}
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '600px', height: '600px',
+            top: '-200px', left: '-150px',
+            background: 'radial-gradient(circle, rgba(0,179,179,0.12), transparent 70%)',
+            filter: 'blur(120px)',
+            animation: 'blobDrift 18s ease-in-out infinite alternate',
+          }}
+        />
+        {/* Blob B */}
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '500px', height: '500px',
+            bottom: '-150px', right: '-100px',
+            background: 'radial-gradient(circle, rgba(42,86,166,0.10), transparent 70%)',
+            filter: 'blur(120px)',
+            animation: 'blobDrift 22s ease-in-out infinite alternate-reverse',
+          }}
+        />
+        {/* Blob C */}
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '400px', height: '400px',
+            top: '40%', left: '50%',
+            transform: 'translate(-50%,-50%)',
+            background: 'radial-gradient(circle, rgba(245,184,0,0.06), transparent 70%)',
+            filter: 'blur(120px)',
+            animation: 'blobDrift 26s ease-in-out infinite alternate',
+          }}
+        />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      {/* ── Dot grid pattern ── */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1]"
+        aria-hidden="true"
+        style={{
+          backgroundImage: `radial-gradient(circle, ${isDark ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.04)'} 1px, transparent 1px)`,
+          backgroundSize: '28px 28px',
+          maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent)',
+        }}
+      />
 
-        {/* Section Header */}
-        {/* <motion.div
-          variants={sectionVariants}
+      {/* ── Keyframes (only for blob drift & shimmer — cannot be expressed in Tailwind) ── */}
+      <style>{`
+        @keyframes blobDrift {
+          0%   { transform: translate(0,0) scale(1); }
+          50%  { transform: translate(30px,-20px) scale(1.06); }
+          100% { transform: translate(-20px,30px) scale(0.95); }
+        }
+        @keyframes shimmerPass {
+          0%,100% { background-position: -100% 0; }
+          50%     { background-position:  200% 0; }
+        }
+        .animate-shimmer-btn {
+          animation: shimmerPass 2.8s ease-in-out infinite;
+          background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
+          background-size: 200% 100%;
+        }
+      `}</style>
+
+      {/* ─── Main container ─── */}
+      <div className="container relative z-10 px-4 mx-auto">
+
+        {/* ── Section header ── */}
+        <motion.div
+          variants={headerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
-          <span className="ps-eyebrow">Our Products</span>
-          <h2 className="ps-heading">Explore Our Range</h2>
-          <p className="ps-subheading">
-            Cutting-edge testing solutions for modern laboratories
-          </p>
-        </motion.div> */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
-        >
-          <span style={{
-            display: 'block',
-            color: 'var(--color-primary-500)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 'var(--font-weight-semibold)',
-            fontSize: 'var(--text-sm)',
-            letterSpacing: 'var(--tracking-wider)',
-            textTransform: 'uppercase',
-            marginBottom: 'var(--space-2)',
-          }}>
-            Our Products
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 'var(--font-weight-bold)',
-            fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-            lineHeight: 'var(--leading-tight)',
-            color: isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)',
-            margin: 0,
-          }}>
-            Explore Our Range
-          </h2>
-          {/* <p className="ps-subheading">
-            Cutting-edge testing solutions for modern laboratories
-          </p> */}
+          {/* Eyebrow row */}
+          <motion.span
+              style={{
+                display: "block",
+                color: "var(--color-primary-400)",
+                fontFamily: "var(--font-body)",
+                fontWeight: "var(--font-weight-semibold)",
+                fontSize: "var(--text-sm)",
+                letterSpacing: "var(--tracking-wider)",
+                textTransform: "uppercase",
+                marginBottom: "var(--space-2)",
+              }}
+            >
+              Our Product
+            </motion.span>
+            <motion.h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: "var(--font-weight-bold)",
+                fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
+                lineHeight: "var(--leading-tight)",
+                color: "black",
+                margin: "0px",
+              }}
+            >
+              Engineering excellence in every chamber
+            </motion.h2>
         </motion.div>
 
-        {/* Filter Tabs */}
+        {/* ── Filter bar ── */}
         <motion.div
-          variants={sectionVariants}
+          variants={filterBarVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          transition={{ delay: 0.12 }}
-          className="ps-filters"
           role="tablist"
           aria-label="Product categories"
+          className="relative z-20 flex flex-wrap justify-center gap-2 mb-12"
         >
           {categories.map((cat) => {
             const isActive = filter === cat.value;
+            const col = categoryColors[cat.value] || null;
             return (
               <button
                 key={cat.value}
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => handleFilterChange(cat.value)}
                 disabled={isAnimating}
-                className={`ps-filter-btn${isActive ? ' ps-filter-btn--active' : ''}${isAnimating ? ' ps-filter-btn--disabled' : ''}`}
+                onClick={() => handleFilterChange(cat.value)}
+                className={[
+                  'relative inline-flex items-center gap-[0.4rem] px-[1.1rem] py-2 rounded-full',
+                  'text-[0.78rem] font-semibold font-body overflow-hidden outline-none',
+                  'transition-[color,border-color,transform] duration-200',
+                  'backdrop-blur-[8px] -webkit-tap-highlight-color-transparent',
+                  isActive
+                    ? 'text-white border border-transparent'
+                    : [
+                      'text-[var(--text-muted)] border border-[var(--border-default)]',
+                      isDark ? 'bg-white/[0.04]' : 'bg-black/[0.03]',
+                      'hover:border-[var(--color-primary-400)] hover:text-[var(--text-heading)] hover:-translate-y-px',
+                    ].join(' '),
+                  isAnimating ? 'opacity-55 cursor-wait pointer-events-none' : '',
+                ].join(' ')}
               >
+                {/* Animated pill bg */}
                 {isActive && (
                   <motion.span
                     layoutId="filterPill"
-                    className="ps-filter-pill"
-                    transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+                    transition={{ type: 'spring', stiffness: 480, damping: 36 }}
+                    className="absolute inset-0 z-0 rounded-full"
+                    style={{ background: col ? col.pill : 'var(--btn-primary-bg)' }}
                   />
                 )}
-                <span className="ps-filter-label">{cat.label}</span>
+                <span className="relative z-[1] text-[0.9rem] opacity-85">{cat.icon}</span>
+                <span className="relative z-[1]">{cat.label}</span>
+                {/* <span
+                  className="relative z-[1] inline-flex items-center justify-center w-[18px] h-[18px] rounded-full text-[0.62rem] font-bold"
+                  style={{ background: isActive ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.18)' }}
+                >
+                  {filterCount[cat.value] || 0}
+                </span> */}
               </button>
             );
           })}
         </motion.div>
 
-        {/* Products Grid with Zig-Zag Animation */}
+        {/* ── Products grid ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={filter}
+            className="relative z-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {filteredProducts.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                index={index}
+                isAnimating={isAnimating}
+                isDark={isDark}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* ── View All CTA ── */}
         <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          transition={{ delay: 0.22 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-16 text-center"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={filter}
-              className="ps-grid"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {filteredProducts.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  custom={index}
-                  variants={getStaggeredVariants(index)}
-                  initial="hidden"
-                  animate={isAnimating ? "hidden" : "visible"}
-                  exit="exit"
-                  className="flip-card"
-                  style={{
-                    willChange: 'transform, opacity',
-                  }}
-                >
-                  <div className="flip-card-inner">
-                    {/* Front — full-bleed image */}
-                    <div className="flip-card-face flip-card-front">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="flip-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div className="flip-scrim" />
-                      {/* <div className="flip-front-label">
-                        <span className="flip-front-name">{product.name}</span>
-                        <span className="flip-front-cat">
-                          {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-                        </span>
-                      </div> */}
-                    </div>
-
-                    {/* Back — details */}
-                    <div className="flip-card-face flip-card-back">
-                      <div className="flip-back-body">
-
-                        <div className="flip-back-header">
-                          <div className="flip-accent-bar" />
-                          <h3 className="flip-back-title">{product.name}</h3>
-                          <span className="flip-back-badge">
-                            {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-                          </span>
-                        </div>
-
-                        <p className="flip-back-desc">{product.description}</p>
-
-                        {/* <div className="flip-back-specs">
-                          <p className="flip-specs-label">Key Specifications</p>
-                          <p className="flip-specs-value">{product.specs}</p>
-                        </div> */}
-
-                        <Link
-                          to={product.link}
-                          className="flip-cta"
-                          onClick={(e) => product.link === '#' && e.preventDefault()}
-                        >
-                          <span>Learn More</span>
-                          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </Link>
-
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-
-        {/* View All */}
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          transition={{ delay: 0.3 }}
-          className="text-center mt-16"
-        >
-          <Link to="/products" className="ps-view-all">
-            <span>View All Products</span>
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+          <Link
+            to="/products"
+            className={[
+              'group inline-flex items-center gap-[0.7rem] px-[2.4rem] py-[0.88rem]',
+              'rounded-full text-[0.9rem] font-bold font-body no-underline text-white',
+              'relative overflow-hidden tracking-[0.01em]',
+              'transition-[transform,box-shadow] duration-[220ms]',
+              'hover:-translate-y-[3px] hover:scale-[1.02]',
+            ].join(' ')}
+            style={{
+              background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500))',
+              boxShadow: '0 4px 20px rgba(0,179,179,0.3), inset 0 1px 0 rgba(255,255,255,0.2)',
+            }}
+            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 14px 36px rgba(0,179,179,0.45), inset 0 1px 0 rgba(255,255,255,0.2)'}
+            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,179,179,0.3), inset 0 1px 0 rgba(255,255,255,0.2)'}
+          >
+            {/* Shimmer sweep */}
+            <span
+              className="absolute inset-0 pointer-events-none animate-shimmer-btn"
+              aria-hidden="true"
+            />
+            <span className="relative z-[1]">View All Products</span>
+            <span className="relative z-[1] inline-flex transition-transform duration-200 group-hover:translate-x-1">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
           </Link>
         </motion.div>
 
       </div>
-
-      <style jsx>{`
-
-        /* ── Ambient blobs ─────────────────────────────────── */
-        .ps-blobs {
-          position: absolute; inset: 0;
-          pointer-events: none; overflow: hidden;
-        }
-        .ps-blob {
-          position: absolute;
-          width: 500px; height: 500px;
-          border-radius: 50%;
-          filter: blur(100px);
-          opacity: 0.07;
-        }
-        .ps-blob--tl {
-          top: -140px; left: -140px;
-          background: radial-gradient(circle, var(--color-primary-500), transparent 70%);
-        }
-        .ps-blob--br {
-          bottom: -140px; right: -140px;
-          background: radial-gradient(circle, var(--color-primary-400), transparent 70%);
-        }
-
-        /* ── Header ───────────────────────────────────────── */
-        .ps-eyebrow {
-          display: inline-block;
-          font-size: 0.68rem;
-          font-weight: 700;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: var(--color-primary-500);
-          background: ${isDark ? 'rgba(59,130,246,0.12)' : 'rgba(59,130,246,0.08)'};
-          padding: 0.28rem 0.85rem;
-          border-radius: 999px;
-          margin-bottom: 0.85rem;
-        }
-        .ps-heading {
-          font-family: var(--font-display);
-          font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-          font-weight: 800;
-          letter-spacing: -0.025em;
-          line-height: 1.15;
-          color: var(--text-heading);
-          margin: 0 0 0.55rem;
-        }
-        .ps-subheading {
-          font-size: 1rem;
-          color: var(--text-muted);
-          margin: 0;
-        }
-
-        /* ── Filter tabs ───────────────────────────────────── */
-        .ps-filters {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 0.55rem;
-          margin-bottom: 3.2rem;
-        }
-        .ps-filter-btn {
-          position: relative;
-          padding: 0.48rem 1.25rem;
-          border-radius: 999px;
-          font-size: 0.8rem;
-          font-weight: 600;
-          border: 1px solid var(--border-default);
-          background: transparent;
-          color: var(--text-muted);
-          cursor: pointer;
-          transition: color 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
-          outline: none;
-          overflow: hidden;
-          -webkit-tap-highlight-color: transparent;
-        }
-        .ps-filter-btn--disabled {
-          opacity: 0.6;
-          cursor: wait;
-          pointer-events: none;
-        }
-        .ps-filter-btn:focus-visible {
-          box-shadow: 0 0 0 3px rgba(59,130,246,0.35);
-        }
-        .ps-filter-btn--active {
-          color: var(--btn-primary-text);
-          border-color: var(--btn-primary-border);
-          box-shadow: 0 4px 14px rgba(59,130,246,0.26);
-        }
-        .ps-filter-pill {
-          position: absolute;
-          inset: 0;
-          border-radius: 999px;
-          background: var(--btn-primary-bg);
-          z-index: 0;
-        }
-        .ps-filter-label {
-          position: relative;
-          z-index: 1;
-        }
-
-        /* ── Grid ──────────────────────────────────────────── */
-        .ps-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.25rem;
-        }
-        @media (min-width: 540px)  { .ps-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .ps-grid { grid-template-columns: repeat(5, 1fr); } }
-
-        /* ── Flip card shell ───────────────────────────────── */
-        .flip-card {
-          perspective: 1100px;
-          cursor: pointer;
-          user-select: none;
-          -webkit-user-select: none;
-        }
-        .flip-card-inner {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 1 / 1;
-          transform-style: preserve-3d;
-          transition: transform 0.52s cubic-bezier(0.35, 0, 0.15, 1);
-          will-change: transform;
-        }
-        .flip-card:hover .flip-card-inner,
-        .flip-card:focus-within .flip-card-inner {
-          transform: rotateY(180deg);
-        }
-
-        /* ── Shared face ───────────────────────────────────── */
-        .flip-card-face {
-          position: absolute;
-          inset: 0;
-          border-radius: 14px;
-          overflow: hidden;
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-          border: 1px solid rgba(45,212,191,0.25);
-          box-shadow: var(--card-shadow);
-        }
-
-        /* ── Front ─────────────────────────────────────────── */
-        .flip-card-front { background: var(--card-bg); }
-        .flip-img {
-          width: 100%; height: 100%;
-          object-fit: cover;
-          display: block;
-          transition: transform 0.52s cubic-bezier(0.35, 0, 0.15, 1);
-        }
-        .flip-card:hover .flip-img { transform: scale(1.07); }
-        .flip-scrim {
-          position: absolute; inset: 0;          
-        }
-        .flip-front-label {
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          padding: 1rem 1rem 0.9rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.22rem;
-        }
-        .flip-front-name {
-          font-size: 0.85rem;
-          font-weight: 700;
-          color: #fff;
-          line-height: 1.25;
-          font-family: var(--font-display);
-          text-shadow: 0 1px 6px rgba(0,0,0,0.5);
-        }
-        .flip-front-cat {
-          font-size: 0.66rem;
-          font-weight: 600;
-          letter-spacing: 0.13em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.58);
-        }
-
-        /* ── Back ──────────────────────────────────────────── */
-        .flip-card-back {
-          transform: rotateY(180deg);
-          background: var(--card-bg);
-          box-shadow: var(--card-shadow-hover, 0 12px 40px rgba(0,0,0,0.18));
-        }
-        .flip-back-body {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          padding: 1.05rem;
-        }
-        .flip-back-header { margin-bottom: 0.65rem; }
-        .flip-accent-bar {
-          width: 1.75rem; height: 2.5px;
-          background: var(--color-primary-500);
-          border-radius: 4px;
-          margin-bottom: 0.55rem;
-        }
-        .flip-back-title {
-          font-family: var(--font-display);
-          font-size: 0.88rem;
-          font-weight: 700;
-          color: var(--text-heading);
-          line-height: 1.28;
-          margin: 0 0 0.38rem;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .flip-back-badge {
-          display: inline-block;
-          font-size: 0.65rem;
-          font-weight: 600;
-          padding: 0.16rem 0.5rem;
-          border-radius: 999px;
-          background: ${isDark ? 'rgba(59,130,246,0.18)' : 'rgba(59,130,246,0.1)'};
-          color: var(--color-primary-500);
-        }
-        .flip-back-desc {
-          font-size: 0.74rem;
-          color: var(--text-secondary);
-          line-height: 1.55;
-          margin: 0 0 0.7rem;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .flip-back-specs { margin-bottom: 0.7rem; }
-        .flip-specs-label {
-          font-size: 0.6rem;
-          font-weight: 700;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--text-muted);
-          margin-bottom: 0.26rem;
-        }
-        .flip-specs-value {
-          font-size: 0.72rem;
-          color: var(--text-primary);
-          line-height: 1.5;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        /* ── CTA ───────────────────────────────────────────── */
-        .flip-cta {
-          margin-top: auto;
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 0.4rem;
-          padding: 0.48rem 0.78rem;
-          border-radius: 8px;
-          font-size: 0.74rem;
-          font-weight: 700;
-          text-decoration: none;
-          background: ${isDark ? 'rgba(59,130,246,0.1)' : 'rgba(59,130,246,0.06)'};
-          border: 1px solid var(--border-default);
-          color: var(--text-primary);
-          transition: background 0.18s ease, color 0.18s ease,
-                      border-color 0.18s ease, transform 0.18s ease,
-                      box-shadow 0.18s ease;
-        }
-        .flip-cta:hover {
-          background: var(--btn-primary-bg);
-          color: var(--btn-primary-text);
-          border-color: rgba(45,212,191,0.25);
-          transform: translateY(-1px);
-          box-shadow: 0 6px 18px rgba(59,130,246,0.3);
-        }
-        .flip-cta svg { transition: transform 0.18s ease; flex-shrink: 0; }
-        .flip-cta:hover svg { transform: translateX(3px); }
-
-        /* ── View All ──────────────────────────────────────── */
-        .ps-view-all {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          padding: 0.82rem 2.1rem;
-          border-radius: 999px;
-          font-size: 0.88rem;
-          font-weight: 700;
-          text-decoration: none;
-          background: var(--btn-primary-bg);
-          color: var(--btn-primary-text);
-          border: 1px solid var(--btn-primary-border);
-          box-shadow: 0 4px 18px rgba(59,130,246,0.24);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .ps-view-all:hover {
-          transform: translateY(-2px) scale(1.03);
-          box-shadow: 0 10px 28px rgba(59,130,246,0.36);
-        }
-        .ps-view-all svg { transition: transform 0.2s ease; }
-        .ps-view-all:hover svg { transform: translateX(4px); }
-
-      `}</style>
     </section>
   );
 };

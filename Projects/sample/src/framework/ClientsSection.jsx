@@ -39,9 +39,7 @@ const clients = [
   Client1,  Client2,  Client3,  Client4,  Client5,
   Client6,  Client7,  Client8,  Client9,  Client10,
   Client11, Client12, Client13, Client14, Client15,
-  Client16, Client17, Client18, Client19, Client20,
-  Client21, Client22, Client23, Client24, Client25,
-  Client26, Client27, Client28, Client29, Client30,
+  Client16, Client17, Client18
 ];
 
 const ClientsSection = () => {
@@ -144,7 +142,7 @@ const ClientsSection = () => {
         </div>
 
         {/* View More Button */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -154,7 +152,7 @@ const ClientsSection = () => {
             View More Clients
             <i className="ti-arrow-right" />
           </Link>
-        </motion.div>
+        </motion.div> */}
 
       </div>
     </section>

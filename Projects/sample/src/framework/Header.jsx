@@ -90,7 +90,15 @@ const Header = () => {
         },
       ],
     },
-    { path: "/services", label: "Services" },
+    {
+      label: "Services",
+      dropdown: true,
+      items: [
+        { path: "/design",  label: "Design Services" },
+        { path: "/labview-plc", label: "LabView & PLC" },
+        { path: "/it",    label: "Software Development - IT" },
+      ],
+    },
     {
       label: "Company",
       dropdown: true,

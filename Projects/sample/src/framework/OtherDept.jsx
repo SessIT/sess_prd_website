@@ -10,7 +10,8 @@ import dsteam from "../assets/clients/design.png";
 import bgImage from "../assets/clients/bg-square.jpeg";
 import labview from "../assets/clients/labview.svg";
 import bgplc from '../assets/Website_Gallery_img/labview.png';
-import bgit from '../assets/Website_Gallery_img/ITbg.png'
+import bgit from '../assets/Website_Gallery_img/ITbg.png';
+import labimg from '../assets/clients/labview.png';
 
 /* ═══════════════════════════════════════════════════════════
    SOCIAL ICON SVGs
@@ -57,11 +58,11 @@ const AutoCADIcon = () => (
 
 /** LabVIEW — NI yellow/white diamond logo */
 const LabVIEWIcon = () => (
-  <svg viewBox="0 0 48 48" className="w-7 h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
-    
-    {labview}
-    
-  </svg>
+  <img 
+    src={labimg} 
+    alt="LabVIEW" 
+    className="object-contain w-7 h-7"
+  />
 );
 
 /* ═══════════════════════════════════════════════════════════
@@ -94,10 +95,10 @@ const CardFooter = ({ dept }) => {
   if (hasSocials) {
     /* ── original layout: socials left, button right ── */
     return (
-      <div className="mt-7 flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3 mt-7">
         <a
           href={dept.teamUrl}
-          target="_blank"          
+          // target="_blank"          
           className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:gap-2.5 hover:shadow-lg flex-shrink-0 ${dept.color}`}
         >
           Meet the Team
@@ -111,7 +112,7 @@ const CardFooter = ({ dept }) => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.label}
-              className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-all duration-200 hover:scale-110"
+              className="flex items-center justify-center w-8 h-8 transition-all duration-200 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 hover:scale-110"
             >
               {social.icon}
             </a>
@@ -124,7 +125,7 @@ const CardFooter = ({ dept }) => {
 
   /* ── no-social layout: button centred left, tool chips right ── */
   return (
-    <div className="mt-7 flex items-center justify-between gap-3">
+    <div className="flex items-center justify-between gap-3 mt-7">
       {/* Centred "Meet the Team" button */}
       <a
         href={dept.teamUrl}
@@ -159,7 +160,7 @@ const departments = [
     color: "bg-indigo-600",
     image: dsteam,
     stats: "12 Designers",
-    teamUrl: "/departments/design",
+    teamUrl: "/#/design",
     socials: [], // no socials → alternate footer
     toolChips: [
       { icon: <SolidWorksIcon />, color: "#CC0000" },
@@ -175,7 +176,7 @@ const departments = [
     color: "bg-emerald-600",
     image: bgit,
     stats: "24 Engineers",
-    teamUrl: "https://www.sesstech.sess.co.in/",
+    teamUrl: "/#/it",
     socials: [
       { icon: <LinkedInIcon />, href: "https://linkedin.com/in/sess-chennai/", label: "LinkedIn" },
       { icon: <GitHubIcon />,   href: "https://github.com",   label: "GitHub"   },
@@ -192,7 +193,7 @@ const departments = [
     color: "bg-blue-600",
     image: bgplc ,
     stats: "15 Automation Engineers",
-    teamUrl: "/departments/plc",
+    teamUrl: "/#/labview-plc",
     socials: [], // no socials → alternate footer
     toolChips: [
       { icon: <LabVIEWIcon />, color: "#1A2B5C" },
@@ -207,7 +208,7 @@ const departments = [
 const DepartmentSection = () => {
   return (
     <section
-      className="py-20 relative"
+      className="relative py-20"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundAttachment: "fixed",
@@ -216,32 +217,32 @@ const DepartmentSection = () => {
       }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/75" />
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative px-6 mx-auto max-w-7xl">
 
         {/* Header */}
         <div className="mb-12" style={{textAlign:'center'}}>
           <span className="text-4xl font-bold text-white" style={{display: 'block', color: 'var(--color-primary-400)', fontFamily: 'var(--font-body)', fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--text-sm)', letterSpacing: 'var(--tracking-wider)', textTransform: 'uppercase', marginBottom: 'var(--space-2)'}}>Our Departments</span>
-          <h2 className="text-gray-300 mt-4" style={{fontFamily: 'var(--font-display)', fontWeight: 'var(--font-weight-bold)', fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))', lineHeight: 'var(--leading-tight)', color: 'var(--color-neutral-0)', margin: '0px'}}>
+          <h2 className="mt-4 text-gray-300" style={{fontFamily: 'var(--font-display)', fontWeight: 'var(--font-weight-bold)', fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))', lineHeight: 'var(--leading-tight)', color: 'var(--color-neutral-0)', margin: '0px'}}>
             Powered by elite minds. Perfected by technology.
           </h2>
         </div>
 
         {/* Cards — 1 col → 2 col → 3 col */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {departments.map((dept) => (
             <div
               key={dept.id}
-              className="group relative overflow-hidden rounded-3xl bg-white shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col"
+              className="relative flex flex-col overflow-hidden transition-all duration-500 bg-white shadow-xl group rounded-3xl hover:-translate-y-2"
             >
               {/* Image */}
-              <div className="h-56 overflow-hidden flex-shrink-0">
+              <div className="flex-shrink-0 h-56 overflow-hidden">
                 <img
                   src={dept.image}
                   alt={dept.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
 
@@ -251,11 +252,11 @@ const DepartmentSection = () => {
               </div> */}
 
               {/* Card Body */}
-              <div className="p-7 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-slate-900 mt-2">{dept.name}</h3>
+              <div className="flex flex-col flex-grow p-7">
+                <h3 className="mt-2 text-xl font-bold text-slate-900">{dept.name}</h3>
 
                 <p
-                  className="text-slate-600 mt-3 leading-relaxed text-sm flex-grow"
+                  className="flex-grow mt-3 text-sm leading-relaxed text-slate-600"
                   style={{ textAlign: "justify" }}
                 >
                   {dept.description}

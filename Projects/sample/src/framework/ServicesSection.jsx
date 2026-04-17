@@ -2,10 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTheme } from '../context/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 import {
   FaHandshake, FaHeadset, FaRobot, FaChalkboardTeacher,
   FaLaptopCode, FaTools, FaMicroscope, FaUsers,
 } from 'react-icons/fa';
+import { ArrowRight } from 'lucide-react';
 import ServicesBg from '../assets/clients/home_services_bg.jpg';
 
 const services = [
@@ -21,6 +23,7 @@ const services = [
 
 const ServicesSection = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const isDark = theme === 'dark';
 
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -135,10 +138,10 @@ const ServicesSection = () => {
                     margin: '0 0 var(--space-2)',
                   }}>
                     {service.title}
-                  </h3>
+                  </h3>                  
 
                   {/* Animated underline */}
-                  <div
+                  {/* <div
                     className="group-hover:w-12"
                     style={{
                       height: '2px',
@@ -148,12 +151,45 @@ const ServicesSection = () => {
                       transition: 'width var(--transition-slow)',
                       borderRadius: 'var(--border-radius-full)',
                     }}
-                  />
+                  /> */}
                 </div>
               </motion.div>
             );
           })}
         </div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          style={{ textAlign: 'center', marginTop: 'var(--space-12)' }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: 'var(--shadow-brand-lg)' }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/services')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              padding: 'var(--space-3) var(--space-8)',
+              background: 'linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%)',
+              color: 'white',
+              border: 'none',
+              borderRadius: 'var(--border-radius-lg)',
+              fontFamily: 'var(--font-body)',
+              fontWeight: 'var(--font-weight-semibold)',
+              fontSize: 'var(--text-base)',
+              cursor: 'pointer',
+              transition: 'all var(--transition-base)',
+              boxShadow: 'var(--shadow-brand-md)',
+            }}
+          >
+            Explore All Services
+            <ArrowRight style={{ width: '1.25rem', height: '1.25rem' }} />
+          </motion.button>
+        </motion.div>
 
       </div>
     </section>

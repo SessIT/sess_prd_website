@@ -14,7 +14,9 @@ export const ThemeProvider = ({ children }) => {
   const getInitialTheme = () => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) return savedTheme;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Always default to light mode on first visit.
+    // The user can switch to dark via the toggle — their choice is then saved.
+    return 'light';
   };
 
   const [theme, setTheme] = useState(getInitialTheme);

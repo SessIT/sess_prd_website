@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { FaArrowRight } from "react-icons/fa";
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
@@ -139,7 +140,7 @@ const AboutSection = () => {
         overflow: 'visible',
       }}
     >
-      <div className="container mx-auto px-4">
+      <div className="container px-4 mx-auto">
         <div
           className="flex flex-col lg:flex-row"
           style={{ gap: 'var(--space-8)', alignItems: 'stretch' }}  /* equal height */
@@ -156,7 +157,7 @@ const AboutSection = () => {
 <div style={{ position: 'relative', borderRadius: 'var(--border-radius-xl)', flex: 1 }}>
   {/* Gradient background div - exact style from your example */}
   {/* <div 
-    className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-blue-600 rounded-full opacity-60"
+    className="absolute rounded-full -inset-1 bg-gradient-to-r from-sky-500 to-blue-600 opacity-60"
     style={{ transform: `rotate(${randomRotation.current}deg) translateZ(0px)` }}
   /> */}
   <BgLines isDark={isDark} />
@@ -230,24 +231,42 @@ Sri Easwari Scientific Solution Pvt Ltd is a leading provider of environmental t
 
             {/* CTA — end anchor of timeline visually */}
             {/* <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ alignSelf: 'flex-start' }}>
-              <Link to="/about" className="btn btn-outline inline-flex items-center">
+              <Link to="/about" className="inline-flex items-center btn btn-outline">
                 <i className="fas fa-play-circle" style={{ marginRight: 'var(--space-2)' }} />
                 Discover Our Story
               </Link>
             </motion.div> */}
-            <motion.div
+                    <motion.div
                       // variants={sectionVariants}
                       initial="hidden"
                       animate={inView ? 'visible' : 'hidden'}
                       transition={{ delay: 0.3 }}
                       className="text-center"
                     >
-                      <Link to="/about" className="ps-view-all">
-                        <span>Discover Our Story</span>
-                        {/* <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg> */}
-                      </Link>
+                      <motion.a
+                                            href="/#/about"
+                                            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
+                                            style={{
+                                              display: "inline-flex",
+                                              alignItems: "center",
+                                              gap: "var(--space-3)",
+                                              padding: "var(--space-3) var(--space-5)",
+                                              borderRadius: "var(--border-radius-full)",
+                                              background: "var(--color-primary-500)",
+                                              color: "var(--color-neutral-0)",
+                                              fontSize: "var(--text-xs)",
+                                              fontWeight: "var(--font-weight-semibold)",
+                                              textTransform: "uppercase",
+                                              letterSpacing: "var(--tracking-widest)",
+                                              textDecoration: "none",
+                                              transition: "var(--transition-base)",
+                                            }}
+                                            onMouseEnter={e => e.currentTarget.style.background = "var(--color-primary-700)"}
+                                            onMouseLeave={e => e.currentTarget.style.background = "var(--color-primary-500)"}
+                                          >
+                                            Discover Our Story
+                                            <FaArrowRight style={{ fontSize: "12px" }} />
+                                          </motion.a>
                     </motion.div>
           </motion.div>
           

@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
 
 // Layout Components
-import Header from './framework/Header';
+import Header from './framework/HeaderDefault';
 import Footer from './framework/Footer';
 // import Preloader from './framework/Preloader';
 
 // Common Components
 import EnquiryButtons from './framework/EnquiryButtons';
 import ScrollToTop from './framework/ScrollToTop';
-import WhatsAppWidget from './framework/WhatsAppWidget';
 
 // Page Components
 import HomePage from './pages/Home';
@@ -24,17 +23,22 @@ import ServicesPage from './pages/Services';
 import Career from './pages/Career';
 import Product from './pages/Product';
 import NewsBlogs from './pages/NewsBlogs';
+import Design from './pages/DesignTeam';
+import IT from './pages/IT';
+import LabviewPage from './pages/Labview';
+import PopupManager from './framework/Popmng';
 
 
 function AppContent() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
   }, []);
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence exitBeforeEnter>
       {
         
         <motion.div
@@ -50,7 +54,7 @@ function AppContent() {
           }}
         >
           
-          <Header />
+          {location.pathname !== '/' && <Header />}
           <EnquiryButtons />
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -60,12 +64,15 @@ function AppContent() {
             <Route path="/products" element={<Product />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/gallery" element={<Gallery />} />
-            
+            <Route path="/design" element={<Design />} />
+            <Route path='/it' element={<IT />} />
             <Route path="/career" element={<Career />} /> 
             <Route path="/news" element={<NewsBlogs />} />
+            <Route path="/labview-plc" element={<LabviewPage />} />
           </Routes>
           <Footer />
           <ScrollToTop />
+          <PopupManager />
           {/* <WhatsAppWidget /> */}
         </motion.div>
       }
