@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 // Home Components
 import HeroSlider from '../framework/HeroSlider';
 import AboutSection from '../framework/AboutSection';
-import ProductsSection from '../framework/ProductsSection';
+import ProductsSection from '../framework/DemoProducts';
 import ServicesSection from '../framework/ServicesSection';
 import CounterSection from '../framework/CounterSection';
 import TestimonialsSection from '../framework/TestimonialsSection';

@@ -282,17 +282,18 @@ const PartnerCard = ({ item, index }) => (
       <div className="flex-1 min-w-0">
         <h3 className="mb-1.5 text-sm font-bold leading-snug text-slate-900 truncate">{item.name}</h3>
         <div className="space-y-1 text-sm font-medium text-slate-600">
-          <p className="flex items-center gap-1.5 truncate">
+          {/* <p className="flex items-center gap-1.5 truncate">
             <svg className="w-4 h-4 shrink-0 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             <ContactLink href={`tel:${item.phone.replace(/\s+/g, '')}`} className="text-slate-700">{item.phone}</ContactLink>
-          </p>
+          </p> */}
           <p className="flex items-center gap-1.5 truncate">
             <svg className="w-4 h-4 shrink-0 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <ContactLink href={`mailto:${item.email}`} className="truncate text-slate-700">{item.email}</ContactLink>
+            <p className="truncate text-slate-700">{item.email}</p>
           </p>
         </div>
       </div>
@@ -363,9 +364,9 @@ const Contact = () => {
 
   // 3 regional partners
   const partnerCards = [
-    { name: 'West India Partner',  phone: '+91 94444 59430', email: 'info@sess.co.in' },
-    { name: 'North India Partner', phone: '+91 94444 27748', email: 'info@sess.co.in' },
-    { name: 'East India PartnerD',  phone: '+91 75488 74688', email: 'easwari.kjsb@gmail.com' },
+    { name: 'ARVISPEC LLP',  phone: '+91 94444 59430', email: 'Pune & Hyderabad' },
+    { name: 'Undre Enterprises', phone: '+91 94444 27748', email: 'Pune' },
+    { name: 'Kurban Ali Dynamic',  phone: '+91 75488 74688', email: 'Delhi' },
   ];
 
   return (
@@ -740,7 +741,7 @@ const Contact = () => {
           </motion.div>
 
           {/* ── REGIONAL PARTNERS — 1 row × 3 cols ── */}
-          {/* <motion.div
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -763,7 +764,7 @@ const Contact = () => {
                 <PartnerCard key={item.name} item={item} index={index} />
               ))}
             </div>
-          </motion.div> */}
+          </motion.div>
         </div>
       </section>
 

@@ -709,18 +709,23 @@ export default function AboutUs() {
                   </h2>
                 </div>
                 <div className="w-14 h-0.5 bg-gradient-to-r from-cyan-500 to-cyan-400 mb-5 rounded-full" />
-                <p className="mb-4 text-sm leading-relaxed text-gray-600 sm:text-base">
-                  Sri Easwari Scientific Solution Pvt. Ltd. is a solutions-based
-                  organisation at the forefront of environmental test technology.
-                  Since inception in 2006, we have specialised in Manufacturing,
-                  Trading, Warranty and Service activities across diverse verticals.
+                <p className="mb-4 text-justify text-sm leading-relaxed text-gray-600 sm:text-base">
+                  Sri Easwari Scientific Solution India Pvt. Ltd. (SESS) 
+                  is an ISO & CE certified company specializing in advanced 
+                  environmental testing and thermal engineering solutions. 
+                  Since our inception in 2010, we have been delivering high-performance and 
+                  reliable test chambers to industries requiring precise and controlled testing environments.
                 </p>
-                <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:text-base">
-                  Our expertise is built through deep collaboration with clients
-                  across India, and we specialise in Climatic, Thermal Cyclic,
-                  Temperature, Humidity, Vibration and Altitude testing — backed
-                  by over a decade of proven excellence and an unwavering
-                  commitment to customer satisfaction.
+                <p className="mb-6 text-justify text-sm leading-relaxed text-gray-600 sm:text-base">
+                  We design, manufacture, and integrate a wide range of environmental test 
+                  systems including Climatic Test Chambers, Thermal Shock Chambers, Walk-in 
+                  Chambers, Salt Spray Chambers, Rain Test Chambers, Burn-in Ovens, and Custom 
+                  Test Chambers tailored to specific customer requirements.
+                </p>
+                <p className="mb-6 text-justify text-sm leading-relaxed text-gray-600 sm:text-base">
+                  At SESS, our core strength lies in engineering customization and control system expertise. 
+                  We develop intelligent systems using Siemens PLC, HMI, and advanced data logging solutions, 
+                  enabling accurate test control, audit-ready reports, and seamless integration with customer processes.
                 </p>
               </div>
             </FadeIn>
@@ -839,7 +844,7 @@ export default function AboutUs() {
                 </div>
 
                 {/* Person 2 — bottom right */}
-                <div className="absolute" style={{ bottom: 0, right: "5%", width: "43%" }}>
+                <div className="absolute" style={{ bottom: 0, right: "5%", width: "43%",marginBottom:'-10%' }}>
                   <div className="relative cursor-pointer group">
                     <motion.div
                       animate={{ rotate: [0, -90, 90, 0] }}
@@ -878,14 +883,6 @@ export default function AboutUs() {
                     <span className="text-sm text-cyan-500 ">Technical Director</span>
                   </div>
                 </div>
-
-                {/* Connector line between the two */}
-                {/* <div
-                  className="absolute w-px -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-gradient-to-b from-cyan-300 to-indigo-400 opacity-40"
-                  style={{ height: "120px" }}
-                /> */}
-                {/* <div className="absolute w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full left-1/2 top-1/2 bg-cyan-400 opacity-60" /> */}
-
               </div>
             </FadeIn>
 
@@ -1232,7 +1229,7 @@ export default function AboutUs() {
     </section>
 
       {/* Industries Section */}
-      <section className="px-5 py-12 bg-white sm:py-16 md:py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-12 bg-white sm:py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <FadeIn dir="up" className="text-center">
             <span

@@ -33,70 +33,16 @@ const FeatureCard = ({ card, index }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8 }}
-      className="relative flex overflow-hidden transition-all duration-500 ease-out border shadow-lg group bg-gradient-to-br from-white via-slate-50/50 to-slate-50 rounded-2xl border-slate-200/60 hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm"
+      className="relative flex flex-col sm:flex-row overflow-hidden transition-all duration-500 ease-out border shadow-lg group bg-gradient-to-br from-white via-slate-50/50 to-slate-50 rounded-2xl border-slate-200/60 hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm"
     >
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 transition-all duration-700 pointer-events-none bg-gradient-to-r from-cyan-500/0 via-transparent to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5" />
 
-      {/* Left – content */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: index * 0.08 + 0.2, duration: 0.6 }}
-        className="relative z-10 flex flex-col flex-1 min-w-0 px-6 py-4"
-      >
-        {/* Title + tags in one row */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: index * 0.08 + 0.3, duration: 0.5 }}
-          className="flex flex-wrap items-center gap-2 mb-2"
-        >
-          <h3 className="font-bold transition-colors duration-300 text-md text-slate-900 group-hover:text-cyan-600 whitespace-nowrap">
-            {card.title}
-          </h3>
-        </motion.div>
-
-        {/* Tags with stagger animation */}
-        {/* <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: index * 0.08 + 0.35, duration: 0.5, staggerChildren: 0.08 }}
-          className="flex flex-wrap gap-2 mb-3"
-        >
-          {card.tags.map((tag, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.08 + 0.35 + i * 0.05, duration: 0.4 }}
-              onHoverStart={() => setHoveredTag(i)}
-              onHoverEnd={() => setHoveredTag(null)}
-              className="text-[10px] px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-50 to-blue-50 
-                         text-cyan-700 font-semibold border border-cyan-200/50 transition-all duration-300
-                         hover:from-cyan-100 hover:to-blue-100 hover:border-cyan-400/50 hover:shadow-sm cursor-pointer"
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </motion.div> */}
-
-        {/* Description with smooth reveal */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: index * 0.08 + 0.45, duration: 0.6 }}
-          className="flex-grow text-sm leading-relaxed text-justify transition-colors duration-300 text-slate-600 group-hover:text-slate-700"
-        >
-          {card.description}
-        </motion.p>
-      </motion.div>
-
-      {/* Right – thumbnail with premium effects */}
+      {/* Top (mobile) / Left (desktop) – thumbnail */}
       <motion.div
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.4 }}
-        className="container relative flex-shrink-0 w-56 h-56 overflow-hidden"
+        className="relative w-full h-52 sm:w-56 sm:h-auto flex-shrink-0 overflow-hidden order-first"
       >
         <motion.img
           src={card.image}
@@ -112,7 +58,7 @@ const FeatureCard = ({ card, index }) => {
           initial={{ opacity: 0.3 }}
           whileHover={{ opacity: 0.6 }}
           transition={{ duration: 0.4 }}
-          className="absolute inset-0 bg-gradient-to-r from-slate-900/40 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-r from-slate-900/40 via-transparent to-transparent"
         />
 
         {/* Smooth-reveal bottom gradient */}
@@ -124,7 +70,7 @@ const FeatureCard = ({ card, index }) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: index * 0.08 + 0.3, type: 'spring', stiffness: 200 }}
           whileHover={{ scale: 1.1, rotate: 5 }}
-          className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-lg 
+          className="absolute top-3 left-3 bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-lg 
                      hover:shadow-cyan-500/40 transition-all duration-300 hover:bg-white"
         >
           {card.icon}
@@ -137,6 +83,36 @@ const FeatureCard = ({ card, index }) => {
           transition={{ duration: 4, repeat: Infinity }}
           style={{ pointerEvents: 'none' }}
         />
+      </motion.div>
+
+      {/* Bottom (mobile) / Right (desktop) – content */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: index * 0.08 + 0.2, duration: 0.6 }}
+        className="relative z-10 flex flex-col flex-1 min-w-0 px-5 py-4"
+      >
+        {/* Title */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: index * 0.08 + 0.3, duration: 0.5 }}
+          className="flex flex-wrap items-center gap-2 mb-2"
+        >
+          <h3 className="font-bold transition-colors duration-300 text-md text-slate-900 group-hover:text-cyan-600">
+            {card.title}
+          </h3>
+        </motion.div>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: index * 0.08 + 0.45, duration: 0.6 }}
+          className="flex-grow text-sm leading-relaxed text-justify transition-colors duration-300 text-slate-600 group-hover:text-slate-700"
+        >
+          {card.description}
+        </motion.p>
       </motion.div>
 
       {/* Premium accent bar with smooth reveal */}
@@ -384,7 +360,7 @@ const ItTeam = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="relative max-w-4xl p-12 mx-auto overflow-hidden border shadow-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-3xl border-slate-700/50"
+            className="relative max-w-4xl p-6 sm:p-12 mx-auto overflow-hidden border shadow-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-3xl border-slate-700/50"
           >
             {/* Animated background orbs */}
             <motion.div

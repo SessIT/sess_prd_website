@@ -196,7 +196,7 @@ const AboutSection = () => {
                     transition: 'var(--transition-base)',
                   }}
                 >
-                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--font-weight-extrabold)', fontSize: 'var(--text-xl)', color: 'var(--color-primary-500)', lineHeight: 'var(--leading-none)' }}>{s.value}</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--font-weight-extrabold)', fontSize: 'var(--text-lg)', color: 'var(--color-primary-500)', lineHeight: 'var(--leading-none)' }}>{s.value}</div>
                   <div style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-2xs)', color: isDark ? 'var(--text-muted)' : 'var(--color-neutral-500)', marginTop: 'var(--space-1)', letterSpacing: 'var(--tracking-wide)' }}>{s.label}</div>
                 </motion.div>
               ))}

@@ -142,11 +142,12 @@ const Footer = () => {
   ];
 
   const productLinks = [
-    { name: 'Climatic Test Chamber',         path: '#' },
-    { name: 'Basic Salt Spray Test Chamber', path: '#' },
-    { name: 'Thermal Test Chamber',          path: '#' },
-    { name: 'Hot and Cold Test Chamber',     path: '#' },
-    { name: 'Dust Chamber',                  path: '#' },
+    { name: 'Environmental Test Chamber',     path: '#' },
+    { name: 'Salt Spray Test Chamber',        path: '#' },
+    { name: 'Thermal Shock Test Chamber',     path: '#' },
+    { name: 'Hot and Cold Test Chamber',      path: '#' },
+    { name: 'Vibration Test Chamber',         path: '#' },
+    { name: 'Battery Test Chamber',           path: '#' },
   ];
 
   const quickLinks = [
@@ -340,7 +341,7 @@ const Footer = () => {
                 href="https://www.sesstech.sess.co.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sky-400 hover:text-sky-300 transition-colors duration-200"
+                className="text-cyan-500 hover:text-cyan-300 transition-colors duration-200"
               >
                 SESS IT Team
               </a>

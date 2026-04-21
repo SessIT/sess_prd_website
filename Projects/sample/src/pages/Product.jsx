@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {motion} from 'framer-motion';
 import img1 from '../assets/product/Environmetal.png'
+import ProductsSection from "../framework/ProductsSection";
 
 const Particle = ({ x, y, size, delay, color }) => (
   <motion.div
@@ -137,11 +138,13 @@ const Products = () => {
                                  </div>
                                </section>
 
+                               <ProductsSection />
+
       {/* INTRO SECTION */}
-      <section className="py-12">
+      {/* <section className="py-12">
         <div className="grid items-center max-w-6xl gap-10 px-4 mx-auto md:grid-cols-2">
 
-          {/* TEXT */}
+          {/* TEXT *}
           <div>
             <h3 className="mb-3 text-lg font-semibold text-cyan-600">
               Experience Unmatched Precision and Reliability with SESS Climatic Test Chambers!
@@ -160,7 +163,7 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
             </ul>
           </div>
 
-          {/* IMAGE */}
+          {/* IMAGE *}
           <div>
             <img
               src={img1}
@@ -170,10 +173,10 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
           </div>
 
         </div>
-      </section>
+      </section> */}
 
       {/* FEATURES SECTION */}
-      <section className="py-12 text-white bg-gray-900">
+      {/* <section className="py-12 text-white bg-gray-900">
         <div className="grid max-w-6xl gap-10 px-4 mx-auto md:grid-cols-2">
 
           <div className="space-y-3">
@@ -203,10 +206,10 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
         ].map((item, i) => (
           <div key={i} className="flex items-start gap-4">
 
-            {/* Circle Bullet */}
+            {/* Circle Bullet *}
             <div className="w-4 h-3 mt-2 border-2 border-white rounded-full"></div>
 
-            {/* Content */}
+            {/* Content *}
             <p className="text-[15px] leading-7 text-gray-300">
               <span className="font-semibold text-cyan-500">
                 {item.title}:
@@ -243,10 +246,10 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
         ].map((item, i) => (
           <div key={i} className="flex items-start gap-4">
 
-            {/* Circle Bullet */}
+            {/* Circle Bullet *}
             <div className="w-4 h-3 mt-2 border-2 border-white rounded-full"></div>
 
-            {/* Content */}
+            {/* Content *}
             <p className="text-[15px] leading-7 text-gray-300">
               <span className="font-semibold text-cyan-500">
                 {item.title}:
@@ -259,22 +262,19 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
           </div>
 
         </div>
-      </section>
+      </section> */}
 
       {/* SPECIFICATIONS */}
       {/* SPECIFICATIONS */}
-<section className="py-16 bg-gray-100">
+{/* <section className="py-16 bg-gray-100">
   <div className="grid gap-12 px-6 mx-auto max-w-7xl md:grid-cols-3">
 
-    {/* LEFT SIDE */}
     <div className="space-y-8 md:col-span-2">
 
-      {/* Title */}
       <h2 className="text-4xl font-semibold text-cyan-500">
         Specifications
       </h2>
 
-      {/* Block */}
       <div>
         <h4 className="mb-2 font-medium text-cyan-500">
           Temperature Range
@@ -331,8 +331,6 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
       </div>
 
     </div>
-
-    {/* RIGHT SIDE */}
     <div className="p-4 text-center bg-white border border-gray-300 shadow-sm">
 
       <a
@@ -354,10 +352,10 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
     </div>
 
   </div>
-</section>
+</section> */}
 
       {/* VARIETIES */}
-      <section className="py-12 text-white bg-gray-900">
+      {/* <section className="py-12 text-white bg-gray-900">
         <div className="max-w-6xl px-4 mx-auto">
 
           <h3 className="mb-10 text-center text-cyan-500">
@@ -387,10 +385,10 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
 
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* OTHER PRODUCTS */}
-      <section className="py-12 bg-gray-100">
+      {/* <section className="py-12 bg-gray-100">
         <div className="max-w-6xl px-4 mx-auto">
 
           <h3 className="mb-10 text-center text-cyan-600">
@@ -418,7 +416,7 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
 
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

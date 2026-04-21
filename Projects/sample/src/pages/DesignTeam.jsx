@@ -30,39 +30,30 @@ const FeatureCard = ({ card, index }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-    className="group relative flex bg-white rounded-2xl overflow-hidden border border-slate-100
+    className="group relative flex flex-col sm:flex-row bg-white rounded-2xl overflow-hidden border border-slate-100
                shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out"
-    // style={{ height: '108px' }}
   >
-    {/* Left – thumbnail */}
-    <div className="container relative w-56 h-50 flex-shrink-0 overflow-hidden">
+    {/* Top (mobile) / Left (desktop) – thumbnail */}
+    <div className="relative w-full h-52 sm:w-56 sm:h-auto flex-shrink-0 overflow-hidden">
       <img
         src={card.image}
         alt={card.title}
         className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
       />
-      {/* fade-right edge so image blends into content */}
-      <div className="absolute inset-0 " />
-
-      {/* icon badge pinned bottom-left */}
-      {/* <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm rounded-xl p-1.5 shadow-sm">
-        {card.icon}
-      </div> */}
+      <div className="absolute inset-0" />
     </div>
 
-    {/* Right – content */}
-    <div className="flex flex-col flex-1 px-5 py-3 min-w-0">
-      
-      {/* Title + tags in one row */}
-        <div className="flex items-center gap-2 flex-wrap mb-1">
-          <h3 className="text-md font-semibold text-slate-800 group-hover:text-cyan-600 transition-colors duration-200 whitespace-nowrap">
-            {card.title}
-          </h3>
-        </div>
+    {/* Bottom (mobile) / Right (desktop) – content */}
+    <div className="flex flex-col flex-1 px-5 py-4 min-w-0">
+      <div className="flex items-center gap-2 flex-wrap mb-2">
+        <h3 className="text-md font-semibold text-slate-800 group-hover:text-cyan-600 transition-colors duration-200">
+          {card.title}
+        </h3>
+      </div>
 
-        <p className="text-sm h-full text-slate-500 leading-relaxed text-justify">
-          {card.description}
-        </p>
+      <p className="text-sm text-slate-500 leading-relaxed text-justify">
+        {card.description}
+      </p>
     </div>
 
     {/* Subtle left-accent bar on hover */}
@@ -258,7 +249,7 @@ const MachineDesignTeam = () => {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mt-16 text-center"
         >
-          <div className="max-w-3xl mx-auto bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-10 shadow-2xl">
+          <div className="max-w-3xl mx-auto bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl">
             <h3 className="text-2xl font-bold text-white mb-3">Ready to Engineer the Future?</h3>
             <p className="text-slate-300 mb-6 text-base">
               Let's collaborate on your next breakthrough machine design project.

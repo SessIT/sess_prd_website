@@ -134,7 +134,8 @@ export default function App() {
                                  </div>
                                </section>
 
-      <div style={{ width: '100vw', height: '100vh' }}>       
+      {/* <div style={{ width: '100vw', height: '100vh' }}>        */}
+      <div className="w-full relative h-[500px] sm:h-[600px] lg:h-[800px]">    
         <DomeGallery
           fit={0.8}
           minRadius={600}

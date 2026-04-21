@@ -42,6 +42,11 @@ const products = [
   { id: 18, name: 'Medical Rain Test Unit', category: 'medical', image: Product8, link: '/rain_test_chamber', description: 'Medical device water ingress compliance', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'ISO 60529' },
   { id: 19, name: 'Industrial Vibration Lab', category: 'trading', image: Product9, link: '#', description: 'Multi-axis vibration testing platform', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'Multi-Axis' },
   { id: 20, name: 'Advanced Thermal System', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Next-gen accelerated life testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'ALT Ready' },
+  { id: 21, name: 'Precision Climate Unit', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Engineering-grade climate control chamber', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
+  { id: 22, name: 'Pharma Salt Spray', category: 'pharma', image: Product7, link: '/salt_spray_test_chamber', description: 'Pharmaceutical-grade corrosion testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'GMP Ready' },
+  { id: 23, name: 'Medical Rain Test Unit', category: 'medical', image: Product8, link: '/rain_test_chamber', description: 'Medical device water ingress compliance', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'ISO 60529' },
+  { id: 24, name: 'Industrial Vibration Lab', category: 'trading', image: Product9, link: '#', description: 'Multi-axis vibration testing platform', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'Multi-Axis' },
+  { id: 25, name: 'Advanced Thermal System', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Next-gen accelerated life testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'ALT Ready' },
 ];
 
 const categories = [
@@ -59,6 +64,8 @@ const categoryColors = {
   medical: { main: '#16a34a', soft: 'rgba(22,163,74,0.15)', pill: 'linear-gradient(135deg,#16a34acc,#16a34a88)' },
   // trading: { main: '#f500db55', soft: 'rgba(245,0,217,0.15)', pill: 'linear-gradient(135deg,#f500dbc7,#f500db55)' },
 };
+
+const PRODUCTS_PER_PAGE = 20;
 
 // Badge colour map (dynamic inline only)
 const getBadgeStyle = (badge) => {
@@ -302,6 +309,7 @@ const ProductsSection = () => {
   const [filter, setFilter] = useState('*');
   const [isAnimating, setIsAnimating] = useState(false);
   const [filterCount, setFilterCount] = useState({});
+  const [visibleProductCount, setVisibleProductCount] = useState(PRODUCTS_PER_PAGE);
   const pendingFilter = useRef(null);
   const timerRef = useRef(null);
   const sectionRef = useRef(null);
@@ -326,11 +334,18 @@ const ProductsSection = () => {
     setIsAnimating(true);
     timerRef.current = setTimeout(() => {
       setFilter(pendingFilter.current);
+      setVisibleProductCount(PRODUCTS_PER_PAGE);
       requestAnimationFrame(() => requestAnimationFrame(() => setIsAnimating(false)));
     }, 180);
   }, [filter, isAnimating]);
 
   const filteredProducts = filter === '*' ? products : products.filter(p => p.category === filter);
+  const visibleProducts = filteredProducts.slice(0, visibleProductCount);
+  const hasMoreProducts = visibleProductCount < filteredProducts.length;
+
+  const handleViewMore = useCallback(() => {
+    setVisibleProductCount(count => Math.min(count + PRODUCTS_PER_PAGE, filteredProducts.length));
+  }, [filteredProducts.length]);
 
   const headerVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -524,7 +539,7 @@ const ProductsSection = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {filteredProducts.map((product, index) => (
+            {visibleProducts.map((product, index) => (
               <ProductCard
                 key={product.id}
                 product={product}
@@ -536,42 +551,46 @@ const ProductsSection = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* ── View All CTA ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 text-center"
-        >
-          <Link
-            to="/products"
-            className={[
-              'group inline-flex items-center gap-[0.7rem] px-[2.4rem] py-[0.88rem]',
-              'rounded-full text-[0.9rem] font-bold font-body no-underline text-white',
-              'relative overflow-hidden tracking-[0.01em]',
-              'transition-[transform,box-shadow] duration-[220ms]',
-              'hover:-translate-y-[3px] hover:scale-[1.02]',
-            ].join(' ')}
-            style={{
-              background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500))',
-              boxShadow: '0 4px 20px rgba(0,179,179,0.3), inset 0 1px 0 rgba(255,255,255,0.2)',
-            }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 14px 36px rgba(0,179,179,0.45), inset 0 1px 0 rgba(255,255,255,0.2)'}
-            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,179,179,0.3), inset 0 1px 0 rgba(255,255,255,0.2)'}
+        {/* ── View More CTA ── */}
+        {hasMoreProducts && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-16 text-center"
           >
-            {/* Shimmer sweep */}
-            <span
-              className="absolute inset-0 pointer-events-none animate-shimmer-btn"
-              aria-hidden="true"
-            />
-            <span className="relative z-[1]">View All Products</span>
-            <span className="relative z-[1] inline-flex transition-transform duration-200 group-hover:translate-x-1">
-              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
-        </motion.div>
+            <button
+              type="button"
+              onClick={handleViewMore}
+              className={[
+                'group inline-flex items-center gap-[0.7rem] px-[2.4rem] py-[0.88rem]',
+                'rounded-full text-[0.9rem] font-bold font-body no-underline text-white',
+                'relative overflow-hidden tracking-[0.01em] border-0 cursor-pointer',
+                'transition-[transform,box-shadow] duration-[220ms]',
+                'hover:-translate-y-[3px] hover:scale-[1.02]',
+              ].join(' ')}
+              style={{
+                background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500))',
+                boxShadow: '0 4px 20px rgba(0,179,179,0.3), inset 0 1px 0 rgba(255,255,255,0.2)',
+              }}
+              onMouseEnter={e => e.currentTarget.style.boxShadow = '0 14px 36px rgba(0,179,179,0.45), inset 0 1px 0 rgba(255,255,255,0.2)'}
+              onMouseLeave={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,179,179,0.3), inset 0 1px 0 rgba(255,255,255,0.2)'}
+              aria-label="View more products"
+            >
+              {/* Shimmer sweep */}
+              <span
+                className="absolute inset-0 pointer-events-none animate-shimmer-btn"
+                aria-hidden="true"
+              />
+              <span className="relative z-[1]">View More</span>
+              <span className="relative z-[1] inline-flex transition-transform duration-200 group-hover:translate-y-1">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 5v14M19 12l-7 7-7-7" />
+                </svg>
+              </span>
+            </button>
+          </motion.div>
+        )}
 
       </div>
     </section>

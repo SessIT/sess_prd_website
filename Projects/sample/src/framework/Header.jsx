@@ -6,7 +6,7 @@ import {
   FaSun, FaMoon, FaPlus, FaInstagram, FaFacebookF, FaTwitter, FaBlog,
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
-import Logo from "../assets/sess_logo_png_color.png";
+import Logo from "../assets/sess_logo_png.png";
 import LogoWhite from "../assets/sess_logo_white.png";
 
 const Header = () => {

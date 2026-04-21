@@ -9,19 +9,22 @@ import {
   GraduationCap, 
   Upload,
   Send,
-  MapPin,
   Briefcase,
   BookOpen,
-  Building2
+  Building2,
+  BadgeCheck,
+  FileText
 } from "lucide-react";
 
 const jobs = [
   {
     id: "01",
-    title: "Tech Support Engineer - Fresher",
-    experience: "0 - 2 Year Experience – Post Tech Support junior",
-    qualification:
-      "ITI / Diploma / BE / B-Tech\nRefrigeration / Electrical / Mechanical / Fitter",
+    title: "Accounts Executive",
+    experience: "3 - 6 Year Experience – Accounts Executive",
+    // Accounts-ku specialization qualification mattum thaan correct
+    qualification: "B.Com / M.Com / BBA (Finance / Accounts)",
+    skills: ["Tally Prime", "GST Filing", "TDS", "Financial Reporting", "Finalization of Accounts", "MS Excel"],
+    description: "Seeking a detail-oriented Accounts Executive to manage day-to-day financial transactions, maintain the general ledger, and ensure compliance with tax regulations (GST/TDS). You will be responsible for preparing financial statements and reconciling bank statements.",
     location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)
 Door No 2/2 98, ANE Garden, Perumal kovil Street, Srinivasapuram,
 Paraniputhur post, Iyyappanthangal, Chennai - 600 122.
@@ -29,25 +32,49 @@ Mob :- +91 87544 50625 Email:- info@sess.co.in`,
   },
   {
     id: "02",
-    title: "Tech Support Engineer - Senior Engineer",
-    experience: "2- 4 Year Experience Engineer – Post Tech Support Service Engineer",
-    qualification:
-      "ITI /Diploma/ BE/B-Tech\nRefrigeration /Electrical/ Mechanical/Fitter",
-    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)
-Door No 2/2 98, ANE Garden, Perumal kovil Street, Srinivasapuram,
-Paraniputhur post, Iyyappanthangal, Chennai - 600 122.
-Mob :- +91 87544 50625 Email:- info@sess.co.in`,
+    title: "PLC Programmer",
+    experience: "Minimum 3 Year Experience",
+    // PLC-ku specialization based on Engineering/Diploma
+    qualification: "BE / B.Tech / Diploma (ECE / EEE / E&I / Mechatronics)",
+    skills: ["Ladder Logic", "SCADA", "HMI Programming", "Industrial Automation", "Siemens/Delta PLC", "Troubleshooting"],
+    description: "Looking for an experienced PLC Programmer to design, program, and commission automation systems. You will be responsible for developing logic for industrial machinery, integrating HMI/SCADA systems, and providing on-site technical support for automation projects.",
+    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)...`,
   },
   {
     id: "03",
-    title: "Production line Refrigeration Technician",
-    experience: "Minimum 6 Year experiences in machine Assembly experience",
-    qualification:
-      "ITI / Diploma / BE / B-Tech\nRefrigeration / Electrical / Mechanical / Fitter",
-    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)
-Door No 2/2 98, ANE Garden, Perumal kovil Street, Srinivasapuram,
-Paraniputhur post, Iyyappanthangal, Chennai - 600 122.
-Mob :- +91 87544 50625 Email:- info@sess.co.in`,
+    title: "Electrical Engineer",
+    experience: "0 - 2 years",
+    qualification: "BE / B.Tech / Diploma / ITI (Electrical / EEE)",
+    skills: ["Electrical Circuit Design", "Control Panels", "Wiring & Installation", "AutoCAD Electrical", "Power Distribution"],
+    description: "Responsible for designing and maintaining electrical systems and control panels. As an Electrical Engineer, you will oversee installation projects, ensure safety standards are met, and perform diagnostic tests on industrial equipment.",
+    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)...`,
+  },
+  {
+    id: "04",
+    title: "Mechanical Engineer",
+    experience: "0 - 2 years",
+    qualification: "BE / B.Tech / Diploma / ITI (Mechanical)",
+    skills: ["Machine Design", "AutoCAD/SolidWorks", "Preventive Maintenance", "Fabrication", "Technical Documentation"],
+    description: "Seeking a Mechanical Engineer to handle the design, assembly, and maintenance of mechanical components and systems. You will work on optimizing machinery performance and ensuring structural integrity of scientific solutions equipment.",
+    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)...`,
+  },
+  {
+    id: "05",
+    title: "Refrigeration Engineer",
+    experience: "0 - 2 years",
+    qualification: "BE / B.Tech / Diploma / ITI (Refrigeration & Air Conditioning / Mechanical)",
+    skills: ["HVAC Systems", "Compressor Maintenance", "Refrigerant Handling", "Cooling Cycle Analysis", "Leak Detection"],
+    description: "Specialized role focused on installing and repairing refrigeration and cooling systems. You will be responsible for maintaining optimal temperature environments for scientific equipment and troubleshooting cooling cycle issues.",
+    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)...`,
+  },
+  {
+    id: "06",
+    title: "Sales Engineer",
+    experience: "0 - 2 years",
+    qualification: "Any Degree / BE / B.Tech / Diploma (Technical Background Preferred)",
+    skills: ["Technical Sales", "Lead Generation", "Client Relationship Management", "Product Demo", "Market Research"],
+    description: "Bridge the gap between technical complexity and sales. You will identify potential clients, deliver technical presentations of our scientific solutions, and provide post-sales support to build long-term customer relationships.",
+    location: `Sri Easwari Scientific Solution Pvt Ltd (SESS – Group Of company)...`,
   },
 ];
 
@@ -255,8 +282,8 @@ export default function CareerPage() {
             className="space-y-4"
           >
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-                <Briefcase className="w-6 h-6 text-slate-600" />
+              <h2 className="text-2xl font-bold text-cyan-600 flex items-center gap-2">
+                <Briefcase className="w-6 h-6 text-cyan-600" />
                 Open Positions
               </h2>
               <p className="text-slate-500 mt-1">Select a role to view details</p>
@@ -281,12 +308,12 @@ export default function CareerPage() {
                 >
                   <div className="flex items-center gap-4">
                     <span className={`text-2xl font-bold ${
-                      activeJob === job.id ? "text-cyan-500" : "text-slate-400"
+                      activeJob === job.id ? "text-white" : "text-slate-400"
                     }`}>
                       {job.id}
                     </span>
                     <h3 className={`text-lg font-semibold ${
-                      activeJob === job.id ? "text-cyan-500" : "text-neutral-800"
+                      activeJob === job.id ? "text-white" : "text-cyan-600"
                     }`}>
                       {job.title}
                     </h3>
@@ -333,15 +360,35 @@ export default function CareerPage() {
                           </div>
                         </div>
 
-                        {/* Location */}
+                        {/* Skills */}
                         <div className="flex gap-3">
-                          <MapPin className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
+                          <BadgeCheck className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <h4 className="font-semibold text-slate-700 text-sm uppercase tracking-wide mb-2">
+                              Skills
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {job.skills.map((skill) => (
+                                <span
+                                  key={skill}
+                                  className="inline-flex items-center rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <div className="flex gap-3">
+                          <FileText className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
                           <div>
                             <h4 className="font-semibold text-slate-700 text-sm uppercase tracking-wide mb-1">
-                              Location
+                              Description
                             </h4>
-                            <p className="text-slate-600 whitespace-pre-line text-sm">
-                              {job.location}
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                              {job.description}
                             </p>
                           </div>
                         </div>
@@ -351,6 +398,36 @@ export default function CareerPage() {
                 </AnimatePresence>
               </motion.div>
             ))}
+
+            {/* Admin Team Contact Block */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="mt-8 bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-100 rounded-xl p-6 shadow-sm"
+            >
+              <h3 className="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">
+                <User className="w-5 h-5 text-cyan-600" />
+                Contact Admin Team
+              </h3>
+              <p className="text-slate-600 mb-4 text-sm leading-relaxed">
+                Can't find the right role? Feel free to contact our admin team to collaborate and discuss future career opportunities at SESS.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-slate-700">
+                  <div className="bg-white p-2 rounded-full shadow-sm">
+                    <Phone className="w-4 h-4 text-cyan-600" />
+                  </div>
+                  <a href="tel:+917548870106" className="font-medium hover:text-cyan-600 transition-colors">+91 75488 70106</a>
+                </div>
+                <div className="flex items-center gap-3 text-slate-700">
+                  <div className="bg-white p-2 rounded-full shadow-sm">
+                    <Mail className="w-4 h-4 text-cyan-600" />
+                  </div>
+                  <a href="mailto:admin@sess.co.in" className="font-medium hover:text-cyan-600 transition-colors">admin@sess.co.in</a>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* RIGHT SIDE - Application Form */}

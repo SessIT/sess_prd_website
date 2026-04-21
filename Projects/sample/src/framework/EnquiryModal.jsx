@@ -213,46 +213,128 @@ const EnquiryModal = ({ isOpen, onClose }) => {
   //   }
   // };
 
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+  
+//   // Validation: Check if Products (segment) is selected
+//   if (formData.segment.length === 0) {
+//     alert('Please select at least one Product.');
+//     return;
+//   }
+  
+//   // Validation: Check if Interested In is selected
+//   if (formData.interested_in.length === 0) {
+//     alert('Please select at least one option for "Interested In".');
+//     return;
+//   }
+  
+//   setIsSubmitting(true);
+
+//   try {
+//     // Format data for email with human-readable selected items
+//     const emailData = {
+//       ...formData,
+//       segment: formData.segment.join(', ') || 'Not specified',
+//       interested_in: formData.interested_in.join(', ') || 'Not specified'
+//     };
+    
+//     await emailjs.send(
+//       'service_zn4c4ej',   // replace
+//       'template_xv44i0b',  // replace
+//       emailData,
+//       '4Kmy8AeCLSCskdNlt'    // replace
+//     );
+
+//     setSubmitStatus('success');
+
+//     // reset form
+//     setFormData({
+//       name: '', email: '', phone: '', company: '',
+//       country: '', state: '', city: '', website: '', message: '',
+//       role: '', role_other: '', industry: '', industry_other: '',
+//       segment: [], interested_in: []
+//     });
+
+//     setTimeout(() => {
+//       onClose();
+//       setSubmitStatus(null);
+//     }, 2000);
+
+//   } catch (error) {
+//     console.error(error);
+//     setSubmitStatus('error');
+//   } finally {
+//     setIsSubmitting(false);
+//   }
+// };
+
   const handleSubmit = async (e) => {
   e.preventDefault();
-  
-  // Validation: Check if Products (segment) is selected
+
+  // Validation: Check if Products is selected
   if (formData.segment.length === 0) {
     alert('Please select at least one Product.');
     return;
   }
-  
+
   // Validation: Check if Interested In is selected
   if (formData.interested_in.length === 0) {
     alert('Please select at least one option for "Interested In".');
     return;
   }
-  
+
   setIsSubmitting(true);
 
   try {
-    // Format data for email with human-readable selected items
+    const selectedRole =
+      formData.role === 'Other' ? formData.role_other : formData.role;
+
+    const selectedIndustry =
+      formData.industry === 'Other' ? formData.industry_other : formData.industry;
+
     const emailData = {
-      ...formData,
-      segment: formData.segment.join(', ') || 'Not specified',
-      interested_in: formData.interested_in.join(', ') || 'Not specified'
+      name: formData.name || 'Not specified',
+      email: formData.email || 'Not specified',
+      phone: formData.phone || 'Not specified',
+      company: formData.company || 'Not specified',
+
+      country: formData.country || 'Not specified',
+      state: formData.state || 'Not specified',
+      city: formData.city || 'Not specified',
+      website: formData.website || 'Not specified',
+      message: formData.message || 'Not specified',
+
+      role: selectedRole || 'Not specified',
+      industry: selectedIndustry || 'Not specified',
+      products: formData.segment.join(', ') || 'Not specified',
+      interested_in: formData.interested_in.join(', ') || 'Not specified',
     };
-    
+
     await emailjs.send(
-      'service_zn4c4ej',   // replace
-      'template_xv44i0b',  // replace
+      'service_zn4c4ej',
+      'template_xv44i0b',
       emailData,
-      '4Kmy8AeCLSCskdNlt'    // replace
+      '4Kmy8AeCLSCskdNlt'
     );
 
     setSubmitStatus('success');
 
-    // reset form
     setFormData({
-      name: '', email: '', phone: '', company: '',
-      country: '', state: '', city: '', website: '', message: '',
-      role: '', role_other: '', industry: '', industry_other: '',
-      segment: [], interested_in: []
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      country: '',
+      state: '',
+      city: '',
+      website: '',
+      message: '',
+      role: '',
+      role_other: '',
+      industry: '',
+      industry_other: '',
+      segment: [],
+      interested_in: []
     });
 
     setTimeout(() => {
@@ -382,14 +464,14 @@ const EnquiryModal = ({ isOpen, onClose }) => {
                     </svg>
                   </div>
                   <div>
-                    <p style={sectionLabelStyle}>Enquiry form</p>
+                    {/* <p style={sectionLabelStyle}>Enquiry form</p> */}
                     <h2
-                      className="mt-2 text-2xl sm:text-3xl"
+                      className="text-2xl font-bold sm:text-3xl"
                       style={{
                         marginBottom: 'var(--space-2)',
                         color: textColor,
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 'var(--font-weight-extrabold)',
+                        // fontWeight: 'var(--font-weight-extrabold)',
                         lineHeight: 'var(--leading-tight)',
                         letterSpacing: 0,
                       }}

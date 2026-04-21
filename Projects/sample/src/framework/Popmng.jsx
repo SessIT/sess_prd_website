@@ -172,8 +172,8 @@ const PopupImg = ({
               className="relative w-auto max-w-2xl overflow-hidden bg-white shadow-2xl rounded-3xl"
             >
               {/* Title Bar with Close Button */}
-              <div className="flex items-center justify-between gap-10 px-8 py-5 shadow-md bg-gradient-to-r from-cyan-500 to-blue-600">
-                <h3 className="text-xl font-bold tracking-tight text-white">{title}</h3>
+              <div className="flex items-center px-4 py-2 gap-14 shadow-md bg-gradient-to-r from-cyan-500 to-blue-600">
+                <h3 className="text-lg font-bold tracking-tight text-white">{title}</h3>
                 
                 {/* Close Button */}
                 <MotionButton
