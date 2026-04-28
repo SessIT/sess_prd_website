@@ -374,7 +374,7 @@ const EnquiryModal = ({ isOpen, onClose }) => {
   ];
 
   const segmentOptions = ['Environmental', 'Vibration', 'Salt Spray', 'Thermal Shock', 'Rain', 'Other'];
-  const interestedOptions = ['Rental', 'Purchase'];
+  const interestedOptions = ['Rental', 'Purchase', 'AMC'];
 
   const renderField = (field) => (
     <div key={field.name}>
@@ -450,7 +450,7 @@ const EnquiryModal = ({ isOpen, onClose }) => {
               <div className="relative flex items-start justify-between gap-4">
                 <div className="flex items-start gap-4">
                   <div
-                    className="hidden h-11 w-11 shrink-0 items-center justify-center sm:inline-flex"
+                    className="items-center justify-center hidden h-11 w-11 shrink-0 sm:inline-flex"
                     style={{
                       borderRadius: 'var(--border-radius-md)',
                       background: 'var(--gradient-brand)',
@@ -529,10 +529,10 @@ const EnquiryModal = ({ isOpen, onClose }) => {
 
             {/* ── Form ────────────────────────────────────── */}
             <form onSubmit={handleSubmit} style={{ padding: 'var(--space-6)', background: formBg, color: textColor }}>
-              <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 mb-5 sm:grid-cols-3">
                 {[
                   ['Product', 'Select up to 3'],
-                  ['Interest', 'Rental or purchase'],
+                  ['Interest', 'Rental or purchase or AMC'],
                   ['Response', 'Mail notification'],
                 ].map(([title, text]) => (
                   <div

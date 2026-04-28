@@ -8,10 +8,10 @@ import {
 import TechStack from '../framework/UI/TechStack';
 
 import web_dev from '../assets/Website_Gallery_img/sess_web_dev.png';
-import webapp_dev from '../assets/Website_Gallery_img/sess_webapp_dev.png';
-import soft_dev from '../assets/Website_Gallery_img/sess_soft_dev.jpeg';
+import webapp_dev from '../assets/Website_Gallery_img/sess_webapp_dev.jpg';
+import soft_dev from '../assets/Website_Gallery_img/sess_soft_dev.jpg';
 import digi_mkt from '../assets/Website_Gallery_img/sess_digi_mart.jpeg';
-import sms_email from '../assets/Website_Gallery_img/sess_bulk_sms_email.jpeg';
+import sms_email from '../assets/Website_Gallery_img/sess_bulk_sms_email.jpg';
 import seo_social from '../assets/Website_Gallery_img/sess_seo.jpeg';
 /* ─── Floating particle (hero only) ─── */
 const Particle = ({ x, y, size, delay, color }) => (
@@ -33,7 +33,7 @@ const FeatureCard = ({ card, index }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8 }}
-      className="relative flex flex-col sm:flex-row overflow-hidden transition-all duration-500 ease-out border shadow-lg group bg-gradient-to-br from-white via-slate-50/50 to-slate-50 rounded-2xl border-slate-200/60 hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm"
+      className="relative flex flex-col overflow-hidden transition-all duration-500 ease-out border shadow-lg sm:flex-row group bg-gradient-to-br from-white via-slate-50/50 to-slate-50 rounded-2xl border-slate-200/60 hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm"
     >
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 transition-all duration-700 pointer-events-none bg-gradient-to-r from-cyan-500/0 via-transparent to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5" />
@@ -42,7 +42,7 @@ const FeatureCard = ({ card, index }) => {
       <motion.div
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.4 }}
-        className="relative w-full h-52 sm:w-56 sm:h-auto flex-shrink-0 overflow-hidden order-first"
+        className="relative flex-shrink-0 order-first w-full overflow-hidden h-52 sm:w-56 sm:h-auto"
       >
         <motion.img
           src={card.image}
@@ -360,7 +360,7 @@ const ItTeam = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.6 }}
-            className="relative max-w-4xl p-6 sm:p-12 mx-auto overflow-hidden border shadow-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-3xl border-slate-700/50"
+            className="relative max-w-4xl p-6 mx-auto overflow-hidden border shadow-2xl sm:p-12 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-3xl border-slate-700/50"
           >
             {/* Animated background orbs */}
             <motion.div

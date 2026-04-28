@@ -345,12 +345,12 @@ const Contact = () => {
 
   // 9 department contacts — rendered in a 3×3 grid
   const chennaiDepartmentContacts = [
-    { badge: 'MD', department: 'Managing Director',  phone: '+91 94444 59430', email: 'easwari.kjsb@gmail.com' },
-    { badge: 'TD', department: 'Technical Director',  phone: '+91 94444 27748', email: 'info@sess.co.in' },
+    { badge: 'MD', department: 'Managing Director',   phone: '+91 94444 59430', email: 'info@gmail.com' },
+    { badge: 'TD', department: 'Technical Director',  phone: '+91 94444 27748', email: 'sales@sess.co.in' },
     { badge: 'AD', department: 'Administrative',      phone: '+91 75488 73688', email: 'admin@sess.co.in' },
-    { badge: 'HR', department: 'Human Resources',                  phone: '+91 75488 70106', email: 'hr@sess.co.in' },
-    { badge: 'PM', department: 'Production Manager',  phone: '+91 75488 70206', email: 'tech-support@sess.co.in' },
-    { badge: 'QT', department: 'Quality/Design Team',        phone: '+91 75488 70516', email: 'design.qc@sess.co.in' },
+    { badge: 'HR', department: 'Human Resources',     phone: '+91 75488 70106', email: 'hr@sess.co.in' },
+    { badge: 'PM', department: 'Production Manager',  phone: '+91 75488 70206', email: 'easwari.kjsb@sess.co.in' },
+    { badge: 'QT', department: 'Quality/Design Team', phone: '+91 75488 70516', email: 'design.qc@sess.co.in' },
     { badge: 'SM', department: 'Service Manager',     phone: '+91 75488 73690', email: 'tech-support@sess.co.in' },
     { badge: 'PT', department: 'Purchasing Team',     phone: '+91 75488 74688', email: 'purchase@sess.co.in' },
   ];
