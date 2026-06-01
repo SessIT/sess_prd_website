@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import emailjs from '@emailjs/browser';
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 /* ─────────────────────────────────────────────
    MAGNETIC BUTTON — follows cursor on hover
@@ -315,19 +320,59 @@ const Contact = () => {
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setFormStatus('submitting');
+  //   try {
+  //     await new Promise((r) => setTimeout(r, 1800));
+  //     setFormStatus('success');
+  //     setFormData({ name: '', email: '', phone: '', message: '' });
+  //     setTimeout(() => setFormStatus('idle'), 3500);
+  //   } catch {
+  //     setFormStatus('error');
+  //     setTimeout(() => setFormStatus('idle'), 3000);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus('submitting');
-    try {
-      await new Promise((r) => setTimeout(r, 1800));
-      setFormStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-      setTimeout(() => setFormStatus('idle'), 3500);
-    } catch {
-      setFormStatus('error');
-      setTimeout(() => setFormStatus('idle'), 3000);
+  e.preventDefault();
+  setFormStatus('submitting');
+
+  try {
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      throw new Error('EmailJS environment variables are missing');
     }
-  };
+
+    const emailData = {
+      name: formData.name || 'Not specified',
+      email: formData.email || 'Not specified',
+      phone: formData.phone || 'Not specified',
+      message: formData.message || 'Not specified',
+    };
+
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      emailData,
+      EMAILJS_PUBLIC_KEY
+    );
+
+    setFormStatus('success');
+
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      message: '',
+    });
+
+    setTimeout(() => setFormStatus('idle'), 3500);
+  } catch (error) {
+    console.error('EmailJS Error:', error);
+    setFormStatus('error');
+    setTimeout(() => setFormStatus('idle'), 3000);
+  }
+};
 
   const particles = [
     { x: 10, y: 20, size: 60, delay: 0,   color: 'rgb(2 174 178)' },

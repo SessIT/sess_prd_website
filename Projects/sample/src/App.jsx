@@ -27,6 +27,7 @@ import Design from './pages/DesignTeam';
 import IT from './pages/IT';
 import LabviewPage from './pages/Labview';
 import PopupManager from './framework/Popmng';
+import ProductDetail from './pages/ProductDetail';
 
 
 function AppContent() {
@@ -69,6 +70,7 @@ function AppContent() {
             <Route path="/career" element={<Career />} /> 
             <Route path="/news" element={<NewsBlogs />} />
             <Route path="/labview-plc" element={<LabviewPage />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
           </Routes>
           <Footer />
           <ScrollToTop />
