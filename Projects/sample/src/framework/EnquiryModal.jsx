@@ -5,6 +5,15 @@ import { FaTimes } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import emailjs from '@emailjs/browser';
 
+const EMAILJS_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID;
+
+const EMAILJS_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
+const EMAILJS_PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
 const MotionDiv = motion.div;
 const MotionP = motion.p;
 const MotionButton = motion.button;
@@ -310,12 +319,22 @@ const EnquiryModal = ({ isOpen, onClose }) => {
       interested_in: formData.interested_in.join(', ') || 'Not specified',
     };
 
-    await emailjs.send(
-      'service_zn4c4ej',
-      'template_xv44i0b',
-      emailData,
-      '4Kmy8AeCLSCskdNlt'
-    );
+    if (
+  !EMAILJS_SERVICE_ID ||
+  !EMAILJS_TEMPLATE_ID ||
+  !EMAILJS_PUBLIC_KEY
+) {
+  throw new Error(
+    'EmailJS environment variables are missing'
+  );
+}
+
+await emailjs.send(
+  EMAILJS_SERVICE_ID,
+  EMAILJS_TEMPLATE_ID,
+  emailData,
+  EMAILJS_PUBLIC_KEY
+);
 
     setSubmitStatus('success');
 
