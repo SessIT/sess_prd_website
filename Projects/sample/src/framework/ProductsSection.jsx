@@ -22,7 +22,7 @@ import Product9 from '../assets/product/Flame-Proof Hot Air Oven.png';
 import Product10 from '../assets/product/Battery.png';
 
 const products = [
-  { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/products', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
+  { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
   { id: 2, name: 'Salt Spray Test Chamber', category: 'pharma', image: Product2, link: '/salt_spray_test_chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
   { id: 3, name: 'Rain Test Chamber', category: 'medical', image: Product3, link: '/rain_test_chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
   { id: 4, name: 'Vibration Test Chamber', category: 'trading', image: Product4, link: '#', description: 'Simulate real-world vibration conditions', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },

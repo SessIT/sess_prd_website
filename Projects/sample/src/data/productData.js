@@ -399,7 +399,7 @@ export const climaticTestChamberProduct = {
 // Export function to get product data - ready for dynamic implementation
 export const getProductData = (productId) => {
   // In future, this will fetch from API or database
-  if (productId === 'climatic-test-chamber-klima') {
+  if (productId === 'climatic-test-chamber') {
     return climaticTestChamberProduct;
   }
   return null;

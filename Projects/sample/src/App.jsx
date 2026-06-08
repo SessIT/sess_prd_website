@@ -70,7 +70,7 @@ function AppContent() {
             <Route path="/career" element={<Career />} /> 
             <Route path="/news" element={<NewsBlogs />} />
             <Route path="/labview-plc" element={<LabviewPage />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/:id" element={<ProductDetail />} />
           </Routes>
           <Footer />
           <ScrollToTop />
