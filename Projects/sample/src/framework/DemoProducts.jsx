@@ -24,17 +24,17 @@ import Product11 from '../assets/product/hotair-oven.png';
 
 const products = [
   { id: 1, name: 'Environmetal Test Chamber', category: 'industry', image: Product1, link: '/products', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
-  { id: 2, name: 'Salt Spray Test Chamber', category: 'pharma', image: Product2, link: '/salt_spray_test_chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
-  { id: 3, name: 'Rain Test Chamber', category: 'medical', image: Product3, link: '/rain_test_chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
+  { id: 2, name: 'Salt Spray Test Chamber', category: 'pharma', image: Product2, link: '/salt-spray-test-chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
+  { id: 3, name: 'Rain Test Chamber', category: 'medical', image: Product3, link: '/rain-test-chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
   { id: 4, name: 'Walk In Test Chamber', category: 'trading', image: Product4, link: '#', description: 'Simulate real-world vibration conditions', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
   { id: 5, name: 'Thermal Cyclic Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber', description: 'Accelerated thermal stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
   { id: 6, name: 'Thermal Shock Chamber', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Pro' },
-  { id: 7, name: 'Salt Spray Chamber', category: 'pharma', image: Product7, link: '/salt_spray_test_chamber', description: 'Advanced corrosion resistance testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
-  { id: 8, name: 'Rain Test System', category: 'medical', image: Product8, link: '/rain_test_chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
+  { id: 7, name: 'Salt Spray Chamber', category: 'pharma', image: Product7, link: '/salt-spray-test-chamber', description: 'Advanced corrosion resistance testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
+  { id: 8, name: 'Rain Test System', category: 'medical', image: Product8, link: '/rain-test-chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
   { id: 9, name: 'Flame-Proof Hot Air Oven', category: 'trading', image: Product9, link: '#', description: 'High-precision vibration simulation', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
   { id: 10, name: 'Battery Test Chamber', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Accelerated thermal stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
   { id: 11, name: 'Hot Air Oven', category: 'industry', image: Product11, link: '/environmental_test_chamber', description: 'Precision climate control — next generation', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Pro' },
-  { id: 12, name: 'Corrosion Test Chamber', category: 'pharma', image: Product2, link: '/salt_spray_test_chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
+  { id: 12, name: 'Corrosion Test Chamber', category: 'pharma', image: Product2, link: '/salt-spray-test-chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
 ];
 
 // Category → accent colour (used only in dynamic inline styles)

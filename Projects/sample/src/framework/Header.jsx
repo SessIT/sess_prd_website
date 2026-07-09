@@ -64,8 +64,8 @@ const Header = () => {
           category: "Industry",
           links: [
             { name: "Climatic Test Chamber",   path: "/climatic-test-chamber" },
-            { name: "Salt Spray Test Chamber", path: "/salt_spray_test_chamber" },
-            { name: "Rain Test Chamber",       path: "/rain_test_chamber" },
+            { name: "Salt Spray Test Chamber", path: "/salt-spray-test-chamber" },
+            { name: "Rain Test Chamber",       path: "/rain-test-chamber" },
             { name: "Vibration Test Chamber",  path: "/vibration_test_chamber" },
             { name: "Thermal Cycling Chamber", path: "/thermal_cycling_chamber" },
           ],

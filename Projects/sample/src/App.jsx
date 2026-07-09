@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
 
 // Layout Components
-import Header from './framework/HeaderDefault';
+import Header from './framework/Header';
 import Footer from './framework/Footer';
 // import Preloader from './framework/Preloader';
 
@@ -27,7 +27,9 @@ import Design from './pages/DesignTeam';
 import IT from './pages/IT';
 import LabviewPage from './pages/Labview';
 import PopupManager from './framework/Popmng';
-import ProductDetail from './pages/products/ProductDetail';
+import ClimaticTestChambers from './pages/products/Climatic-test-chambers';
+import SaltSprayChamber from './pages/products/Salt-spray-test-chambers';
+import RainTestChamber from './pages/products/Rain-test-chamber';
 
 
 function AppContent() {
@@ -70,7 +72,9 @@ function AppContent() {
             <Route path="/career" element={<Career />} /> 
             <Route path="/news" element={<NewsBlogs />} />
             <Route path="/labview-plc" element={<LabviewPage />} />
-            <Route path="/climatic-test-chamber" element={<ProductDetail />} />
+            <Route path="/climatic-test-chamber" element={<ClimaticTestChambers />} />
+            <Route path="/salt-spray-test-chamber" element={<SaltSprayChamber />} />
+            <Route path="/rain-test-chamber" element={<RainTestChamber />} />
           </Routes>
           <Footer />
           <ScrollToTop />

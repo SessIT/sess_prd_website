@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import {ArrowRight,ChevronLeft, ChevronRight, CheckCircle2,  Layers, Gauge, Zap, Shield,  Thermometer, Wind,  Activity,  Settings2,  Monitor, Wifi,Lock, BarChart3,ChevronDown,} from 'lucide-react';
 
 // Product Images
@@ -9,9 +10,9 @@ import prd3 from '../../assets/product/Environmetal.png';
 import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.png';
 
 // Product Data
-const climaticTestChamberProduct = {
-  id: 'climatic-test-chamber',
-  title: 'Climatic Test Chamber',
+const RainTestChamber = {
+  id: 'rain-test-chamber',
+  title: 'Rain Test Chamber',
   subtitle: 'For Temperature & Humidity Simulations',
   description: 'The Climatic Test Chamber range accurately simulates temperature and humidity conditions within its test space. With its redesigned structure, enhanced refrigeration system, and intelligent controller, this chamber now delivers even greater efficiency and ensures uninterrupted testing.',
   
@@ -19,7 +20,7 @@ const climaticTestChamberProduct = {
   hero: {
     backgroundGradient: 'linear-gradient(135deg, rgb(34, 229, 245, 0.95) 0%, rgb(59, 91, 255, 0.95) 100%)',
     tagline: 'Precision-Engineered for Performance',
-    mainTitle: 'Climatic Test Chamber',
+    mainTitle: 'Rain Test Chamber',
     subtitle: 'For Temperature & Humidity Simulations',
     ctaText: 'Request Quote',
   },
@@ -304,7 +305,7 @@ const climaticTestChamberProduct = {
   controller: {
     title: 'Touchscreen Intelligent Controller',
     subtitle: 'Advanced control system for precision testing',
-    image: 'https://via.placeholder.com/400x300?text=Touchscreen+Controller',
+    image: prd1,
     features: [
       {
         id: 1,
@@ -555,6 +556,8 @@ function ScrollProgress() {
 
 /* ─────────────────────────────────────────────
    Image carousel
+   Main image on the left, thumbnails as a vertical
+   strip beside it on the right (not below).
 ───────────────────────────────────────────── */
 function ImageCarousel({ images }) {
   const [current, setCurrent] = useState(0);
@@ -574,9 +577,9 @@ function ImageCarousel({ images }) {
   };
 
   return (
-    <div className="relative selenone">
+    <div className="flex h-full w-full gap-3 sm:gap-4">
       {/* Main image */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-50 border border-slate-100/80 shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)]">
+      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-3xl border border-slate-100/80 bg-slate-50 shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)] sm:min-h-[540px]">
         <AnimatePresence custom={direction} mode="wait">
           <motion.img
             key={images[current].id}
@@ -588,7 +591,7 @@ function ImageCarousel({ images }) {
             animate="center"
             exit="exit"
             transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            className="objecontain w-full bg-white h-80 sm:h-96"
+            className="h-full w-full bg-white object-contain"
           />
         </AnimatePresence>
 
@@ -619,20 +622,20 @@ function ImageCarousel({ images }) {
         ))}
       </div>
 
-      {/* Thumbnails */}
-      <div className="grid grid-cols-5 gap-2 mt-4">
+      {/* Thumbnails — vertical strip beside the image */}
+      <div className="flex w-16 flex-shrink-0 flex-col gap-2 sm:w-20">
         {images.map((img, i) => (
           <button
             key={img.id}
             type="button"
             onClick={() => go(i)}
-            className="relative overflow-hidden rounded-xl border transition-all duration-200"
+            className="relative flex-1 overflow-hidden rounded-xl border transition-all duration-200"
             style={{
               borderColor: i === current ? 'rgb(6 182 212)' : 'rgb(241 245 249)',
               boxShadow: i === current ? '0 0 0 2px rgba(6,182,212,0.25)' : 'none',
             }}
           >
-            <img src={img.src} alt={img.alt} className="objecover w-full h-16 sm:h-20" />
+            <img src={img.src} alt={img.alt} className="h-full w-full object-cover" />
             {i === current && (
               <div className="absolute inset-0 bg-cyan-500/10" />
             )}
@@ -667,7 +670,7 @@ function FeatureCard({ icon, title, description, index }) {
   const iconComponents = [Thermometer, Wind, Activity, Gauge, Shield, Layers, Zap, Settings2];
   const Icon = iconComponents[index % iconComponents.length];
   return (
-    <FadeIn delay={index * 0.06} dir="up">
+    <FadeIn delay={index * 0.06} dir="up" className="h-full">
       <div className="group relative p-5 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-900 hover:border-cyan-500/40 transition-all duration-300 overflow-hidden h-full">
         {/* Hover glow */}
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5 transition-all duration-300 rounded-xl" />
@@ -752,13 +755,14 @@ function RelatedCard({ product, index }) {
           <p className="mb-5 text-sm leading-relaxed text-slate-500 group-hover:text-slate-300 transition-colors">
             {product.description}
           </p>
-          <a
-            href={product.link}
+          <button
+            type="button"
+            onClick={() => navigate(product.link)}
             className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 group-hover:text-cyan-400 transition-colors"
           >
             Learn More
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1 duration-200" />
-          </a>
+          </button>
         </div>
       </div>
     </FadeIn>
@@ -766,10 +770,106 @@ function RelatedCard({ product, index }) {
 }
 
 /* ─────────────────────────────────────────────
+   Sticky section nav
+   Jumps to Overview / Benefits / Specifications /
+   Controller / Related Products. Stays fixed to the
+   top of the viewport while scrolling.
+───────────────────────────────────────────── */
+function SectionNav() {
+  const tabs = [
+    { id: "overview", label: "Overview" },
+    { id: "benefits", label: "Benefits" },
+    { id: "specifications", label: "Specifications" },
+    { id: "controller", label: "Controller" },
+    { id: "related-products", label: "Related Products" },
+  ];
+
+  // Overview is active by default
+  const [active, setActive] = useState("overview");
+
+  useEffect(() => {
+    const sections = tabs
+      .map((tab) => document.getElementById(tab.id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries.find((entry) => entry.isIntersecting);
+
+        if (visibleSection) {
+          setActive(visibleSection.target.id);
+        }
+      },
+      {
+        rootMargin: "-30% 0px -50% 0px",
+        threshold: 0.25,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = (e, id) => {
+    e.preventDefault();
+
+    // Change color immediately
+    setActive(id);
+
+    const section = document.getElementById(id);
+
+    if (section) {
+      const y =
+        section.getBoundingClientRect().top +
+        window.pageYOffset -
+        70;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <nav className="sticky top-0 z-40 border-b border-slate-200 bg-white shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-8 overflow-x-auto px-5 scrollbar-none">
+
+        {tabs.map((tab) => (
+          <a
+            key={tab.id}
+            href={`#${tab.id}`}
+            onClick={(e) => handleClick(e, tab.id)}
+            className={`relative py-5 text-base font-semibold transition-all duration-300 ${
+              active === tab.id
+                ? "text-cyan-600"
+                : "text-black hover:text-cyan-600"
+            }`}
+          >
+            {tab.label}
+
+            {active === tab.id && (
+              <motion.span
+                layoutId="underline"
+                className="absolute left-0 right-0 -bottom-[1px] h-[2px] bg-cyan-600 rounded-full"
+              />
+            )}
+          </a>
+        ))}
+
+      </div>
+    </nav>
+  );
+}
+
+
+/* ─────────────────────────────────────────────
    Main component
 ───────────────────────────────────────────── */
 function ProductDetail() {
-  const product = climaticTestChamberProduct;
+  const product = RainTestChamber;
+  const navigate = useNavigate();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
 
@@ -887,55 +987,81 @@ function ProductDetail() {
         <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.04))' }} />
       </section>
 
+      {/* ── SECTION NAV ──────────────────────────── */}
+      <SectionNav />
+
       {/* ── OVERVIEW + IMAGE ─────────────────────── */}
-      <section className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
+      {/*
+        New layout:
+        1) Overview (title + description) — full width, on top.
+        2) Below it, a 2-column row:
+           - Column 1: main image with a vertical thumbnail
+             strip beside it (ImageCarousel handles this).
+           - Column 2: Key Features.
+        Both columns stretch to the same height (items-stretch)
+        so they end at the same point regardless of content length.
+      */}
+      <section id="overview" className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="grid items-center gap-14 md:grid-cols-2 md:gap-20">
-            <FadeIn dir="left">
+
+          {/* Overview — full width, on top */}
+          <FadeIn dir="up" delay={0.05}>
+            <div className="w-full mb-10 lg:mb-12">
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-2 mb-3">
+                  <span className="block w-5 h-px bg-cyan-500 opacity-70 rounded-full" />
+                  <span
+                    style={{
+                      color: 'var(--color-primary-400)',
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: 'var(--font-weight-semibold)',
+                      fontSize: 'var(--text-sm)',
+                      letterSpacing: 'var(--tracking-wider)',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Product Overview
+                  </span>
+                </div>
+                <h2
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontWeight: 'var(--font-weight-bold)',
+                    fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
+                    lineHeight: 'var(--leading-tight)',
+                    color: '#0f172a',
+                    margin: 0,
+                  }}
+                >
+                  {product.title}
+                </h2>
+                <div className="mt-4 w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" />
+              </div>
+
+              <p className="mb-4 text-justify text-sm leading-relaxed text-slate-600 sm:text-base">
+                {product.description}
+              </p>
+              {product.productDetails.overview.map((text, i) => (
+                <p key={i} className="mb-4 text-justify text-sm leading-relaxed text-slate-600 sm:text-base">{text}</p>
+              ))}
+            </div>
+          </FadeIn>
+
+          {/* 2-column row: image + thumbnails (left) / key features (right) */}
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
+            <FadeIn dir="left" delay={0.12} className="h-full">
               <ImageCarousel images={product.productDetails.images} />
             </FadeIn>
 
-            <FadeIn dir="right" delay={0.15}>
-              <div>
+            <FadeIn dir="right" delay={0.2} className="h-full">
+              <div className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-slate-50/70 p-5 shadow-sm sm:p-6">
                 <div className="mb-5">
-                  <div className="inline-flex items-center gap-2 mb-3">
-                    <span className="block w-5 h-px bg-cyan-500 opacity-70 rounded-full" />
-                    <span
-                      style={{
-                        color: 'var(--color-primary-400)',
-                        fontFamily: 'var(--font-body)',
-                        fontWeight: 'var(--font-weight-semibold)',
-                        fontSize: 'var(--text-sm)',
-                        letterSpacing: 'var(--tracking-wider)',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      Product Overview
-                    </span>
-                  </div>
-                  <h2
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 'var(--font-weight-bold)',
-                      fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
-                      lineHeight: 'var(--leading-tight)',
-                      color: '#0f172a',
-                      margin: 0,
-                    }}
-                  >
-                    {product.title}
-                  </h2>
-                  <div className="mt-4 w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" />
+                  <h3 className="text-lg font-semibold text-slate-900">Key Features</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                    Built for reliable and repeatable testing in demanding laboratory conditions.
+                  </p>
                 </div>
-
-                <p className="mb-4 text-justify text-sm leading-relaxed text-slate-600 sm:text-base">
-                  {product.description}
-                </p>
-                {product.productDetails.overview.map((text, i) => (
-                  <p key={i} className="mb-4 text-justify text-sm leading-relaxed text-slate-600 sm:text-base">{text}</p>
-                ))}
-
-                <div className="grid gap-3 mt-8 sm:grid-cols-2">
+                <div className="grid flex-1 gap-3 sm:grid-cols-2">
                   {product.productDetails.keyFeatures.map((feature, i) => (
                     <FeatureCard key={i} index={i} {...feature} />
                   ))}
@@ -943,11 +1069,13 @@ function ProductDetail() {
               </div>
             </FadeIn>
           </div>
+
         </div>
       </section>
 
       {/* ── BENEFITS ─────────────────────────────── */}
       <section
+        id="benefits"
         className="relative px-5 py-16 sm:py-20 md:py-24 sm:px-6 lg:px-8 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}
       >
@@ -974,7 +1102,7 @@ function ProductDetail() {
       </section>
 
       {/* ── SPECIFICATIONS ───────────────────────── */}
-      <section className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
+      <section id="specifications" className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
             eyebrow="Technical Data"
@@ -1072,6 +1200,7 @@ function ProductDetail() {
 
       {/* ── CONTROLLER ───────────────────────────── */}
       <section
+        id="controller"
         className="relative px-5 py-16 sm:py-20 md:py-24 sm:px-6 lg:px-8 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}
       >
@@ -1114,7 +1243,7 @@ function ProductDetail() {
       </section>
 
       {/* ── RELATED PRODUCTS ─────────────────────── */}
-      <section className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
+      <section id="related-products" className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
             eyebrow="More Solutions"

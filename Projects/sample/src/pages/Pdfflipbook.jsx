@@ -421,6 +421,7 @@ export default function PDFFlipbook() {
   return (
     <div
       ref={wrapRef}
+      className="flipbook-container"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       style={{
@@ -491,7 +492,9 @@ export default function PDFFlipbook() {
                 onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.28)"}
               >×</button>
             </div>
-            <div style={{
+            <div 
+            className="thumbnail-scroll"
+            style={{
               flex: 1, overflowY: "auto", padding: 8,
               display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6,
               alignContent: "start",
