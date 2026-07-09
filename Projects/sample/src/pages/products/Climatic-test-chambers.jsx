@@ -353,7 +353,7 @@ const climaticTestChamberProduct = {
       name: '450L Climatic Test Chamber',
       image: prd1,
       description: 'Mid-capacity chamber for standard product and component testing',
-      link: '#',
+      link: '1',
     },
     {
       id: 2,
