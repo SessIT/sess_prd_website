@@ -6,7 +6,7 @@ import {
   ArrowRight,
   ComputerIcon,
 } from "lucide-react";
-import dsteam from "../assets/clients/design.png";
+import dsteam from "../assets/clients/design-team.jpg";
 import bgImage from "../assets/clients/bg-square.jpeg";
 import labview from "../assets/clients/labview.svg";
 import bgplc from '../assets/Website_Gallery_img/labview.png';
@@ -62,6 +62,8 @@ const LabVIEWIcon = () => (
     src={labimg} 
     alt="LabVIEW" 
     className="object-contain w-7 h-7"
+    loading="lazy"
+    decoding="async"
   />
 );
 
@@ -138,8 +140,8 @@ const CardFooter = ({ dept }) => {
       {/* Tool chips — unique per department */}
       {dept.toolChips && (
         <div className="flex items-center gap-1.5 flex-wrap justify-end">
-          {dept.toolChips.map((chip) => (
-            <ToolChip key={chip.name} icon={chip.icon} name={chip.name} color={chip.color} />
+          {dept.toolChips.map((chip, i) => (
+            <ToolChip key={chip.name ?? i} icon={chip.icon} name={chip.name} color={chip.color} />
           ))}
         </div>
       )}
@@ -208,10 +210,9 @@ const departments = [
 const DepartmentSection = () => {
   return (
     <section
-      className="relative py-20"
+      className="relative py-20 bg-fixed-desktop"
       style={{
         backgroundImage: `url(${bgImage})`,
-        backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -243,6 +244,8 @@ const DepartmentSection = () => {
                   src={dept.image}
                   alt={dept.name}
                   className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 

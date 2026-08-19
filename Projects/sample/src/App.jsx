@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
-import VideoTest from "./component/VideoTest";
+// import VideoTest from "./component/VideoTest";
 
 // Layout Components
 import Header from './framework/Header';
@@ -12,45 +12,44 @@ import Footer from './framework/Footer';
 // Common Components
 import EnquiryButtons from './framework/EnquiryButtons';
 import ScrollToTop from './framework/ScrollToTop';
-
-// Page Components
-import HomePage from './pages/Home';
-import Contact from './pages/ContactUs';
-import About from './pages/AboutUs';
-import FlipBook from './pages/Pdfflipbook';
-// import AboutPage from './pages/AboutSection';
-import Gallery from './pages/Gallery';
-import ServicesPage from './pages/Services';
-import Career from './pages/Career';
-import Product from './pages/Product';
-import NewsBlogs from './pages/NewsBlogs';
-import Design from './pages/DesignTeam';
-import IT from './pages/IT';
-import LabviewPage from './pages/Labview';
 import PopupManager from './framework/Popmng';
-import ClimaticTestChambers from './pages/products/Climatic-test-chambers';
-import SaltSprayChamber from './pages/products/Salt-spray-test-chambers';
-import RainTestChamber from './pages/products/Rain-test-chamber';
-import ThermalCyclicChamber from './pages/products/Thermal-cyclic-chamber';
-import VibrationTestChamber from './pages/products/Vibration-test-chamber';
-import BatteryChamber from './pages/products/Battery-chamber';
-import FlameProofHotAirOven from './pages/products/FlameProof-HotAir-Oven';
-import ThermalShock from './pages/products/ThermalShockChamber';
-import TabletopTestChamber from './pages/products/Tabletopchamber';
-import WalkInChamber from './pages/products/WalkInChamber';
-import DustChamber from './pages/products/DustChamber';
-import TensileChamber from './pages/products/TensileChamber';
+
+// Page Components (lazy-loaded for route-level code splitting)
+const HomePage = lazy(() => import('./pages/Home'));
+const Contact = lazy(() => import('./pages/ContactUs'));
+const About = lazy(() => import('./pages/AboutUs'));
+const FlipBook = lazy(() => import('./pages/Pdfflipbook'));
+// import AboutPage from './pages/AboutSection';
+const Gallery = lazy(() => import('./pages/Gallery'));
+const ServicesPage = lazy(() => import('./pages/Services'));
+const Career = lazy(() => import('./pages/Career'));
+const Product = lazy(() => import('./pages/Product'));
+const NewsBlogs = lazy(() => import('./pages/NewsBlogs'));
+const Design = lazy(() => import('./pages/DesignTeam'));
+const IT = lazy(() => import('./pages/IT'));
+const LabviewPage = lazy(() => import('./pages/Labview'));
+const ClimaticTestChambers = lazy(() => import('./pages/products/Climatic-test-chambers'));
+const SaltSprayChamber = lazy(() => import('./pages/products/Salt-spray-test-chambers'));
+const RainTestChamber = lazy(() => import('./pages/products/Rain-test-chamber'));
+const ThermalCyclicChamber = lazy(() => import('./pages/products/Thermal-cyclic-chamber'));
+const VibrationTestChamber = lazy(() => import('./pages/products/Vibration-test-chamber'));
+const BatteryChamber = lazy(() => import('./pages/products/Battery-chamber'));
+const FlameProofHotAirOven = lazy(() => import('./pages/products/FlameProof-HotAir-Oven'));
+const ThermalShock = lazy(() => import('./pages/products/ThermalShockChamber'));
+const TabletopTestChamber = lazy(() => import('./pages/products/Tabletopchamber'));
+const WalkInChamber = lazy(() => import('./pages/products/WalkInChamber'));
+const DustChamber = lazy(() => import('./pages/products/DustChamber'));
+const TensileChamber = lazy(() => import('./pages/products/TensileChamber'));
 
 // import ProductVariantDetail from './pages/products/related/Productvariantdetail';
 
 
-function AppContent() {
-  const [loading, setLoading] = useState(true);
-  const location = useLocation();
+const RouteFallback = () => (
+  <div style={{ minHeight: '70vh' }} aria-busy="true" />
+);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
-  }, []);
+function AppContent() {
+  const location = useLocation();
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -71,31 +70,32 @@ function AppContent() {
           
           {location.pathname !== '/' && <Header />}
           <EnquiryButtons />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
-            <Route path='/brochure' element={<FlipBook />} />
-            <Route path="/products" element={<Product />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/design" element={<Design />} />
-            <Route path='/it' element={<IT />} />
-            <Route path="/career" element={<Career />} /> 
-            <Route path="/news" element={<NewsBlogs />} />
-            <Route path="/labview-plc" element={<LabviewPage />} />
-            <Route path="/climatic-test-chamber" element={<ClimaticTestChambers />} />
-            <Route path="/salt-spray-test-chamber" element={<SaltSprayChamber />} />
-            <Route path="/rain-test-chamber" element={<RainTestChamber />} />
-            <Route path="/thermal-cyclic-chamber" element={<ThermalCyclicChamber />} /> 
-            <Route path="/vibration-test-chamber" element={<VibrationTestChamber />} />
-            <Route path="/battery-test-chamber" element={<BatteryChamber />} />
-            <Route path="/flame-proof-hot-air-oven" element={<FlameProofHotAirOven />} />
-            <Route path="/thermal-shock-chamber" element={<ThermalShock />} />
-            <Route path="/tabletop-test-chamber" element={<TabletopTestChamber />} />
-            <Route path="/walk-in-chamber" element={<WalkInChamber />} />
-            <Route path="/dust-chamber" element={<DustChamber />} />
-            <Route path="/tensile-chamber" element={<TensileChamber />} />
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<About />} />
+              <Route path='/brochure' element={<FlipBook />} />
+              <Route path="/products" element={<Product />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/design" element={<Design />} />
+              <Route path='/it' element={<IT />} />
+              <Route path="/career" element={<Career />} />
+              <Route path="/news" element={<NewsBlogs />} />
+              <Route path="/labview-plc" element={<LabviewPage />} />
+              <Route path="/climatic-test-chamber" element={<ClimaticTestChambers />} />
+              <Route path="/salt-spray-test-chamber" element={<SaltSprayChamber />} />
+              <Route path="/rain-test-chamber" element={<RainTestChamber />} />
+              <Route path="/thermal-cyclic-chamber" element={<ThermalCyclicChamber />} />
+              <Route path="/vibration-test-chamber" element={<VibrationTestChamber />} />
+              <Route path="/battery-test-chamber" element={<BatteryChamber />} />
+              <Route path="/flame-proof-hot-air-oven" element={<FlameProofHotAirOven />} />
+              <Route path="/thermal-shock-chamber" element={<ThermalShock />} />
+              <Route path="/tabletop-test-chamber" element={<TabletopTestChamber />} />
+              <Route path="/walk-in-chamber" element={<WalkInChamber />} />
+              <Route path="/dust-chamber" element={<DustChamber />} />
+              <Route path="/tensile-chamber" element={<TensileChamber />} />
           
 
            
@@ -113,8 +113,9 @@ function AppContent() {
               path="/rain-test-chamber/:id"
               element={<ProductVariantDetail category="rain-test-chamber" />}
             /> */}
-          </Routes>
-          <VideoTest />
+            </Routes>
+          </Suspense>
+          {/* <VideoTest /> */}
           <Footer />
           <ScrollToTop />
           <PopupManager />

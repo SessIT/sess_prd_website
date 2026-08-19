@@ -34,11 +34,11 @@ const ServicesSection = () => {
   return (
     <section
       ref={ref}
+      className="bg-fixed-desktop"
       style={{
         position: 'relative',
         padding: 'var(--space-20) 0',
         backgroundImage: `url(${ServicesBg})`,
-        backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

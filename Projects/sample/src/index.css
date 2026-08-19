@@ -19,8 +19,8 @@
    Display  → Syne        (headings, brand, labels)
    Body     → DM Sans     (paragraphs, UI text)
    Mono     → JetBrains Mono (code, data, tables)
+   Fonts are now loaded from index.html for performance.
    ──────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 
 /* ============================================================
@@ -802,6 +802,17 @@ code, pre, kbd, samp {
   background: var(--color-primary-600);
 }
 
+/* Fixed background attachment only on true desktops — mobile/tablet browsers
+   (especially iOS Safari) don't support it and render a zoomed, jumpy image. */
+.bg-fixed-desktop {
+  background-attachment: scroll;
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .bg-fixed-desktop {
+    background-attachment: fixed;
+  }
+}
+
 /* Mobile viewport safeguards for full-bleed sections and embedded media. */
 html,
 body,
@@ -851,12 +862,14 @@ label {
     font-size: 16px;
   }
 
-  /* Fixed backgrounds are janky on mobile browsers and can cause visual gaps. */
-  [style*="background-attachment"] {
-    background-attachment: scroll !important;
-  }
-
   .overflow-x-auto {
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Safety net: any leftover inline fixed-attachment backgrounds fall back to scroll on phones and tablets. */
+@media (max-width: 1023px) {
+  [style*="background-attachment"] {
+    background-attachment: scroll !important;
   }
 }

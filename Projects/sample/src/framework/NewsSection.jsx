@@ -27,7 +27,7 @@ import img3 from "../assets/Website_Gallery_img/img3.jpg";
 import img4 from "../assets/Website_Gallery_img/img4.jpeg";
 import img5 from "../assets/Website_Gallery_img/img5.jpeg";
 import img6 from "../assets/Website_Gallery_img/img6.jpeg";
-import img7 from "../assets/Website_Gallery_img/img7.png";
+import img7 from "../assets/Website_Gallery_img/img7-photo.jpg";
 import img8 from "../assets/Website_Gallery_img/img8.jpeg";
 import img9 from "../assets/Website_Gallery_img/img9.jpeg";
 
@@ -457,6 +457,8 @@ function GridCard({ item, onClick }) {
       <img
         src={item.img}
         alt={item.title}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ transition: "filter 0.25s ease" }}
         draggable={false}
@@ -573,6 +575,8 @@ function ImageLightbox({ item, onClose }) {
         <img
           src={item.img}
           alt={item.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
           draggable={false}
         />

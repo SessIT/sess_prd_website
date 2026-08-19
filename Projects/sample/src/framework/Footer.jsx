@@ -193,6 +193,8 @@ const Footer = () => {
               <motion.img
                 src={Logo}
                 alt="SESS"
+                loading="lazy"
+                decoding="async"
                 className="h-12 mb-5"
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}

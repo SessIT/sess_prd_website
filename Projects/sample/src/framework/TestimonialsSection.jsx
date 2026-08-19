@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import TestimonialBg from '../assets/clients/testmional-bg.jpeg';
 
 // ── Only 5 review records ──────────────────────────────────────────────────
 const testimonials = [
@@ -133,14 +132,12 @@ const TestimonialsSection = () => {
       ref={ref}
       className="relative py-24 overflow-hidden"
       style={{
-        backgroundImage: `url(${TestimonialBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        background:
+          'linear-gradient(135deg, var(--color-secondary-950) 0%, var(--color-primary-900) 55%, var(--color-secondary-900) 100%)',
       }}
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10">
 

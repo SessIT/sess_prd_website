@@ -744,7 +744,7 @@ function ImageCarousel({ images }) {
                             onClick={() => go(i, i > current ? 1 : -1)}
                             className="relative flex aspect-square w-full items-center justify-center overflow-hidden transition-colors duration-200"
                         >
-                            <img src={img.src} alt={img.alt} className="h-[90%] w-[90%] object-contain m-auto" />
+                            <img src={img.src} alt={img.alt} className="h-[90%] w-[90%] object-contain m-auto" loading="lazy" decoding="async" />
                             {i === current && (
                                 <div className="absolute inset-0 bg-cyan-500/10 ring-2 ring-inset ring-cyan-500" />
                             )}
@@ -785,6 +785,8 @@ function ImageCarousel({ images }) {
                                     alt={images[current].alt}
                                     className="w-full h-full max-h-[85vh] object-contain select-none"
                                     draggable={false}
+                                    loading="lazy"
+                                    decoding="async"
                                 />
 
                                 <button
@@ -859,6 +861,8 @@ function AutoPlayCarousel({ images, titles }) {
                 alt=""
                 className="absolute left-0 w-16 h-24 sm:w-32 sm:h-40 object-contain rounded-xl border border-slate-300 shadow-md bg-white opacity-50 sm:opacity-60 hover:opacity-90 -translate-x-4 sm:-translate-x-8 scale-75 transition-all duration-700 cursor-pointer"
                 draggable={false}
+                loading="lazy"
+                decoding="async"
             />
 
             <motion.img
@@ -871,6 +875,8 @@ function AutoPlayCarousel({ images, titles }) {
                 transition={{ duration: 0.7 }}
                 className="relative z-10 max-h-[92%] max-w-[92%] sm:max-h-[95%] sm:max-w-[80%] object-contain drop-shadow-2xl rounded-xl"
                 draggable={false}
+                loading="lazy"
+                decoding="async"
             />
 
             <img
@@ -879,6 +885,8 @@ function AutoPlayCarousel({ images, titles }) {
                 alt=""
                 className="absolute right-0 w-16 h-24 sm:w-32 sm:h-40 object-contain rounded-xl border border-slate-300 shadow-md bg-white opacity-50 sm:opacity-60 hover:opacity-90 translate-x-4 sm:translate-x-8 scale-75 transition-all duration-700 select-none cursor-pointer"
                 draggable={false}
+                loading="lazy"
+                decoding="async"
             />
             <button
                 type="button"
@@ -1034,6 +1042,8 @@ function RelatedCard({ product, index }) {
                         src={product.image}
                         alt={product.name}
                         className="h-full w-full object-contain object-center transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -1195,7 +1205,7 @@ function ProductDetail() {
                     src={Rainherobg}
                     alt=""
                     aria-hidden="true"
-                    className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none select-none"
+                    className="absolute inset-0 h-full w-full object-cover object-[30%_center] xl:object-right pointer-events-none select-none"
                 />
                 <div
                     className="absolute inset-0 opacity-[0.035]"
@@ -1220,7 +1230,7 @@ function ProductDetail() {
                         initial={{ opacity: 0, y: 44 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                        className="max-w-3xl mx-auto text-center"
+                        className="max-w-3xl mx-auto text-center xl:mx-0 xl:max-w-2xl xl:text-left"
                     >
                         <motion.div
                             initial={{ scale: 0.8, opacity: 0 }}
@@ -1249,7 +1259,7 @@ function ProductDetail() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.45, duration: 0.6 }}
-                            className="px-4 text-base leading-relaxed text-slate-300 sm:text-lg md:text-lg mb-10"
+                            className="px-4 xl:px-0 text-base leading-relaxed text-slate-300 sm:text-lg md:text-lg mb-10"
                         >
                             {product.hero.subtitle}
                         </motion.p>
@@ -1259,7 +1269,7 @@ function ProductDetail() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6, duration: 0.6 }}
-                            className="flex flex-wrap justify-center gap-3"
+                            className="flex flex-wrap justify-center xl:justify-start gap-3"
                         >
                             <StatChip icon={Layers} label="Inner Size" value="400 x 400 x 400 mm" />
                             <StatChip icon={Droplets} label="Humidity" value="10% to 95% RH" />
