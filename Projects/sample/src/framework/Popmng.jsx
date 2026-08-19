@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import img1 from '../assets/Website_Gallery_img/popup.jpeg';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,9 +9,9 @@ const MotionButton = motion.button;
 // Configuration: Define which routes should show the popup
 const POPUP_CONFIG = {
   enabled: true,
-  showOnce: true, // Show only once per session
+  showOnce: false, // Show whenever the site is opened
   delay: 1000, // Show after 1 second
-  routes: ['/', '/about', '/contact'], // Specific routes or ['*'] for all routes
+  routes: ['/'], // Show only when the website first opens on the homepage
   excludeRoutes: [], // Routes where popup shouldn't show
   cookieExpiry: 1, // Days to remember if shown (for showOnce)
 };
@@ -55,15 +55,19 @@ const markPopupAsShown = () => {
 const PopupManager = () => {
   const [showPopup, setShowPopup] = useState(false);
   const location = useLocation();
+  const hasShownPopup = useRef(false);
 
   // Handle popup display
   useEffect(() => {
+    // App stays mounted while navigating, so show the welcome popup only once.
+    if (hasShownPopup.current) return;
     if (!POPUP_CONFIG.enabled) return;
     if (!shouldShowOnRoute(location.pathname)) return;
     if (hasPopupBeenShown()) return;
 
     // Show popup after delay
     const timer = setTimeout(() => {
+      hasShownPopup.current = true;
       setShowPopup(true);
     }, POPUP_CONFIG.delay);
 
@@ -160,8 +164,8 @@ const PopupImg = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
-            style={{ backdropFilter: 'blur(6px)' }}
+            className="fixed inset-0 flex items-center justify-center p-4 bg-black/60"
+            style={{ zIndex: 9999, backdropFilter: 'blur(6px)' }}
           >
             {/* Popup Container */}
             <MotionDiv

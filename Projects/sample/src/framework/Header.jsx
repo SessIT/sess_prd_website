@@ -61,32 +61,26 @@ const Header = () => {
       dropdown: true,
       items: [
         {
-          category: "Industry",
+          category: "Industry Chambers",
           links: [
             { name: "Climatic Test Chamber",   path: "/climatic-test-chamber" },
+            { name: "Battery Test Chamber", path: "/battery-test-chamber" },
             { name: "Salt Spray Test Chamber", path: "/salt-spray-test-chamber" },
             { name: "Rain Test Chamber",       path: "/rain-test-chamber" },
-            { name: "Vibration Test Chamber",  path: "/vibration_test_chamber" },
-            { name: "Thermal Cycling Chamber", path: "/thermal_cycling_chamber" },
+            { name: "Vibration Combined climatic Test Chamber",  path: "/vibration-test-chamber" },
+            { name: "Thermal Cycling Chamber", path: "/thermal-cyclic-chamber" },
+            { name: "Flame Proof Hot Air Oven", path: "/flame-proof-hot-air-oven" },
+            { name: "Thermal Shock Chamber", path: "/thermal-shock-chamber" },
+            { name: "Tabletop Test Chamber", path: "/tabletop-test-chamber" },
+            {name: "Walk-In Chamber", path: "/walk-in-chamber" },
+            {name: "Dust Chamber", path: "/dust-chamber" },
+            { name: "Tensile Chamber", path: "/tensile-chamber" },
           ],
         },
         {
-          category: "Pharma",
-          links: [
-            { name: "Humidity Test Chamber",  path: "/humidity_test_chamber" },
-            { name: "Stability Test Chamber", path: "/stability_test_chamber" },
-            { name: "Co2 Incubators",         path: "/co2_incubators" },
-            { name: "Deep-freezer",           path: "/deep_freezer" },
-          ],
-        },
-        {
-          category: "Medical",
-          links: [
-            { name: "Blood Bank Refrigerator", path: "/blood_bank_refrigerator" },
-            { name: "BOD Incubator",           path: "/ bod_incubator" },
-            { name: "Incubators",              path: "/incubators" },
-            { name: "Plasma Freezer",          path: "/plasma_freezer" },
-          ],
+          cta: true,
+          label: "Click here to view full products",
+          path: "/products",
         },
       ],
     },
@@ -159,7 +153,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-10 text-xs" style={{ color: "var(--color-neutral-0)" }}>
 
             {/* Contact — Desktop */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               <a href="tel:+919444427748" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
                 <FaPhone style={{ fontSize: "10px" }} />
                 <span>+91 94444 27748</span>
@@ -172,13 +166,13 @@ const Header = () => {
             </div>
 
             {/* Contact — Mobile (icons only) */}
-            <div className="flex md:hidden items-center space-x-3">
+            <div className="flex lg:hidden shrink-0 items-center space-x-3">
               <a href="tel:+919444427748"           className="hover:opacity-80"><FaPhone /></a>
               <a href="mailto:easwari.kjsb@gmail.com" className="hover:opacity-80"><FaEnvelope /></a>
             </div>
 
             {/* Marquee — Desktop */}
-            <div className="hidden md:flex flex-1 overflow-hidden items-center" style={{ marginLeft: "5rem", marginRight: "12rem" }}>
+            <div className="hidden lg:flex flex-1 min-w-0 overflow-hidden items-center" style={{ marginLeft: "5rem", marginRight: "12rem" }}>
               <motion.div
                 animate={{ x: [0, -1000] }}
                 transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
@@ -194,7 +188,7 @@ const Header = () => {
             </div>
 
             {/* Social Icons + Plus — Desktop */}
-            <div className="hidden md:flex items-center mr-2 absolute right-10">
+            <div className="hidden lg:flex items-center mr-2 absolute right-10">
               <AnimatePresence>
                 {showSocialIcons && (
                   <motion.div
@@ -221,7 +215,7 @@ const Header = () => {
             </div>
 
             {/* Marquee — Mobile */}
-            <div className="flex md:hidden flex-1 overflow-hidden" style={{ marginLeft: "1rem", marginRight: "8.3rem" }}>
+            <div className="flex lg:hidden min-w-0 flex-1 overflow-hidden mx-3">
               <motion.div
                 animate={{ x: [0, -500] }}
                 transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 15, ease: "linear" } }}
@@ -237,7 +231,7 @@ const Header = () => {
             </div>
 
             {/* Social + Theme — Mobile overlay */}
-            <div className="md:hidden fixed right-3 z-50 flex items-center space-x-1">
+            <div className="lg:hidden shrink-0 flex items-center space-x-1">
               <AnimatePresence>
                 {showSocialIcons && (
                   <motion.div
@@ -269,7 +263,7 @@ const Header = () => {
             </div>
 
             {/* Theme Toggle — Desktop */}
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden lg:flex items-center space-x-3">
               <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme}
                 style={{ ...themeBtnStyle, padding: "6px" }} aria-label="Toggle theme"
               >
@@ -307,7 +301,11 @@ const Header = () => {
 
             {/* Logo */}
             <Link to="/" className="relative z-50">
-              <img src={isDark ? LogoWhite : Logo} alt="SESS" style={{ height: "48px" }} />
+              <img
+                src={isDark ? LogoWhite : Logo}
+                alt="SESS"
+                className="h-9 sm:h-11 lg:h-12 w-auto max-w-[calc(100vw-7rem)] object-contain"
+              />
             </Link>
 
             {/* Desktop Nav */}
@@ -353,36 +351,70 @@ const Header = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.2 }}
-                        className="absolute top-full right-0 mt-2 rounded-lg"
-                        style={{
-                          zIndex: 45, // 🔧 FIX 5: Added proper z-index for dropdown
-                          background: isDark ? "var(--surface-raised)" : "var(--surface-default)",
-                          boxShadow: "var(--shadow-xl)",
-                        }}
+                      className="absolute top-full right-0 mt-2 rounded-lg"
+                      style={{
+                        zIndex: 45, // 🔧 FIX 5: Added proper z-index for dropdown
+                        background: isDark ? "var(--surface-raised)" : "var(--surface-default)",
+                        border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.08)",
+                        boxShadow: "var(--shadow-xl)",
+                      }}
                       >
                         {item.label === "Products" ? (
                           /* Mega menu */
-                          <div className="grid grid-cols-3 gap-4 p-6" style={{ minWidth: "600px" }}>
+                          <div
+                            className="relative p-5"
+                            style={{
+                              width: "fit-content",
+                              minWidth: "620px",
+                              maxWidth: "min(1200px, calc(100vw - 32px))",
+                            }}
+                          >
                             {item.items.map((col, idx) => (
-                              <div key={idx}>
-                                <h4 className="font-bold mb-2" style={{ color: "var(--color-primary-500)", fontFamily: "var(--font-display)" }}>
-                                  {col.category}
-                                </h4>
-                                <ul className="space-y-2">
-                                  {col.links.map((link, li) => (
-                                    <li key={li}>
-                                      <Link to={link.path}
-                                        className="text-sm transition-colors"
-                                        style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
-                                        onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
-                                        onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
-                                      >
-                                        {link.name}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
+                              col.cta ? (
+                              <Link
+                                  key={idx}
+                                  to={col.path}
+                                  className="mt-4 ml-auto block w-fit text-xs font-medium transition-colors duration-200 hover:underline"
+                                  style={{
+                                    color: "var(--color-primary-500)",
+                                    fontFamily: "var(--font-body)",
+                                  }}
+                                >
+                                  {col.label}
+                                </Link>
+                              ) : (
+                                <div key={idx}>
+                                  <h4 className="mb-2 text-center text-sm font-bold" style={{ color: isDark ? "var(--text-body)" : "var(--color-neutral-700)", fontFamily: "var(--font-body)" }}>
+                                    {col.category}
+                                  </h4>
+                                  <div className="grid max-h-[300px] grid-cols-2 gap-x-4 overflow-y-auto pr-2">
+                                    {[0, 1].map((columnIndex) => {
+                                      const linksPerColumn = Math.ceil(col.links.length / 2);
+                                      const startIndex = columnIndex * linksPerColumn;
+
+                                      return (
+                                        <ul key={columnIndex} className="list-outside list-disc space-y-1 pl-6">
+                                          {col.links.slice(startIndex, startIndex + linksPerColumn).map((link, li) => {
+                                            const linkIndex = startIndex + li;
+                                            return (
+                                              <li key={linkIndex}>
+                                                <Link to={link.path}
+                                                  className="group inline min-w-0 rounded-md px-1 py-0 text-sm font-normal leading-4 transition-colors"
+                                                  style={{ color: isDark ? "var(--text-body)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
+                                                  onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                                  onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--color-neutral-800)"}
+                                                >
+                                                  <span className="break-words">{link.name}</span>
+                                                </Link>
+                                              </li>
+                                            );
+                                          })}
+                                        </ul>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              )
                             ))}
                           </div>
                         ) : (
@@ -393,9 +425,9 @@ const Header = () => {
                                 <li key={idx}>
                                   <Link to={sub.path}
                                     className="block text-sm transition-colors"
-                                    style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                    style={{ color: isDark ? "var(--text-body)" : "var(--color-neutral-800)" }}
                                     onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
-                                    onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                    onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--color-neutral-800)"}
                                   >
                                     {sub.label}
                                   </Link>
@@ -450,6 +482,18 @@ const Header = () => {
                       boxShadow: "var(--shadow-2xl)",
                     }}
                   >
+                    <button
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                      className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full"
+                      style={{
+                        color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)",
+                        background: isDark ? "var(--surface-raised)" : "var(--color-neutral-100)",
+                      }}
+                      aria-label="Close navigation menu"
+                    >
+                      <FaTimes style={{ fontSize: "20px" }} />
+                    </button>
                     <div className="pt-24 pb-8 px-6">
                       {navItems.map((item, index) => (
                         <div key={index} className="mb-4 border-b border-gray-200 dark:border-gray-700 last:border-0">
@@ -494,27 +538,42 @@ const Header = () => {
                                       /* Products mega menu for mobile */
                                       <div className="space-y-4">
                                         {item.items.map((col, ci) => (
-                                          <div key={ci}>
-                                            <p className="text-xs font-bold mb-2" style={{ color: "var(--color-primary-500)" }}>
-                                              {col.category}
-                                            </p>
-                                            <ul className="space-y-2">
-                                              {col.links.map((link, li) => (
-                                                <li key={li}>
-                                                  <Link
-                                                    to={link.path}
-                                                    className="block text-sm py-1 transition-colors"
-                                                    style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
-                                                    onClick={() => setIsOpen(false)}
-                                                    onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
-                                                    onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
-                                                  >
-                                                    {link.name}
-                                                  </Link>
-                                                </li>
-                                              ))}
-                                            </ul>
-                                          </div>
+                                          col.cta ? (
+                                            <Link
+                                              key={ci}
+                                              to={col.path}
+                                              className="ml-auto block w-fit text-xs font-medium transition-colors duration-200 hover:underline"
+                                              style={{
+                                                color: "var(--color-primary-500)",
+                                                fontFamily: "var(--font-body)",
+                                              }}
+                                              onClick={() => setIsOpen(false)}
+                                            >
+                                              {col.label}
+                                            </Link>
+                                          ) : (
+                                            <div key={ci}>
+                                              <p className="mb-2 text-center text-sm font-bold" style={{ color: isDark ? "var(--text-body)" : "var(--color-neutral-700)", fontFamily: "var(--font-body)" }}>
+                                                {col.category}
+                                              </p>
+                                              <ul className="list-outside list-disc space-y-1 pl-6">
+                                                {col.links.map((link, li) => (
+                                                  <li key={li}>
+                                                    <Link
+                                                      to={link.path}
+                                                      className="inline rounded-md px-2 py-1.5 text-sm font-normal transition-colors"
+                                                      style={{ color: isDark ? "var(--text-body)" : "var(--color-neutral-800)", fontFamily: "var(--font-body)" }}
+                                                      onClick={() => setIsOpen(false)}
+                                                      onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
+                                                      onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--color-neutral-800)"}
+                                                    >
+                                                      <span>{link.name}</span>
+                                                    </Link>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            </div>
+                                          )
                                         ))}
                                       </div>
                                     ) : (
@@ -525,10 +584,10 @@ const Header = () => {
                                             <Link
                                               to={sub.path}
                                               className="block text-sm py-1 transition-colors"
-                                              style={{ color: isDark ? "var(--text-body)" : "var(--text-muted)" }}
+                                              style={{ color: isDark ? "var(--text-body)" : "var(--color-neutral-800)" }}
                                               onClick={() => setIsOpen(false)}
                                               onMouseEnter={e => e.currentTarget.style.color = "var(--color-primary-500)"}
-                                              onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--text-muted)"}
+                                              onMouseLeave={e => e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--color-neutral-800)"}
                                             >
                                               {sub.label}
                                             </Link>

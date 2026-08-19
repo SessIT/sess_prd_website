@@ -789,6 +789,7 @@ code, pre, kbd, samp {
 .spec-table-scroll::-webkit-scrollbar {
   height: 8px;
 }
+
 .spec-table-scroll::-webkit-scrollbar-track {
   background: var(--color-neutral-100);
   border-radius: 999px;
@@ -799,4 +800,63 @@ code, pre, kbd, samp {
 }
 .spec-table-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary-600);
+}
+
+/* Mobile viewport safeguards for full-bleed sections and embedded media. */
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  min-width: 0;
+}
+
+img,
+video,
+iframe,
+canvas {
+  max-width: 100%;
+}
+
+/* Keep long content from expanding a flex/grid column beyond the viewport. */
+main,
+section,
+article,
+aside,
+header,
+footer,
+[class*="flex"],
+[class*="grid"] {
+  min-width: 0;
+}
+
+/* Product names, emails and technical values remain readable on narrow screens. */
+p,
+li,
+td,
+th,
+a,
+button,
+label {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Fixed backgrounds are janky on mobile browsers and can cause visual gaps. */
+  [style*="background-attachment"] {
+    background-attachment: scroll !important;
+  }
+
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
 }

@@ -1,27 +1,46 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import {ArrowRight,ChevronLeft, ChevronRight, CheckCircle2,  Layers, Gauge, Zap, Shield,  Thermometer, Wind,  Activity,  Settings2,  Monitor, Wifi,Lock, BarChart3,ChevronDown,} from 'lucide-react';
+import { getRelatedChambers } from '../../data/relatedChambers';
+import BackToRelatedChamber from '../../component/BackToRelatedChamber';
+import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, } from 'lucide-react';
+//ImageCarousel import function
+import climatic from '../../assets/product/Climatic_chamber_front.png';
+import Fullview from '../../assets/product/full_view.png';
+import plcview from '../../assets/product/plc.png';
+import diagram from '../../assets/product/Drawing.jpeg';
+// Related Product Images
+import saltSprayImage from '../../assets/product/Salt Spray.png';
+import batteryTestImage from '../../assets/product/Battery.png';
+import rainTestImage from '../../assets/product/Rain Test.png';
+import vibrationTestImage from '../../assets/product/VibrationChamber.png';
+// Controller touch screen image 
+import prd5 from '../../assets/product/controller.png';
+import prd6 from '../../assets/product/Manual mode.png';
+import prd7 from '../../assets/product/Refrigeration.png';
+import prd8 from '../../assets/product/User Login.png';
+import prd9 from '../../assets/product/graph.png';
+import prd10 from '../../assets/product/DataLog.png';
 
-// Product Images
-import prd1 from '../../assets/product/Climatic Test Chamber.png';
-import prd2 from '../../assets/product/CO2 Test Chamber.png';
-import prd3 from '../../assets/product/Environmetal.png';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.png';
-import prd5 from '../../assets/product/controller.jpeg';
+
+// Flowchart Image 
+import ChamberModelSelection from "../../assets/product/Chamber-Model-Selection.png";
+import heroBg from '../../assets/product/hero-bg.png';
 // Product Data
 const climaticTestChamberProduct = {
   id: 'climatic-test-chamber',
   title: 'Climatic Test Chamber',
-  subtitle: 'For Temperature & Humidity Simulations',
-  description: 'The Climatic Test Chamber range accurately simulates temperature and humidity conditions within its test space. With its redesigned structure, enhanced refrigeration system, and intelligent controller, this chamber now delivers even greater efficiency and ensures uninterrupted testing.',
-  
+  subtitle: 'Battery Safety Climatic Test Chamber',
+  description: 'Engineered for reliable and repeatable battery validation, the SESS Climatic Test Chamber delivers precise temperature and humidity control with linear ramp profiles, purpose-built for cell testing, module testing, and project-specific battery systems.',
+
   // Hero Section
   hero: {
-    backgroundGradient: 'linear-gradient(135deg, rgb(34, 229, 245, 0.95) 0%, rgb(59, 91, 255, 0.95) 100%)',
-    tagline: 'Precision-Engineered for Performance',
+    backgroundGradient:
+      'linear-gradient(135deg, rgba(0,25,55,0.70) 0%, rgrgba(1, 7, 14, 0.6)00%)',
+    image: heroBg,
+    tagline: 'Climate. Control. Confidence.',
     mainTitle: 'Climatic Test Chamber',
-    subtitle: 'For Temperature & Humidity Simulations',
+    subtitle: 'Battery Safety Climatic Test Chamber',
     ctaText: 'Request Quote',
   },
 
@@ -30,353 +49,166 @@ const climaticTestChamberProduct = {
     images: [
       {
         id: 1,
-        src: 'https://hiaccengineering.com/wp-content/uploads/2022/11/Hiacc_Climatic_Test_Chamber.png',
+        src: climatic,
         alt: 'Climatic Test Chamber Front View',
         title: 'Front View',
       },
       {
         id: 2,
-        src: 'https://hiaccengineering.com/wp-content/uploads/2022/11/Hiacc_Climatic_Test_Chamber_thump1.png',
-        alt: 'Cross-section showing internal components',
-        title: 'Internal Components',
+        src: Fullview,
+        alt: 'Full View of Climatic Test Chamber',
+        title: 'Complete Chamber View',
       },
       {
         id: 3,
-        src: 'https://hiaccengineering.com/wp-content/uploads/2022/11/Hiacc_Climatic_test_Chamber_thump2.png',
-        alt: 'Side View',
-        title: 'Side View',
+        src: plcview,
+        alt: 'plc view',
+        title: 'Plc Control Panel',
       },
       {
         id: 4,
-        src: 'https://hiaccengineering.com/wp-content/uploads/2022/11/Temperature-Chart.jpg',
-        alt: 'Temperature Control Chart',
-        title: 'Temperature Chart',
-      },
-      {
-        id: 5,
-        src: 'https://hiaccengineering.com/wp-content/uploads/2022/11/Temperature-Humidity-Chart.jpg',
-        alt: 'Temperature and Humidity Chart',
-        title: 'Temperature-Humidity Chart',
+        src: diagram,
+        alt: 'Drawing',
+        title: 'Engineering Drawing',
       },
     ],
     overview: [
-      'Featuring an optimized heating and cooling system, this chamber offers superior performance and energy efficiency.',
-      'The chamber can be tailored to meet various test standards, providing versatility for diverse testing needs.',
-      'It boasts a larger viewing window, ports for live specimen testing, a visual alarm system for added safety, improved mobility, and a compact footprint for space-saving convenience.',
+      'Engineered for reliable and repeatable battery validation, this chamber delivers precise linear ramp profiles for accurate temperature and humidity transitions. Purpose-built for cell testing, module testing, and project-specific battery systems, ensuring safety and consistency across every test cycle.Integrated PLC + HMI automation, real-time gas monitoring, and event logging provide complete control and traceability throughout the testing process.',
+      'Built with a heavy-duty stainless steel interior and non-settling rigid insulation, the chamber is engineered for long-term durability under continuous thermal cycling. A large viewing window with internal illumination allows real-time visual monitoring of test specimens without interrupting the ongoing test. With configurable safety interlocks and dependable performance across demanding test cycles, this chamber is well suited for battery R&D labs, quality assurance facilities, and production-line validation, offering the consistency and precision needed for reliable battery safety testing',
+
     ],
     keyFeatures: [
       {
-        // icon: '🌡️',
         title: 'Temperature Range',
-        description: '-70°C to +180°C (Cascade) & -40°C to +180°C (Single)',
+        description: '-40°C to +150°C with precise linear ramp control',
       },
       {
-        // icon: '💧',
         title: 'Humidity Range',
-        description: '10% RH to 98% RH',
+        description: '10% RH to 98% RH (temperature-dependent operating range)',
       },
       {
-        // icon: '📊',
-        title: 'Advanced Control',
-        description: 'Intelligent controller with TCP/IP and Serial Communication',
+        title: 'Automation & Control',
+        description: 'PLC + HMI automation for seamless, repeatable test execution',
       },
       {
-        // icon: '🔒',
-        title: 'Safety Features',
-        description: 'Lockable one-handed door latch with visual alarm system',
+        title: 'Safety Monitoring',
+        description: 'Gas monitoring, event logging, and configurable safety packages',
       },
     ],
   },
 
   // Section 2: Benefits Section
   benefits: {
-    title: 'With This Climatic Chamber, You Can Save Both Time and Money',
+    title: 'Engineered for Reliable, Repeatable Battery Validation',
     subtitle: 'Maximize efficiency while minimizing operational costs',
     benefitsList: [
       {
         id: 1,
-        title: 'Energy Efficiency',
-        description: 'Energy saving refrigerants R404A and R23 reduce operational costs',
-        // icon: '⚡',
+        title: 'Wide Temperature Range',
+        description: 'Precision testing from -40°C to +150°C for demanding battery safety scenarios',
       },
       {
         id: 2,
-        title: 'Frost-Free Operation',
-        description: 'Automatic frost removal system ensures continuous testing without interruptions',
-        // icon: '❄️',
+        title: 'Controlled Humidity',
+        description: 'Accurate humidity simulation from 10% to 98% RH, temperature-dependent',
       },
       {
         id: 3,
-        title: 'Enhanced Performance',
-        description: 'Optimized heating and cooling system delivers superior test results faster',
-        // icon: '🚀',
+        title: 'Linear Ramp Profiles',
+        description: 'Smooth, controlled transitions for consistent and repeatable test conditions',
       },
       {
         id: 4,
-        title: 'Reduced Maintenance',
-        description: 'Three-sided component access and easy maintenance design',
-        // icon: '🔧',
+        title: 'PLC + HMI Automation',
+        description: 'Fully automated control system for hands-off, precision-driven testing',
       },
       {
         id: 5,
-        title: 'Space Saving',
-        description: 'Compact footprint design fits seamlessly in any laboratory',
-        // icon: '📐',
+        title: 'Gas Monitoring & Event Logging',
+        description: 'Continuous safety monitoring with complete traceable event history',
       },
       {
         id: 6,
-        title: 'Superior Durability',
-        description: 'Non-settling rigid stone wool insulation and heavy-duty construction',
-        // icon: '💪',
+        title: 'Configurable Safety Packages',
+        description: 'Tailored safety configurations based on approved URS and risk assessment',
       },
     ],
   },
 
-  // Section 3: Technical Specifications - Models Complete Table
+  // Section 3: Technical Specifications
   specifications: {
     title: 'Technical Specifications',
     isTable: true,
-    models: [
-      '120/-40C/3K',
-      '120/-70C/3K',
-      '225/-40C/3K',
-      '225/-70C/3K',
-      '340/-40C/3K',
-      '340/-70C/3K',
-      '450/-40C/3K',
-      '450/-70C/3K',
-      '600/-40C/3K',
-      '600/-70C/3K',
-      '1000/-40C/3K',
-      '1000/-70C/3K',
-      '1500/-40C/3K',
-      '1500/-70C/3K',
-    ],
-    specs: [
-      {
-        category: 'TEST SPACE DIMENSIONS',
-        items: [
-          {
-            label: 'Test space volume',
-            unit: 'L',
-            values: ['120', '120', '225', '225', '340', '340', '448', '448', '612', '612', '1000', '1000', '1500', '1500'],
-          },
-          {
-            label: 'Width',
-            unit: 'mm',
-            values: ['500', '500', '600', '600', '700', '700', '700', '700', '800', '800', '1000', '1000', '1000', '1000'],
-          },
-          {
-            label: 'Depth',
-            unit: 'mm',
-            values: ['400', '400', '500', '500', '600', '600', '800', '800', '850', '850', '1000', '1000', '1500', '1500'],
-          },
-          {
-            label: 'Height',
-            unit: 'mm',
-            values: ['600', '600', '750', '750', '800', '800', '800', '800', '900', '900', '1000', '1000', '1000', '1000'],
-          },
-        ],
-      },
-      {
-        category: 'PERFORMANCE DATA FOR TEMPERATURE TESTS',
-        items: [
-          {
-            label: 'Maximum temperature',
-            unit: '°C',
-            values: ['180', '180', '180', '180', '180', '180', '180', '180', '180', '180', '180', '180', '180', '180'],
-          },
-          {
-            label: 'Minimum temperature discontinuous',
-            unit: '°C',
-            values: ['-40', '-70', '-40', '-70', '-40', '-70', '-40', '-70', '-40', '-70', '-40', '-70', '-40', '-70'],
-          },
-          {
-            label: 'Rate of temperature change, cooling',
-            unit: '°C/min',
-            values: ['3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3'],
-          },
-          {
-            label: 'Rate of temperature change, heating',
-            unit: '°C/min',
-            values: ['3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5', '3.5'],
-          },
-          {
-            label: 'Temperature control accuracy, in time',
-            unit: '°C',
-            values: ['±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1', '±0.5 … ±1'],
-          },
-          {
-            label: 'Heat compensation, max. at +20°C',
-            unit: 'W',
-            values: ['850', '1000', '850', '1000', '900', '1100', '900', '1100', '1000', '1200', '1000', '1200', '1000', '1200'],
-          },
-        ],
-      },
-      {
-        category: 'PERFORMANCE DATA FOR CLIMATE TESTS',
-        items: [
-          {
-            label: 'Maximum temperature',
-            unit: '°C',
-            values: ['85', '85', '85', '85', '85', '85', '85', '85', '85', '85', '85', '85', '85', '85'],
-          },
-          {
-            label: 'Minimum temperature',
-            unit: '°C',
-            values: ['10', '10', '10', '10', '10', '10', '10', '10', '10', '10', '10', '10', '10', '10'],
-          },
-          {
-            label: 'Humidity range',
-            unit: '%RH',
-            values: ['10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98', '10…98'],
-          },
-          {
-            label: 'Humidity deviation, in time',
-            unit: '%RH',
-            values: ['±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3', '±1…±3'],
-          },
-          {
-            label: 'Temperature deviation, in time',
-            unit: '%RH',
-            values: ['±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3', '±0.1 … ±0.3'],
-          },
-          {
-            label: 'Test Standard Compliance',
-            unit: '',
-            values: ['IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards', 'IEC-60068, IEC-60749, IEC-61747, MIL-STD, ISO16750, ASTM, SAE, BIS & 50 other standards'],
-          },
-        ],
-      },
-      {
-        category: 'TEST SPACE LOADING CAPACITY',
-        items: [
-          {
-            label: 'Load, max.',
-            unit: 'kg',
-            values: ['80', '80', '100', '100', '100', '100', '100', '100', '100', '100', '100', '100', '100', '100'],
-          },
-          {
-            label: 'Load per grid',
-            unit: 'kg',
-            values: ['20', '20', '20', '20', '25', '25', '25', '25', '30', '30', '30', '30', '30', '30'],
-          },
-          {
-            label: 'Possible number of insert grids',
-            unit: 'piece',
-            values: ['4', '4', '5', '5', '6', '6', '6', '6', '7', '7', '7', '7', '7', '7'],
-          },
-        ],
-      },
-      {
-        category: 'POWER/CONNECTION DATA',
-        items: [
-          {
-            label: 'Voltage rating',
-            unit: 'V',
-            values: ['3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz', '3/N/PE AC 415V±10% 50Hz'],
-          },
-          {
-            label: 'Connected Load',
-            unit: 'kW',
-            values: ['8.5', '11', '9.5', '12', '10', '13', '11.5', '14', '14.5', '17', '16', '19.5', '17', '20'],
-          },
-          {
-            label: 'Sound pressure level',
-            unit: 'dB(A)',
-            values: ['72', '74', '72', '74', '72', '74', '73', '74', '73', '74', '73', '74', '73', '74'],
-          },
-          {
-            label: 'Total weight',
-            unit: 'kg',
-            values: ['450', '500', '490', '540', '540', '600', '600', '680', '720', '780', '820', '900', '900', '1000'],
-          },
-          {
-            label: 'Refrigerant System',
-            unit: 'type',
-            values: ['R404A', 'R23', 'R404A', 'R23', 'R404A', 'R23', 'R404A', 'R23', 'R404A', 'R23', 'R404A', 'R23', 'R404A', 'R23'],
-          },
-        ],
-      },
+    tableCaption: 'Stand Model Litre Capacity — Thermal Cyclic Test Chamber (TC), Climatic Test Chamber (ETC), Altitude-Thermal Cyclic (ATC), Altitude-Climatic Test Chamber (AETC). All dimensions in mm.',
+    columns: ['Litre (L)', 'Width - W (mm)', 'Depth - D (mm)', 'Height - H (mm)'],
+    rows: [
+      { litre: 22, w: 300, d: 250, h: 300 },
+      { litre: 30, w: 350, d: 250, h: 350 },
+      { litre: 64, w: 400, d: 400, h: 400 },
+      { litre: 100, w: 500, d: 400, h: 600 },
+      { litre: 180, w: 580, d: 450, h: 750 },
+      { litre: 250, w: 600, d: 535, h: 750 },
+      { litre: 340, w: 600, d: 800, h: 700 },
+      { litre: 380, w: 600, d: 800, h: 800 },
+      { litre: 500, w: 800, d: 650, h: 950 },
+      { litre: 600, w: 850, d: 730, h: 900 },
+      { litre: 750, w: 800, d: 800, h: 950 },
+      { litre: 800, w: 1100, d: 800, h: 950 },
+      { litre: 1000, w: 1000, d: 1000, h: 1000 },
+      { litre: 1200, w: 1000, d: 1130, h: 1020 },
+      { litre: 1500, w: 1000, d: 1500, h: 1000 },
+      { litre: 1800, w: 1100, d: 1600, h: 1020 },
+      { litre: 2000, w: 1000, d: 2000, h: 1020 },
+      { litre: 2250, w: 1100, d: 2000, h: 1020 },
     ],
   },
 
+
+
   // Section 4: Controller Features
   controller: {
-    title: 'Touchscreen Intelligent Controller',
-    subtitle: 'Advanced control system for precision testing',
-    image: prd5,
+  
     features: [
       {
         id: 1,
         title: 'Intuitive Touchscreen Interface',
-        description: 'User-friendly design makes setup and operation simple for technicians of all levels',
+        description: 'PLC controlled system with manual and profile-based operation modes for simple, reliable operation',
         icon: '📱',
       },
       {
         id: 2,
-        title: 'Real-time Data Logging',
-        description: 'Continuous monitoring and recording of all chamber parameters with high precision',
+        title: 'Real-time Trend Monitoring',
+        description: 'Live trend graphs and data logging for continuous visibility into chamber performance',
         icon: '📊',
       },
       {
         id: 3,
-        title: 'Programmable Test Cycles',
-        description: 'Create and save custom test profiles for repeatability and consistency',
+        title: 'Programmable Profiles',
+        description: 'Create, save, and run custom temperature and humidity profiles for repeatable testing',
         icon: '⚙️',
       },
       {
         id: 4,
-        title: 'Remote Monitoring',
-        description: 'TCP/IP connectivity enables remote access and control from anywhere',
-        icon: '🌐',
+        title: 'User Access & Login Control',
+        description: 'Secure login and user management ensures only authorized access to critical settings',
+        icon: '🔒',
       },
       {
         id: 5,
-        title: 'Advanced Alarms',
-        description: 'Visual and audible alarms alert operators to any deviations or issues',
+        title: 'Alarm & Lamp Indicators',
+        description: 'Visual alarm and lamp status indicators alert operators instantly to any deviations',
         icon: '🚨',
       },
       {
         id: 6,
-        title: 'Data Export',
-        description: 'Export test data in multiple formats for analysis and compliance reporting',
+        title: 'Data Management',
+        description: 'Config and data screens for complete traceability and compliance reporting',
         icon: '💾',
       },
     ],
   },
-
   // Section 5: Related Products
-  relatedProducts: [
-    {
-      id: 1,
-      name: '450L Climatic Test Chamber',
-      image: prd1,
-      description: 'Mid-capacity chamber for standard product and component testing',
-      link: '1',
-    },
-    {
-      id: 2,
-      name: '600L Climatic Test Chamber',
-      image: prd2,
-      description: 'Larger test space for bigger assemblies and multi-unit batches',
-      link: '#',
-    },
-    {
-      id: 3,
-      name: '1000L Climatic Test Chamber',
-      image: prd3,
-      description: 'High-capacity chamber built for industrial-scale testing',
-      link: '#',
-    },
-    {
-      id: 4,
-      name: '1500L Climatic Test Chamber',
-      image: prd4,
-      description: 'Our largest capacity, for full-scale product and bulk testing',
-      link: '#',
-    },
-  ],
+  relatedProducts: getRelatedChambers('climatic'),
 
   // Compliance & Standards
   standards: [
@@ -409,7 +241,7 @@ function GrainOverlay() {
   return (
     <svg
       className="pointer-events-none fixed inset-0 z-[999] opacity-[0.028] mix-blend-overlay"
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: '100%', height: '100vh' }}
       aria-hidden="true"
     >
       <filter id="grain">
@@ -555,20 +387,239 @@ function ScrollProgress() {
 }
 
 /* ─────────────────────────────────────────────
+   Share popup button
+───────────────────────────────────────────── */
+function ShareButton() {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef(null);
+  const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const pageTitle = 'Climatic Test Chamber | SESS Engineering';
+
+  // Close the popup on any click outside its container (button + panel)
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [open]);
+
+  const shareLinks = [
+    {
+      name: 'Email',
+      icon: Mail,
+      color: 'text-slate-600',
+      href: `mailto:?subject=${encodeURIComponent(pageTitle)}&body=${encodeURIComponent(pageUrl)}`,
+    },
+    {
+      name: 'Pinterest',
+      icon: null,
+      color: 'text-red-600',
+      href: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pageUrl)}&description=${encodeURIComponent(pageTitle)}`,
+    },
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      color: 'text-blue-600',
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+    },
+  ];
+
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(pageUrl);
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+        setOpen(false);
+      }, 1200);
+    } catch (err) {
+      console.error('Copy failed:', err);
+    }
+  };
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200"
+      >
+        <Share2 size={18} strokeWidth={2.5} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ duration: 0.15 }}
+            className="absolute right-0 top-11 z-50 w-48 rounded-xl border border-slate-200 bg-white shadow-2xl overflow-hidden"
+          >
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-100">
+              <span className="text-sm font-semibold text-slate-800">Share</span>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center w-6 h-6 rounded-full text-slate-900 hover:text-red-500 hover:bg-red-50 transition-all duration-200"
+              >
+                <CloseIcon size={16} strokeWidth={2.5} />
+              </button>
+            </div>
+
+            {shareLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+              >
+                {link.icon ? (
+                  <link.icon size={16} className={link.color} />
+                ) : (
+                  <span className={`flex items-center justify-center w-4 h-4 rounded-full text-[10px] font-bold ${link.color}`}>P</span>
+                )}
+                {link.name}
+              </a>
+            ))}
+
+            <button
+              type="button"
+              onClick={handleCopyLink}
+              className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors border-t border-slate-100"
+            >
+              <Link2 size={16} className={copied ? 'text-emerald-500' : 'text-slate-500'} />
+              {copied ? 'Copied!' : 'Copy Link'}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    Image carousel
    Main image on the left, thumbnails as a vertical
    strip beside it on the right (not below).
+
+   Amazon-style hover zoom:
+   - Hovering the main image shows a small square
+     "lens" that follows the cursor.
+   - A magnified preview of the area under the lens
+     is shown in a floating panel next to the image
+     (on large screens). On smaller screens where
+     there's no room for a side panel, the lens still
+     shows but no panel is rendered (kept simple).
 ───────────────────────────────────────────── */
 function ImageCarousel({ images }) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+  const [lensStyle, setLensStyle] = useState({ left: 0, top: 0 });
+  const [panelStyle, setPanelStyle] = useState({ left: 0, top: 0, width: 420, height: 500 });
+  const [naturalSize, setNaturalSize] = useState({ w: 0, h: 0 });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const imgContainerRef = useRef(null);
+  const imgRef = useRef(null);
+  const LENS_SIZE = 160; // px, lens box size
+  const ZOOM_LEVEL = 2.2; // how much the side panel magnifies
+  const PANEL_GAP = 16; // px gap between image and zoom panel
+  const PANEL_MAX_WIDTH = 760;
 
-  const go = (next) => {
-    setDirection(next > current ? 1 : -1);
-    setCurrent(next);
+  const handleImageLoad = (e) => {
+    setNaturalSize({ w: e.target.naturalWidth, h: e.target.naturalHeight });
   };
-  const prev = () => go((current - 1 + images.length) % images.length);
-  const next = () => go((current + 1) % images.length);
+
+  // Cached images don't reliably fire onLoad in React, which left
+  // naturalSize stuck at 0 and made the zoom trigger over the entire
+  // container (including real letterbox blank space). This re-checks
+  // img.complete whenever the slide changes so cached images are
+  // measured correctly too.
+  useEffect(() => {
+    setNaturalSize({ w: 0, h: 0 });
+    const el = imgRef.current;
+    if (el && el.complete && el.naturalWidth) {
+      setNaturalSize({ w: el.naturalWidth, h: el.naturalHeight });
+    }
+  }, [current]);
+
+  // Because the image uses object-contain, the <img> box can be bigger
+  // than the visible picture (letterboxed). This works out the actual
+  // visible rectangle of the image inside the container so zoom only
+  // triggers on the real picture, not the surrounding blank space.
+  const getVisibleImageRect = (containerW, containerH) => {
+    if (!naturalSize.w || !naturalSize.h) {
+      return { offsetX: 0, offsetY: 0, renderW: containerW, renderH: containerH };
+    }
+    const containerRatio = containerW / containerH;
+    const imageRatio = naturalSize.w / naturalSize.h;
+    let renderW, renderH;
+    if (imageRatio > containerRatio) {
+      renderW = containerW;
+      renderH = containerW / imageRatio;
+    } else {
+      renderH = containerH;
+      renderW = containerH * imageRatio;
+    }
+    return {
+      offsetX: (containerW - renderW) / 2,
+      offsetY: (containerH - renderH) / 2,
+      renderW,
+      renderH,
+    };
+  };
+
+  const handleMouseMove = (e) => {
+    if (!naturalSize.w || !naturalSize.h) {
+      setIsZoomed(false);
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const { offsetX, offsetY, renderW, renderH } = getVisibleImageRect(rect.width, rect.height);
+
+    // Cursor is over blank letterbox space, not the actual picture — hide zoom
+    if (x < offsetX || x > offsetX + renderW || y < offsetY || y > offsetY + renderH) {
+      setIsZoomed(false);
+      return;
+    }
+    setIsZoomed(true);
+
+    // Keep the lens box inside the visible image bounds
+    const clampedX = Math.max(offsetX + LENS_SIZE / 2, Math.min(x, offsetX + renderW - LENS_SIZE / 2));
+    const clampedY = Math.max(offsetY + LENS_SIZE / 2, Math.min(y, offsetY + renderH - LENS_SIZE / 2));
+    setLensStyle({ left: clampedX - LENS_SIZE / 2, top: clampedY - LENS_SIZE / 2 });
+
+    // Zoom % mapped against the actual picture bounds, not the container
+    const percentX = Math.max(0, Math.min(100, ((x - offsetX) / renderW) * 100));
+    const percentY = Math.max(0, Math.min(100, ((y - offsetY) / renderH) * 100));
+    setZoomPos({ x: percentX, y: percentY });
+
+    // Fixed-position panel placed just to the right of the image, sized
+    // to fit whatever viewport space remains — and guaranteed to sit
+    // above any other page content since it's positioned to the viewport.
+    const spaceRight = window.innerWidth - rect.right - PANEL_GAP - 16;
+    const width = Math.max(260, Math.min(PANEL_MAX_WIDTH, spaceRight));
+    setPanelStyle({ left: rect.right + PANEL_GAP, top: rect.top, width, height: rect.height });
+  };
+
+  const go = (nextIndex, dir) => {
+    setDirection(dir);
+    setCurrent(nextIndex);
+  };
+  const prev = () => go((current - 1 + images.length) % images.length, -1);
+  const next = () => go((current + 1) % images.length, 1);
 
   const variants = {
     enter: (d) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
@@ -577,71 +628,339 @@ function ImageCarousel({ images }) {
   };
 
   return (
-    <div className="flex h-full w-full gap-3 sm:gap-4">
-      {/* Main image */}
-      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-3xl border border-slate-100/80 bg-slate-50 shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)] sm:min-h-[540px]">
-        <AnimatePresence custom={direction} mode="wait">
-          <motion.img
-            key={images[current].id}
-            src={images[current].src}
-            alt={images[current].alt}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            className="h-full w-full bg-white object-contain"
-          />
-        </AnimatePresence>
-
-        {/* Image title badge */}
-        <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/75 backdrop-blur-md border border-white/10">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-xs font-semibold text-white tracking-wide">{images[current].title}</span>
-        </div>
-
-        {/* Image counter */}
-        <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-xs text-white/80 font-medium tabular-nums">
-          {current + 1} / {images.length}
-        </div>
-
-        {/* Nav arrows */}
-        {[
-          { action: prev, icon: <ChevronLeft size={18} />, side: 'left-4' },
-          { action: next, icon: <ChevronRight size={18} />, side: 'right-4' },
-        ].map(({ action, icon, side }) => (
-          <button
-            key={side}
-            type="button"
-            onClick={action}
-            className={`absolute ${side} top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200 hover:scale-110`}
+    <>
+      <div className="flex h-full w-full shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)] rounded-3xl">
+        {/* Main image + zoom panel wrapper (no overflow-hidden here so the
+          side zoom panel isn't clipped by the rounded image container) */}
+        <div className="relative flex-1">
+          <div
+            ref={imgContainerRef}
+            className="relative h-[500px] sm:h-[600px] w-full overflow-hidden rounded-l-3xl border border-r-0 border-slate-100/80 bg-slate-50"
+            style={{ cursor: isZoomed ? 'zoom-in' : 'default' }}
+            onMouseLeave={() => setIsZoomed(false)}
+            onMouseMove={handleMouseMove}
           >
-            {icon}
-          </button>
-        ))}
-      </div>
+            <AnimatePresence custom={direction} mode="wait">
+              <motion.img
+                key={images[current].id}
+                ref={imgRef}
+                src={images[current].src}
+                alt={images[current].alt}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                draggable={false}
+                onLoad={handleImageLoad}
+                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                className="h-full w-full bg-white object-contain select-none"
+              />
+            </AnimatePresence>
 
-      {/* Thumbnails — vertical strip beside the image */}
-      <div className="flex w-16 flex-shrink-0 flex-col gap-2 sm:w-20">
-        {images.map((img, i) => (
-          <button
-            key={img.id}
-            type="button"
-            onClick={() => go(i)}
-            className="relative flex-1 overflow-hidden rounded-xl border transition-all duration-200"
-            style={{
-              borderColor: i === current ? 'rgb(6 182 212)' : 'rgb(241 245 249)',
-              boxShadow: i === current ? '0 0 0 2px rgba(6,182,212,0.25)' : 'none',
-            }}
-          >
-            <img src={img.src} alt={img.alt} className="h-full w-full object-cover" />
-            {i === current && (
-              <div className="absolute inset-0 bg-cyan-500/10" />
+            {/* Image title badge */}
+            <div
+              onMouseEnter={() => setIsZoomed(false)}
+              className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/75 backdrop-blur-md border border-white/10"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-xs font-semibold text-white tracking-wide">{images[current].title}</span>
+            </div>
+
+            {/* Share button */}
+            <div className="absolute top-4 right-4" onMouseEnter={() => setIsZoomed(false)}>
+              <ShareButton />
+            </div>
+
+            {/* Image counter */}
+            <div
+              onMouseEnter={() => setIsZoomed(false)}
+              className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-xs text-white/80 font-medium tabular-nums"
+            >
+              {current + 1} / {images.length}
+            </div>
+
+            {/* View full image — opens the lightbox, Amazon-style */}
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              onMouseEnter={() => setIsZoomed(false)}
+              className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-sm text-xs font-medium text-white/90 hover:bg-cyan-600 hover:text-white transition-colors"
+            >
+              Click here to view full image
+            </button>
+
+            {/* Zoom lens — the square box that follows the cursor,
+              like Amazon's product image hover effect */}
+            {isZoomed && (
+              <div
+                className="hidden lg:block absolute pointer-events-none rounded-md border-2 border-cyan-400/80 bg-cyan-100/25 shadow-[0_0_0_1px_rgba(255,255,255,0.6)]"
+                style={{
+                  width: LENS_SIZE,
+                  height: LENS_SIZE,
+                  left: lensStyle.left,
+                  top: lensStyle.top,
+                  zIndex: 10,
+                }}
+              />
             )}
-          </button>
+
+            {/* Nav arrows */}
+            {[
+              { action: prev, icon: <ChevronLeft size={18} />, side: 'left-4' },
+              { action: next, icon: <ChevronRight size={18} />, side: 'right-4' },
+            ].map(({ action, icon, side }) => (
+              <button
+                key={side}
+                type="button"
+                onClick={action}
+                onMouseEnter={() => setIsZoomed(false)}
+                className={`absolute ${side} top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200 hover:scale-110`}
+              >
+                {icon}
+              </button>
+            ))}
+          </div>
+
+          {/* Zoomed preview panel — floats beside the image on large
+            screens, only visible while hovering the real picture
+            (Amazon-style). Fixed to the viewport (not the layout) with
+            a very high z-index + opaque background so it fully covers
+            whatever content sits behind it, like the Key Features card. */}
+          <AnimatePresence>
+            {isZoomed && (
+              <motion.div
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.18 }}
+                className="hidden lg:block fixed rounded-3xl border border-slate-200 bg-white shadow-2xl overflow-hidden"
+                style={{
+                  left: panelStyle.left,
+                  top: panelStyle.top,
+                  width: panelStyle.width,
+                  height: panelStyle.height,
+                  zIndex: 9999,
+                  backgroundImage: `url(${images[current].src})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: `${ZOOM_LEVEL * 100}%`,
+                  backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
+                  backgroundColor: 'white',
+                }}
+              />
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Thumbnails — square cells, attached directly to the main image
+          (no gap) as one continuous unit. Column width = container
+          height / 4 so each cell comes out perfectly square. */}
+        <div className="flex w-[125px] sm:w-[150px] flex-shrink-0 flex-col overflow-hidden  border border-l-0 border-slate-100/80 divide-y divide-slate-100/80">
+          {images.map((img, i) => (
+            <button
+              key={img.id}
+              type="button"
+              onMouseEnter={() => go(i, i > current ? 1 : -1)}
+              onClick={() => go(i, i > current ? 1 : -1)}
+              className="relative flex aspect-square w-full items-center justify-center overflow-hidden transition-colors duration-200"
+            >
+              <img src={img.src} alt={img.alt} className="h-[90%] w-[90%] object-contain m-auto" />
+              {i === current && (
+                <div className="absolute inset-0 bg-cyan-500/10 ring-2 ring-inset ring-cyan-500" />
+              )}
+            </button>
+          ))}
+        </div>
+      </div >
+
+      {/* ── LIGHTBOX ─────────────────────────────
+        Full-image popup, Amazon-style. Fixed to the
+        viewport with a very high z-index so it sits
+        above everything, including the zoom panel.
+        Click the backdrop or the X to close. */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/85 backdrop-blur-sm p-6 sm:p-10"
+            onClick={() => setLightboxOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(false)}
+                className="absolute -top-12 right-0 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white hover:text-slate-900 transition-colors"
+              >
+                <CloseIcon size={20} strokeWidth={2.5} />
+              </button>
+
+              {/* Full image */}
+              <div className="relative flex items-center justify-center rounded-2xl bg-white overflow-hidden" style={{ maxHeight: '85vh' }}>
+                <img
+                  src={images[current].src}
+                  alt={images[current].alt}
+                  className="w-full h-full max-h-[85vh] object-contain select-none"
+                  draggable={false}
+                />
+
+                {/* Nav arrows */}
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); prev(); }}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); next(); }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+
+              {/* Caption + counter */}
+              <div className="mt-4 flex items-center justify-between px-1">
+                <span className="text-sm font-semibold text-white/90">{images[current].title}</span>
+                <span className="text-xs text-white/60 font-medium tabular-nums">{current + 1} / {images.length}</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   AutoPlayCarousel — auto-advancing controller
+   screenshot carousel with:
+   - Bigger, more prominent center image
+   - Clearly visible left/right side previews
+   - Prev/Next arrow buttons (not just click-to-jump)
+   - A caption showing the current screen's title
+   - A soft cyan glow behind the center image
+   Pauses on hover, click a side preview to jump to it.
+───────────────────────────────────────────── */
+function AutoPlayCarousel({ images, titles }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  useEffect(() => {
+
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(timer);
+
+  }, [images.length, isPaused]);
+  useEffect(() => {
+    images.forEach((image) => {
+      const img = new Image();
+      img.src = image;
+    });
+  }, [images]);
+  if (!images || images.length === 0) {
+    return null;
+  }
+  const prevIndex = (activeIndex - 1 + images.length) % images.length;
+  const nextIndex = (activeIndex + 1) % images.length;
+  const changeImage = (index) => {
+    setActiveIndex(index);
+  };
+  const goPrev = () => setActiveIndex(prevIndex);
+  const goNext = () => setActiveIndex(nextIndex);
+  const currentTitle = titles && titles[activeIndex] ? titles[activeIndex] : null;
+
+  return (
+    <div className="relative w-full h-[400px] sm:h-full overflow-hidden rounded-3xl bg-slate-100 flex items-center justify-center select-none cursor-pointer"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Soft cyan glow anchored behind the center image */}
+      <div className="absolute w-[70%] h-[70%] rounded-full bg-cyan-500/20 blur-3xl pointer-events-none" />
+
+      {/* Left Preview — clearly visible, not near-invisible */}
+      <img
+        src={images[prevIndex]}
+        onClick={() => changeImage(prevIndex)}
+        alt=""
+        className="absolute left-0 w-16 h-24 sm:w-32 sm:h-40 object-contain rounded-xl border border-slate-300 shadow-md bg-white opacity-50 sm:opacity-60 hover:opacity-90 -translate-x-4 sm:-translate-x-8 scale-75 transition-all duration-700 cursor-pointer"
+        draggable={false}
+      />
+
+      {/* Center Image — bigger, fills more of the container */}
+      <motion.img
+        key={activeIndex}
+        src={images[activeIndex]}
+        alt="Controller Preview"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        whileHover={{ scale: 1.08 }}
+        transition={{ duration: 0.7 }}
+        className="relative z-10 max-h-[92%] max-w-[92%] sm:max-h-[95%] sm:max-w-[80%] object-contain drop-shadow-2xl rounded-xl"
+        draggable={false}
+      />
+
+      {/* Right Preview — clearly visible, not near-invisible */}
+      <img
+        src={images[nextIndex]}
+        onClick={() => changeImage(nextIndex)}
+        alt=""
+        className="absolute right-0 w-16 h-24 sm:w-32 sm:h-40 object-contain rounded-xl border border-slate-300 shadow-md bg-white opacity-50 sm:opacity-60 hover:opacity-90 translate-x-4 sm:translate-x-8 scale-75 transition-all duration-700 select-none cursor-pointer"
+        draggable={false}
+      />
+      {/* Prev / Next arrow buttons */}
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); goPrev(); }}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white border border-white/20 backdrop-blur-sm hover:bg-cyan-500 hover:border-cyan-400 transition-all duration-200"
+      >
+        <ChevronLeft size={18} />
+      </button>
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); goNext(); }}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white border border-white/20 backdrop-blur-sm hover:bg-cyan-500 hover:border-cyan-400 transition-all duration-200"
+      >
+        <ChevronRight size={18} />
+      </button>
+
+      {/* Caption — current screen's title */}
+      {currentTitle && (
+        <div className="absolute top-1 left-4 z-20 px-3 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-md border border-white/10">
+          <span className="text-xs font-semibold text-white tracking-wide">{currentTitle}</span>
+        </div>
+      )}
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-3 sm:bottom-4 flex gap-2 z-20">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            onClick={() => changeImage(index)}
+            className={`w-2 h-2 rounded-full cursor-pointer transition-all duration-300 ${activeIndex === index
+              ? "bg-cyan-500"
+              : "bg-slate-400"
+              }`}
+          />
         ))}
       </div>
+
     </div>
   );
 }
@@ -656,7 +975,7 @@ function StatChip({ icon: Icon, label, value }) {
         <Icon size={15} className="text-cyan-300" />
       </div>
       <div>
-        <div className="text-[11px] text-white/50 font-medium uppercase tracking-wider leading-none mb-0.5">{label}</div>
+        <div className="text-[11px] text-white/80 font-bold uppercase tracking-wider leading-none mb-0.5">{label}</div>
         <div className="text-sm font-bold text-white leading-none">{value}</div>
       </div>
     </div>
@@ -721,17 +1040,67 @@ function BenefitCard({ benefit, index }) {
 
   return (
     <FadeIn delay={index * 0.065} dir="up">
-      <div className={`group relative h-full p-8 sm:p-10 rounded-2xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.07] ${c.border} transition-all duration-300 overflow-hidden cursor-default`}>
+      <div className={`group relative h-full p-6 sm:p-7 rounded-2xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.07] ${c.border} transition-all duration-300 overflow-hidden cursor-default`}>
         {/* Top accent line */}
         <div className={`absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent ${c.accent} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
-        <div className={`mb-5 flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br border transition-all duration-300 ${c.iconBg}`}>
-          <Icon size={20} className={c.iconColor} />
+        <div className="mb-3 flex items-center gap-4">
+          <div className={`flex items-center justify-center w-12 h-12 flex-shrink-0 rounded-xl bg-gradient-to-br border transition-all duration-300 ${c.iconBg}`}>
+            <Icon size={20} className={c.iconColor} />
+          </div>
+          <h3 className="text-lg font-bold leading-tight tracking-tight text-white">{benefit.title}</h3>
         </div>
-        <h3 className="mb-3 text-xl font-bold tracking-tight text-white">{benefit.title}</h3>
         <p className="text-sm leading-relaxed text-slate-400 group-hover:text-slate-300 transition-colors">{benefit.description}</p>
       </div>
     </FadeIn>
+  );
+}
+/* ─────────────────────────────────────────────
+   Orbit Images — images rotate in a circular path
+   around a fixed center. Each image counter-rotates
+   so it always stays upright (not spinning).
+   (Kept in the file, currently unused in Controller
+   section — replaced there by BreathingGrid below.)
+───────────────────────────────────────────── */
+function OrbitImages({ images, radius = 160, duration = 20, itemSize = 90 }) {
+  const angleStep = 360 / images.length;
+
+  return (
+    <div className="relative flex items-center justify-center" style={{ width: radius * 2 + itemSize, height: radius * 2 + itemSize }}>
+      {/* Center glow */}
+      <div className="absolute w-24 h-24 rounded-full bg-cyan-500/20 blur-2xl" />
+
+      {/* Rotating orbit group */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: 360 }}
+        transition={{ duration, repeat: Infinity, ease: 'linear' }}
+      >
+        {images.map((img, i) => {
+          const angle = angleStep * i;
+          return (
+            <div
+              key={i}
+              className="absolute top-1/2 left-1/2"
+              style={{
+                width: itemSize,
+                height: itemSize,
+                transform: `rotate(${angle}deg) translate(${radius}px) rotate(-${angle}deg) translate(-50%, -50%)`,
+              }}
+            >
+              {/* Counter-rotate so the image itself stays upright */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration, repeat: Infinity, ease: 'linear' }}
+                className="w-full h-full overflow-hidden border-2 border-white/20 shadow-lg shadow-black/40 bg-white"
+              >
+                <img src={img} alt={`orbit-${i}`} className="w-full h-full object-cover" />
+              </motion.div>
+            </div>
+          );
+        })}
+      </motion.div>
+    </div>
   );
 }
 
@@ -743,7 +1112,7 @@ function ControllerFeature({ feature, index }) {
   const Icon = icons[index % icons.length];
   return (
     <FadeIn delay={index * 0.06} dir="right">
-      <div className="group flex gap-4 p-4 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.07] hover:border-cyan-500/30 transition-all duration-300 cursor-default">
+      <div className="group flex h-full gap-4 p-4 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.07] hover:border-cyan-500/30 transition-all duration-300 cursor-default">
         <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-lg shadow-cyan-500/25 group-hover:shadow-cyan-500/40 group-hover:rotate-3 transition-all duration-300">
           <Icon size={18} className="text-white" />
         </div>
@@ -778,16 +1147,9 @@ function RelatedCard({ product, index }) {
           <p className="mb-5 text-sm leading-relaxed text-slate-500 group-hover:text-slate-300 transition-colors">
             {product.description}
           </p>
-          {/* <button
-            type="button"
-            onClick={() => navigate(product.link)}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 group-hover:text-cyan-400 transition-colors"
-          >
-            Learn More
-            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1 duration-200" />
-          </button> */}
           <Link
             to={product.link}
+            state={{ from: "/climatic-test-chamber" }}
             className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 group-hover:text-cyan-400 transition-colors"
           >
             Learn More
@@ -803,10 +1165,22 @@ function RelatedCard({ product, index }) {
 }
 
 /* ─────────────────────────────────────────────
+   Chamber Model Selection flow chart.
+───────────────────────────────────────────── */
+function ChamberModelSelectionDiagram() {
+  return (
+    <div className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white py-8 px-4 h-full">
+      <img
+        src={ChamberModelSelection}
+        alt="Chamber Model Selection"
+        className="w-full h-auto object-contain"
+      />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    Sticky section nav
-   Jumps to Overview / Benefits / Specifications /
-   Controller / Related Products. Stays fixed to the
-   top of the viewport while scrolling.
 ───────────────────────────────────────────── */
 function SectionNav() {
   const tabs = [
@@ -847,7 +1221,6 @@ function SectionNav() {
   const handleClick = (e, id) => {
     e.preventDefault();
 
-    // Change color immediately
     setActive(id);
 
     const section = document.getElementById(id);
@@ -856,7 +1229,7 @@ function SectionNav() {
       const y =
         section.getBoundingClientRect().top +
         window.pageYOffset -
-        70;
+        300;
 
       window.scrollTo({
         top: y,
@@ -866,19 +1239,21 @@ function SectionNav() {
   };
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-slate-200 bg-white shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-center gap-8 overflow-x-auto px-5 scrollbar-none">
+    <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white shadow-sm">
+      <div
+        className="mx-auto flex max-w-7xl items-center justify-center gap-8 overflow-x-auto px-5"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
 
         {tabs.map((tab) => (
           <a
             key={tab.id}
             href={`#${tab.id}`}
             onClick={(e) => handleClick(e, tab.id)}
-            className={`relative py-5 text-base font-semibold transition-all duration-300 ${
-              active === tab.id
-                ? "text-cyan-600"
-                : "text-black hover:text-cyan-600"
-            }`}
+            className={`relative py-5 text-base font-semibold transition-all duration-300 ${active === tab.id
+              ? "text-cyan-600"
+              : "text-black hover:text-cyan-600"
+              }`}
           >
             {tab.label}
 
@@ -939,8 +1314,15 @@ function ProductDetail() {
       <section
         ref={heroRef}
         className="relative overflow-hidden text-white"
-        style={{ background: 'var(--gradient-brand)', minHeight: '380px', display: 'flex', alignItems: 'center' }}
+        style={{ background: 'var(--gradient-brand)', minHeight: '450px', display: 'flex', alignItems: 'center' }}
       >
+        {/* Machine photo — plain <img> tag, always renders reliably */}
+        <img
+          src={heroBg}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none select-none"
+        />
         {/* Grid lines */}
         <div
           className="absolute inset-0 opacity-[0.035]"
@@ -958,9 +1340,14 @@ function ProductDetail() {
 
         {particles.map((p, i) => <Particle key={i} {...p} />)}
 
-        {/* Radial vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.25) 100%)' }} />
+        {/* Radial vignette
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.25) 100%)' }} /> */}
+        {/* Center darkening so the text stays readable over bright clouds,
+    while both edges (mountains left, machine right) stay natural */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 55% 90% at 42% 50%, rgba(6,30,22,0.6) 0%, rgba(6,30,22,0.35) 45%, transparent 75%)' }} />
 
+        {/* Subtle bottom fade for overall polish */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.2) 100%)' }} />
         <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 44 }}
@@ -1008,7 +1395,7 @@ function ProductDetail() {
               transition={{ delay: 0.6, duration: 0.6 }}
               className="flex flex-wrap justify-center gap-3"
             >
-              <StatChip icon={Thermometer} label="Temp Range" value="-70°C to +180°C" />
+              <StatChip icon={Thermometer} label="Temp Range" value="-40°C to +150°C" />
               <StatChip icon={Gauge} label="Humidity" value="10% – 98% RH" />
               <StatChip icon={Shield} label="Standards" value="IEC / ISO / MIL" />
             </motion.div>
@@ -1023,24 +1410,14 @@ function ProductDetail() {
       <SectionNav />
 
       {/* ── OVERVIEW + IMAGE ─────────────────────── */}
-      {/*
-        New layout:
-        1) Overview (title + description) — full width, on top.
-        2) Below it, a 2-column row:
-           - Column 1: main image with a vertical thumbnail
-             strip beside it (ImageCarousel handles this).
-           - Column 2: Key Features.
-        Both columns stretch to the same height (items-stretch)
-        so they end at the same point regardless of content length.
-      */}
-      <section id="overview" className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
+      <section id="overview" className="px-5 pt-6 pb-16 bg-white sm:pt-8 sm:pb-20 md:pt-10 md:pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
 
           {/* Overview — full width, on top */}
           <FadeIn dir="up" delay={0.05}>
             <div className="w-full mb-10 lg:mb-12">
-              <div className="mb-5">
-                <div className="inline-flex items-center gap-2 mb-3">
+              <div className="mb-5 text-center">
+                <div className="inline-flex items-center justify-center gap-2 mb-3">
                   <span className="block w-5 h-px bg-cyan-500 opacity-70 rounded-full" />
                   <span
                     style={{
@@ -1067,12 +1444,9 @@ function ProductDetail() {
                 >
                   {product.title}
                 </h2>
-                <div className="mt-4 w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" />
+                <div className="mt-4 mx-auto w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" />
               </div>
 
-              <p className="mb-4 text-justify text-sm leading-relaxed text-slate-600 sm:text-base">
-                {product.description}
-              </p>
               {product.productDetails.overview.map((text, i) => (
                 <p key={i} className="mb-4 text-justify text-sm leading-relaxed text-slate-600 sm:text-base">{text}</p>
               ))}
@@ -1085,8 +1459,8 @@ function ProductDetail() {
               <ImageCarousel images={product.productDetails.images} />
             </FadeIn>
 
-            <FadeIn dir="right" delay={0.2} className="h-full">
-              <div className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-slate-50/70 p-5 shadow-sm sm:p-6">
+            <FadeIn dir="right" delay={0.2} className="h- border border-slate-200/80 bg-slate-50/70full">
+              <div className="flex h-full flex-col  p-5 shadow-sm sm:p-6">
                 <div className="mb-5">
                   <h3 className="text-lg font-semibold text-slate-900">Key Features</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -1111,10 +1485,8 @@ function ProductDetail() {
         className="relative px-5 py-16 sm:py-20 md:py-24 sm:px-6 lg:px-8 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}
       >
-        {/* Ambient */}
         <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none" />
-        {/* Dot grid */}
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
@@ -1144,83 +1516,52 @@ function ProductDetail() {
 
           {product.specifications.isTable && (
             <FadeIn dir="up" delay={0.1}>
-              <div className="spec-table-scroll mt-12 sm:mt-16 max-h-[600px] overflow-x-auto overflow-y-auto border border-slate-200 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]">
-                <table className="w-full border-collapse bg-white text-xs md:text-sm">
-                  <thead>
-                    <tr style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }} className="text-white">
-                      <th
-                        className="sticky top-0 left-0 z-30 border-b border-r border-slate-700 px-4 py-3 text-left font-bold min-w-[160px]"
-                        style={{ background: '#0f172a' }}
-                      >
-                        Specification
-                      </th>
-                      <th className="sticky top-0 z-20 border-b border-slate-700 px-3 py-3 text-center font-bold min-w-14" style={{ background: '#0f172a' }}>Unit</th>
-                      {product.specifications.models.map((model, i) => (
-                        <th key={i} className="sticky top-0 z-20 border-b border-slate-700 px-3 py-3 text-center font-bold text-xs min-w-[100px] whitespace-nowrap" style={{ background: '#0f172a' }}>
-                          {model}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {product.specifications.specs.map((category) => (
-                      <React.Fragment key={category.category}>
-                        <tr className="bg-slate-800 text-white">
-                          <td colSpan={product.specifications.models.length + 2} className="px-5 py-2.5 font-bold text-sm border-b border-slate-700">
-                            {category.category}
-                          </td>
+              <p className="mt-10 text-center text-xs sm:text-sm text-slate-500 max-w-4xl mx-auto">
+                {product.specifications.tableCaption}
+              </p>
+
+              <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:items-stretch">
+                <div className="h-full overflow-auto border border-slate-200 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]">
+                  <table className="w-full border-collapse bg-white text-xs md:text-sm">
+                    <thead>
+                      <tr style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }} className="text-white">
+                        {product.specifications.columns.map((col, i) => (
+                          <th key={i} className="border-b border-slate-700 px-4 py-3 text-center font-bold whitespace-nowrap">
+                            {col}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {product.specifications.rows.map((row, i) => (
+                        <tr
+                          key={row.litre}
+                          className={`transition-colors ${i % 2 === 0 ? 'bg-white hover:bg-cyan-50/50' : 'bg-slate-50/70 hover:bg-cyan-50/50'}`}
+                        >
+                          <td className="border-b border-slate-100 px-4 py-2.5 text-center font-bold text-slate-800">{row.litre}</td>
+                          <td className="border-b border-slate-100 px-4 py-2.5 text-center text-slate-700 font-medium">{row.w}</td>
+                          <td className="border-b border-slate-100 px-4 py-2.5 text-center text-slate-700 font-medium">{row.d}</td>
+                          <td className="border-b border-slate-100 px-4 py-2.5 text-center text-slate-700 font-medium">{row.h}</td>
                         </tr>
-                        {category.items.map((item, itemIdx) => {
-                          const rowBg = itemIdx % 2 === 0 ? '#ffffff' : '#f8fafc';
-                          const rowBgClass = itemIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/70';
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
-                          return (
-                            <tr
-                              key={`${category.category}-${itemIdx}`}
-                              className={`transition-colors ${rowBgClass} hover:bg-cyan-50/50`}
-                            >
-                              <td
-                                className="sticky left-0 z-10 border-b border-r border-slate-200 px-4 py-2.5 font-bold text-slate-800 text-xs align-top"
-                                style={{ background: rowBg }}
-                              >
-                                {item.label}
-                              </td>
-                              <td className="border-b border-slate-100 px-3 py-2.5 text-center text-slate-500 text-xs font-semibold align-top">{item.unit || ''}</td>
-                              {product.specifications.models.map((model, modelIdx) => {
-                                const val = item.values ? item.values[modelIdx] : '';
-                                return (
-                                  <td key={`${item.label}-${modelIdx}`} className="border-b border-slate-100 px-3 py-2.5 text-center text-slate-700 font-medium align-top min-w-[100px] text-xs">
-                                    {val || '—'}
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          );
-                        })}
-                      </React.Fragment>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="mt-8 space-y-2 text-xs text-slate-500 border-t border-slate-100 pt-6 max-w-4xl">
-                {[
-                  'Upon customer request, customized sizes are also available.',
-                  'Low GWP refrigerants of R449a, R448a, and R508B are available upon request.',
-                  'The performance data refer to an operating room (ambient) temperature of +26°C, 415 V/50 Hz nominal voltage, without test specimen and without accessories.',
-                  'Sound Pressure Level: Using a calibrated instrument, the weighted sound pressure level was measured in free-field environments at a height of 1 meter from the floor and a distance of 1 meter from the equipment surface.',
-                ].map((note, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <span className="text-cyan-500 mt-0.5"><CheckCircle2 size={12} /></span>
-                    <p><strong>(*)</strong> {note}</p>
+                <div className="h-full min-h-[500px] border border-slate-200 bg-slate-50 p-4 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] flex flex-col">
+                  <h3 className="mb-3 text-center text-base sm:text-lg font-bold text-slate-900">
+                    Chamber Model Selection
+                  </h3>
+                  <div className="flex-1">
+                    <ChamberModelSelectionDiagram />
                   </div>
-                ))}
+                </div>
               </div>
             </FadeIn>
           )}
 
           {/* Standards */}
-          {product.standards?.length > 0 && (
+          {/* {product.standards?.length > 0 && (
             <div className="pt-14 mt-14 border-t border-slate-100">
               <SectionHeader eyebrow="Compliance" title="Standards Supported" />
               <div className="grid gap-5 mt-10 md:grid-cols-2">
@@ -1241,9 +1582,9 @@ function ProductDetail() {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
         </div>
-      </section>
+      </section> 
 
       {/* ── CONTROLLER ───────────────────────────── */}
       <section
@@ -1259,28 +1600,14 @@ function ProductDetail() {
 
           <div className="grid items-center gap-12 mt-12 lg:grid-cols-2 sm:mt-16">
             <FadeIn dir="left">
-              <div className="relative overflow-hidden border border-white/100 shadow-[0_32px_80px_-20px_rgba(0,0,0,0.5)]">
-                <img
-                  src={product.controller.image}
-                  alt="Touchscreen Controller"
-                  className="object-cover w-full h-72 sm:h-96"
+              <div className="flex items-center justify-start h-72 sm:h-[420px] -ml-4 sm:-ml-10 lg:-ml-16">
+                <AutoPlayCarousel
+                  images={[prd5, prd6, prd7, prd8, prd9, prd10]}
                 />
-                {/* Glass overlay at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 bg-slate-900/80 backdrop-blur-md border-t border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/30">
-                      <Monitor size={16} className="text-cyan-400" />
-                    </div>
-                    <div>
-                      <p className="text-base font-bold text-white leading-none mb-0.5">Intuitive Design</p>
-                      <p className="text-xs text-slate-400">Easy to use interface</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </FadeIn>
 
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid items-stretch gap-4 lg:grid-cols-2">
               {product.controller.features.map((feature, i) => (
                 <ControllerFeature key={feature.id} feature={feature} index={i} />
               ))}
@@ -1298,10 +1625,11 @@ function ProductDetail() {
             subtitle="Explore our complete range of testing and conditioning solutions"
           />
           <div className="grid gap-6 mt-12 sm:grid-cols-2 lg:grid-cols-4 sm:mt-16">
-            {product.relatedProducts.map((rp, i) => (
+            {getRelatedChambers('climatic').map((rp, i) => (
               <RelatedCard key={rp.id} product={rp} index={i} />
             ))}
           </div>
+          <BackToRelatedChamber />
         </div>
       </section>
     </motion.div>

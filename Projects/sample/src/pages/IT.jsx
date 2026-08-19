@@ -425,7 +425,7 @@ const ItTeam = () => {
                 className="flex flex-col items-center justify-center gap-4 sm:flex-row"
               >
                 <motion.a
-                  href="https://www.sesstech.sess.co.in/"
+                  href="https://sesstech.sess.co.in/"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(6, 182, 212, 0.4)' }}

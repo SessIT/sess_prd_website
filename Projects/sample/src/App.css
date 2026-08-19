@@ -221,6 +221,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep the wide product hero artwork intact at intermediate viewport ratios. */
+@media (max-width: 1535px) {
+  .product-hero-image {
+    object-fit: contain;
+    object-position: center;
+  }
+}
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

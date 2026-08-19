@@ -10,43 +10,32 @@ import FloatingIcons from './UI/FloatingIcons';
 import FloatingOrbs from './UI/FloatingOrbs';
 
 // Import your product images
-import Product1 from '../assets/product/Environmetal.png';
+import Product1 from '../assets/product/Climatic_chamber_front.png';
 import Product2 from '../assets/product/Salt Spray.png';
 import Product3 from '../assets/product/Rain Test.png';
-import Product4 from '../assets/product/Walk In.png';
+import Product4 from '../assets/product/VibrationChamber.png';
 import Product5 from '../assets/product/Thermal Cyclic.png';
-import Product6 from '../assets/product/Thermal Shock.png';
-import Product7 from '../assets/product/CO2 Test Chamber.png';
-import Product8 from '../assets/product/Climatic Test Chamber.png';
+import Product6 from '../assets/product/TabletopChamber.png';
+import Product7 from '../assets/product/walkin.png';
+import Product8 from '../assets/product/DustChamber.png';
 import Product9 from '../assets/product/Flame-Proof Hot Air Oven.png';
 import Product10 from '../assets/product/Battery.png';
+import Product11 from '../assets/product/ThermalShockTestChamber.png';
+import Product12 from '../assets/product/TensileChamber.png';
 
 const products = [
-  { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
-  { id: 2, name: 'Salt Spray Test Chamber', category: 'pharma', image: Product2, link: '/salt-spray-test-chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
-  { id: 3, name: 'Rain Test Chamber', category: 'medical', image: Product3, link: '/rain-test-chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
-  { id: 4, name: 'Vibration Test Chamber', category: 'trading', image: Product4, link: '#', description: 'Simulate real-world vibration conditions', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
-  { id: 5, name: 'Thermal Cyclic Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber', description: 'Accelerated thermal stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
-  { id: 6, name: 'Environmental Chamber', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Precision climate control for reliable testing', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Pro' },
-  { id: 7, name: 'Salt Spray Chamber', category: 'pharma', image: Product7, link: '/salt-spray-test-chamber', description: 'Advanced corrosion resistance testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
-  { id: 8, name: 'Rain Test System', category: 'medical', image: Product8, link: '/rain-test-chamber', description: 'IPX1 to IPX6 water ingress testing', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
-  { id: 9, name: 'Vibration System', category: 'trading', image: Product9, link: '#', description: 'High-precision vibration simulation', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
-  { id: 10, name: 'Thermal Stress Chamber', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Accelerated thermal stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
-  { id: 11, name: 'Climatic Chamber Pro', category: 'industry', image: Product1, link: '/environmental_test_chamber', description: 'Precision climate control — next generation', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Pro' },
-  { id: 12, name: 'Corrosion Test Chamber', category: 'pharma', image: Product2, link: '/salt-spray-test-chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'Certified' },
-  { id: 13, name: 'Rain Ingress System', category: 'medical', image: Product3, link: '/rain-test-chamber', description: 'Full IPX rating water ingress platform', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'IPX6' },
-  { id: 14, name: 'Dynamic Vibration Unit', category: 'trading', image: Product4, link: '#', description: 'Simulate real-world vibration for durability', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'New' },
-  { id: 15, name: 'Rapid Thermal Chamber', category: 'industry', image: Product5, link: '/thermal_cycling_chamber', description: 'Ultra-fast thermal cycling for stress testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'Best Seller' },
-  { id: 16, name: 'Precision Climate Unit', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Engineering-grade climate control chamber', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
-  { id: 17, name: 'Pharma Salt Spray', category: 'pharma', image: Product7, link: '/salt-spray-test-chamber', description: 'Pharmaceutical-grade corrosion testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'GMP Ready' },
-  { id: 18, name: 'Medical Rain Test Unit', category: 'medical', image: Product8, link: '/rain-test-chamber', description: 'Medical device water ingress compliance', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'ISO 60529' },
-  { id: 19, name: 'Industrial Vibration Lab', category: 'trading', image: Product9, link: '#', description: 'Multi-axis vibration testing platform', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'Multi-Axis' },
-  { id: 20, name: 'Advanced Thermal System', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Next-gen accelerated life testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'ALT Ready' },
-  { id: 21, name: 'Precision Climate Unit', category: 'industry', image: Product6, link: '/environmental_test_chamber', description: 'Engineering-grade climate control chamber', specs: 'Temp: -70°C to 180°C · Humidity: 20%–98%', badge: 'Top Rated' },
-  { id: 22, name: 'Pharma Salt Spray', category: 'pharma', image: Product7, link: '/salt-spray-test-chamber', description: 'Pharmaceutical-grade corrosion testing', specs: 'ASTM B117 · JIS Z2371 compliant', badge: 'GMP Ready' },
-  { id: 23, name: 'Medical Rain Test Unit', category: 'medical', image: Product8, link: '/rain-test-chamber', description: 'Medical device water ingress compliance', specs: 'Flow rate: 1–100 L/min adjustable', badge: 'ISO 60529' },
-  { id: 24, name: 'Industrial Vibration Lab', category: 'trading', image: Product9, link: '#', description: 'Multi-axis vibration testing platform', specs: 'Freq: 5–2000Hz · Payload: 100kg', badge: 'Multi-Axis' },
-  { id: 25, name: 'Advanced Thermal System', category: 'industry', image: Product10, link: '/thermal_cycling_chamber', description: 'Next-gen accelerated life testing', specs: 'Ramp: 5°C/min · Cycles: Customizable', badge: 'ALT Ready' },
+  { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temperature and humidity control', badge: 'Top Rated' },
+  { id: 6, name: 'Battery Test Chamber', category: 'industry', image: Product10, link: '/battery-test-chamber', description: 'Safe, controlled battery validation', specs: 'Temperature controlled battery testing', badge: 'New' },
+  { id: 2, name: 'Salt Spray Test Chamber', category: 'industry', image: Product2, link: '/salt-spray-test-chamber', description: 'Corrosion resistance testing made easy', specs: 'ASTM B117 compliant', badge: 'Certified' },
+  { id: 3, name: 'Rain Test Chamber', category: 'industry', image: Product3, link: '/rain-test-chamber', description: 'Water ingress testing for product validation', specs: 'Adjustable flow rate', badge: 'IPX6' },
+  { id: 4, name: 'Vibration Combined Climatic Test Chamber', category: 'industry', image: Product4, link: '/vibration-test-chamber', description: 'Simulate real-world vibration conditions', specs: 'Frequency and payload configurable', badge: 'New' },
+  { id: 5, name: 'Thermal Cyclic Chamber', category: 'industry', image: Product5, link: '/thermal-cyclic-chamber', description: 'Accelerated thermal stress testing', specs: 'Programmable thermal cycles', badge: 'Best Seller' },
+  { id: 7, name: 'Flame Proof Hot Air Oven', category: 'industry', image: Product9, link: '/flame-proof-hot-air-oven', description: 'Safe heating for hazardous industrial environments', specs: 'Flame-proof construction and precise temperature control', badge: 'New' },
+  { id: 8, name: 'Thermal Shock Chamber', category: 'industry', image: Product11, link: '/thermal-shock-chamber', description: 'Rapid temperature transition testing', specs: 'Wide temperature range and fast cycling', badge: 'New' },
+  { id: 9, name: 'Tabletop Test Chamber', category: 'industry', image: Product6, link: '/tabletop-test-chamber', description: 'Compact testing solution for various applications', specs: 'Space-saving design and easy operation', badge: 'New' },
+  { id: 10, name: 'Walk-In Chamber', category: 'industry', image: Product7, link: '/walk-in-chamber', description: 'Spacious testing environment for large products', specs: 'Customizable size and features', badge: 'New' },
+  { id: 11, name: 'Dust Chamber', category: 'industry', image: Product8, link: '/dust-chamber', description: 'Dust resistance testing for products', specs: 'EUCAR Hazard Level 7 compliant', badge: 'New' },
+  { id: 12, name: 'Tensile Chamber', category: 'industry', image: Product12, link: '/tensile-chamber', description: 'Material testing under tensile stress', specs: 'Precise tensile testing capabilities', badge: 'New' },
 ];
 
 const categories = [
@@ -185,8 +174,8 @@ const ProductCard = ({ product, index, isAnimating, isDark }) => {
         {/* ── Image container ── */}
         <div
           className={[
-            'relative w-full overflow-hidden',
-            isDark ? 'bg-[#0d1117]' : 'bg-[#f0f2f5]',
+            'relative w-full p-2 overflow-hidden',
+            isDark ? 'bg-[#0d1117]' : 'bg-white',
           ].join(' ')}
           style={{ aspectRatio: '4/3' }}
           onMouseEnter={() => setHovered(true)}
@@ -198,7 +187,7 @@ const ProductCard = ({ product, index, isAnimating, isDark }) => {
             alt={product.name}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover block will-change-transform transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+            className="w-full h-full object-contain block will-change-transform transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{ transform: hovered ? 'scale(1.08)' : 'scale(1)' }}
           />
 

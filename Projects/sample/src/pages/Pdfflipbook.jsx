@@ -566,9 +566,9 @@ export default function PDFFlipbook() {
             position: "relative",
             flexShrink: 0,
             width: isSingle
-              ? "min(340px, calc((100vw - 200px) / 2))"
-              : "min(730px, calc(100vw - 200px))",
-            height: "min(530px, calc((100vw - 200px) * 0.726))",
+              ? "min(340px, max(180px, calc(100vw - 130px)))"
+              : "min(730px, max(180px, calc(100vw - 130px)))",
+            height: "min(530px, max(130px, calc((100vw - 130px) * 0.726)))",
             transition: `width ${Math.round(FLIP_MS * 0.6)}ms ${FLIP_EASE}`,
           }}>
 

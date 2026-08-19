@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -13,27 +14,30 @@ import Slider1 from "../assets/prd1.jpeg";
 import Slider2 from "../assets/prd2.jpeg";
 import Slider3 from "../assets/prd3.jpeg";
 
+// IMPORTANT: declare OUTSIDE the component, only once
+const MotionLink = motion(Link);
+
 const slides = [
   {
     image: Slider1,
     title: "Battery Test Chamber",
     subtitle: '"Industrial-Grade Battery Validation Starts Here."',
     description: "Our chambers replicate real-world stress to ensure battery systems meet the highest safety and reliability standards.",
-    link: "/products/battery-test-chamber",
+    link: "/battery-test-chamber",
   },
   {
     image: Slider2,
     title: "Thermal Cyclic Test Chamber",
     subtitle: '"Precision Testing for Thermal Resilience."',
     description: "Accelerate validation of thermal resilience with accurate and programmable transition control.",
-    link: "/products/thermal-cyclic-chamber",
+    link: "/thermal-cyclic-chamber",
   },
   {
     image: Slider3,
     title: "Flame Proof Oven",
     subtitle: '"Where Heat Meets Hazard, We Deliver Confidence."',
     description: "Engineered to perform where failure isn't an option. Our flameproof systems ensure safety in the most demanding industrial zones.",
-    link: "/products/flame-proof-oven",
+    link: "/flame-proof-hot-air-oven",
   },
 ];
 
@@ -43,7 +47,6 @@ const HeroSlider = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  /* ── Arrow button shared style ───────────────────────── */
   const arrowStyle = {
     position: "absolute",
     top: "50%",
@@ -79,11 +82,9 @@ const HeroSlider = () => {
         width: "100%",
         overflow: "hidden",
         minHeight: "calc(100vh - 100px)",
-        // marginTop: "100px",
         background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
       }}
     >
-      {/* Prev Arrow */}
       <button
         ref={prevRef}
         className="hidden md:flex"
@@ -94,7 +95,6 @@ const HeroSlider = () => {
         <FaArrowLeft style={{ fontSize: "14px" }} />
       </button>
 
-      {/* Next Arrow */}
       <button
         ref={nextRef}
         className="hidden md:flex"
@@ -133,8 +133,6 @@ const HeroSlider = () => {
                 background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
               }}
             >
-
-              {/* Animated gradient background */}
               <motion.div className="absolute inset-0 z-0"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
               >
@@ -151,7 +149,6 @@ const HeroSlider = () => {
                 />
               </motion.div>
 
-              {/* Soft glow orbs */}
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <motion.div
                   animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
@@ -175,16 +172,12 @@ const HeroSlider = () => {
                 />
               </div>
 
-              {/* Text Content */}
-              <div
-                className="relative z-10 w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:ml-16"
-              >
+              <div className="relative z-10 w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:ml-16">
                 <motion.div
                   key={`text-${index}`}
                   initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
                 >
-                  {/* Title + divider line */}
                   <div className="flex items-center gap-3 mb-6">
                     <span style={{
                       fontSize: "var(--text-base)",
@@ -198,7 +191,6 @@ const HeroSlider = () => {
                     <div style={{ flex: 1, height: "1px", background: isDark ? "var(--border-default)" : "var(--color-neutral-300)" }} />
                   </div>
 
-                  {/* Subtitle / Heading */}
                   <h1
                     className="text-3xl md:text-4xl lg:text-3xl text-center leading-tight mb-5"
                     style={{
@@ -211,7 +203,6 @@ const HeroSlider = () => {
                     {slide.subtitle}
                   </h1>
 
-                  {/* Description */}
                   <p
                     className="text-center leading-relaxed mb-6 max-w-sm mx-auto"
                     style={{
@@ -223,11 +214,11 @@ const HeroSlider = () => {
                     {slide.description}
                   </p>
 
-                  {/* CTA Button */}
                   <div className="flex justify-center">
-                    <motion.a
-                      href={slide.link}
-                      whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
+                    <MotionLink
+                      to={slide.link}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
@@ -248,13 +239,11 @@ const HeroSlider = () => {
                     >
                       Learn More
                       <FaArrowRight style={{ fontSize: "12px" }} />
-                    </motion.a>
+                    </MotionLink>
                   </div>
-
                 </motion.div>
               </div>
 
-              {/* Product Image */}
               <div className="relative z-10 w-full md:w-[55%] flex items-center justify-center px-8 py-10 md:py-0">
                 <motion.img
                   key={index}
@@ -267,7 +256,6 @@ const HeroSlider = () => {
                   style={{ maxHeight: "100vh" }}
                 />
               </div>
-
             </div>
           </SwiperSlide>
         ))}

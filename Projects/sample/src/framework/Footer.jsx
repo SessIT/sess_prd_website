@@ -142,12 +142,13 @@ const Footer = () => {
   ];
 
   const productLinks = [
-    { name: 'Environmental Test Chamber',     path: '#' },
-    { name: 'Salt Spray Test Chamber',        path: '#' },
-    { name: 'Thermal Shock Test Chamber',     path: '#' },
-    { name: 'Hot and Cold Test Chamber',      path: '#' },
-    { name: 'Vibration Test Chamber',         path: '#' },
-    { name: 'Battery Test Chamber',           path: '#' },
+    { name: 'Climatic Test Chamber',          path: '/climatic-test-chamber' },
+    { name: 'Salt Spray Test Chamber',        path: '/salt-spray-test-chamber' },
+    { name: 'Thermal Shock Test Chamber',     path: '/thermal-shock-chamber' },
+    { name: 'Rain Test Chamber',              path: '/rain-test-chamber' },
+    { name: 'Vibration Combined Test Chamber', path: '/vibration-test-chamber' },
+    { name: 'Battery Test Chamber',           path: '/battery-test-chamber' },
+    { name: 'Flame Proof Hot Air Oven',       path: '/flame-proof-hot-air-oven' },
   ];
 
   const quickLinks = [
@@ -338,7 +339,7 @@ const Footer = () => {
             <p className="m-0">
               &copy; {new Date().getFullYear()} SESS — Proudly built by{' '}
               <a
-                href="https://www.sesstech.sess.co.in"
+                href="https://sesstech.sess.co.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cyan-500 hover:text-cyan-300 transition-colors duration-200"
