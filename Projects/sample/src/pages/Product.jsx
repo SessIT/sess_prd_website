@@ -98,7 +98,7 @@ const Products = () => {
                                    }}
                                  />
                          
-                                 <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                                 <div className="relative w-full px-4 py-20 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
                                    <motion.div
                                      initial={{ opacity: 0, y: 40 }}
                                      animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ const Products = () => {
                                        initial={{ opacity: 0, y: 20 }}
                                        animate={{ opacity: 1, y: 0 }}
                                        transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                                       className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-4xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
+                                       className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
                                        Products
                                      </motion.h1>
                          
@@ -267,7 +267,7 @@ SESS specializes in manufacturing customized climatic test chambers designed to 
       {/* SPECIFICATIONS */}
       {/* SPECIFICATIONS */}
 {/* <section className="py-16 bg-gray-100">
-  <div className="grid gap-12 px-6 mx-auto max-w-7xl md:grid-cols-3">
+  <div className="grid gap-12 px-6 mx-auto max-w-7xl 2xl:max-w-[1440px] md:grid-cols-3">
 
     <div className="space-y-8 md:col-span-2">
 

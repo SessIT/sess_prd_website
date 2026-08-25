@@ -241,7 +241,7 @@ function CarouselPanel() {
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center w-full overflow-hidden mt-6"
+      className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden py-6"
       style={{ background: "#080a12" }}
     >
       {/* Ambient glow */}
@@ -307,7 +307,7 @@ function CarouselPanel() {
       >
         <motion.div
           className="absolute top-0 h-full cursor-grab active:cursor-grabbing"
-          style={{ x, left: "33%", width: N * STEP }}
+          style={{ x, left: `calc(50% - ${CARD_W / 2}px)`, width: N * STEP }}
           drag="x"
           dragConstraints={{ left: -(N - 1) * STEP, right: 0 }}
           dragElastic={0.08}
@@ -666,7 +666,7 @@ function GalleryPanel({ height }) {
        */}
       <div
         className="relative w-full flex flex-col items-center justify-center"
-        style={{ height: "90%", background: "#060810", overflow: "hidden" }}
+        style={{ height: "100%", background: "#060810", overflow: "hidden" }}
       >
         {/* Dot-grid texture */}
         <div
@@ -842,26 +842,33 @@ export default function CombinedLayout() {
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap');
       `}</style>
 
-      <div
-        style={{
-          width: "100%",
-          height: isMd ? DESKTOP_SECTION_H : "auto",
-          background: "#060810",
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: isMd ? "row" : "column",
-        }}
-      >
-        {/* LEFT — News carousel */}
-        <div style={{ flex: isMd ? 1 : "none", minWidth: 0, height: cH }}>
-          <CarouselPanel height={cH} />
-        </div>
+      <div style={{ width: "100%", background: "#060810" }}>
+        {/* Inner row capped at 1920px so 2K/4K screens don't stretch the two
+            panels to the viewport edges; the dark bg stays full-bleed */}
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1920px",
+            margin: "0 auto",
+            // minHeight (not height) so short/zoomed viewports grow the section
+            // instead of clipping the carousel controls under overflow:hidden
+            minHeight: isMd ? DESKTOP_SECTION_H : "auto",
+            display: "flex",
+            flexDirection: isMd ? "row" : "column",
+            alignItems: "stretch",
+          }}
+        >
+          {/* LEFT — News carousel */}
+          <div style={{ flex: isMd ? 1 : "none", minWidth: 0, height: isMd ? "auto" : cH, display: "flex" }}>
+            <CarouselPanel height={cH} />
+          </div>
 
-        <Divider vertical={isMd} />
+          <Divider vertical={isMd} />
 
-        {/* RIGHT — Visual Gallery */}
-        <div style={{ flex: isMd ? 1 : "none", minWidth: 0, height: gH }}>
-          <GalleryPanel height={gH} />
+          {/* RIGHT — Visual Gallery */}
+          <div style={{ flex: isMd ? 1 : "none", minWidth: 0, height: isMd ? "auto" : gH, display: "flex" }}>
+            <GalleryPanel height={gH} />
+          </div>
         </div>
       </div>
     </>

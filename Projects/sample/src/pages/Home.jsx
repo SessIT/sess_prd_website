@@ -16,7 +16,7 @@ import OtherDept from '../framework/OtherDept';
 import Social from '../framework/SocialMedia';
 import WhatsAppWidget from '../framework/WhatsAppWidget';
 import Header from '../framework/Header';
-import VideoTest from "../component/VideoTest";
+// import VideoTest from "../component/VideoTest"; // Video section hidden — re-enable here when needed
 
 const HomePage = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -76,7 +76,7 @@ const HomePage = () => {
       <ClientsSection />      
       <NewsSection /> 
       <Social />
-      <VideoTest />
+      {/* <VideoTest /> */}
       <WhatsAppWidget />
       {/* <CTASection /> */}
     </motion.div>

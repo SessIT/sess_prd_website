@@ -148,7 +148,7 @@ const NewsBlogs = () => {
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 w-full">
+        <div className="relative max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 w-full">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ const NewsBlogs = () => {
       </section>
 
       {/* ── Carousel Section ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      <section className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
 
         {/* Navigation row */}
         <div className="flex items-center justify-between mb-6 sm:mb-8">
@@ -250,7 +250,7 @@ const NewsBlogs = () => {
                       <img
                         src={item.image}
                         alt="news"
-                        className="w-full h-[300px] sm:h-56 md:h-64 object-cover rounded-xl hover:rounded-2xl hover:scale-105 transition-transform duration-500"
+                        className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl hover:rounded-2xl hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                   </div>

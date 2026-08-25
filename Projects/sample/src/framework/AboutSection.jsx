@@ -140,17 +140,17 @@ const AboutSection = () => {
         overflow: 'visible',
       }}
     >
-      <div className="container px-4 mx-auto">
-        <div
-          className="flex flex-col lg:flex-row"
-          style={{ gap: 'var(--space-8)', alignItems: 'stretch' }}  /* equal height */
-        >
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Grid (not flex) so column widths account for the gaps — the old
+            38%+42%+20% flex basis + gaps overflowed the row and collapsed
+            differently per browser zoom/scrollbar width. */}
+        <div className="grid grid-cols-1 lg:grid-cols-[38fr_42fr_22fr] gap-8 items-stretch">
 
           {/* ══ COL 1: Image + Stats (equal height stretch) ══════════ */}
           <motion.div
             variants={fadeUp} initial="hidden" animate={inView ? 'visible' : 'hidden'}
             transition={{ duration: 0.6 }}
-            className="lg:w-[38%] w-full"
+            className="w-full min-w-0"
             style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}
           >
             {/* Image wrapper with animated bg lines and gradient background */}
@@ -209,7 +209,7 @@ const AboutSection = () => {
           <motion.div
             variants={fadeUp} initial="hidden" animate={inView ? 'visible' : 'hidden'}
             transition={{ duration: 0.6, delay: 0.32 }}
-            className="lg:w-[42%] w-full"
+            className="w-full min-w-0"
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
             <div>
@@ -276,7 +276,7 @@ Sri Easwari Scientific Solution Pvt Ltd is a leading provider of environmental t
   initial="hidden"
   animate={inView ? "visible" : "hidden"}
   transition={{ duration: 0.6, delay: 0.18 }}
-  className="lg:w-[20%] w-full lg:ml-[25px]"
+  className="w-full min-w-0"
   style={{ display: "flex", justifyContent: "center", alignItems: "stretch" }}
 >
   <div

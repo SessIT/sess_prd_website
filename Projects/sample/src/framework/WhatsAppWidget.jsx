@@ -10,7 +10,7 @@ const WhatsAppWidget = () => {
       
       {/* ✅ Chat Box */}
       {isOpen && (
-        <div className="w-72 bg-white rounded-xl shadow-2xl overflow-hidden border">
+        <div className="w-72 max-w-[calc(100vw-3rem)] bg-white rounded-xl shadow-2xl overflow-hidden border">
           
           {/* Header */}
           <div className="flex items-center justify-between bg-[#222733] text-white p-3">

@@ -56,13 +56,15 @@ function FadeIn({ children, delay = 0, dir = "up", className = "", style = {} })
 ───────────────────────────────────────────── */
 function FbFeed({ isDark }) {
   return (
-    <div className="flex justify-center w-full h-full">
+    <div className="flex justify-center items-center w-full h-full">
+      {/* No data-width: with adapt-container-width the SDK measures the
+          container, so the iframe never overflows a narrow column. */}
       <div
         className="fb-page"
+        style={{ width: '100%', maxWidth: '100%' }}
         data-href="https://www.facebook.com/sesschennai"
         data-tabs="timeline"
-        data-width="450"
-        data-height="360"
+        data-height="400"
         data-small-header="true"
         data-adapt-container-width="true"
         data-hide-cover="true"
@@ -334,6 +336,19 @@ export default function SocialMediaSection() {
     document.body.appendChild(script);
   }, []);
 
+  /* ── Re-adapt the FB iframe when the viewport is resized ──
+     adapt-container-width only measures at parse time, so without this the
+     fixed-size iframe overflows after any resize/zoom change. */
+  useEffect(() => {
+    let timer;
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => window.FB?.XFBML?.parse(), 400);
+    };
+    window.addEventListener("resize", onResize);
+    return () => { clearTimeout(timer); window.removeEventListener("resize", onResize); };
+  }, []);
+
   /* ── Section visibility for animation ── */
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -421,7 +436,7 @@ export default function SocialMediaSection() {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -452,13 +467,13 @@ export default function SocialMediaSection() {
           </h2>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto">
+        <div className="w-full">
           {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             {/* Left Column - Facebook Feed */}
-            <FadeIn dir="right" delay={0.1}>
-              <div 
-                className="rounded-2xl overflow-hidden transition-all duration-300 backdrop-blur-xl"
+            <FadeIn dir="right" delay={0.1} className="h-full">
+              <div
+                className="rounded-2xl overflow-hidden transition-all duration-300 backdrop-blur-xl h-full flex flex-col"
                 style={{
                   backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.8)',
                   border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,179,179,0.2)',
@@ -490,10 +505,11 @@ export default function SocialMediaSection() {
                     </h3>
                   </div>
                 </div>
-                <div 
-                  className="p-12 max-h-[385px] flex items-center justify-center"
+                <div
+                  className="p-4 flex-1 flex items-center justify-center"
                   style={{
                     backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : '#f9fafb',
+                    minHeight: '408px',
                   }}
                 >
                   <FbFeed isDark={isDark} />
@@ -502,9 +518,9 @@ export default function SocialMediaSection() {
             </FadeIn>
 
             {/* Right Column - Content Form */}
-            <FadeIn dir="left" delay={0.2}>
-              <div 
-                className="rounded-2xl overflow-hidden transition-all duration-300 backdrop-blur-xl"
+            <FadeIn dir="left" delay={0.2} className="h-full">
+              <div
+                className="rounded-2xl overflow-hidden transition-all duration-300 backdrop-blur-xl h-full"
                 style={{
                   backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.8)',
                   border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,179,179,0.2)',

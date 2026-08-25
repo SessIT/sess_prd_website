@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useInView, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
+import { openEnquiry } from './openEnquiry';
 import Logo from '../assets/sess_logo_white.png';
 
 /* ─── Magnetic Social Button ───────────────────────── */
@@ -143,21 +144,30 @@ const Footer = () => {
 
   const productLinks = [
     { name: 'Climatic Test Chamber',          path: '/climatic-test-chamber' },
+    { name: 'Battery Test Chamber',           path: '/battery-test-chamber' },
     { name: 'Salt Spray Test Chamber',        path: '/salt-spray-test-chamber' },
-    { name: 'Thermal Shock Test Chamber',     path: '/thermal-shock-chamber' },
     { name: 'Rain Test Chamber',              path: '/rain-test-chamber' },
     { name: 'Vibration Combined Test Chamber', path: '/vibration-test-chamber' },
-    { name: 'Battery Test Chamber',           path: '/battery-test-chamber' },
+    { name: 'Thermal Cycling Chamber',        path: '/thermal-cyclic-chamber' },
+    { name: 'Thermal Shock Test Chamber',     path: '/thermal-shock-chamber' },
     { name: 'Flame Proof Hot Air Oven',       path: '/flame-proof-hot-air-oven' },
+    { name: 'Tabletop Test Chamber',          path: '/tabletop-test-chamber' },
+    { name: 'Walk-In Chamber',                path: '/walk-in-chamber' },
+    { name: 'Dust Chamber',                   path: '/dust-chamber' },
+    { name: 'Tensile Chamber',                path: '/tensile-chamber' },
   ];
 
   const quickLinks = [
-    { path: '/',         label: 'Home' },
-    { path: '/about',    label: 'About' },
-    { path: '/products', label: 'Products' },
-    { path: '/services', label: 'Services' },
-    { path: '/gallery',  label: 'Gallery' },
-    { path: '/contact',  label: 'Contact Us' },
+    { path: '/',          label: 'Home' },
+    { path: '/about',     label: 'About' },
+    { path: '/products',  label: 'Products' },
+    { path: '/services',  label: 'Services' },
+    { path: '/gallery',   label: 'Gallery' },
+    { path: '/career',    label: 'Career' },
+    { path: '/news',      label: 'News and Events' },
+    { path: '/brochure',  label: 'Company Brochure' },
+    { path: '/contact',   label: 'Contact Us' },
+    { path: '/sitemap',   label: 'Sitemap' },
   ];
 
   return (
@@ -185,7 +195,7 @@ const Footer = () => {
 
       {/* ── MAIN GRID ── */}
       <div className="relative z-10 py-16">
-        <div className="mx-auto px-4 lg:px-8">
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {/* ── Col 1: Brand + Social ── */}
@@ -302,22 +312,22 @@ const Footer = () => {
               </ul>
 
               {/* Small CTA */}
-              {/* <motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.75 }}
                 viewport={{ once: true }}
                 className="mt-6 p-3 rounded-xl text-center"
-                style={{ background: 'rgba(251,113,133,0.06)', border: '1px solid rgba(251,113,133,0.15)' }}
+                style={{ background: 'rgba(0,179,179,0.06)', border: '1px solid rgba(0,179,179,0.20)' }}
               >
                 <p className="text-xs text-slate-500 mb-2">Need a quote?</p>
-                <Link
-                  to="/contact"
-                  className="text-xs font-medium text-rose-400 hover:text-rose-300 transition-colors duration-200 tracking-wide"
+                <button
+                  onClick={() => openEnquiry()}
+                  className="text-xs font-medium text-teal-400 hover:text-teal-300 transition-colors duration-200 tracking-wide bg-transparent border-none cursor-pointer"
                 >
-                  Get in Touch →
-                </Link>
-              </motion.div> */}
+                  Request a Quote →
+                </button>
+              </motion.div>
             </GlassCard>
 
           </div>
@@ -336,7 +346,7 @@ const Footer = () => {
         className="relative z-10 py-5"
         style={{ background: 'rgba(0,0,0,0.4)' }}
       >
-        <div className="container mx-auto px-4 lg:px-8">
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
             <p className="m-0">
               &copy; {new Date().getFullYear()} SESS — Proudly built by{' '}
@@ -350,10 +360,14 @@ const Footer = () => {
               </a>
             </p>
             <div className="flex items-center gap-5">
-              {['Term and Condition', 'Privacy Policy'].map((label, i) => (
+              {[
+                { label: 'Terms & Conditions', path: '/terms-and-conditions' },
+                { label: 'Privacy Policy',     path: '/privacy-policy' },
+                { label: 'Sitemap',            path: '/sitemap' },
+              ].map((item, i) => (
                 <React.Fragment key={i}>
                   {i > 0 && <span className="text-slate-700">|</span>}
-                  <Link to="#" className="hover:text-slate-300 transition-colors duration-200">{label}</Link>
+                  <Link to={item.path} className="hover:text-slate-300 transition-colors duration-200">{item.label}</Link>
                 </React.Fragment>
               ))}
             </div>

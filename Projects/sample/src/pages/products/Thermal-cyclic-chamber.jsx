@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, } fro
 import { useNavigate, Link } from 'react-router-dom';
 import { getRelatedChambers } from '../../data/relatedChambers';
 import BackToRelatedChamber from '../../component/BackToRelatedChamber';
+import { openEnquiry } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, } from 'lucide-react';
 //ImageCarousel import function
 
@@ -654,13 +655,13 @@ function ImageCarousel({ images }) {
 
   return (
     <>
-      <div className="flex h-full w-full shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)] rounded-3xl">
+      <div className="flex flex-col sm:flex-row h-full w-full shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)] rounded-3xl">
         {/* Main image + zoom panel wrapper (no overflow-hidden here so the
           side zoom panel isn't clipped by the rounded image container) */}
         <div className="relative flex-1">
           <div
             ref={imgContainerRef}
-            className="relative h-[500px] sm:h-[600px] w-full overflow-hidden rounded-l-3xl border border-r-0 border-slate-100/80 bg-slate-50"
+            className="relative h-[400px] sm:h-[600px] w-full overflow-hidden rounded-t-3xl sm:rounded-tr-none sm:rounded-l-3xl border border-b-0 sm:border-b sm:border-r-0 border-slate-100/80 bg-slate-50"
             style={{ cursor: isZoomed ? 'zoom-in' : 'default' }}
             onMouseLeave={() => setIsZoomed(false)}
             onMouseMove={handleMouseMove}
@@ -780,14 +781,14 @@ function ImageCarousel({ images }) {
         {/* Thumbnails — square cells, attached directly to the main image
           (no gap) as one continuous unit. Column width = container
           height / 4 so each cell comes out perfectly square. */}
-        <div className="flex w-[125px] sm:w-[150px] flex-shrink-0 flex-col overflow-hidden  border border-l-0 border-slate-100/80 divide-y divide-slate-100/80">
+        <div className="flex w-full flex-row sm:w-[150px] sm:flex-col flex-shrink-0 overflow-hidden rounded-b-3xl sm:rounded-b-none sm:rounded-r-3xl border border-t-0 sm:border-t sm:border-l-0 border-slate-100/80 divide-x sm:divide-x-0 sm:divide-y divide-slate-100/80">
           {images.map((img, i) => (
             <button
               key={img.id}
               type="button"
               onMouseEnter={() => go(i, i > current ? 1 : -1)}
               onClick={() => go(i, i > current ? 1 : -1)}
-              className="relative flex aspect-square w-full items-center justify-center overflow-hidden transition-colors duration-200"
+              className="relative flex aspect-square flex-1 sm:flex-none sm:w-full items-center justify-center overflow-hidden transition-colors duration-200"
             >
               <img src={img.src} alt={img.alt} className="h-[90%] w-[90%] object-contain m-auto" loading="lazy" decoding="async" />
               {i === current && (
@@ -1278,7 +1279,7 @@ function SectionNav() {
   return (
     <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white shadow-sm">
       <div
-        className="mx-auto flex max-w-7xl items-center justify-center gap-8 overflow-x-auto px-5"
+        className="mx-auto flex max-w-7xl 2xl:max-w-[1440px] items-center justify-start md:justify-center gap-4 md:gap-8 overflow-x-auto px-5"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
 
@@ -1358,7 +1359,7 @@ function ProductDetail() {
           src={thermalbg}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-[30%_center] xl:object-right pointer-events-none select-none"
+          className="absolute inset-0 h-full w-full object-cover object-[30%_center] lg:object-right pointer-events-none select-none"
         />
         {/* Grid lines */}
         <div
@@ -1385,12 +1386,12 @@ function ProductDetail() {
 
         {/* Subtle bottom fade for overall polish */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.2) 100%)' }} />
-        <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="relative w-full px-4 py-20 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 44 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl mx-auto text-center xl:mx-0 xl:max-w-2xl xl:text-left"
+            className="max-w-3xl mx-auto text-center lg:mx-0 lg:max-w-2xl lg:text-left"
           >
             {/* Live badge */}
             <motion.div
@@ -1411,7 +1412,7 @@ function ProductDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-4xl bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300"
+              className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300"
             >
               {product.hero.mainTitle}
             </motion.h1>
@@ -1420,17 +1421,35 @@ function ProductDetail() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.45, duration: 0.6 }}
-              className="px-4 xl:px-0 text-base leading-relaxed text-slate-300 sm:text-lg md:text-lg mb-10"
+              className="px-4 lg:px-0 text-base leading-relaxed text-slate-300 sm:text-lg md:text-lg mb-10"
             >
               {product.hero.subtitle}
             </motion.p>
+            
+            {/* Request Quote CTA */}
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => openEnquiry(product.hero.mainTitle)}
+              className="inline-flex items-center gap-2 px-8 py-3 mb-6 text-base font-semibold text-white rounded-full transition-colors duration-200"
+              style={{
+                background: 'linear-gradient(135deg, #00b3b3 0%, #2a56a6 100%)',
+                boxShadow: '0 10px 28px rgba(0,179,179,0.35)',
+              }}
+            >
+              {product.hero.ctaText || 'Request Quote'}
+              <span className="text-lg">→</span>
+            </motion.button>
 
             {/* Quick stat chips */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="flex flex-wrap justify-center xl:justify-start gap-3"
+              className="flex flex-wrap justify-center lg:justify-start gap-3"
             >
               <StatChip icon={Thermometer} label="Temp Range" value="-40°C to +150°C" />
               <StatChip icon={Gauge} label="Ramp Rate" value="Programmable, Fast Transition" />
@@ -1448,7 +1467,7 @@ function ProductDetail() {
 
       {/* ── OVERVIEW + IMAGE ─────────────────────── */}
       <section id="overview" className="px-5 pt-6 pb-16 bg-white sm:pt-8 sm:pb-20 md:pt-10 md:pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
 
           {/* Overview — full width, on top */}
           <FadeIn dir="up" delay={0.05}>
@@ -1496,8 +1515,8 @@ function ProductDetail() {
               <ImageCarousel images={product.productDetails.images} />
             </FadeIn>
 
-            <FadeIn dir="right" delay={0.2} className="h- border border-slate-200/80 bg-slate-50/70full">
-              <div className="flex h-full flex-col  p-5 shadow-sm sm:p-6">
+            <FadeIn dir="right" delay={0.2} className="h-full">
+              <div className="flex h-full flex-col border border-slate-200/80 bg-slate-50/70 p-5 shadow-sm sm:p-6">
                 <div className="mb-5">
                   <h3 className="text-lg font-semibold text-slate-900">Key Features</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -1532,7 +1551,7 @@ function ProductDetail() {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <SectionHeader eyebrow="Efficiency Benefits" title={product.benefits.title} subtitle={product.benefits.subtitle} dark />
           <div className="grid gap-4 mt-12 sm:grid-cols-2 lg:grid-cols-3 sm:mt-16">
             {product.benefits.benefitsList.map((benefit, i) => (
@@ -1544,7 +1563,7 @@ function ProductDetail() {
 
       {/* ── SPECIFICATIONS ───────────────────────── */}
       <section id="specifications" className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto w-[88vw] max-w-[1550px]">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <SectionHeader
             eyebrow="Technical Data"
             title={product.specifications.title}
@@ -1632,12 +1651,12 @@ function ProductDetail() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
         <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <SectionHeader eyebrow="Controller System" title={product.controller.title} subtitle={product.controller.subtitle} dark />
 
           <div className="grid items-center gap-12 mt-12 lg:grid-cols-2 sm:mt-16">
             <FadeIn dir="left">
-              <div className="flex items-center justify-start h-72 sm:h-[420px] -ml-4 sm:-ml-10 lg:-ml-16">
+              <div className="flex items-center justify-start h-[400px] sm:h-[420px]">
                 <AutoPlayCarousel
                   images={[prd5, prd6, prd7, prd8, prd9, prd10]}
                 />
@@ -1655,7 +1674,7 @@ function ProductDetail() {
 
       {/* ── RELATED PRODUCTS ─────────────────────── */}
       <section id="related-products" className="px-5 py-16 bg-white sm:py-20 md:py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <SectionHeader
             eyebrow="More Solutions"
             title="Related Products"

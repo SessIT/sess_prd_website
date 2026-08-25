@@ -40,6 +40,9 @@ const TabletopTestChamber = lazy(() => import('./pages/products/Tabletopchamber'
 const WalkInChamber = lazy(() => import('./pages/products/WalkInChamber'));
 const DustChamber = lazy(() => import('./pages/products/DustChamber'));
 const TensileChamber = lazy(() => import('./pages/products/TensileChamber'));
+const SitemapPage = lazy(() => import('./pages/Sitemap'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('./pages/TermsConditions'));
 
 // import ProductVariantDetail from './pages/products/related/Productvariantdetail';
 
@@ -96,6 +99,9 @@ function AppContent() {
               <Route path="/walk-in-chamber" element={<WalkInChamber />} />
               <Route path="/dust-chamber" element={<DustChamber />} />
               <Route path="/tensile-chamber" element={<TensileChamber />} />
+              <Route path="/sitemap" element={<SitemapPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsConditions />} />
           
 
            

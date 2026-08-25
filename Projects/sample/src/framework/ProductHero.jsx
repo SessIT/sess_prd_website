@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import { openEnquiry } from './openEnquiry';
 
 // ProductHero Section
 const ProductHero = ({ product }) => {
@@ -112,7 +113,7 @@ const ProductHero = ({ product }) => {
       />
 
       {/* Content */}
-      <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="relative w-full px-4 py-20 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -161,6 +162,7 @@ const ProductHero = ({ product }) => {
             transition={{ delay: 0.6, duration: 0.5 }}
             whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openEnquiry(product.hero.mainTitle)}
             className="inline-flex items-center gap-2 px-8 py-3 text-base font-semibold text-white bg-white/20 backdrop-blur-md rounded-full hover:bg-white/30 transition-colors duration-200 border border-white/30"
           >
             {product.hero.ctaText}

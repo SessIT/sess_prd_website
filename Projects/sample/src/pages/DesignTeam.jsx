@@ -30,11 +30,12 @@ const FeatureCard = ({ card, index }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-    className="group relative flex flex-col sm:flex-row bg-white rounded-2xl overflow-hidden border border-slate-100
+    className="group relative flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden border border-slate-100
                shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out"
   >
-    {/* Top (mobile) / Left (desktop) – thumbnail */}
-    <div className="relative w-full h-52 sm:w-56 sm:h-auto flex-shrink-0 overflow-hidden">
+    {/* Top (mobile/tablet) / Left (desktop) – thumbnail; row layout waits for
+        lg so the text column never collapses in the 2-col tablet grid */}
+    <div className="relative w-full h-52 lg:w-56 lg:h-auto flex-shrink-0 overflow-hidden">
       <img
         src={card.image}
         alt={card.title}
@@ -192,7 +193,7 @@ const MachineDesignTeam = () => {
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+        <div className="relative max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -234,7 +235,7 @@ const MachineDesignTeam = () => {
       </section>
 
       {/* ── Cards grid ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {cards.map((card, index) => (
             <FeatureCard key={card.id} card={card} index={index} />

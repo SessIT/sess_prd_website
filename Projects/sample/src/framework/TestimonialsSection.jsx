@@ -141,7 +141,9 @@ const TestimonialsSection = () => {
 
       <div className="relative z-10">
 
-        {/* Header */}
+        {/* Header — padded container so the heading never touches the viewport
+            edges; the marquee below stays intentionally full-bleed */}
+        <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -171,6 +173,7 @@ const TestimonialsSection = () => {
                     What Our Clients Say
                   </h2>
                 </motion.div>
+        </div>
 
         {/* Single scrolling row */}
         <motion.div

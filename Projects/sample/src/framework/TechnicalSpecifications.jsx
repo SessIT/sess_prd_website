@@ -29,7 +29,7 @@ const TechnicalSpecifications = ({ product }) => {
 
   return (
     <section className="py-16 bg-white md:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -105,10 +105,10 @@ const TechnicalSpecifications = ({ product }) => {
                       transition={{ delay: itemIndex * 0.05 }}
                       className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0"
                     >
-                      <span className="font-semibold text-gray-700 flex-1">
+                      <span className="font-semibold text-gray-700 flex-1 min-w-0 break-words">
                         {item.label}
                       </span>
-                      <span className="text-cyan-500 font-bold text-right flex-1">
+                      <span className="text-cyan-500 font-bold text-right flex-1 min-w-0 break-words">
                         {item.value}
                       </span>
                     </motion.div>
@@ -131,7 +131,7 @@ const TechnicalSpecifications = ({ product }) => {
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
               Compliance & Standards
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {product.standards.map((standard, index) => (
                 <motion.div
                   key={index}

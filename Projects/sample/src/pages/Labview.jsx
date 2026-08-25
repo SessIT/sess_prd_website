@@ -122,9 +122,10 @@ const WorkflowStep = ({ step, index, total }) => (
     transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
     className="relative flex flex-col items-center text-center"
   >
-    {/* Connector line */}
+    {/* Connector line — starts at the circle's right edge and spans the grid
+        gap; scales with the cell instead of a fixed 112px offset */}
     {index < total - 1 && (
-      <div className="absolute z-0 hidden w-full h-px md:block left-28 top-6"
+      <div className="absolute z-0 hidden h-px md:block top-6 left-[calc(50%+1.5rem)] w-[calc(100%-1rem)]"
         style={{ background: 'linear-gradient(to right, #00b3b3, #00b3b3)'}} />
     )}
 
@@ -291,7 +292,7 @@ const LabviewPage = () => {
                        }}
                      />
              
-                     <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                     <div className="relative w-full px-4 py-20 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
                        <motion.div
                          initial={{ opacity: 0, y: 40 }}
                          animate={{ opacity: 1, y: 0 }}
@@ -316,7 +317,7 @@ const LabviewPage = () => {
                            initial={{ opacity: 0, y: 20 }}
                            animate={{ opacity: 1, y: 0 }}
                            transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                           className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-4xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
+                           className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
                            PLC & LabView Programming
                          </motion.h1>
              
@@ -355,7 +356,7 @@ const LabviewPage = () => {
 
       {/* ════════════════ SERVICES ════════════════ */}
       <section id="services" className="px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
 
           {/* Section header */}
           <motion.div
@@ -419,7 +420,7 @@ const LabviewPage = () => {
           style={{ pointerEvents: 'none' }}
         />
 
-        <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="relative z-10 max-w-7xl 2xl:max-w-[1440px] mx-auto">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}

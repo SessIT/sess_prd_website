@@ -1,16 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import EnquiryModal from './EnquiryModal';
+import BrochureModal from './BrochureModal';
+import SearchOverlay from './SearchOverlay';
+import { OPEN_ENQUIRY_EVENT, OPEN_SEARCH_EVENT } from './openEnquiry';
 import suppot from '../assets/Website_Gallery_img/chatbot.png';
 import download from '../assets/Website_Gallery_img/file.png';
-import brocher from '../assets/Website_Gallery_img/Profile_SESS.pdf'
 
 const EnquiryButtons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [prefillProduct, setPrefillProduct] = useState('');
   const [hoveredBtn, setHoveredBtn] = useState(null);
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+
+  // Any component (Header CTA, product hero, carousels) can open the enquiry
+  // modal via openEnquiry('Product name') or the search via openSearch() —
+  // see openEnquiry.js. Ctrl+K / Cmd+K also opens the search.
+  useEffect(() => {
+    const enquiryHandler = (e) => {
+      setPrefillProduct(e.detail?.product || '');
+      setIsModalOpen(true);
+    };
+    const searchHandler = () => setIsSearchOpen(true);
+    const keyHandler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener(OPEN_ENQUIRY_EVENT, enquiryHandler);
+    window.addEventListener(OPEN_SEARCH_EVENT, searchHandler);
+    window.addEventListener('keydown', keyHandler);
+    return () => {
+      window.removeEventListener(OPEN_ENQUIRY_EVENT, enquiryHandler);
+      window.removeEventListener(OPEN_SEARCH_EVENT, searchHandler);
+      window.removeEventListener('keydown', keyHandler);
+    };
+  }, []);
 
   // Button variants for animation
   const buttonVariants = {
@@ -257,7 +287,7 @@ const EnquiryButtons = () => {
             whileTap="tap"
             onHoverStart={() => setHoveredBtn('brochure')}
             onHoverEnd={() => setHoveredBtn(null)}
-            onClick={() => window.open(brocher, '_blank')}
+            onClick={() => setIsBrochureOpen(true)}
             style={{
               width: '55px',
               height: '55px',
@@ -333,7 +363,13 @@ const EnquiryButtons = () => {
         </div>
       </div>
 
-      <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <EnquiryModal
+        isOpen={isModalOpen}
+        onClose={() => { setIsModalOpen(false); setPrefillProduct(''); }}
+        prefillProduct={prefillProduct}
+      />
+      <BrochureModal isOpen={isBrochureOpen} onClose={() => setIsBrochureOpen(false)} />
+      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 };

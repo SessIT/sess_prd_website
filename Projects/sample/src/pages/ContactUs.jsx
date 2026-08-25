@@ -462,7 +462,7 @@ const Contact = () => {
           }}
         />
 
-        <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="relative w-full px-4 py-20 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -487,7 +487,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-4xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
+              className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
               Get In Touch
             </motion.h1>
 
@@ -505,7 +505,7 @@ const Contact = () => {
           SECTION 2 — CONTACT INFO + FORM
       ══════════════════════════════════════════ */}
       <section className="px-4 py-8 bg-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -694,7 +694,7 @@ const Contact = () => {
       <section className="relative px-4 py-12 overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white sm:px-6 lg:px-8">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200 to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -778,7 +778,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {branchCards.map((item, index) => (
                 <BranchCard key={item.name} item={item} index={index} />
               ))}
@@ -804,7 +804,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {partnerCards.map((item, index) => (
                 <PartnerCard key={item.name} item={item} index={index} />
               ))}
@@ -818,7 +818,7 @@ const Contact = () => {
       ══════════════════════════════════════════ */}
 
       <section className="px-4 bg-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -859,7 +859,7 @@ const Contact = () => {
           SECTION 5 — FEATURE CARDS
       ══════════════════════════════════════════ */}
       <section className="px-4 py-12 pb-24 bg-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

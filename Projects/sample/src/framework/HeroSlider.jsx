@@ -58,9 +58,6 @@ const HeroSlider = () => {
     border: `1px solid ${isDark ? "var(--border-default)" : "var(--color-neutral-300)"}`,
     background: isDark ? "rgba(2,6,23,0.90)" : "var(--surface-default)",
     color: isDark ? "var(--text-body)" : "var(--color-neutral-500)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
     cursor: "pointer",
     transition: "var(--transition-base)",
     boxShadow: "var(--shadow-sm)",
@@ -87,7 +84,7 @@ const HeroSlider = () => {
     >
       <button
         ref={prevRef}
-        className="hidden md:flex"
+        className="hidden md:flex items-center justify-center"
         style={{ ...arrowStyle, left: "clamp(1.5rem, 2.5vw, 2.5rem)" }}
         aria-label="Previous slide"
         onMouseEnter={arrowHover} onMouseLeave={arrowUnhover}
@@ -97,8 +94,8 @@ const HeroSlider = () => {
 
       <button
         ref={nextRef}
-        className="hidden md:flex"
-        style={{ ...arrowStyle, right: "clamp(1.5rem, 6vw, 3rem)" }}
+        className="hidden md:flex items-center justify-center"
+        style={{ ...arrowStyle, right: "clamp(1.5rem, 2.5vw, 2.5rem)" }}
         aria-label="Next slide"
         onMouseEnter={arrowHover} onMouseLeave={arrowUnhover}
       >
@@ -127,7 +124,7 @@ const HeroSlider = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div
-              className="relative flex flex-col md:flex-row items-center w-full overflow-hidden"
+              className="relative flex items-center w-full overflow-hidden"
               style={{
                 minHeight: "calc(100vh - 100px)",
                 background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
@@ -172,18 +169,20 @@ const HeroSlider = () => {
                 />
               </div>
 
-              <div className="relative z-10 w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:ml-16">
+              {/* Centered content row — capped so ultra-wide (2K/4K) screens
+                  don't push the text to the far-left edge of the viewport */}
+              <div className="relative z-10 flex flex-col md:flex-row items-center w-full max-w-[1760px] mx-auto">
+              <div className="w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:pl-24">
                 <motion.div
                   key={`text-${index}`}
                   initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <span style={{
+                    <span className="min-w-0" style={{
                       fontSize: "var(--text-base)",
                       fontWeight: "var(--font-weight-regular)",
                       letterSpacing: "var(--tracking-wide)",
-                      whiteSpace: "nowrap",
                       color: "var(--text-muted)",
                     }}>
                       {slide.title}
@@ -244,7 +243,7 @@ const HeroSlider = () => {
                 </motion.div>
               </div>
 
-              <div className="relative z-10 w-full md:w-[55%] flex items-center justify-center px-8 py-10 md:py-0">
+              <div className="w-full md:w-[55%] flex items-center justify-center px-8 py-10 md:py-0">
                 <motion.img
                   key={index}
                   src={slide.image}
@@ -252,9 +251,10 @@ const HeroSlider = () => {
                   initial={{ opacity: 0, x: -40, scale: 0.96 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="w-full max-w-lg object-contain drop-shadow-xl"
+                  className="w-full max-w-lg xl:max-w-xl object-contain drop-shadow-xl"
                   style={{ maxHeight: "100vh" }}
                 />
+              </div>
               </div>
             </div>
           </SwiperSlide>

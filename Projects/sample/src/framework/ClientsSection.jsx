@@ -144,7 +144,7 @@ const ClientsSection = () => {
         }
       `}</style>
 
-      <div className="container px-4 mx-auto">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header — unchanged */}
         <motion.div

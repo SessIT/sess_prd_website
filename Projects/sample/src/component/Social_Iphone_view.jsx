@@ -434,7 +434,7 @@ export default function SocialMediaSection() {
     >
       <div id="fb-root"></div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto">
         <FadeIn dir="up" className="text-center">
           <span
             style={{

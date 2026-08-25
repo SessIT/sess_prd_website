@@ -28,7 +28,7 @@ const ControllerFeatures = ({ product }) => {
 
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 via-white to-gray-50 md:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -73,7 +73,7 @@ const ControllerFeatures = ({ product }) => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="absolute -bottom-6 -right-6 bg-red-600 text-white p-6 rounded-2xl shadow-xl"
+              className="absolute -bottom-6 right-2 lg:-right-6 bg-red-600 text-white p-6 rounded-2xl shadow-xl"
             >
               <p className="font-bold text-lg">Intuitive Design</p>
               <p className="text-sm opacity-90">Easy to use interface</p>

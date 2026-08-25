@@ -378,7 +378,7 @@ const TechStack = ({
     >
       <style>{MARQUEE_STYLES}</style>
 
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
         {showHeader && (
           <div className="flex flex-col gap-3 px-1 mb-2 sm:mb-2 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">

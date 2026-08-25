@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   FaBars, FaTimes, FaChevronDown, FaPhone, FaEnvelope,
   FaSun, FaMoon, FaPlus, FaInstagram, FaFacebookF, FaTwitter, FaBlog,
+  FaSearch, FaFileInvoiceDollar,
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
+import { openEnquiry, openSearch } from "./openEnquiry";
 import Logo from "../assets/sess_logo_png.png";
 import LogoWhite from "../assets/sess_logo_white.png";
 
@@ -38,10 +40,10 @@ const Header = () => {
 
   /* ── DATA ─────────────────────────────────────────────── */
   const socialLinks = [
-    { icon: <FaInstagram />, name: "Instagram", url: "https://instagram.com" },
-    { icon: <FaFacebookF />, name: "Facebook",  url: "https://facebook.com" },
-    { icon: <FaTwitter />,   name: "Twitter",   url: "https://twitter.com" },
-    { icon: <FaBlog />,      name: "Blog",      url: "https://blog.com" },
+    { icon: <FaInstagram />, name: "Instagram", url: "https://www.instagram.com/sesschennai/" },
+    { icon: <FaFacebookF />, name: "Facebook",  url: "https://www.facebook.com/profile.php?id=100067759313976" },
+    { icon: <FaTwitter />,   name: "Twitter",   url: "https://x.com/sesschennai" },
+    { icon: <FaBlog />,      name: "Blog",      url: "https://www.youtube.com/@sesschennai" },
   ];
 
   const marqueeItems = [
@@ -172,7 +174,7 @@ const Header = () => {
             </div>
 
             {/* Marquee — Desktop */}
-            <div className="hidden lg:flex flex-1 min-w-0 overflow-hidden items-center" style={{ marginLeft: "5rem", marginRight: "12rem" }}>
+            <div className="hidden lg:flex flex-1 min-w-0 overflow-hidden items-center" style={{ marginLeft: "clamp(1.5rem, 4vw, 5rem)", marginRight: "clamp(8rem, 14vw, 12rem)" }}>
               <motion.div
                 animate={{ x: [0, -1000] }}
                 transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
@@ -300,11 +302,11 @@ const Header = () => {
           <div className="flex items-center justify-between">
 
             {/* Logo */}
-            <Link to="/" className="relative z-50">
+            <Link to="/" className="relative z-50 shrink min-w-0">
               <img
                 src={isDark ? LogoWhite : Logo}
                 alt="SESS"
-                className="h-9 sm:h-11 lg:h-12 w-auto max-w-[calc(100vw-7rem)] object-contain"
+                className="h-9 sm:h-11 lg:h-12 w-auto max-w-full object-contain"
               />
             </Link>
 
@@ -351,9 +353,12 @@ const Header = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.2 }}
-                      className="absolute top-full right-0 mt-2 rounded-lg"
+                      className={`absolute top-full mt-2 rounded-lg ${item.label === "Products" ? "left-1/2" : "right-0"}`}
                       style={{
                         zIndex: 45, // 🔧 FIX 5: Added proper z-index for dropdown
+                        // Products mega menu centers under its button so the wide
+                        // panel can't run off the left viewport edge at lg widths
+                        x: item.label === "Products" ? "-50%" : 0,
                         background: isDark ? "var(--surface-raised)" : "var(--surface-default)",
                         border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.08)",
                         boxShadow: "var(--shadow-xl)",
@@ -365,8 +370,8 @@ const Header = () => {
                             className="relative p-5"
                             style={{
                               width: "fit-content",
-                              minWidth: "620px",
-                              maxWidth: "min(1200px, calc(100vw - 32px))",
+                              minWidth: "min(620px, calc(100vw - 2rem))",
+                              maxWidth: "min(1200px, calc(100vw - 2rem))",
                             }}
                           >
                             {item.items.map((col, idx) => (
@@ -441,15 +446,59 @@ const Header = () => {
                   </AnimatePresence>
                 </div>
               ))}
+
+              {/* Search */}
+              <motion.button
+                whileTap={{ scale: 0.92 }}
+                onClick={openSearch}
+                aria-label="Search the website (Ctrl+K)"
+                title="Search (Ctrl+K)"
+                className="ml-1 flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-300"
+                style={{
+                  color: isDark ? "var(--text-body)" : "var(--color-neutral-700)",
+                  background: "transparent",
+                  border: `1px solid ${isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.10)"}`,
+                }}
+                onMouseEnter={e => { e.currentTarget.style.color = "var(--color-primary-500)"; e.currentTarget.style.borderColor = "var(--color-primary-500)"; e.currentTarget.style.background = "rgba(0,179,179,0.08)"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = isDark ? "var(--text-body)" : "var(--color-neutral-700)"; e.currentTarget.style.borderColor = isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.10)"; e.currentTarget.style.background = "transparent"; }}
+              >
+                <FaSearch style={{ fontSize: "14px" }} />
+              </motion.button>
+
+              {/* Request Quote CTA */}
+              <motion.button
+                whileHover={{ scale: 1.04, boxShadow: "0 10px 24px rgba(0,179,179,0.35)" }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => openEnquiry()}
+                className="ml-2 inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white"
+                style={{
+                  background: "linear-gradient(135deg, #00b3b3 0%, #2a56a6 100%)",
+                  boxShadow: "0 6px 18px rgba(0,179,179,0.28)",
+                  fontFamily: "var(--font-body)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <FaFileInvoiceDollar style={{ fontSize: "13px" }} />
+                Request Quote
+              </motion.button>
             </div>
 
-            {/* Mobile hamburger */}
-            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden relative z-50 p-2">
+            {/* Mobile: search + hamburger */}
+            <div className="lg:hidden relative z-50 flex items-center gap-1">
+              <button
+                onClick={openSearch}
+                aria-label="Search the website"
+                className="p-2"
+              >
+                <FaSearch style={{ fontSize: "20px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
+              </button>
+            <button onClick={() => setIsOpen(!isOpen)} className="relative z-50 p-2">
               {isOpen
                 ? <FaTimes  style={{ fontSize: "24px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
                 : <FaBars   style={{ fontSize: "24px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
               }
             </button>
+            </div>
 
             {/* 🔧 FIX 6: Completely redesigned mobile drawer with proper dropdowns */}
             <AnimatePresence>
@@ -495,6 +544,24 @@ const Header = () => {
                       <FaTimes style={{ fontSize: "20px" }} />
                     </button>
                     <div className="pt-24 pb-8 px-6">
+                      {/* Request Quote CTA — mobile */}
+                      <motion.button
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => { setIsOpen(false); openEnquiry(); }}
+                        className="mb-6 flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-base font-semibold text-white"
+                        style={{
+                          background: "linear-gradient(135deg, #00b3b3 0%, #2a56a6 100%)",
+                          boxShadow: "0 8px 22px rgba(0,179,179,0.30)",
+                          fontFamily: "var(--font-body)",
+                        }}
+                      >
+                        <FaFileInvoiceDollar style={{ fontSize: "15px" }} />
+                        Request a Quote
+                      </motion.button>
+
                       {navItems.map((item, index) => (
                         <div key={index} className="mb-4 border-b border-gray-200 dark:border-gray-700 last:border-0">
                           {item.path ? (
@@ -612,8 +679,14 @@ const Header = () => {
         </nav>
       </header>
 
-      {/* 🔧 FIX 7: Spacer to prevent content from hiding behind fixed header */}
-      <div style={{ height: showTopBar ? "calc(40px + 80px)" : "80px" }} />
+      {/* 🔧 FIX 7: Spacer matching the responsive header height (top bar 40px +
+          py-4 (32px) + logo h-9/h-11/h-12) so content offset stays consistent */}
+      <div
+        aria-hidden="true"
+        className={showTopBar
+          ? "h-[calc(40px+68px)] sm:h-[calc(40px+76px)] lg:h-[calc(40px+80px)]"
+          : "h-[68px] sm:h-[76px] lg:h-[80px]"}
+      />
     </>
   );
 };

@@ -33,7 +33,7 @@ const FeatureCard = ({ card, index }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8 }}
-      className="relative flex flex-col overflow-hidden transition-all duration-500 ease-out border shadow-lg sm:flex-row group bg-gradient-to-br from-white via-slate-50/50 to-slate-50 rounded-2xl border-slate-200/60 hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm"
+      className="relative flex flex-col overflow-hidden transition-all duration-500 ease-out border shadow-lg lg:flex-row group bg-gradient-to-br from-white via-slate-50/50 to-slate-50 rounded-2xl border-slate-200/60 hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm"
     >
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 transition-all duration-700 pointer-events-none bg-gradient-to-r from-cyan-500/0 via-transparent to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5" />
@@ -42,7 +42,7 @@ const FeatureCard = ({ card, index }) => {
       <motion.div
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.4 }}
-        className="relative flex-shrink-0 order-first w-full overflow-hidden h-52 sm:w-56 sm:h-auto"
+        className="relative flex-shrink-0 order-first w-full overflow-hidden h-52 lg:w-56 lg:h-auto"
       >
         <motion.img
           src={card.image}
@@ -58,7 +58,7 @@ const FeatureCard = ({ card, index }) => {
           initial={{ opacity: 0.3 }}
           whileHover={{ opacity: 0.6 }}
           transition={{ duration: 0.4 }}
-          className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-r from-slate-900/40 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-slate-900/40 via-transparent to-transparent"
         />
 
         {/* Smooth-reveal bottom gradient */}
@@ -253,7 +253,7 @@ const ItTeam = () => {
           }}
         />
 
-        <div className="relative w-full px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="relative w-full px-4 py-16 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -295,7 +295,7 @@ const ItTeam = () => {
       </section>
 
       {/* ── Cards grid ── */}
-      <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="px-4 py-16 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {cards.map((card, index) => (
             <FeatureCard key={card.id} card={card} index={index} />

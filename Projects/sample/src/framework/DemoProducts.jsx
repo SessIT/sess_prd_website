@@ -41,7 +41,7 @@ const products = [
 // Badge colour map (dynamic inline only)
 const getBadgeStyle = (badge) => {
   const map = {
-    'Top Rated': { bg: 'rgba(245,184,0,0.18)', color: '#f500db55', border: 'rgba(245,184,0,0.4)' },
+    'Top Rated': { bg: 'rgba(245,184,0,0.18)', color: '#b45309', border: 'rgba(245,184,0,0.4)' },
     'Certified': { bg: 'rgba(22,163,74,0.15)', color: '#16a34a', border: 'rgba(22,163,74,0.4)' },
     'IPX6': { bg: 'rgba(42,86,166,0.15)', color: '#4a70b4', border: 'rgba(42,86,166,0.4)' },
     'New': { bg: 'rgba(220,38,38,0.15)', color: '#ef4444', border: 'rgba(220,38,38,0.4)' },
@@ -49,7 +49,7 @@ const getBadgeStyle = (badge) => {
     'Pro': { bg: 'rgba(99,102,241,0.15)', color: '#818cf8', border: 'rgba(99,102,241,0.4)' },
     'GMP Ready': { bg: 'rgba(22,163,74,0.15)', color: '#16a34a', border: 'rgba(22,163,74,0.4)' },
     'ISO 60529': { bg: 'rgba(42,86,166,0.15)', color: '#4a70b4', border: 'rgba(42,86,166,0.4)' },
-    'Multi-Axis': { bg: 'rgba(245,184,0,0.18)', color: '#f500db55', border: 'rgba(245,184,0,0.4)' },
+    'Multi-Axis': { bg: 'rgba(245,184,0,0.18)', color: '#b45309', border: 'rgba(245,184,0,0.4)' },
     'ALT Ready': { bg: 'rgba(0,179,179,0.15)', color: '#00b3b3', border: 'rgba(0,179,179,0.4)' },
   };
   return map[badge] || { bg: 'rgba(0,179,179,0.15)', color: '#00b3b3', border: 'rgba(0,179,179,0.4)' };
@@ -120,6 +120,7 @@ const TiltCard = ({ children, isDark }) => {
 const ProductCard = ({ product, index, isAnimating, isDark }) => {
   const [hovered, setHovered] = useState(false);
   const delay = (index % 5) * 0.06 + Math.floor(index / 5) * 0.04;
+  const badgeStyle = getBadgeStyle(product.badge);
 
   const variants = {
     hidden: { opacity: 0, y: 40, scale: 0.92 },
@@ -148,6 +149,18 @@ const ProductCard = ({ product, index, isAnimating, isDark }) => {
               className="relative w-full p-2 overflow-hidden bg-white group"
               style={{ aspectRatio: '1/1' }}
           >
+              {/* Category badge */}
+              {/* <span
+                className={`absolute top-3 left-3 z-[2] px-2.5 py-1 rounded-full text-[10.5px] font-bold tracking-wide uppercase backdrop-blur-sm transition-transform duration-300 ${hovered ? 'scale-105' : ''}`}
+                style={{
+                  background: badgeStyle.bg,
+                  color: badgeStyle.color,
+                  border: `1px solid ${badgeStyle.border}`,
+                }}
+              >
+                {product.badge}
+              </span> */}
+
               {/* Image */}
               <img
               src={product.image}
@@ -158,18 +171,61 @@ const ProductCard = ({ product, index, isAnimating, isDark }) => {
               style={{ transform: hovered ? 'scale(1.08)' : 'scale(1)' }}
               />
 
+              {/* Soft teal glow rising from the bottom on hover */}
+              <div
+                className={`absolute inset-x-0 bottom-0 h-20 pointer-events-none transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0'}`}
+                style={{ background: 'linear-gradient(to top, rgba(0,179,179,0.12), transparent)' }}
+              />
           </div>
-          {/* Reveal the name below the image on hover, without covering the machine. */}
+
+          {/* Info bar — always visible: name + spec line + arrow, with an
+              animated gradient underline on hover (no more blank strip) */}
           <div
-            className={`flex items-center justify-center min-h-[3.5rem] px-3 py-2 border-t transition-all duration-300 ${
+            className={`relative px-4 pt-3 pb-3.5 border-t transition-colors duration-300 ${
+              isDark ? 'border-white/[0.06]' : 'border-black/[0.05]'
+            } ${
               hovered
-                ? 'opacity-100 translate-y-0 text-white border-transparent bg-[#00b3b3] shadow-[0_-6px_16px_rgba(0,179,179,0.22)]'
-                : 'opacity-0 translate-y-2 text-slate-800 bg-white border-black/[0.06]'
+                ? (isDark ? 'bg-[rgba(0,179,179,0.10)]' : 'bg-[#f0fbfb]')
+                : (isDark ? 'bg-transparent' : 'bg-white')
             }`}
           >
-            <h3 className="m-0 text-sm font-semibold leading-snug text-center">
-              {product.name}
-            </h3>
+            <div className="flex items-center justify-between gap-2">
+              <h3
+                title={product.name}
+                className={`m-0 text-sm font-semibold leading-snug truncate transition-colors duration-300 ${
+                  hovered ? 'text-[#00b3b3]' : isDark ? 'text-slate-200' : 'text-slate-800'
+                }`}
+              >
+                {product.name}
+              </h3>
+              <span
+                className={`flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full transition-all duration-300 ${
+                  hovered
+                    ? 'bg-[#00b3b3] text-white translate-x-0 opacity-100 shadow-[0_4px_10px_rgba(0,179,179,0.35)]'
+                    : `${isDark ? 'bg-white/10 text-slate-400' : 'bg-slate-100 text-slate-400'} -translate-x-1 opacity-70`
+                }`}
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+            <p
+              title={product.description}
+              className={`m-0 mt-1 text-xs leading-snug truncate transition-opacity duration-300 ${
+                isDark ? 'text-slate-400' : 'text-slate-500'
+              } ${hovered ? 'opacity-100' : 'opacity-60'}`}
+            >
+              {product.description}
+            </p>
+
+            {/* Gradient underline sweep */}
+            <span
+              className={`absolute bottom-0 left-0 h-[2.5px] w-full origin-left transition-transform duration-500 ease-out ${
+                hovered ? 'scale-x-100' : 'scale-x-0'
+              }`}
+              style={{ background: 'linear-gradient(90deg, #00b3b3, #2a56a6)' }}
+            />
           </div>
         </Link>
       </TiltCard>
@@ -293,7 +349,7 @@ const ProductsSection = () => {
         }
       `}</style>
 
-      <div className="container relative z-10 px-4 mx-auto">
+      <div className="relative z-10 max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
 
         <motion.div
           variants={headerVariants}
@@ -332,7 +388,7 @@ const ProductsSection = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={filter}
-            className="relative z-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+            className="relative z-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

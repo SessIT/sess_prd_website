@@ -86,7 +86,7 @@ const CounterSection = () => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="container mx-auto px-4 relative z-10">        
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -118,7 +118,7 @@ const CounterSection = () => {
         </motion.div>
 
         {/* Counters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {counters.map((counter, index) => {
             const Icon = counter.icon;
             return (

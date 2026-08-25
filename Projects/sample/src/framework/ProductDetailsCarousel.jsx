@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { openEnquiry } from './openEnquiry';
 
 // Product Details Section with Image Carousel
 const ProductDetailsCarousel = ({ product }) => {
@@ -28,7 +29,7 @@ const ProductDetailsCarousel = ({ product }) => {
 
   return (
     <section className="py-16 bg-white md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Left: Image Carousel */}
           <motion.div
@@ -182,6 +183,7 @@ const ProductDetailsCarousel = ({ product }) => {
               transition={{ delay: 0.4 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => openEnquiry(product?.hero?.mainTitle || product?.productDetails?.title || 'Product')}
               className="inline-block px-8 py-3 bg-cyan-500 text-white font-semibold rounded-full hover:bg-cyan-600 transition-colors duration-200"
             >
               Request Quote

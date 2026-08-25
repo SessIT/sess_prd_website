@@ -177,7 +177,7 @@ const Home = () => {
               whileInView={{ scaleX: 1 }}
               transition={{ duration: 1.5, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 origin-left"
+              className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 origin-left"
             >
               <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-slate-800/50 to-transparent" />
             </motion.div>
@@ -194,7 +194,7 @@ const Home = () => {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
-              className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative py-4"
+              className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative py-4"
             >
               <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-sky-500/5 blur-3xl rounded-full" />
@@ -205,7 +205,7 @@ const Home = () => {
               {/* Section Background */}
               <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-transparent" />
               
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 
                 {/* Section Header */}
                 <motion.div

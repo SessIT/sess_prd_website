@@ -183,7 +183,7 @@ function IphoneFrame({ children, isVisible }) {
       className="relative mx-auto"
     >
       {/* iPhone 17 Pro Max Frame */}
-      <div className="relative w-[300px] sm:w-[340px] md:w-[380px] mx-auto">
+      <div className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px] mx-auto">
         {/* Dynamic Island */}
         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[100px] h-[30px] bg-black rounded-full z-20 flex items-center justify-center gap-1">
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
@@ -282,7 +282,7 @@ function SocialMediaSection() {
       ref={sectionRef}
       className="px-5 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
         <FadeIn dir="up" className="text-center">
           <span
             style={{
@@ -630,7 +630,7 @@ export default function AboutUs() {
                  }}
                />
        
-               <div className="relative w-full px-4 py-20 mx-auto max-w-7xl sm:px-6 lg:px-8">
+               <div className="relative w-full px-4 py-20 mx-auto max-w-7xl 2xl:max-w-[1440px] sm:px-6 lg:px-8">
                  <motion.div
                    initial={{ opacity: 0, y: 40 }}
                    animate={{ opacity: 1, y: 0 }}
@@ -655,7 +655,7 @@ export default function AboutUs() {
                      initial={{ opacity: 0, y: 20 }}
                      animate={{ opacity: 1, y: 0 }}
                      transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                     className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-4xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
+                     className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white to-blue-200">
                      About Us
                    </motion.h1>
        
@@ -671,7 +671,7 @@ export default function AboutUs() {
 
       {/* Company Section */}
       <section className="px-5 py-12 bg-white sm:py-16 md:py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <div className="grid items-center gap-12 md:grid-cols-2 md:gap-20">
             
             {/* LEFT SIDE - Text Content */}
@@ -800,7 +800,7 @@ export default function AboutUs() {
               </div>
 
               {/* ── DESKTOP: overlapping blob layout ── */}
-              <div className="relative hidden w-full md:block" style={{ height: "420px" }}>
+              <div className="relative hidden w-full md:block min-h-[380px] lg:min-h-[500px]">
                 
                 {/* Person 1 — top left */}
                 <div className="absolute" style={{ top: 0, left: "2%", width: "43%" }}>
@@ -844,7 +844,7 @@ export default function AboutUs() {
                 </div>
 
                 {/* Person 2 — bottom right */}
-                <div className="absolute" style={{ bottom: 0, right: "5%", width: "43%",marginBottom:'-10%' }}>
+                <div className="absolute" style={{ bottom: 0, right: "5%", width: "43%" }}>
                   <div className="relative cursor-pointer group">
                     <motion.div
                       animate={{ rotate: [0, -90, 90, 0] }}
@@ -892,7 +892,7 @@ export default function AboutUs() {
 
       {/* Why Choose Section */}      
       <section className="px-5 py-12 sm:py-16 md:py-20 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <FadeIn dir="up" className="text-center">
             <span
               style={{
@@ -977,7 +977,7 @@ export default function AboutUs() {
           pointerEvents: "none"
         }} />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <FadeIn dir="up">
             <span style={{
               display: "block",
@@ -1010,8 +1010,7 @@ export default function AboutUs() {
             </p> */}
           </FadeIn>
 
-          <div className="grid gap-8 mt-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-10 sm:mt-16" 
-            style={{height: '70%', width: '70%', marginLeft: '15%'}}>
+          <div className="grid gap-8 mt-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-10 sm:mt-16 lg:max-w-5xl lg:mx-auto">
             {certs.map((c, i) => (
               <FadeIn key={i} delay={i * 0.15} dir="up">
                 <CertCard cert={c} index={i} />
@@ -1024,7 +1023,7 @@ export default function AboutUs() {
       {/* Processes & Competencies */}
       {/* Vision, Mission & Values */}
     <section className="px-5 py-12 overflow-hidden sm:py-16 md:py-20 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
         <FadeIn dir="up" className="text-center">
           <span
             style={{
@@ -1230,7 +1229,7 @@ export default function AboutUs() {
 
       {/* Industries Section */}
       <section className="px-5 py-12 bg-white sm:py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl 2xl:max-w-[1440px]">
           <FadeIn dir="up" className="text-center">
             <span
                     style={{
@@ -1288,8 +1287,9 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Social Links Section */}
-      <section className="px-5 py-12 sm:py-16 md:py-20 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 to-slate-800">
+      {/* Social Links Section — no horizontal padding here: SocialMediaSection
+          applies its own px, doubling it indented this section vs its siblings */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-900 to-slate-800">
             <SocialMediaSection />
       </section>
     </div>

@@ -50,7 +50,7 @@ const ServicesSection = () => {
         transition: 'background var(--transition-slow)',
       }} />
 
-      <div className="container mx-auto px-4" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

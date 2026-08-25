@@ -18,7 +18,7 @@ const MotionDiv = motion.div;
 const MotionP = motion.p;
 const MotionButton = motion.button;
 
-const EnquiryModal = ({ isOpen, onClose }) => {
+const EnquiryModal = ({ isOpen, onClose, prefillProduct = '' }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -30,6 +30,26 @@ const EnquiryModal = ({ isOpen, onClose }) => {
   });
   const [isSubmitting, setIsSubmitting]   = useState(false);
   const [submitStatus, setSubmitStatus]   = useState(null);
+
+  // When opened from a "Request Quote" button, pre-fill the message and
+  // pre-select the matching product segment chip.
+  React.useEffect(() => {
+    if (!isOpen || !prefillProduct) return;
+    const name = prefillProduct;
+    const segmentMap = [
+      ['salt spray', 'Salt Spray'],
+      ['rain', 'Rain'],
+      ['thermal shock', 'Thermal Shock'],
+      ['vibration', 'Vibration'],
+    ];
+    const match = segmentMap.find(([kw]) => name.toLowerCase().includes(kw));
+    const segment = match ? match[1] : 'Environmental';
+    setFormData(prev => ({
+      ...prev,
+      message: prev.message || `I would like to request a quote for: ${name}. Please share pricing and specifications.`,
+      segment: prev.segment.length ? prev.segment : [segment],
+    }));
+  }, [isOpen, prefillProduct]);
 
   /* ── Theme-aware values ───────────────────────────────── */
   const modalBg = isDark ? '#111827' : 'var(--color-neutral-0)';
@@ -62,7 +82,7 @@ const EnquiryModal = ({ isOpen, onClose }) => {
   };
 
   const modalStyle = {
-    width: 'min(96vw, 980px)',
+    width: 'min(100%, 980px)',
     maxHeight: '92vh',
     overflowY: 'auto',
     background: modalBg,

@@ -322,7 +322,7 @@ const Service = () => {
                        }}
                      />
              
-                     <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+                     <div className="relative max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
                        <motion.div
                          initial={{ opacity: 0, y: 40 }}
                          animate={{ opacity: 1, y: 0 }}
@@ -347,7 +347,7 @@ const Service = () => {
                            initial={{ opacity: 0, y: 20 }}
                            animate={{ opacity: 1, y: 0 }}
                            transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                           className="text-4xl sm:text-5xl md:text-4xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                           className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
                            Our Services
                          </motion.h1>
              
@@ -362,9 +362,9 @@ const Service = () => {
                    </section>
 
       {/* ── 12 CARDS  –  smooth horizontal scroll ────────────────────────── */}
-      <section className="py-14 px-6 md:px-16 bg-gradient-to-br from-[#f6f8ff] to-[#f0f4ff]">
+      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#f6f8ff] to-[#f0f4ff]">
         {/* 12 Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 max-w-7xl mx-auto mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl 2xl:max-w-[1440px] mx-auto mb-10">
           {steps.map((step, index) => (
             <SpotlightCard
               key={step.id}
@@ -381,19 +381,18 @@ const Service = () => {
       <OtherDepartmentsSection  />
       
       {/* ── ACHIEVEMENTS ─────────────────────────────────────────────────── */}
-      <section className="py-16 px-6 md:px-16 text-center">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-lg font-bold text-cyan-400 mb-10">
           Our Achievement
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl 2xl:max-w-[1440px] mx-auto">
           {achievementImages.map((client) => (
             <div key={client.id} className="group">
               <img
                 src={client.src}
                 alt={client.alt}
-                className="w-full h-28 object-cover rounded-md shadow-md group-hover:scale-105 transition"
-                style={{padding: '15px'}}
+                className="w-full h-28 object-cover rounded-md shadow-md group-hover:scale-105 transition p-2"
               />
               <p className="mt-3 text-sm font-semibold text-gray-700 group-hover:text-cyan-400">
                 More Details →
