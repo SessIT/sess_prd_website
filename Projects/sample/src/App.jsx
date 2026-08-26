@@ -13,6 +13,7 @@ import Footer from './framework/Footer';
 import EnquiryButtons from './framework/EnquiryButtons';
 import ScrollToTop from './framework/ScrollToTop';
 import PopupManager from './framework/Popmng';
+import SeoManager from './seo/SeoManager';
 
 // Page Components (lazy-loaded for route-level code splitting)
 const HomePage = lazy(() => import('./pages/Home'));
@@ -71,6 +72,7 @@ function AppContent() {
           }}
         >
           
+          <SeoManager />
           {location.pathname !== '/' && <Header />}
           <EnquiryButtons />
           <Suspense fallback={<RouteFallback />}>

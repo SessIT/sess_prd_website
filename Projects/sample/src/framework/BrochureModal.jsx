@@ -280,7 +280,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
                     margin: 0, fontSize: 11, color: textMuted,
                   }}>
                     <FaLock size={9} /> Your details stay with SESS — see our{' '}
-                    <a href="#/privacy-policy" onClick={onClose} style={{ color: '#00b3b3', textDecoration: 'none' }}>Privacy Policy</a>
+                    <a href="/privacy-policy" onClick={onClose} style={{ color: '#00b3b3', textDecoration: 'none' }}>Privacy Policy</a>
                   </p>
                 </form>
               )}

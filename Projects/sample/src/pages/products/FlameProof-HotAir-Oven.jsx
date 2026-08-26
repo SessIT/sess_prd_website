@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { getRelatedChambers } from '../../data/relatedChambers';
@@ -1192,7 +1192,6 @@ function ProductDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `${product.title} | SESS Engineering`;
   }, [product.title]);
 
   useEffect(() => {

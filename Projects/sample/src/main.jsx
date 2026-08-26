@@ -4,13 +4,21 @@ import App from "./App.jsx";
 import "./index.css";
 import ScrollTop from "./framework/ScrollTop";
 
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+
+// Legacy support: redirect old HashRouter URLs (sess.co.in/#/about)
+// to their real-path equivalents (sess.co.in/about)
+if (window.location.hash.startsWith("#/")) {
+  window.location.replace(
+    window.location.pathname.replace(/\/$/, "") + window.location.hash.slice(1)
+  );
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HashRouter>
+    <BrowserRouter>
         <ScrollTop />
         <App />
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );

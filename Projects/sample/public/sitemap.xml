@@ -1,36 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  NOTE: Update the domain below if the production URL differs.
-  The site currently uses HashRouter (#/ URLs). Search engines ignore the
-  hash fragment, so for full per-page SEO the app should migrate to
-  BrowserRouter — these entries are ready for that switch.
--->
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE: Update the domain below if the production URL differs. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.sess.co.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.sess.co.in/#/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.sess.co.in/#/products</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/services</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.sess.co.in/#/gallery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.sess.co.in/#/career</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.sess.co.in/#/news</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.sess.co.in/#/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.sess.co.in/#/brochure</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.sess.co.in/#/design</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.sess.co.in/#/labview-plc</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.sess.co.in/#/it</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.sess.co.in/#/climatic-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/battery-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/salt-spray-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/rain-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/vibration-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/thermal-cyclic-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/thermal-shock-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/flame-proof-hot-air-oven</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/tabletop-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/walk-in-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/dust-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/tensile-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.sess.co.in/#/sitemap</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.sess.co.in/#/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.sess.co.in/#/terms-and-conditions</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.sess.co.in/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sess.co.in/products</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/services</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sess.co.in/gallery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.sess.co.in/career</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.sess.co.in/news</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.sess.co.in/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.sess.co.in/brochure</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.sess.co.in/design</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.sess.co.in/labview-plc</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.sess.co.in/it</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.sess.co.in/climatic-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/battery-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/salt-spray-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/rain-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/vibration-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/thermal-cyclic-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/thermal-shock-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/flame-proof-hot-air-oven</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/tabletop-test-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/walk-in-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/dust-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/tensile-chamber</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.sess.co.in/sitemap</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.sess.co.in/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.sess.co.in/terms-and-conditions</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
