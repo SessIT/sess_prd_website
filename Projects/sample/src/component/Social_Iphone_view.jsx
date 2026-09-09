@@ -439,7 +439,7 @@ export default function SocialMediaSection() {
           <span
             style={{
               display: "block",
-              color: "var(--color-primary-400)",
+              color: "var(--color-primary-500)",
               fontFamily: "var(--font-body)",
               fontWeight: "var(--font-weight-semibold)",
               fontSize: "var(--text-sm)",
@@ -456,7 +456,7 @@ export default function SocialMediaSection() {
               fontWeight: "var(--font-weight-bold)",
               fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
               lineHeight: "var(--leading-tight)",
-              color: "#000",
+              color: "var(--color-neutral-900)",
               margin: "0px",
             }}
           >

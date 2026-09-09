@@ -287,7 +287,7 @@ function SocialMediaSection() {
           <span
             style={{
               display: "block",
-              color: "var(--color-primary-400)",
+              color: "var(--color-primary-500)",
               fontFamily: "var(--font-body)",
               fontWeight: "var(--font-weight-semibold)",
               fontSize: "var(--text-sm)",
@@ -304,7 +304,7 @@ function SocialMediaSection() {
               fontWeight: "var(--font-weight-bold)",
               fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
               lineHeight: "var(--leading-tight)",
-              color: "white",
+              color: "var(--color-neutral-0)",
               margin: "0px",
             }}
           >
@@ -681,7 +681,7 @@ export default function AboutUs() {
                   <span
                     style={{
                       display: "block",
-                      color: "var(--color-primary-400)",
+                      color: "var(--color-primary-500)",
                       fontFamily: "var(--font-body)",
                       fontWeight: "var(--font-weight-semibold)",
                       fontSize: "var(--text-sm)",
@@ -698,12 +698,12 @@ export default function AboutUs() {
                       fontWeight: "var(--font-weight-bold)",
                       fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                       lineHeight: "var(--leading-tight)",
-                      color: "black",
+                      color: "var(--color-neutral-900)",
                       margin: "0px",
                     }}
                   >
                     Innovating Testing Solutions{" "}
-                    <span style={{ color: "var(--color-primary-400)" }}>
+                    <span style={{ color: "var(--color-primary-500)" }}>
                       Since 2010
                     </span>
                   </h2>
@@ -897,7 +897,7 @@ export default function AboutUs() {
             <span
               style={{
                 display: "block",
-                color: "var(--color-primary-400)",
+                color: "var(--color-primary-500)",
                 fontFamily: "var(--font-body)",
                 fontWeight: "var(--font-weight-semibold)",
                 fontSize: "var(--text-sm)",
@@ -914,7 +914,7 @@ export default function AboutUs() {
                 fontWeight: "var(--font-weight-bold)",
                 fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                 lineHeight: "var(--leading-tight)",
-                color: "white",
+                color: "var(--color-neutral-0)",
                 margin: "0px",
               }}
             >
@@ -981,7 +981,7 @@ export default function AboutUs() {
           <FadeIn dir="up">
             <span style={{
               display: "block",
-              color: "var(--color-primary-400)",
+              color: "var(--color-primary-500)",
               fontFamily: "var(--font-body)",
               fontWeight: "var(--font-weight-semibold)",
               fontSize: "var(--text-sm)",
@@ -997,7 +997,7 @@ export default function AboutUs() {
               fontWeight: "var(--font-weight-bold)",
               fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
               lineHeight: "var(--leading-tight)",
-              color: "#000",
+              color: "var(--color-neutral-900)",
               margin: "0px",
               textAlign: "center",
             }}>
@@ -1028,7 +1028,7 @@ export default function AboutUs() {
           <span
             style={{
               display: "block",
-              color: "var(--color-primary-400)",
+              color: "var(--color-primary-500)",
               fontFamily: "var(--font-body)",
               fontWeight: "var(--font-weight-semibold)",
               fontSize: "var(--text-sm)",
@@ -1045,7 +1045,7 @@ export default function AboutUs() {
               fontWeight: "var(--font-weight-bold)",
               fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
               lineHeight: "var(--leading-tight)",
-              color: "white",
+              color: "var(--color-neutral-0)",
               margin: "0px",
             }}
           >
@@ -1075,7 +1075,7 @@ export default function AboutUs() {
               </div>
 
               {/* Title */}
-              <h3 className="mb-4 text-2xl font-bold text-white font-sans-serif">
+              <h3 className="mb-4 text-2xl font-bold" style={{ color: "var(--color-neutral-0)" }}>
                 Our Vision
               </h3>
               
@@ -1116,7 +1116,7 @@ export default function AboutUs() {
               </div>
 
               {/* Title */}
-              <h3 className="mb-4 text-2xl font-bold text-white font-sans-serif">
+              <h3 className="mb-4 text-2xl font-bold" style={{ color: "var(--color-neutral-0)" }}>
                 Our Mission
               </h3>
               
@@ -1158,7 +1158,7 @@ export default function AboutUs() {
               </div>
 
               {/* Title */}
-              <h3 className="mb-4 text-2xl font-bold text-white font-sans-serif">
+              <h3 className="mb-4 text-2xl font-bold" style={{ color: "var(--color-neutral-0)" }}>
                 Our Values
               </h3>
               
@@ -1234,7 +1234,7 @@ export default function AboutUs() {
             <span
                     style={{
                       display: "block",
-                      color: "var(--color-primary-400)",
+                      color: "var(--color-primary-500)",
                       fontFamily: "var(--font-body)",
                       fontWeight: "var(--font-weight-semibold)",
                       fontSize: "var(--text-sm)",
@@ -1251,7 +1251,7 @@ export default function AboutUs() {
                       fontWeight: "var(--font-weight-bold)",
                       fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                       lineHeight: "var(--leading-tight)",
-                      color: "#000",
+                      color: "var(--color-neutral-900)",
                       margin: "0px",
                     }}
                   >

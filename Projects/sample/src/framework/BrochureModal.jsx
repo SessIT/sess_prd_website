@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { FaTimes, FaFilePdf, FaDownload, FaCheckCircle, FaLock } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import { useTheme } from '../context/ThemeContext';
-import brochurePdf from '../assets/Website_Gallery_img/Profile_SESS.pdf';
+import { COMPANY_BROCHURE } from '../data/productBrochures';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -12,18 +12,58 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const EMPTY = { name: '', email: '', phone: '', company: '' };
 
+/* ─────────────────────────────────────────────────────────────────────────
+   LEAD-CAPTURE SWITCH
+   false → clicking "Download Brochure" downloads the PDF immediately (no form).
+   true  → the form below is shown first and the lead is emailed via EmailJS.
+   The form code is kept intact; flip this one flag to bring it back.
+   ───────────────────────────────────────────────────────────────────────── */
+export const REQUIRE_LEAD_FORM = false;
+
+/* Product PDFs live in public/brochures/. If one hasn't been uploaded yet the
+   dev server / SPA host answers with index.html, so we fall back to the
+   bundled company profile instead of handing the visitor a broken file. */
+async function resolvePdfUrl(brochure) {
+  if (brochure === COMPANY_BROCHURE) return brochure.file;
+  try {
+    const res = await fetch(brochure.file, { method: 'HEAD' });
+    const type = res.headers.get('content-type') || '';
+    if (!res.ok || type.includes('text/html')) throw new Error('brochure not found');
+    return brochure.file;
+  } catch {
+    return COMPANY_BROCHURE.file;
+  }
+}
+
+/* Same-origin download via a temporary <a download> — not subject to popup
+   blockers, so it is safe to call after the async HEAD check above. */
+function downloadPdf(url, brochure) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `SESS-${brochure.title.replace(/[^A-Za-z0-9]+/g, '-')}.pdf`;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
 /* Lead-capture gate shown before the brochure PDF opens.
-   Sends the lead through the existing EmailJS setup, then starts the download. */
-const BrochureModal = ({ isOpen, onClose }) => {
+   Sends the lead through the existing EmailJS setup, then starts the download.
+
+   `brochure` — { product, title, subtitle, file } from data/productBrochures.js.
+   Defaults to the company profile. Product PDFs live in public/brochures/;
+   if one hasn't been uploaded yet we silently fall back to the company PDF. */
+const BrochureModal = ({ isOpen, onClose, brochure = COMPANY_BROCHURE }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [pdfUrl, setPdfUrl] = useState(brochure.file);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && REQUIRE_LEAD_FORM) {
       setForm(EMPTY);
       setErrors({});
       setStatus('idle');
@@ -33,6 +73,26 @@ const BrochureModal = ({ isOpen, onClose }) => {
     }
     return () => { document.body.style.overflow = 'unset'; };
   }, [isOpen]);
+
+  // Resolve the PDF once per open. With the form disabled we download straight
+  // away and close; with it enabled we just cache the URL so the click handlers
+  // stay synchronous (async window.open gets popup-blocked).
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    setPdfUrl(brochure.file);
+    resolvePdfUrl(brochure).then(url => {
+      if (cancelled) return;
+      if (REQUIRE_LEAD_FORM) {
+        setPdfUrl(url);
+      } else {
+        downloadPdf(url, brochure);
+        onClose();
+      }
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, brochure]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -50,7 +110,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
     return Object.keys(next).length === 0;
   };
 
-  const openPdf = () => window.open(brochurePdf, '_blank');
+  const openPdf = () => window.open(pdfUrl, '_blank', 'noopener');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,9 +128,9 @@ const BrochureModal = ({ isOpen, onClose }) => {
           email: form.email,
           phone: form.phone,
           company: form.company || 'Not specified',
-          message: '📄 Brochure download request from the website (lead-capture form).',
-          interested_in: 'Company Brochure',
-          products: 'Brochure Download',
+          message: `📄 ${brochure.title} download request from the website (lead-capture form).`,
+          interested_in: brochure.product,
+          products: `Brochure Download — ${brochure.product}`,
         },
         EMAILJS_PUBLIC_KEY
       );
@@ -122,7 +182,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
   // NOTE: no AnimatePresence here — with React StrictMode + portals its exit
   // phase can leave an invisible fixed overlay that blocks clicks. Conditional
   // rendering guarantees the node is removed; entry animations still play.
-  if (!isOpen) return null;
+  if (!isOpen || !REQUIRE_LEAD_FORM) return null;
 
   return createPortal(
     (
@@ -142,7 +202,7 @@ const BrochureModal = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: 'spring', stiffness: 300, damping: 26 }}
             onClick={e => e.stopPropagation()}
-            role="dialog" aria-modal="true" aria-label="Download brochure"
+            role="dialog" aria-modal="true" aria-label={`Download ${brochure.title}`}
             style={{
               width: 'min(440px, 100%)', maxHeight: '92vh', overflowY: 'auto',
               background: surface,
@@ -184,10 +244,10 @@ const BrochureModal = ({ isOpen, onClose }) => {
                 </div>
                 <div>
                   <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: textMain, fontFamily: 'var(--font-display)' }}>
-                    Company Brochure
+                    {brochure.title}
                   </h3>
                   <p style={{ margin: '3px 0 0', fontSize: 12.5, color: textMuted }}>
-                    SESS profile, products &amp; capabilities — PDF
+                    {brochure.subtitle}
                   </p>
                 </div>
               </div>

@@ -320,7 +320,7 @@ const ItTeam = () => {
             <motion.span
               style={{
                 display: "block",
-                color: "var(--color-primary-400)",
+                color: "var(--color-primary-500)",
                 fontFamily: "var(--font-body)",
                 fontWeight: "var(--font-weight-semibold)",
                 fontSize: "var(--text-sm)",
@@ -337,7 +337,7 @@ const ItTeam = () => {
                 fontWeight: "var(--font-weight-bold)",
                 fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                 lineHeight: "var(--leading-tight)",
-                color: "black",
+                color: "var(--color-neutral-900)",
                 margin: "0px",
               }}
             >

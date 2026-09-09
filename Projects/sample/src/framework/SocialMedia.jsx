@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from '../context/ThemeContext';
 import { FaFacebookF } from 'react-icons/fa';
+import { SectionHeader } from './SharedUI';
 
 /* ─────────────────────────────────────────────
    HOOKS
@@ -146,41 +147,19 @@ function RightSideContent({ isDark }) {
   return (
     <div className="flex flex-col justify-center h-full px-6 lg:px-8 py-8">
       <FadeIn dir="left" delay={0.1}>
-        <span
-          style={{
-            display: "block",
-            color: "var(--color-primary-500)",
-            fontFamily: "var(--font-body)",
-            fontWeight: "var(--font-weight-semibold)",
-            fontSize: "var(--text-sm)",
-            letterSpacing: "var(--tracking-wider)",
-            textTransform: "uppercase",
-            marginBottom: "var(--space-2)",
-          }}
-        >
-          Connect With Us
-        </span>
-      </FadeIn>
-
-      <FadeIn dir="left" delay={0.2}>
-        <h2 style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-          lineHeight: 'var(--leading-tight)',
-          color: isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)',
-          margin: 0,
-          marginBottom: '10px',
-        }}>
-          News, Blogs, Case Studies
-        </h2>
+        <SectionHeader
+          eyebrow="Connect With Us"
+          title="News, Blogs, Case Studies"
+          isDark={isDark}
+          style={{ marginBottom: 'var(--space-2)' }}
+        />
       </FadeIn>
 
       <FadeIn dir="left" delay={0.3}>
         <p
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: "1rem",
+            fontSize: "var(--text-base)",
             lineHeight: "1.6",
             color: isDark ? '#94a3b8' : '#4a5568',
             marginBottom: "2rem",
@@ -201,7 +180,7 @@ function RightSideContent({ isDark }) {
               style={{
                 width: "100%",
                 padding: "0.75rem 1rem",
-                fontSize: "1rem",
+                fontSize: "var(--text-base)",
                 backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
                 color: isDark ? '#ffffff' : '#000000',
                 border: `1px solid ${errors.name ? "#ef4444" : (isDark ? '#333333' : '#e2e8f0')}`,
@@ -225,7 +204,7 @@ function RightSideContent({ isDark }) {
             {errors.name && (
               <p style={{
                 color: "#ef4444",
-                fontSize: "0.75rem",
+                fontSize: "var(--text-xs)",
                 marginTop: "0.25rem",
                 marginLeft: "0.25rem"
               }}>
@@ -243,7 +222,7 @@ function RightSideContent({ isDark }) {
               style={{
                 width: "100%",
                 padding: "0.75rem 1rem",
-                fontSize: "1rem",
+                fontSize: "var(--text-base)",
                 backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
                 color: isDark ? '#ffffff' : '#000000',
                 border: `1px solid ${errors.email ? "#ef4444" : (isDark ? '#333333' : '#e2e8f0')}`,
@@ -267,7 +246,7 @@ function RightSideContent({ isDark }) {
             {errors.email && (
               <p style={{
                 color: "#ef4444",
-                fontSize: "0.75rem",
+                fontSize: "var(--text-xs)",
                 marginTop: "0.25rem",
                 marginLeft: "0.25rem"
               }}>
@@ -281,7 +260,7 @@ function RightSideContent({ isDark }) {
             style={{
               width: "100%",
               padding: "0.75rem 1rem",
-              fontSize: "1rem",
+              fontSize: "var(--text-base)",
               fontWeight: "600",
               color: "#fff",
               backgroundColor: "#00b3b3",
@@ -443,28 +422,7 @@ export default function SocialMediaSection() {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
         >
-          <span style={{
-            display: 'block',
-            color: 'var(--color-primary-500)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 'var(--font-weight-semibold)',
-            fontSize: 'var(--text-sm)',
-            letterSpacing: 'var(--tracking-wider)',
-            textTransform: 'uppercase',
-            marginBottom: 'var(--space-2)',
-          }}>
-            Stay Connected
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 'var(--font-weight-bold)',
-            fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-            lineHeight: 'var(--leading-tight)',
-            color: isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)',
-            margin: 0,
-          }}>
-            Our Social Media Presence
-          </h2>
+          <SectionHeader eyebrow="Stay Connected" title="Our Social Media Presence" isDark={isDark} />
         </motion.div>
 
         <div className="w-full">
@@ -498,7 +456,7 @@ export default function SocialMediaSection() {
                     <h3 
                       className="font-bold text-lg"
                       style={{
-                        color: '#00b3b3',
+                        color: 'var(--color-primary-500)',
                       }}
                     >
                       Facebook Feed

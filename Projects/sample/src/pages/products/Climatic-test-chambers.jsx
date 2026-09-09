@@ -1,9 +1,9 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { getRelatedChambers } from '../../data/relatedChambers';
 import BackToRelatedChamber from '../../component/BackToRelatedChamber';
-import { openEnquiry } from '../../framework/openEnquiry';
+import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, } from 'lucide-react';
 //ImageCarousel import function
 import climatic from '../../assets/product/Climatic_chamber_front.png';
@@ -340,7 +340,7 @@ function SectionHeader({ eyebrow, title, subtitle, dark = false }) {
         <span className={`block w-5 h-px opacity-70 rounded-full ${dark ? 'bg-cyan-300' : 'bg-cyan-500'}`} />
         <span
           style={{
-            color: dark ? 'var(--color-primary-300)' : 'var(--color-primary-400)',
+            color: 'var(--color-primary-500)',
             fontFamily: 'var(--font-body)',
             fontWeight: 'var(--font-weight-semibold)',
             fontSize: 'var(--text-sm)',
@@ -358,7 +358,7 @@ function SectionHeader({ eyebrow, title, subtitle, dark = false }) {
           fontWeight: 'var(--font-weight-bold)',
           fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
           lineHeight: 'var(--leading-tight)',
-          color: dark ? 'white' : '#0f172a',
+          color: dark ? 'var(--color-neutral-0)' : 'var(--color-neutral-900)',
           margin: 0,
         }}
       >
@@ -1386,7 +1386,7 @@ function ProductDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300"
+              className="mb-6 text-4xl font-bold tracking-tight text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-white to-blue-200"
             >
               {product.hero.mainTitle}
             </motion.h1>
@@ -1400,23 +1400,51 @@ function ProductDetail() {
               {product.hero.subtitle}
             </motion.p>
             
-            {/* Request Quote CTA */}
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => openEnquiry(product.hero.mainTitle)}
-              className="inline-flex items-center gap-2 px-8 py-3 mb-6 text-base font-semibold text-white rounded-full transition-colors duration-200"
-              style={{
-                background: 'linear-gradient(135deg, #00b3b3 0%, #2a56a6 100%)',
-                boxShadow: '0 10px 28px rgba(0,179,179,0.35)',
-              }}
-            >
-              {product.hero.ctaText || 'Request Quote'}
-              <span className="text-lg">→</span>
-            </motion.button>
+            {/* Request Quote + Download Brochure CTAs */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6">
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55, duration: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => openEnquiry(product.hero.mainTitle)}
+                className="inline-flex items-center gap-2 px-8 py-3 text-base font-semibold text-white rounded-full transition-colors duration-200"
+                style={{
+                  background: 'linear-gradient(135deg, #00b3b3 0%, #2a56a6 100%)',
+                  boxShadow: '0 10px 28px rgba(0,179,179,0.35)',
+                }}
+              >
+                {product.hero.ctaText || 'Request Quote'}
+                <span className="text-lg">→</span>
+              </motion.button>
+
+              {/* Product brochure — opens the lead-capture BrochureModal with this product's PDF */}
+              <motion.button
+                type="button"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.62, duration: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => openBrochure(product.hero.mainTitle)}
+                className="inline-flex items-center gap-2 px-7 py-3 text-base font-semibold text-white rounded-full transition-colors duration-200 hover:bg-white/10"
+                style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1.5px solid rgba(0,179,179,0.7)',
+                  backdropFilter: 'blur(6px)',
+                }}
+                aria-label={`Download ${product.hero.mainTitle} brochure`}
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                  <path d="M12 18v-6" />
+                  <path d="m9 15 3 3 3-3" />
+                </svg>
+                Download Brochure
+              </motion.button>
+            </div>
 
             {/* Quick stat chips */}
             <motion.div
@@ -1451,7 +1479,7 @@ function ProductDetail() {
                   <span className="block w-5 h-px bg-cyan-500 opacity-70 rounded-full" />
                   <span
                     style={{
-                      color: 'var(--color-primary-400)',
+                      color: 'var(--color-primary-500)',
                       fontFamily: 'var(--font-body)',
                       fontWeight: 'var(--font-weight-semibold)',
                       fontSize: 'var(--text-sm)',
@@ -1468,7 +1496,7 @@ function ProductDetail() {
                     fontWeight: 'var(--font-weight-bold)',
                     fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
                     lineHeight: 'var(--leading-tight)',
-                    color: '#0f172a',
+                    color: 'var(--color-neutral-900)',
                     margin: 0,
                   }}
                 >

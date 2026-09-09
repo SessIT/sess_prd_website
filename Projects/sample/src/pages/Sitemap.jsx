@@ -135,7 +135,7 @@ const Sitemap = () => {
                   {section.icon}
                 </span>
                 <div>
-                  <h2 className="m-0 text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
+                  <h2 className="m-0 text-lg font-bold" style={{ color: 'var(--text-heading)' }}>
                     {section.title}
                   </h2>
                   <span className="text-xs" style={{ color: isDark ? '#94a3b8' : '#64748b' }}>

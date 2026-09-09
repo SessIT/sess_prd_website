@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { useTheme } from '../context/ThemeContext';
+import { SectionHeader } from './SharedUI';
 
 // Import the floating components
 import FloatingParticles from './UI/FloatingParticles';
@@ -357,32 +358,7 @@ const ProductsSection = () => {
           animate={inView ? 'visible' : 'hidden'}
           className="text-center mb-14"
         >
-          <motion.span
-              style={{
-                display: "block",
-                color: "var(--color-primary-400)",
-                fontFamily: "var(--font-body)",
-                fontWeight: "var(--font-weight-semibold)",
-                fontSize: "var(--text-sm)",
-                letterSpacing: "var(--tracking-wider)",
-                textTransform: "uppercase",
-                marginBottom: "var(--space-2)",
-              }}
-            >
-              Our Product
-            </motion.span>
-            <motion.h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: "var(--font-weight-bold)",
-                fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
-                lineHeight: "var(--leading-tight)",
-                color: isDark ? 'white' : 'black',
-                margin: "0px",
-              }}
-            >
-              Engineering excellence in every chamber
-            </motion.h2>
+          <SectionHeader eyebrow="Our Product" title="Engineering excellence in every chamber" isDark={isDark} />
         </motion.div>
 
         <AnimatePresence mode="wait">

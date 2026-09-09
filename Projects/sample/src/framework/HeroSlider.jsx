@@ -180,10 +180,12 @@ const HeroSlider = () => {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <span className="min-w-0" style={{
-                      fontSize: "var(--text-base)",
-                      fontWeight: "var(--font-weight-regular)",
-                      letterSpacing: "var(--tracking-wide)",
-                      color: "var(--text-muted)",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "var(--text-sm)",
+                      fontWeight: "var(--font-weight-semibold)",
+                      letterSpacing: "var(--tracking-wider)",
+                      textTransform: "uppercase",
+                      color: "var(--color-primary-500)",
                     }}>
                       {slide.title}
                     </span>
@@ -191,11 +193,12 @@ const HeroSlider = () => {
                   </div>
 
                   <h1
-                    className="text-3xl md:text-4xl lg:text-3xl text-center leading-tight mb-5"
+                    className="text-center mb-5"
                     style={{
                       color: isDark ? "var(--text-heading)" : "var(--color-neutral-900)",
                       fontFamily: "var(--font-display)",
                       fontWeight: "var(--font-weight-bold)",
+                      fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                       lineHeight: "var(--leading-tight)",
                     }}
                   >
@@ -205,7 +208,7 @@ const HeroSlider = () => {
                   <p
                     className="text-center leading-relaxed mb-6 max-w-sm mx-auto"
                     style={{
-                      fontSize: "clamp(var(--text-xs), 2vw, var(--text-sm))",
+                      fontSize: "var(--text-sm)",
                       color: isDark ? "var(--text-body)" : "var(--color-neutral-500)",
                       lineHeight: "var(--leading-relaxed)",
                     }}

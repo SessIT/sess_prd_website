@@ -541,8 +541,8 @@ const Contact = () => {
 
                 <div className="relative z-10 flex flex-col h-full space-y-8">
                   <div>
-                    <p className="text-blue-200 text-sm font-medium uppercase tracking-[0.15em] mb-2">Contact Information</p>
-                    <h2 className="mb-3 text-2xl font-bold">Let's Build Something Great</h2>
+                    <span className="block text-sm font-semibold uppercase mb-2" style={{ color: 'var(--color-primary-300)', letterSpacing: 'var(--tracking-wider)', fontFamily: 'var(--font-body)' }}>Contact Information</span>
+                    <h2 className="mb-3 text-2xl font-bold" style={{ color: 'var(--color-neutral-0)' }}>Let's Build Something Great</h2>
                     <p className="text-sm leading-relaxed text-blue-200">
                       Sri Easwari Scientific Solution Pvt Ltd — your trusted partner for environmental test chambers and precision scientific solutions.
                     </p>
@@ -589,8 +589,8 @@ const Contact = () => {
                 <div className="max-w-xl">
                   <div className="mb-10">
                     <motion.span
-                      className="inline-block text-sm font-bold uppercase tracking-[0.15em] mb-2"
-                      style={{ color: 'rgb(2 174 178)' }}
+                      className="inline-block text-sm font-semibold uppercase mb-2"
+                      style={{ color: 'var(--color-primary-500)', letterSpacing: 'var(--tracking-wider)', fontFamily: 'var(--font-body)' }}
                       initial={{ opacity: 0, x: -12 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4 }}
@@ -598,7 +598,7 @@ const Contact = () => {
                     >
                       Send a Message
                     </motion.span>
-                    <h2 className="mb-2 text-3xl font-bold text-gray-900" style={{ letterSpacing: '-0.02em' }}>We'd Love to Hear From You</h2>
+                    <h2 className="mb-2 text-3xl font-bold" style={{ color: 'var(--color-neutral-900)', letterSpacing: 'var(--tracking-tight)' }}>We'd Love to Hear From You</h2>
                     <p className="text-sm leading-relaxed text-gray-500">
                       Please complete the form. Our team will respond within two business days.
                     </p>
@@ -705,7 +705,7 @@ const Contact = () => {
             <motion.span
               style={{
                 display: "block",
-                color: "var(--color-primary-400)",
+                color: "var(--color-primary-500)",
                 fontFamily: "var(--font-body)",
                 fontWeight: "var(--font-weight-semibold)",
                 fontSize: "var(--text-sm)",
@@ -714,7 +714,7 @@ const Contact = () => {
                 marginBottom: "var(--space-2)",
               }}
             >
-              Contanct Directory
+              Contact Directory
             </motion.span>
             <motion.h2
               style={{
@@ -722,7 +722,7 @@ const Contact = () => {
                 fontWeight: "var(--font-weight-bold)",
                 fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                 lineHeight: "var(--leading-tight)",
-                color: "black",
+                color: "var(--color-neutral-900)",
                 margin: "0px",
               }}
             >

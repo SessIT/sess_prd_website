@@ -12,6 +12,7 @@ import labview from "../assets/clients/labview.svg";
 import bgplc from '../assets/Website_Gallery_img/labview.png';
 import bgit from '../assets/Website_Gallery_img/ITbg.png';
 import labimg from '../assets/clients/labview.png';
+import { SectionHeader } from './SharedUI';
 
 /* ═══════════════════════════════════════════════════════════
    SOCIAL ICON SVGs
@@ -225,10 +226,7 @@ const DepartmentSection = () => {
 
         {/* Header */}
         <div className="mb-12" style={{textAlign:'center'}}>
-          <span className="text-4xl font-bold text-white" style={{display: 'block', color: 'var(--color-primary-400)', fontFamily: 'var(--font-body)', fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--text-sm)', letterSpacing: 'var(--tracking-wider)', textTransform: 'uppercase', marginBottom: 'var(--space-2)'}}>Our Departments</span>
-          <h2 className="mt-4 text-gray-300" style={{fontFamily: 'var(--font-display)', fontWeight: 'var(--font-weight-bold)', fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))', lineHeight: 'var(--leading-tight)', color: 'var(--color-neutral-0)', margin: '0px'}}>
-            Powered by elite minds. Perfected by technology.
-          </h2>
+          <SectionHeader eyebrow="Our Departments" title="Powered by elite minds. Perfected by technology." onDark />
         </div>
 
         {/* Cards — 1 col → 2 col → 3 col */}

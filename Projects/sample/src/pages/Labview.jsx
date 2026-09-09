@@ -369,7 +369,7 @@ const LabviewPage = () => {
             <span
               style={{
                 display: "block",
-                color: "var(--color-primary-400)",
+                color: "var(--color-primary-500)",
                 fontFamily: "var(--font-body)",
                 fontWeight: "var(--font-weight-semibold)",
                 fontSize: "var(--text-sm)",
@@ -386,7 +386,7 @@ const LabviewPage = () => {
                 fontWeight: "var(--font-weight-bold)",
                 fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                 lineHeight: "var(--leading-tight)",
-                color: "black",
+                color: "var(--color-neutral-900)",
                 margin: "0px",
               }}
             >
@@ -432,7 +432,7 @@ const LabviewPage = () => {
             <span
               style={{
                 display: "block",
-                color: "var(--color-primary-400)",
+                color: "var(--color-primary-500)",
                 fontFamily: "var(--font-body)",
                 fontWeight: "var(--font-weight-semibold)",
                 fontSize: "var(--text-sm)",
@@ -449,7 +449,7 @@ const LabviewPage = () => {
                 fontWeight: "var(--font-weight-bold)",
                 fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                 lineHeight: "var(--leading-tight)",
-                color: "white",
+                color: "var(--color-neutral-0)",
                 margin: "0px",
               }}
             >
@@ -525,7 +525,7 @@ const LabviewPage = () => {
               <motion.span
               style={{
                 display: "block",
-                color: "var(--color-primary-400)",
+                color: "var(--color-primary-500)",
                 fontFamily: "var(--font-body)",
                 fontWeight: "var(--font-weight-semibold)",
                 fontSize: "var(--text-sm)",
@@ -542,7 +542,7 @@ const LabviewPage = () => {
                 fontWeight: "var(--font-weight-bold)",
                 fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
                 lineHeight: "var(--leading-tight)",
-                color: "white",
+                color: "var(--color-neutral-0)",
                 margin: "0px",
               }}
             >

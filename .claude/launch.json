@@ -4,8 +4,28 @@
     {
       "name": "sess-web",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "Projects/sample"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "Projects/sample"
+      ],
       "port": 5173
+    },
+    {
+      "name": "sess-web-5180",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "Projects/sample",
+        "--",
+        "--port",
+        "5180",
+        "--strictPort"
+      ],
+      "port": 5180
     }
   ]
 }

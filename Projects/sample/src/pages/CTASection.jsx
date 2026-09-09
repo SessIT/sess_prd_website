@@ -19,7 +19,7 @@ const CTASection = () => {
               transition={{ duration: 0.6 }}
               className="lg:w-2/3 text-center lg:text-left"
             >
-              <h3 className="text-2xl md:text-3xl font-bold text-extra-dark-gray">
+              <h3 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--color-neutral-900)' }}>
                 We would love to hear about start your new project?
               </h3>
             </motion.div>

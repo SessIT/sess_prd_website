@@ -28,6 +28,41 @@ export function SESSEmblem({ size = 32 }) {
   );
 }
 
+/* ── Section header — single source of truth for section typography ────────
+   Eyebrow: <span> · font-body · semibold · text-sm · tracking-wider · uppercase
+   Title:   <h2>   · font-display · bold · clamp(2xl → 3xl) · leading-tight
+   Use `onDark` on dark-background sections, otherwise pass theme via `isDark`. */
+const EYEBROW_STYLE = {
+  display: 'block',
+  color: 'var(--color-primary-500)',
+  fontFamily: 'var(--font-body)',
+  fontWeight: 'var(--font-weight-semibold)',
+  fontSize: 'var(--text-sm)',
+  letterSpacing: 'var(--tracking-wider)',
+  textTransform: 'uppercase',
+  marginBottom: 'var(--space-2)',
+};
+
+const TITLE_STYLE = {
+  fontFamily: 'var(--font-display)',
+  fontWeight: 'var(--font-weight-bold)',
+  fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))',
+  lineHeight: 'var(--leading-tight)',
+  margin: 0,
+};
+
+export function SectionHeader({ eyebrow, title, onDark = false, isDark = false, className = '', style = {} }) {
+  const titleColor = onDark
+    ? 'var(--color-neutral-0)'
+    : isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)';
+  return (
+    <div className={className} style={style}>
+      {eyebrow && <span style={EYEBROW_STYLE}>{eyebrow}</span>}
+      <h2 style={{ ...TITLE_STYLE, color: titleColor }}>{title}</h2>
+    </div>
+  );
+}
+
 /* ── SVG Icon ──────────────────────────────────────────────────────────────── */
 export function Ic({ d, size = 16, className = "", style = {} }) {
   return (

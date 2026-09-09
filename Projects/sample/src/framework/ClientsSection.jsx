@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTheme } from '../context/ThemeContext';
+import { SectionHeader } from './SharedUI';
 
 import Client1  from '../assets/clients/client9.jpg';
 import Client2  from '../assets/clients/client10.jpg';
@@ -153,28 +154,7 @@ const ClientsSection = () => {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
         >
-          <span style={{
-            display: 'block',
-            color: 'var(--color-primary-500)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 'var(--font-weight-semibold)',
-            fontSize: 'var(--text-sm)',
-            letterSpacing: 'var(--tracking-wider)',
-            textTransform: 'uppercase',
-            marginBottom: 'var(--space-2)',
-          }}>
-            Our Clients
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 'var(--font-weight-bold)',
-            fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-            lineHeight: 'var(--leading-tight)',
-            color: isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)',
-            margin: 0,
-          }}>
-            Trusted By Industry Leaders
-          </h2>
+          <SectionHeader eyebrow="Our Clients" title="Trusted By Industry Leaders" isDark={isDark} />
         </motion.div>
 
         {/* Two auto-scrolling rows */}

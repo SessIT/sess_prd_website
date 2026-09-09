@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import CountUp from 'react-countup';
 import { useTheme } from '../context/ThemeContext';
 import { FaHeart, FaLeaf, FaSeedling, FaPagelines } from 'react-icons/fa';
+import { SectionHeader } from './SharedUI';
 
 const counters = [
   { icon: FaHeart, value: 1008, label: 'Happy Clients', color: 'text-red-500' },
@@ -93,28 +94,7 @@ const CounterSection = () => {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
         >
-          <span style={{
-            display: 'block',
-            color: 'var(--color-primary-500)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 'var(--font-weight-semibold)',
-            fontSize: 'var(--text-sm)',
-            letterSpacing: 'var(--tracking-wider)',
-            textTransform: 'uppercase',
-            marginBottom: 'var(--space-2)',
-          }}>
-            Projects and Testimonial
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 'var(--font-weight-bold)',
-            fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-            lineHeight: 'var(--leading-tight)',
-            color: isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)',
-            margin: 0,
-          }}>
-            Our Achievements
-          </h2>
+          <SectionHeader eyebrow="Projects and Testimonial" title="Our Achievements" isDark={isDark} />
         </motion.div>
 
         {/* Counters */}

@@ -282,8 +282,8 @@ export default function CareerPage() {
             className="space-y-4"
           >
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-cyan-600 flex items-center gap-2">
-                <Briefcase className="w-6 h-6 text-cyan-600" />
+              <h2 className="text-2xl font-bold flex items-center gap-2" style={{ color: 'var(--color-primary-500)' }}>
+                <Briefcase className="w-6 h-6" />
                 Open Positions
               </h2>
               <p className="text-slate-500 mt-1">Select a role to view details</p>

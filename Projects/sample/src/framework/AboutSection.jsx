@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import AboutImage from '../assets/login-bg.jpeg';
+import { SectionHeader } from './SharedUI';
 
 /* ─── Timeline data (top = latest) ───────────────────────────────── */
 const MILESTONES = [
@@ -213,15 +214,13 @@ const AboutSection = () => {
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
             <div>
-              {/* SEO: eyebrow */}
-              <p style={{ color: 'var(--color-primary-500)', fontFamily: 'var(--font-body)', fontWeight: 'var(--font-weight-semibold)', fontSize: 'var(--text-sm)', letterSpacing: 'var(--tracking-wider)', textTransform: 'uppercase', marginBottom: 'var(--space-3)', margin: '0 0 var(--space-3)' }}>
-                Precision in Testing. Excellence in Solutions.
-              </p>
-
-              {/* SEO: H2 */}
-              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--font-weight-bold)', fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-3xl))', lineHeight: 'var(--leading-tight)', color: isDark ? 'var(--text-heading)' : 'var(--color-neutral-900)', margin: '0 0 var(--space-5)' }}>
-                Trusted Testing Solutions
-              </h3>
+              {/* SEO: eyebrow + H2 */}
+              <SectionHeader
+                eyebrow="Precision in Testing. Excellence in Solutions."
+                title="Trusted Testing Solutions"
+                isDark={isDark}
+                style={{ marginBottom: 'var(--space-5)' }}
+              />
 
               {/* SEO: Supporting paragraph */}
               <p style={{ color: isDark ? 'var(--text-muted)' : 'var(--color-neutral-500)', textAlign:"justify", fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-relaxed)', margin: '0 0 var(--space-6)' }}>

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { SectionHeader } from './SharedUI';
 
 // ── Only 5 review records ──────────────────────────────────────────────────
 const testimonials = [
@@ -150,28 +151,7 @@ const TestimonialsSection = () => {
                   transition={{ duration: 0.6 }}
                   style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
                 >
-                  <span style={{
-                    display: 'block',
-                    color: 'var(--color-primary-500)',
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 'var(--font-weight-semibold)',
-                    fontSize: 'var(--text-sm)',
-                    letterSpacing: 'var(--tracking-wider)',
-                    textTransform: 'uppercase',
-                    marginBottom: 'var(--space-2)',
-                  }}>
-                    Client Reviews
-                  </span>
-                  <h2 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 'var(--font-weight-bold)',
-                    fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-                    lineHeight: 'var(--leading-tight)',
-                    color: 'var(--color-neutral-0)',
-                    margin: 0,
-                  }}>
-                    What Our Clients Say
-                  </h2>
+                  <SectionHeader eyebrow="Client Reviews" title="What Our Clients Say" onDark />
                 </motion.div>
         </div>
 

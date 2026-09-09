@@ -4,6 +4,7 @@ import {CompassCalibration,Engineering,Construction,AcUnit,Build,SystemUpdate,Se
 import AutoRenewIcon from "@mui/icons-material/AutoRenew";
 
 import OtherDepartmentsSection from "../framework/OtherDept";
+import { SectionHeader } from "../framework/SharedUI";
 
 // Import achievement images directly
 import client1 from "../assets/clients/client1.jpg";
@@ -192,8 +193,8 @@ const SpotlightCard = ({ step, index, isActive, onMouseEnter, onMouseLeave }) =>
 
       {/* Title + Description */}
       <div className="mb-5 text-justify">
-        <h3 className="text-base font-semibold mb-2 text-[#0f172a]">{step.title}</h3>
-        <p className="text-sm text-[#64748b] leading-relaxed line-clamp-3">{step.description}</p>
+        <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--color-neutral-900)' }}>{step.title}</h3>
+        <p className="text-sm leading-relaxed line-clamp-3" style={{ color: 'var(--color-neutral-500)' }}>{step.description}</p>
       </div>
 
       {/* Bottom progress bar */}
@@ -382,9 +383,7 @@ const Service = () => {
       
       {/* ── ACHIEVEMENTS ─────────────────────────────────────────────────── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-lg font-bold text-cyan-400 mb-10">
-          Our Achievement
-        </h2>
+        <SectionHeader title="Our Achievement" className="mb-10" />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl 2xl:max-w-[1440px] mx-auto">
           {achievementImages.map((client) => (

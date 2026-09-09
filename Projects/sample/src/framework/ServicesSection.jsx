@@ -8,6 +8,7 @@ import {
   FaLaptopCode, FaTools, FaMicroscope, FaUsers,
 } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
+import { SectionHeader } from './SharedUI';
 import ServicesBg from '../assets/clients/home_services_bg.jpg';
 
 const services = [
@@ -57,28 +58,7 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
         >
-          <span style={{
-            display: 'block',
-            color: 'var(--color-primary-500)',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 'var(--font-weight-semibold)',
-            fontSize: 'var(--text-sm)',
-            letterSpacing: 'var(--tracking-wider)',
-            textTransform: 'uppercase',
-            marginBottom: 'var(--space-2)',
-          }}>
-            Our Services
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 'var(--font-weight-bold)',
-            fontSize: 'clamp(var(--text-2xl), 3vw, var(--text-2xl))',
-            lineHeight: 'var(--leading-tight)',
-            color: 'var(--color-neutral-0)',
-            margin: 0,
-          }}>
-            What We Offer
-          </h2>
+          <SectionHeader eyebrow="Our Services" title="What We Offer" onDark />
         </motion.div>
 
         {/* Grid */}

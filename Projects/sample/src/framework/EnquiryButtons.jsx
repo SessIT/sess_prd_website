@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import EnquiryModal from './EnquiryModal';
 import BrochureModal from './BrochureModal';
 import SearchOverlay from './SearchOverlay';
-import { OPEN_ENQUIRY_EVENT, OPEN_SEARCH_EVENT } from './openEnquiry';
+import { OPEN_ENQUIRY_EVENT, OPEN_SEARCH_EVENT, OPEN_BROCHURE_EVENT } from './openEnquiry';
+import { getBrochureForPath, getBrochureForProduct } from '../data/productBrochures';
 import suppot from '../assets/Website_Gallery_img/chatbot.png';
 import download from '../assets/Website_Gallery_img/file.png';
 
@@ -13,9 +15,17 @@ const EnquiryButtons = () => {
   const [isBrochureOpen, setIsBrochureOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [prefillProduct, setPrefillProduct] = useState('');
+  const [brochureOverride, setBrochureOverride] = useState(null);
   const [hoveredBtn, setHoveredBtn] = useState(null);
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const { pathname } = useLocation();
+
+  // The floating button serves the brochure of whichever product page the
+  // visitor is on; every other route gets the company profile. A product page
+  // can also request a specific brochure via openBrochure('Product name').
+  const routeBrochure = useMemo(() => getBrochureForPath(pathname), [pathname]);
+  const activeBrochure = brochureOverride || routeBrochure;
 
   // Any component (Header CTA, product hero, carousels) can open the enquiry
   // modal via openEnquiry('Product name') or the search via openSearch() —
@@ -26,6 +36,10 @@ const EnquiryButtons = () => {
       setIsModalOpen(true);
     };
     const searchHandler = () => setIsSearchOpen(true);
+    const brochureHandler = (e) => {
+      setBrochureOverride(getBrochureForProduct(e.detail?.product || ''));
+      setIsBrochureOpen(true);
+    };
     const keyHandler = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -34,10 +48,12 @@ const EnquiryButtons = () => {
     };
     window.addEventListener(OPEN_ENQUIRY_EVENT, enquiryHandler);
     window.addEventListener(OPEN_SEARCH_EVENT, searchHandler);
+    window.addEventListener(OPEN_BROCHURE_EVENT, brochureHandler);
     window.addEventListener('keydown', keyHandler);
     return () => {
       window.removeEventListener(OPEN_ENQUIRY_EVENT, enquiryHandler);
       window.removeEventListener(OPEN_SEARCH_EVENT, searchHandler);
+      window.removeEventListener(OPEN_BROCHURE_EVENT, brochureHandler);
       window.removeEventListener('keydown', keyHandler);
     };
   }, []);
@@ -259,7 +275,7 @@ const EnquiryButtons = () => {
                 }}
               >
                 <span style={{ display: 'flex', alignItems: 'center'}}>
-                  Download Brochure
+                  {activeBrochure.key === 'company' ? 'Download Brochure' : `${activeBrochure.product} Brochure`}
                 </span>
                 {/* Tooltip arrow */}
                 <div
@@ -287,7 +303,7 @@ const EnquiryButtons = () => {
             whileTap="tap"
             onHoverStart={() => setHoveredBtn('brochure')}
             onHoverEnd={() => setHoveredBtn(null)}
-            onClick={() => setIsBrochureOpen(true)}
+            onClick={() => { setBrochureOverride(null); setIsBrochureOpen(true); }}
             style={{
               width: '55px',
               height: '55px',
@@ -368,7 +384,11 @@ const EnquiryButtons = () => {
         onClose={() => { setIsModalOpen(false); setPrefillProduct(''); }}
         prefillProduct={prefillProduct}
       />
-      <BrochureModal isOpen={isBrochureOpen} onClose={() => setIsBrochureOpen(false)} />
+      <BrochureModal
+        isOpen={isBrochureOpen}
+        brochure={activeBrochure}
+        onClose={() => { setIsBrochureOpen(false); setBrochureOverride(null); }}
+      />
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
