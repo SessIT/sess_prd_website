@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, } fro
 import { useNavigate, Link } from 'react-router-dom';
 import { getRelatedChambers } from '../../data/relatedChambers';
 import BackToRelatedChamber from '../../component/BackToRelatedChamber';
+import DustStandards from '../../component/DustStandards';
 import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, AlertTriangle, Flame, } from 'lucide-react';
 //ImageCarousel import function
@@ -163,6 +164,49 @@ const DustChamberProduct = {
       { spec: 'Electrical Supply', dust450: '3Ø/N/E 415VAC ±10% 50Hz', dust1000: '3Ø/N/E 415VAC ±10% 50Hz' },
       { spec: 'Type of Controller', dust450: 'PLC based control system', dust1000: 'PLC based control system' },
     ],
+  },
+
+  // Section 3b: Dust Standards — IP5X / IP6X test programmes
+  dustStandards: {
+    eyebrow: 'Choose the Test Programme',
+    title: 'Understand IP5X and IP6X',
+    subtitle: 'Select the IEC 60529 ingress protection programme your device under test (DUT) must be evaluated against.',
+    programmes: [
+      {
+        id: 'ip5x',
+        code: 'IP5X',
+        name: 'Dust Protected',
+        standard: 'IEC 60529',
+        level: 1,
+        summary: 'Evaluates protection against dust ingress under the selected IEC 60529 procedure.',
+        heading: 'Protection judged by the DUT criteria',
+        points: [
+          'The agreed acceptance criteria determine whether dust ingress affects operation or safety.',
+          'Specimen category and procedure determine whether vacuum extraction is used.',
+          'Dust charge, exposure conditions and duration must be defined before testing.',
+        ],
+      },
+      {
+        id: 'ip6x',
+        code: 'IP6X',
+        name: 'Dust Tight',
+        standard: 'IEC 60529',
+        level: 2,
+        summary: 'Evaluates dust-tight performance under the selected IEC 60529 procedure.',
+        heading: 'Vacuum configuration needs careful selection',
+        points: [
+          'The test evaluates the DUT against dust-tight acceptance criteria.',
+          'Where required, the selected pump and instruments must provide the specified extraction and pressure conditions.',
+          'Pump capacity depends on the specimen and test protocol; connection fittings alone do not establish capability.',
+        ],
+      },
+    ],
+    additional: {
+      title: 'Other Dust Standards on Request',
+      items: ['IEC 60068-2-68 (La2)', 'ISO 20653 IP5KX / IP6KX'],
+      note: 'IEC 60529 IP5X / IP6X is the primary design basis. Other methods can be considered after a method-specific capability review and written scope agreement.',
+    },
+    note: 'The chamber supports testing; it does not certify a product’s IP rating. Final capability and acceptance are defined by the agreed standard edition, DUT category, test method and FAT/SAT protocol.',
   },
 
   // Section 4: Controller / Test Mode Features
@@ -1100,6 +1144,7 @@ function SectionNav() {
     { id: "overview", label: "Overview" },
     { id: "benefits", label: "Benefits" },
     { id: "specifications", label: "Specifications" },
+    { id: "dust-standards", label: "Dust Standards" },
     { id: "controller", label: "Controller" },
     { id: "related-products", label: "Related Products" },
   ];
@@ -1557,6 +1602,9 @@ function ProductDetail() {
           )}
         </div>
       </section>
+
+      {/* ── DUST STANDARDS (IP5X / IP6X) ─────────── */}
+      <DustStandards data={product.dustStandards} />
 
       {/* ── CONTROLLER ───────────────────────────── */}
       <section
