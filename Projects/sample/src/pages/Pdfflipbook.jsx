@@ -341,6 +341,7 @@ export default function PDFFlipbook() {
         gap: 22,
         background: "radial-gradient(ellipse at 50% 40%, #1b2645 0%, #0b1020 100%)",
       }}>
+        <h1 className="sr-only">SESS Company Profile &amp; Environmental Test Chamber Brochure</h1>
         {/* Animated book */}
         <div style={{ position: "relative", width: 60, height: 76 }}>
           <div style={{
@@ -431,6 +432,7 @@ export default function PDFFlipbook() {
         background: "radial-gradient(ellipse at 55% 35%, #1c2640 0%, #0b1020 100%)",
       }}
     >
+      <h1 className="sr-only">SESS Company Profile &amp; Environmental Test Chamber Brochure</h1>
       {/* Grid texture */}
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.022,

@@ -65,6 +65,10 @@ const HomePage = () => {
       />
 
       <Header />
+      {/* Single page-level H1 for SEO; slider headings are H2s */}
+      <h1 className="sr-only">
+        Environmental Test Chamber Manufacturer in India – Sri Easwari Scientific Solution (SESS)
+      </h1>
       <HeroSlider />
       <AboutSection />
       <OtherDept />

@@ -192,7 +192,7 @@ const HeroSlider = () => {
                     <div style={{ flex: 1, height: "1px", background: isDark ? "var(--border-default)" : "var(--color-neutral-300)" }} />
                   </div>
 
-                  <h1
+                  <h2
                     className="text-center mb-5"
                     style={{
                       color: isDark ? "var(--text-heading)" : "var(--color-neutral-900)",
@@ -203,7 +203,7 @@ const HeroSlider = () => {
                     }}
                   >
                     {slide.subtitle}
-                  </h1>
+                  </h2>
 
                   <p
                     className="text-center leading-relaxed mb-6 max-w-sm mx-auto"

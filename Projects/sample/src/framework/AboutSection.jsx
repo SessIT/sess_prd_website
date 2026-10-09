@@ -243,7 +243,7 @@ Sri Easwari Scientific Solution Pvt Ltd is a leading provider of environmental t
                       className="text-center"
                     >
                       <motion.a
-                                            href="/#/about"
+                                            href="/about"
                                             whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                                             style={{
                                               display: "inline-flex",

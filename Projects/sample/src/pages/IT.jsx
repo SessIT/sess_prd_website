@@ -446,7 +446,7 @@ const ItTeam = () => {
 
                 {/* Secondary CTA */}
                 <motion.a
-                  href="/#/contact"
+                  href="/contact"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="inline-block py-4 font-semibold text-center transition-all duration-300 border cursor-pointer px-7 border-slate-600 hover:border-cyan-400/50 text-slate-300 hover:text-cyan-300 rounded-2xl hover:bg-slate-800/50 backdrop-blur-sm"

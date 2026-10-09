@@ -559,7 +559,7 @@ const LabviewPage = () => {
                 className="flex flex-col items-center justify-center gap-4 mt-6 sm:flex-row"
               >
                 <motion.a
-                  href="/#/contact"
+                  href="/contact"
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 20px #008080' }}
                   whileTap={{ scale: 0.97 }}
                   className="relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden text-base font-bold text-white transition-all duration-300 shadow-xl cursor-pointer group/cta rounded-2xl bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 hover:from-cyan-600 hover:via-cyan-500 hover:to-cyan-600"

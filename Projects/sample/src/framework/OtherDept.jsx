@@ -163,7 +163,7 @@ const departments = [
     color: "bg-indigo-600",
     image: dsteam,
     stats: "12 Designers",
-    teamUrl: "/#/design",
+    teamUrl: "/design",
     socials: [], // no socials → alternate footer
     toolChips: [
       { icon: <SolidWorksIcon />, color: "#CC0000" },
@@ -179,7 +179,7 @@ const departments = [
     color: "bg-emerald-600",
     image: bgit,
     stats: "24 Engineers",
-    teamUrl: "/#/it",
+    teamUrl: "/it",
     socials: [
       { icon: <LinkedInIcon />, href: "https://linkedin.com/in/sess-chennai/", label: "LinkedIn" },
       { icon: <GitHubIcon />,   href: "https://github.com",   label: "GitHub"   },
@@ -196,7 +196,7 @@ const departments = [
     color: "bg-blue-600",
     image: bgplc ,
     stats: "15 Automation Engineers",
-    teamUrl: "/#/labview-plc",
+    teamUrl: "/labview-plc",
     socials: [], // no socials → alternate footer
     toolChips: [
       { icon: <LabVIEWIcon />, color: "#1A2B5C" },

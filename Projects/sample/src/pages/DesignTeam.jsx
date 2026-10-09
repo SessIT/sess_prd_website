@@ -256,7 +256,7 @@ const MachineDesignTeam = () => {
               Let's collaborate on your next breakthrough machine design project.
             </p>            
             <motion.a
-              href="/#/contact"
+              href="/contact"
               whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(6, 182, 212, 0.4)' }}
                               whileTap={{ scale: 0.98 }}
                               className="group/cta inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 via-cyan-400 to-blue-500

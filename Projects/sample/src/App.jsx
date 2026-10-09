@@ -44,6 +44,7 @@ const TensileChamber = lazy(() => import('./pages/products/TensileChamber'));
 const SitemapPage = lazy(() => import('./pages/Sitemap'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsConditions = lazy(() => import('./pages/TermsConditions'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // import ProductVariantDetail from './pages/products/related/Productvariantdetail';
 
@@ -104,6 +105,7 @@ function AppContent() {
               <Route path="/sitemap" element={<SitemapPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-and-conditions" element={<TermsConditions />} />
+              <Route path="*" element={<NotFound />} />
           
 
            
