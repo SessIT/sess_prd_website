@@ -96,7 +96,8 @@ export default function App() {
                          
                                  <div className="relative max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
                                    <motion.div
-                                     initial={{ opacity: 0, y: 40 }}
+                                     // Hero text paints immediately (it is the page's LCP element)
+                                     initial={false}
                                      animate={{ opacity: 1, y: 0 }}
                                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                                      className="text-center max-w-3xl mx-auto"
@@ -116,7 +117,7 @@ export default function App() {
                                      </motion.div>
                          
                                      <motion.h1
-                                       initial={{ opacity: 0, y: 20 }}
+                                       initial={false}
                                        animate={{ opacity: 1, y: 0 }}
                                        transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                                        className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
@@ -124,7 +125,7 @@ export default function App() {
                                      </motion.h1>
                          
                                      <motion.p
-                                       initial={{ opacity: 0 }}
+                                       initial={false}
                                        animate={{ opacity: 1 }}
                                        transition={{ delay: 0.45, duration: 0.6 }}
                                        className="text-base sm:text-lg md:text-lg text-gray-200 leading-relaxed px-4">

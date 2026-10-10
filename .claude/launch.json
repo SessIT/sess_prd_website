@@ -26,6 +26,21 @@
         "--strictPort"
       ],
       "port": 5180
+    },
+    {
+      "name": "sess-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "--prefix",
+        "Projects/sample",
+        "--",
+        "--port",
+        "4173",
+        "--strictPort"
+      ],
+      "port": 4173
     }
   ]
 }

@@ -7,12 +7,12 @@ import OtherDepartmentsSection from "../framework/OtherDept";
 import { SectionHeader } from "../framework/SharedUI";
 
 // Import achievement images directly
-import client1 from "../assets/clients/client1.jpg";
-import client2 from "../assets/clients/client2.jpg";
-import client3 from "../assets/clients/client3.jpg";
-import client4 from "../assets/clients/client4.jpg";
-import client5 from "../assets/clients/client5.jpg";
-import client6 from "../assets/clients/client6.jpg";
+import client1 from "../assets/clients/client1.webp";
+import client2 from "../assets/clients/client2.webp";
+import client3 from "../assets/clients/client3.webp";
+import client4 from "../assets/clients/client4.webp";
+import client5 from "../assets/clients/client5.webp";
+import client6 from "../assets/clients/client6.webp";
 
 // ── Icon map (id → MUI icon component) ────────────────────────────────────
 const iconMap = {
@@ -174,7 +174,7 @@ const SpotlightCard = ({ step, index, isActive, onMouseEnter, onMouseLeave }) =>
       <div className="flex justify-between items-center mb-5">
         <div
           className={`text-xl font-extrabold transition-all duration-300
-            ${isHighlighted ? "text-[#00b3b3]" : "text-[#a9abac]"}`}
+            ${isHighlighted ? "text-[#007a7a]" : "text-[#6b7280]"}`}
         >
           {String(step.number).padStart(2, "0")}
         </div>
@@ -193,7 +193,7 @@ const SpotlightCard = ({ step, index, isActive, onMouseEnter, onMouseLeave }) =>
 
       {/* Title + Description */}
       <div className="mb-5 text-justify">
-        <h3 className="text-base font-semibold mb-2" style={{ color: 'var(--color-neutral-900)' }}>{step.title}</h3>
+        <h2 className="text-base font-semibold mb-2" style={{ color: 'var(--color-neutral-900)' }}>{step.title}</h2>
         <p className="text-sm leading-relaxed line-clamp-3" style={{ color: 'var(--color-neutral-500)' }}>{step.description}</p>
       </div>
 

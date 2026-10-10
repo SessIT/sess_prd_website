@@ -55,10 +55,10 @@ const categories = [
 
 // Category → accent colour (used only in dynamic inline styles)
 const categoryColors = {
-  industry: { main: '#00b3b3', soft: 'rgba(0,179,179,0.15)', pill: 'linear-gradient(135deg,#00b3b3cc,#00b3b388)' },
-  pharma: { main: '#2a56a6', soft: 'rgba(42,86,166,0.15)', pill: 'linear-gradient(135deg,#2a56a6cc,#2a56a688)' },
-  medical: { main: '#16a34a', soft: 'rgba(22,163,74,0.15)', pill: 'linear-gradient(135deg,#16a34acc,#16a34a88)' },
-  trading: { main: '#f500db55', soft: 'rgba(245,184,0,0.15)', pill: 'linear-gradient(135deg,#f500db55cc,#f500db5588)' },
+  industry: { main: '#00b3b3', soft: 'rgba(0,179,179,0.15)', pill: 'linear-gradient(135deg,#007a7a,#008c8c)' },
+  pharma: { main: '#2a56a6', soft: 'rgba(42,86,166,0.15)', pill: 'linear-gradient(135deg,#2a56a6,#3563b3)' },
+  medical: { main: '#16a34a', soft: 'rgba(22,163,74,0.15)', pill: 'linear-gradient(135deg,#15803d,#16893f)' },
+  trading: { main: '#f500db55', soft: 'rgba(245,184,0,0.15)', pill: 'linear-gradient(135deg,#a21caf,#b021be)' },
 };
 
 // Badge colour map (dynamic inline only)
@@ -499,7 +499,7 @@ const ProductsSection = () => {
                     layoutId="filterPill"
                     transition={{ type: 'spring', stiffness: 480, damping: 36 }}
                     className="absolute inset-0 z-0 rounded-full"
-                    style={{ background: col ? col.pill : 'var(--btn-primary-bg)' }}
+                    style={{ background: col ? col.pill : 'var(--color-primary-700)' }} // solid, AA contrast with white text
                   />
                 )}
                 <span className="relative z-[1] text-[0.9rem] opacity-85">{cat.icon}</span>

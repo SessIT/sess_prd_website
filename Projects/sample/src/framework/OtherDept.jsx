@@ -6,12 +6,12 @@ import {
   ArrowRight,
   ComputerIcon,
 } from "lucide-react";
-import dsteam from "../assets/clients/design-team.jpg";
-import bgImage from "../assets/clients/bg-square.jpeg";
+import dsteam from "../assets/clients/design-team.webp";
+import bgImage from "../assets/clients/bg-square.webp";
 import labview from "../assets/clients/labview.svg";
-import bgplc from '../assets/Website_Gallery_img/labview.png';
-import bgit from '../assets/Website_Gallery_img/ITbg.png';
-import labimg from '../assets/clients/labview.png';
+import bgplc from '../assets/Website_Gallery_img/labview.webp';
+import bgit from '../assets/Website_Gallery_img/ITbg.webp';
+import labimg from '../assets/clients/labview.webp';
 import { SectionHeader } from './SharedUI';
 
 /* ═══════════════════════════════════════════════════════════
@@ -176,7 +176,7 @@ const departments = [
     description:
       "We provide reliable IT and software development services tailored to meet modern business needs. We specialize in developing custom software applications, web applications, and automation solutions that improve efficiency and streamline operations. Our services include software design, development, testing, deployment, and maintenance.",
     icon: <Terminal className="w-7 h-7" />,
-    color: "bg-emerald-600",
+    color: "bg-emerald-700",
     image: bgit,
     stats: "24 Engineers",
     teamUrl: "/it",

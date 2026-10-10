@@ -1,38 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, lazy, Suspense } from 'react';
+import { motion, useScroll } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
 // Home Components
 import HeroSlider from '../framework/HeroSlider';
-import AboutSection from '../framework/AboutSection';
-import ProductsSection from '../framework/DemoProducts';
-import ServicesSection from '../framework/ServicesSection';
-import CounterSection from '../framework/CounterSection';
-import TestimonialsSection from '../framework/TestimonialsSection';
-import ClientsSection from '../framework/ClientsSection';
-import NewsSection from '../framework/NewsSection';
-// import CTASection from './CTASection';
-import OtherDept from '../framework/OtherDept';
-import Social from '../framework/SocialMedia';
-import WhatsAppWidget from '../framework/WhatsAppWidget';
 import Header from '../framework/Header';
+
+// Below-the-fold sections are code-split so the hero (the LCP element) can
+// render without first downloading and running every section's code.
+const AboutSection = lazy(() => import('../framework/AboutSection'));
+const OtherDept = lazy(() => import('../framework/OtherDept'));
+const ProductsSection = lazy(() => import('../framework/DemoProducts'));
+const ServicesSection = lazy(() => import('../framework/ServicesSection'));
+const CounterSection = lazy(() => import('../framework/CounterSection'));
+const TestimonialsSection = lazy(() => import('../framework/TestimonialsSection'));
+const ClientsSection = lazy(() => import('../framework/ClientsSection'));
+const NewsSection = lazy(() => import('../framework/NewsSection'));
+const Social = lazy(() => import('../framework/SocialMedia'));
+const WhatsAppWidget = lazy(() => import('../framework/WhatsAppWidget'));
 // import VideoTest from "../component/VideoTest"; // Video section hidden — re-enable here when needed
 
 const HomePage = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  // Scroll progress via framer-motion (no React re-render or layout read per scroll)
+  const { scrollYProgress } = useScroll();
   const { theme } = useTheme();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setScrollProgress(scrolled);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Reinitialize Facebook SDK after component renders
   useEffect(() => {
@@ -48,7 +39,7 @@ const HomePage = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="bg-white"
@@ -56,12 +47,11 @@ const HomePage = () => {
       {/* Scroll Progress Bar */}
       <motion.div
         className={`fixed top-0 left-0 z-50 h-1 bg-gradient-to-r ${progressBarGradient}`}
-        style={{ 
+        style={{
           width: '100%',
-          scaleX: scrollProgress / 100,
+          scaleX: scrollYProgress,
           transformOrigin: 'left'
         }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
       />
 
       <Header />
@@ -70,18 +60,21 @@ const HomePage = () => {
         Environmental Test Chamber Manufacturer in India – Sri Easwari Scientific Solution (SESS)
       </h1>
       <HeroSlider />
-      <AboutSection />
-      <OtherDept />
-      {/*dept section*/}
-      <ProductsSection />
-      <ServicesSection />
-      <CounterSection />
-      <TestimonialsSection />
-      <ClientsSection />      
-      <NewsSection /> 
-      <Social />
-      {/* <VideoTest /> */}
-      <WhatsAppWidget />
+      {/* 100vh placeholder keeps the footer below the fold while sections load (no layout shift) */}
+      <Suspense fallback={<div style={{ minHeight: '100vh' }} aria-busy="true" />}>
+        <AboutSection />
+        <OtherDept />
+        {/*dept section*/}
+        <ProductsSection />
+        <ServicesSection />
+        <CounterSection />
+        <TestimonialsSection />
+        <ClientsSection />      
+        <NewsSection /> 
+        <Social />
+        {/* <VideoTest /> */}
+        <WhatsAppWidget />
+      </Suspense>
       {/* <CTASection /> */}
     </motion.div>
   );

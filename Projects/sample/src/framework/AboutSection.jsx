@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import AboutImage from '../assets/login-bg.jpeg';
+import AboutImage from '../assets/login-bg.webp';
 import { SectionHeader } from './SharedUI';
 
 /* ─── Timeline data (top = latest) ───────────────────────────────── */

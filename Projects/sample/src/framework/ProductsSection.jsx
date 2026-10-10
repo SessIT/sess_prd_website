@@ -10,18 +10,18 @@ import FloatingIcons from './UI/FloatingIcons';
 import FloatingOrbs from './UI/FloatingOrbs';
 
 // Import your product images
-import Product1 from '../assets/product/Climatic_chamber_front.png';
-import Product2 from '../assets/product/Salt Spray.png';
-import Product3 from '../assets/product/Rain Test.png';
-import Product4 from '../assets/product/VibrationChamber.png';
-import Product5 from '../assets/product/Thermal Cyclic.png';
-import Product6 from '../assets/product/TabletopChamber.png';
-import Product7 from '../assets/product/walkin.png';
-import Product8 from '../assets/product/DustChamber.png';
-import Product9 from '../assets/product/Flame-Proof Hot Air Oven.png';
-import Product10 from '../assets/product/Battery.png';
-import Product11 from '../assets/product/ThermalShockTestChamber.png';
-import Product12 from '../assets/product/TensileChamber.png';
+import Product1 from '../assets/product/Climatic_chamber_front.webp';
+import Product2 from '../assets/product/Salt Spray.webp';
+import Product3 from '../assets/product/Rain Test.webp';
+import Product4 from '../assets/product/VibrationChamber.webp';
+import Product5 from '../assets/product/Thermal Cyclic.webp';
+import Product6 from '../assets/product/TabletopChamber.webp';
+import Product7 from '../assets/product/walkin.webp';
+import Product8 from '../assets/product/DustChamber.webp';
+import Product9 from '../assets/product/Flame-Proof Hot Air Oven.webp';
+import Product10 from '../assets/product/Battery.webp';
+import Product11 from '../assets/product/ThermalShockTestChamber.webp';
+import Product12 from '../assets/product/TensileChamber.webp';
 
 const products = [
   { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temperature and humidity control', badge: 'Top Rated' },
@@ -48,9 +48,9 @@ const categories = [
 
 // Category → accent colour (used only in dynamic inline styles)
 const categoryColors = {
-  industry: { main: '#00b3b3', soft: 'rgba(0,179,179,0.15)', pill: 'linear-gradient(135deg,#00b3b3cc,#00b3b388)' },
-  pharma: { main: '#2a56a6', soft: 'rgba(42,86,166,0.15)', pill: 'linear-gradient(135deg,#2a56a6cc,#2a56a688)' },
-  medical: { main: '#16a34a', soft: 'rgba(22,163,74,0.15)', pill: 'linear-gradient(135deg,#16a34acc,#16a34a88)' },
+  industry: { main: '#00b3b3', soft: 'rgba(0,179,179,0.15)', pill: 'linear-gradient(135deg,#007a7a,#008c8c)' },
+  pharma: { main: '#2a56a6', soft: 'rgba(42,86,166,0.15)', pill: 'linear-gradient(135deg,#2a56a6,#3563b3)' },
+  medical: { main: '#16a34a', soft: 'rgba(22,163,74,0.15)', pill: 'linear-gradient(135deg,#15803d,#16893f)' },
   // trading: { main: '#f500db55', soft: 'rgba(245,0,217,0.15)', pill: 'linear-gradient(135deg,#f500dbc7,#f500db55)' },
 };
 
@@ -502,7 +502,7 @@ const ProductsSection = () => {
                     layoutId="filterPill"
                     transition={{ type: 'spring', stiffness: 480, damping: 36 }}
                     className="absolute inset-0 z-0 rounded-full"
-                    style={{ background: col ? col.pill : 'var(--btn-primary-bg)' }}
+                    style={{ background: col ? col.pill : 'var(--color-primary-700)' }} // solid, AA contrast with white text
                   />
                 )}
                 <span className="relative z-[1] text-[0.9rem] opacity-85">{cat.icon}</span>

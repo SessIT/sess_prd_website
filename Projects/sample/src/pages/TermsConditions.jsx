@@ -110,7 +110,7 @@ const TermsConditions = () => {
               border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.08)'}`,
             }}
           >
-            <h2 className="mb-3 text-lg font-bold" style={{ color: 'var(--color-primary-500)' }}>{s.title}</h2>
+            <h2 className="mb-3 text-lg font-bold" style={{ color: 'var(--color-primary-700)' }}>{s.title}</h2>
             {s.body.map((p, pi) => (
               <p key={pi} className="mb-3 text-sm leading-relaxed last:mb-0" style={{ color: isDark ? '#cbd5e1' : '#334155' }}>
                 {p}
@@ -121,9 +121,9 @@ const TermsConditions = () => {
 
         <p className="text-center text-sm" style={{ color: isDark ? '#94a3b8' : '#64748b' }}>
           See also our{' '}
-          <Link to="/privacy-policy" style={{ color: '#00b3b3' }}>Privacy Policy</Link>
+          <Link to="/privacy-policy" style={{ color: '#007a7a' }}>Privacy Policy</Link>
           {' '}·{' '}
-          <Link to="/contact" style={{ color: '#00b3b3' }}>Contact Us</Link>
+          <Link to="/contact" style={{ color: '#007a7a' }}>Contact Us</Link>
         </p>
       </section>
     </motion.div>

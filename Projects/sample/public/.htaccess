@@ -33,6 +33,15 @@ AddType application/manifest+json .webmanifest
 # 404.html is the app shell with noindex; React renders the Not Found page.
 ErrorDocument 404 /404.html
 
+# ── Security headers ───────────────────────────────────────
+# COOP isolates this window from cross-origin pop-ups (Lighthouse "origin
+# isolation"). "allow-popups" keeps target=_blank links, WhatsApp and the
+# YouTube/Facebook embeds working.
+<IfModule mod_headers.c>
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
 # ── Caching ────────────────────────────────────────────────
 <IfModule mod_headers.c>
   # Vite file names are content-hashed, so they can be cached forever.

@@ -10,9 +10,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import Slider1 from "../assets/prd1.jpeg";
-import Slider2 from "../assets/prd2.jpeg";
-import Slider3 from "../assets/prd3.jpeg";
+import Slider1 from "../assets/prd1.webp";
+import Slider2 from "../assets/prd2.webp";
+import Slider3 from "../assets/prd3.webp";
 
 // IMPORTANT: declare OUTSIDE the component, only once
 const MotionLink = motion(Link);
@@ -130,9 +130,7 @@ const HeroSlider = () => {
                 background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
               }}
             >
-              <motion.div className="absolute inset-0 z-0"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
-              >
+              <div className="absolute inset-0 z-0">
                 <motion.div
                   className="w-full h-full"
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -144,7 +142,7 @@ const HeroSlider = () => {
                     backgroundSize: "400% 400%",
                   }}
                 />
-              </motion.div>
+              </div>
 
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <motion.div
@@ -175,7 +173,9 @@ const HeroSlider = () => {
               <div className="w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:pl-24">
                 <motion.div
                   key={`text-${index}`}
-                  initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+                  // First slide renders immediately (it is the LCP element);
+                  // later slides keep their entrance animation.
+                  initial={index === 0 ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
                 >
                   <div className="flex items-center gap-3 mb-6">
@@ -227,7 +227,8 @@ const HeroSlider = () => {
                         gap: "var(--space-3)",
                         padding: "var(--space-3) var(--space-5)",
                         borderRadius: "var(--border-radius-full)",
-                        background: "var(--color-primary-500)",
+                        // primary-700: white text on primary-500 failed WCAG contrast (2.6:1)
+                        background: "var(--color-primary-700)",
                         color: "var(--color-neutral-0)",
                         fontSize: "var(--text-xs)",
                         fontWeight: "var(--font-weight-semibold)",
@@ -236,10 +237,10 @@ const HeroSlider = () => {
                         textDecoration: "none",
                         transition: "var(--transition-base)",
                       }}
-                      onMouseEnter={e => e.currentTarget.style.background = "var(--color-primary-700)"}
-                      onMouseLeave={e => e.currentTarget.style.background = "var(--color-primary-500)"}
+                      onMouseEnter={e => e.currentTarget.style.background = "#006060"}
+                      onMouseLeave={e => e.currentTarget.style.background = "var(--color-primary-700)"}
                     >
-                      Learn More
+                      Learn More<span className="sr-only"> about the {slide.title}</span>
                       <FaArrowRight style={{ fontSize: "12px" }} />
                     </MotionLink>
                   </div>
@@ -251,10 +252,15 @@ const HeroSlider = () => {
                   key={index}
                   src={slide.image}
                   alt={slide.title}
-                  initial={{ opacity: 0, x: -40, scale: 0.96 }}
+                  width={900}
+                  height={765}
+                  fetchPriority={index === 0 ? "high" : "low"}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                  initial={index === 0 ? false : { opacity: 0, x: -40, scale: 0.96 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="w-full max-w-lg xl:max-w-xl object-contain drop-shadow-xl"
+                  className="w-full h-auto max-w-lg xl:max-w-xl object-contain drop-shadow-xl"
                   style={{ maxHeight: "100vh" }}
                 />
               </div>

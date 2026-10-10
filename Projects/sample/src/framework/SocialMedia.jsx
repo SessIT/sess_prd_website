@@ -295,8 +295,27 @@ export default function SocialMediaSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
-  /* ── Load Facebook SDK ── */
+  /* ── Load Facebook SDK — only once the section is near the viewport,
+     so its ~440 KB of scripts/images don't slow the initial page load ── */
+  const [loadFb, setLoadFb] = useState(false);
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadFb(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '800px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!loadFb) return;
     if (window.FB) {
       window.FB.XFBML.parse();
       return;
@@ -313,7 +332,7 @@ export default function SocialMediaSection() {
     script.defer = true;
     script.crossOrigin = "anonymous";
     document.body.appendChild(script);
-  }, []);
+  }, [loadFb]);
 
   /* ── Re-adapt the FB iframe when the viewport is resized ──
      adapt-container-width only measures at parse time, so without this the

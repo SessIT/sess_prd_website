@@ -1,20 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import img1 from '../assets/clients/guideline1.jpg';
-import img2 from '../assets/clients/guideline2.jpg';
-import img3 from '../assets/clients/guideline3.jpg';
-import img4 from '../assets/clients/guideline4.jpg';
-import img5 from '../assets/clients/guideline6.jpg';
+import img1 from '../assets/clients/guideline1.webp';
+import img2 from '../assets/clients/guideline2.webp';
+import img3 from '../assets/clients/guideline3.webp';
+import img4 from '../assets/clients/guideline4.webp';
+import img5 from '../assets/clients/guideline6.webp';
 
 const ITEMS = [
-  { image: img1, url: "https://sesschennai.blogspot.com/2024/08/ensuring-safe-operation-of-test.html" },
-  { image: img2, url: "https://sesschennai.blogspot.com/2024/08/www.html" },
-  { image: img3, url: "https://sesschennai.blogspot.com/2024/08/cutting-edge-solar-test-chamber-for.html" },
-  { image: img4, url: "https://sesschennai.blogspot.com/2024/08/service-planning-oem-vs-local-rewinding.html" },
-  { image: img5, url: "https://sesschennai.blogspot.com/2024/08/expert-solutions-for-refrigerant.html" },
-  { image: img1, url: "https://sesschennai.blogspot.com/2024/08/ensuring-safe-operation-of-test.html" },
-  { image: img2, url: "https://sesschennai.blogspot.com/2024/08/www.html" },
-  { image: img3, url: "https://sesschennai.blogspot.com/2024/08/cutting-edge-solar-test-chamber-for.html" },
+  { image: img1, url: "https://sesschennai.blogspot.com/2024/08/ensuring-safe-operation-of-test.html", title: "Safe Operation of Test Chambers" },
+  { image: img2, url: "https://sesschennai.blogspot.com/2024/08/www.html", title: "SESS Test Chamber Maintenance: Key Service Guidelines" },
+  { image: img3, url: "https://sesschennai.blogspot.com/2024/08/cutting-edge-solar-test-chamber-for.html", title: "Cutting-Edge Solar Test Chamber for Isolator Testing" },
+  { image: img4, url: "https://sesschennai.blogspot.com/2024/08/service-planning-oem-vs-local-rewinding.html", title: "Service Planning: OEM vs. Local Rewinding for Test Chamber Fan Motors" },
+  { image: img5, url: "https://sesschennai.blogspot.com/2024/08/expert-solutions-for-refrigerant.html", title: "Expert Solutions for Refrigerant Leakage in Climatic Test Chambers" },
+  { image: img1, url: "https://sesschennai.blogspot.com/2024/08/ensuring-safe-operation-of-test.html", title: "Safe Operation of Test Chambers" },
+  { image: img2, url: "https://sesschennai.blogspot.com/2024/08/www.html", title: "SESS Test Chamber Maintenance: Key Service Guidelines" },
+  { image: img3, url: "https://sesschennai.blogspot.com/2024/08/cutting-edge-solar-test-chamber-for.html", title: "Cutting-Edge Solar Test Chamber for Isolator Testing" },
 ];
 
 const GAP = 20;
@@ -195,7 +195,7 @@ const NewsBlogs = () => {
 
         {/* Navigation row */}
         <div className="flex items-center justify-between mb-6 sm:mb-8">
-          <p className="text-xs sm:text-sm text-slate-400 font-medium tracking-wide uppercase">
+          <p className="text-xs sm:text-sm text-slate-500 font-medium tracking-wide uppercase">
             Latest Articles
           </p>
           <div className="flex items-center gap-2">
@@ -249,7 +249,7 @@ const NewsBlogs = () => {
                     <div className="w-full overflow-hidden p-2">
                       <img
                         src={item.image}
-                        alt="news"
+                        alt={item.title}
                         className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-xl hover:rounded-2xl hover:scale-105 transition-transform duration-500"
                       />
                     </div>
@@ -261,9 +261,9 @@ const NewsBlogs = () => {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full text-sm font-semibold px-4 py-2.5 rounded-xl text-cyan-500 bg-blue-50 border border-blue-100 hover:bg-cyan-500 hover:text-white hover:border-cyan-500 transition-all duration-200 group/btn"
+                      className="flex items-center justify-center gap-2 w-full text-sm font-semibold px-4 py-2.5 rounded-xl text-cyan-700 bg-blue-50 border border-blue-100 hover:bg-cyan-500 hover:text-white hover:border-cyan-500 transition-all duration-200 group/btn"
                     >
-                      Learn more
+                      Learn more<span className="sr-only">: {item.title}</span>
                       <svg
                         className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"
                         fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"

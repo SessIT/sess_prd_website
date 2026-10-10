@@ -102,7 +102,7 @@ const FloatingInput = ({ label, id, name, type = 'text', value, onChange, requir
           top: focused || hasValue ? -10 : Tag === 'textarea' ? 14 : '50%',
           translateY: focused || hasValue ? 0 : Tag === 'textarea' ? 0 : '-50%',
           fontSize: focused || hasValue ? '11px' : '14px',
-          color: focused ? 'rgb(2 174 178)' : hasValue ? '#6b7280' : '#9ca3af',
+          color: focused ? '#007a7a' : '#6b7280', // gray-500: 4.8:1 on white (gray-400 failed WCAG AA)
           background: focused || hasValue ? 'white' : 'transparent',
           paddingLeft: focused || hasValue ? 4 : 0,
           paddingRight: focused || hasValue ? 4 : 0,
@@ -590,7 +590,7 @@ const Contact = () => {
                   <div className="mb-10">
                     <motion.span
                       className="inline-block text-sm font-semibold uppercase mb-2"
-                      style={{ color: 'var(--color-primary-500)', letterSpacing: 'var(--tracking-wider)', fontFamily: 'var(--font-body)' }}
+                      style={{ color: 'var(--color-primary-700)', letterSpacing: 'var(--tracking-wider)', fontFamily: 'var(--font-body)' }}
                       initial={{ opacity: 0, x: -12 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4 }}

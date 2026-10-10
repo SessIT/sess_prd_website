@@ -9,26 +9,26 @@ import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap
 
 // TODO: Replace these with your actual Flame-Proof Hot Air Oven photos.
 // (Front view, full/angled view, control panel view, engineering drawing)
-import tensile from '../../assets/product/TensileChamber.png';
-import tensileFront from '../../assets/product/TensileFront.png';
-import tensileSide from '../../assets/product/TensileSide.png';
-import tensileDrawing from '../../assets/product/TensileDrawing.png';
+import tensile from '../../assets/product/TensileChamber.webp';
+import tensileFront from '../../assets/product/TensileFront.webp';
+import tensileSide from '../../assets/product/TensileSide.webp';
+import tensileDrawing from '../../assets/product/TensileDrawing.webp';
 
 // Related Product Images
-import relatedOven1 from '../../assets/product/Salt Spray.png';
-import prd2 from '../../assets/product/CO2 Test Chamber.png';
-import prd3 from '../../assets/product/Environmetal.png';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.png';
+import relatedOven1 from '../../assets/product/Salt Spray.webp';
+import prd2 from '../../assets/product/CO2 Test Chamber.webp';
+import prd3 from '../../assets/product/Environmetal.webp';
+import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
 
 // Controller touch screen image
-import prd5 from '../../assets/product/controller.png';
-import prd6 from '../../assets/product/Manual mode.png';
-import prd7 from '../../assets/product/Refrigeration.png';
-import prd8 from '../../assets/product/User Login.png';
-import prd9 from '../../assets/product/graph.png';
-import prd10 from '../../assets/product/DataLog.png'
+import prd5 from '../../assets/product/controller.webp';
+import prd6 from '../../assets/product/Manual mode.webp';
+import prd7 from '../../assets/product/Refrigeration.webp';
+import prd8 from '../../assets/product/User Login.webp';
+import prd9 from '../../assets/product/graph.webp';
+import prd10 from '../../assets/product/DataLog.webp'
 
-import ovenHeroBg from '../../assets/product/TensileChamberBg.png';
+import ovenHeroBg from '../../assets/product/TensileChamberBg.webp';
 
 // Product Data
 const TensileChamberProduct = {
@@ -519,6 +519,8 @@ function ShareButton() {
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        aria-label="Share this product"
+        aria-expanded={open}
         className="flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200"
       >
         <Share2 size={18} strokeWidth={2.5} />
@@ -750,6 +752,7 @@ function ImageCarousel({ images }) {
                 key={side}
                 type="button"
                 onClick={action}
+                aria-label={side.startsWith("left") ? "Previous image" : "Next image"}
                 onMouseEnter={() => setIsZoomed(false)}
                 className={`absolute ${side} top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-lg hover:bg-cyan-500 hover:text-white transition-all duration-200 hover:scale-110`}
               >
@@ -939,6 +942,7 @@ function AutoPlayCarousel({ images, titles }) {
       <button
         type="button"
         onClick={(e) => { e.stopPropagation(); goPrev(); }}
+        aria-label="Previous image"
         className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white border border-white/20 backdrop-blur-sm hover:bg-cyan-500 hover:border-cyan-400 transition-all duration-200"
       >
         <ChevronLeft size={18} />
@@ -946,6 +950,7 @@ function AutoPlayCarousel({ images, titles }) {
       <button
         type="button"
         onClick={(e) => { e.stopPropagation(); goNext(); }}
+        aria-label="Next image"
         className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white border border-white/20 backdrop-blur-sm hover:bg-cyan-500 hover:border-cyan-400 transition-all duration-200"
       >
         <ChevronRight size={18} />
@@ -1105,9 +1110,9 @@ function RelatedCard({ product, index }) {
           <Link
             to={product.link}
             state={{ from: "/tensile-chamber" }}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 group-hover:text-cyan-400 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-700 group-hover:text-cyan-400 transition-colors"
           >
-            Learn More
+            Learn More<span className="sr-only"> about the {product.name}</span>
             <ArrowRight
               size={14}
               className="transition-transform group-hover:translate-x-1 duration-200"
@@ -1191,8 +1196,8 @@ function SectionNav() {
             href={`#${tab.id}`}
             onClick={(e) => handleClick(e, tab.id)}
             className={`relative py-5 text-base font-semibold transition-all duration-300 ${active === tab.id
-              ? "text-cyan-600"
-              : "text-black hover:text-cyan-600"
+              ? "text-cyan-700"
+              : "text-black hover:text-cyan-700"
               }`}
           >
             {tab.label}
@@ -1360,7 +1365,7 @@ function ProductDetail() {
                   border: '1.5px solid rgba(0,179,179,0.7)',
                   backdropFilter: 'blur(6px)',
                 }}
-                aria-label={`Download ${product.hero.mainTitle} brochure`}
+                aria-label={`Download Brochure – ${product.hero.mainTitle}`}
               >
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -1405,7 +1410,7 @@ function ProductDetail() {
                   <span className="block w-5 h-px bg-cyan-500 opacity-70 rounded-full" />
                   <span
                     style={{
-                      color: 'var(--color-primary-500)',
+                      color: 'var(--color-primary-700)',
                       fontFamily: 'var(--font-body)',
                       fontWeight: 'var(--font-weight-semibold)',
                       fontSize: 'var(--text-sm)',

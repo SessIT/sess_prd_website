@@ -7,12 +7,12 @@ import {
 } from 'lucide-react';
 import TechStack from '../framework/UI/TechStack';
 
-import web_dev from '../assets/Website_Gallery_img/sess_web_dev.png';
-import webapp_dev from '../assets/Website_Gallery_img/sess_webapp_dev.jpg';
-import soft_dev from '../assets/Website_Gallery_img/sess_soft_dev.jpg';
-import digi_mkt from '../assets/Website_Gallery_img/sess_digi_mart.jpeg';
-import sms_email from '../assets/Website_Gallery_img/sess_bulk_sms_email.jpg';
-import seo_social from '../assets/Website_Gallery_img/sess_seo.jpeg';
+import web_dev from '../assets/Website_Gallery_img/sess_web_dev.webp';
+import webapp_dev from '../assets/Website_Gallery_img/sess_webapp_dev.webp';
+import soft_dev from '../assets/Website_Gallery_img/sess_soft_dev.webp';
+import digi_mkt from '../assets/Website_Gallery_img/sess_digi_mart.webp';
+import sms_email from '../assets/Website_Gallery_img/sess_bulk_sms_email.webp';
+import seo_social from '../assets/Website_Gallery_img/sess_seo.webp';
 /* ─── Floating particle (hero only) ─── */
 const Particle = ({ x, y, size, delay, color }) => (
   <motion.div
@@ -99,9 +99,9 @@ const FeatureCard = ({ card, index }) => {
           transition={{ delay: index * 0.08 + 0.3, duration: 0.5 }}
           className="flex flex-wrap items-center gap-2 mb-2"
         >
-          <h3 className="font-bold transition-colors duration-300 text-md text-slate-900 group-hover:text-cyan-600">
+          <h2 className="font-bold transition-colors duration-300 text-md text-slate-900 group-hover:text-cyan-600">
             {card.title}
-          </h3>
+          </h2>
         </motion.div>
 
         {/* Description */}

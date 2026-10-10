@@ -4,7 +4,7 @@ import { motion, useInView, useMotionValue, useTransform, useSpring } from 'fram
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { openEnquiry } from './openEnquiry';
-import Logo from '../assets/sess_logo_white.png';
+import Logo from '../assets/sess_logo_white.webp';
 
 /* ─── Magnetic Social Button ───────────────────────── */
 const MagneticSocial = ({ icon: Icon, url, label, delay }) => {
@@ -68,8 +68,10 @@ const FooterLink = ({ to, children, delay = 0 }) => (
 );
 
 /* ─── Section Heading ───────────────────────────────── */
+// h2: footer columns are top-level sections; an h3 here skipped a level on
+// pages without an h2 above the footer (Lighthouse "heading-order").
 const SectionHeading = ({ children, delay = 0 }) => (
-  <motion.h3
+  <motion.h2
     initial={{ opacity: 0, y: -10 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.5 }}
@@ -83,7 +85,7 @@ const SectionHeading = ({ children, delay = 0 }) => (
     }}
   >
     {children}
-  </motion.h3>
+  </motion.h2>
 );
 
 /* ─── Glass Card Wrapper ────────────────────────────── */
@@ -203,9 +205,11 @@ const Footer = () => {
               <motion.img
                 src={Logo}
                 alt="SESS"
+                width={295}
+                height={48}
                 loading="lazy"
                 decoding="async"
-                className="h-12 mb-5"
+                className="h-12 w-auto max-w-full object-contain object-left mb-5"
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}

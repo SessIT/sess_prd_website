@@ -8,8 +8,8 @@ import {
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 import { openEnquiry, openSearch } from "./openEnquiry";
-import Logo from "../assets/sess_logo_png.png";
-import LogoWhite from "../assets/sess_logo_white.png";
+import Logo from "../assets/sess_logo_png.webp";
+import LogoWhite from "../assets/sess_logo_white.webp";
 
 const Header = () => {
   const [isOpen, setIsOpen]               = useState(false);
@@ -140,7 +140,7 @@ const Header = () => {
       {/* ═══ TOP BAR ══════════════════════════════════════════ */}
       {/* 🔧 FIX 3: Reduced z-index to prevent overlap */}
       <motion.div
-        initial={{ y: -100 }}
+        initial={false} // visible immediately — a slide-in on every page load delayed first paint
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
         className="fixed top-0 left-0 right-0"
@@ -306,6 +306,9 @@ const Header = () => {
               <img
                 src={isDark ? LogoWhite : Logo}
                 alt="SESS"
+                width={295}
+                height={48}
+                fetchPriority="high"
                 className="h-9 sm:h-11 lg:h-12 w-auto max-w-full object-contain"
               />
             </Link>
@@ -321,13 +324,14 @@ const Header = () => {
                     <Link to={item.path}
                       className="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-300 block"
                       style={{
+                        // Active link: darker teal in light mode for WCAG AA contrast on white
                         color: location.pathname === item.path
-                          ? "var(--color-primary-500)"
+                          ? (isDark ? "var(--color-primary-500)" : "var(--color-primary-700)")
                           : isDark ? "var(--text-body)" : "var(--color-neutral-700)",
                         fontFamily: "var(--font-body)",
                       }}
                       onMouseEnter={e => { e.currentTarget.style.color = "var(--color-primary-500)"; e.currentTarget.style.background = "rgba(0,0,0,0.05)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = location.pathname === item.path ? "var(--color-primary-500)" : isDark ? "var(--text-body)" : "var(--color-neutral-700)"; e.currentTarget.style.background = "transparent"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = location.pathname === item.path ? (isDark ? "var(--color-primary-500)" : "var(--color-primary-700)") : isDark ? "var(--text-body)" : "var(--color-neutral-700)"; e.currentTarget.style.background = "transparent"; }}
                     >
                       {item.label}
                     </Link>

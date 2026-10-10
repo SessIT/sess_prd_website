@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
 import { SectionHeader } from './SharedUI';
-import ServicesBg from '../assets/clients/home_services_bg.jpg';
+import ServicesBg from '../assets/clients/home_services_bg.webp';
 
 const services = [
   { icon: FaHandshake,        title: 'Customer Support'   },

@@ -11,18 +11,18 @@ import FloatingIcons from './UI/FloatingIcons';
 import FloatingOrbs from './UI/FloatingOrbs';
 
 // Import your product images
-import Product1 from '../assets/product/Climatic_chamber_front.png';
-import Product2 from '../assets/product/Salt Spray.png';
-import Product3 from '../assets/product/Rain Test.png';
-import Product4 from '../assets/product/VibrationChamber.png';
-import Product5 from '../assets/product/Thermal Cyclic.png';
-import Product6 from '../assets/product/TabletopChamber.png';
-import Product7 from '../assets/product/walkin.png';
-import Product8 from '../assets/product/DustChamber.png';
-import Product9 from '../assets/product/Flame-Proof Hot Air Oven.png';
-import Product10 from '../assets/product/Battery.png';
-import Product11 from '../assets/product/ThermalShockTestChamber.png';
-import Product12 from '../assets/product/TensileChamber.png';
+import Product1 from '../assets/product/Climatic_chamber_front.webp';
+import Product2 from '../assets/product/Salt Spray.webp';
+import Product3 from '../assets/product/Rain Test.webp';
+import Product4 from '../assets/product/VibrationChamber.webp';
+import Product5 from '../assets/product/Thermal Cyclic.webp';
+import Product6 from '../assets/product/TabletopChamber.webp';
+import Product7 from '../assets/product/walkin.webp';
+import Product8 from '../assets/product/DustChamber.webp';
+import Product9 from '../assets/product/Flame-Proof Hot Air Oven.webp';
+import Product10 from '../assets/product/Battery.webp';
+import Product11 from '../assets/product/ThermalShockTestChamber.webp';
+import Product12 from '../assets/product/TensileChamber.webp';
 
 const products = [
   { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temperature and humidity control', badge: 'Top Rated' },

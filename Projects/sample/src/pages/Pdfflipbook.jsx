@@ -63,8 +63,14 @@ async function renderPage(pdf, pageNum, scale) {
   canvas.width  = Math.floor(vp.width);
   canvas.height = Math.floor(vp.height);
   await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
-  return canvas.toDataURL("image/jpeg", 0.93);
+  // toBlob encodes asynchronously (toDataURL blocked the main thread for each
+  // page) and an object URL avoids a multi-MB base64 string per page.
+  const blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", 0.93));
+  return URL.createObjectURL(blob);
 }
+
+// Let the browser paint / handle input between page renders.
+const yieldToMain = () => new Promise((r) => setTimeout(r, 0));
 
 function playFlipSound() {
   try {
@@ -227,40 +233,91 @@ export default function PDFFlipbook() {
   const touchStartX = useRef(null);
 
   // ── Load PDF ────────────────────────────────────────────────
+  // Pages render on demand: the cover first, then the spreads around the one
+  // being viewed, and thumbnails only when the sidebar opens. Rendering every
+  // page up front blocked the main thread for seconds (Lighthouse TBT/LCP).
+  const pdfRef     = useRef(null);
+  const pagesRef   = useRef([]);           // rendered page URLs (null = not yet)
+  const pendingRef = useRef(new Set());    // page indexes currently rendering
+  const thumbsStarted = useRef(false);
+  const [interacted, setInteracted] = useState(false);
+
+  const ensurePages = useCallback(async (indexes) => {
+    const pdf = pdfRef.current;
+    if (!pdf) return;
+    for (const i of indexes) {
+      if (i == null || i < 0 || i >= pdf.numPages) continue;
+      if (pagesRef.current[i] || pendingRef.current.has(i)) continue;
+      pendingRef.current.add(i);
+      await yieldToMain();
+      pagesRef.current[i] = await renderPage(pdf, i + 1, 1.8 * RENDER_PXDP);
+      pendingRef.current.delete(i);
+      setPages([...pagesRef.current]);
+    }
+  }, []);
+
   useEffect(() => {
     (async () => {
       try {
         setLoadMsg("Loading PDF…");
         const pdf = await pdfjsLib.getDocument(samplePDF).promise;
         const n   = pdf.numPages;
+        pdfRef.current   = pdf;
+        pagesRef.current = Array(n).fill(null);
         setTotal(n);
         setTotalSpr(Math.ceil((n + 1) / 2));
+        setThumbs(Array(n).fill(null));
 
-        // Phase 1: thumbnails
-        const tArr = Array(n).fill(null);
-        setLoadMsg("Building page previews…");
-        for (let i = 1; i <= n; i++) {
-          tArr[i - 1] = await renderPage(pdf, i, 0.3);
-          setThumbs([...tArr]);
-          setProgress(Math.round((i / n) * 28));
-        }
-
-        // Phase 2: full pages
-        const pArr = Array(n).fill(null);
-        setLoadMsg("Rendering high-res pages…");
-        for (let i = 1; i <= n; i++) {
-          pArr[i - 1] = await renderPage(pdf, i, 1.8 * RENDER_PXDP);
-          setPages([...pArr]);
-          setProgress(28 + Math.round((i / n) * 72));
-        }
-
+        setLoadMsg("Rendering cover…");
+        setProgress(60);
+        await ensurePages([0]);
+        setProgress(100);
         setLoading(false);
       } catch (err) {
         console.error("PDFFlipbook load error:", err);
         setLoading(false);
       }
     })();
-  }, []);
+  }, [ensurePages]);
+
+  // First interaction anywhere → start preparing the next pages.
+  useEffect(() => {
+    if (interacted) return;
+    const evs = ["pointerdown", "pointermove", "keydown", "touchstart", "wheel"];
+    const on = () => setInteracted(true);
+    evs.forEach((e) => window.addEventListener(e, on, { once: true, passive: true }));
+    return () => evs.forEach((e) => window.removeEventListener(e, on));
+  }, [interacted]);
+
+  // Current spread (and, after interaction, the spreads either side).
+  useEffect(() => {
+    if (loading) return;
+    const want = [...getSpreadPages(spread, total)];
+    if (interacted) {
+      want.push(...getSpreadPages(spread + 1, total), ...getSpreadPages(spread - 1, total));
+    }
+    ensurePages(want);
+  }, [spread, total, loading, interacted, ensurePages]);
+
+  // Flip target: start rendering its pages as soon as the flip begins.
+  useEffect(() => {
+    if (flipState) ensurePages(getSpreadPages(flipState.to, total));
+  }, [flipState, total, ensurePages]);
+
+  // Thumbnails: render once, the first time the sidebar is opened.
+  useEffect(() => {
+    if (!showThumbs || thumbsStarted.current || !pdfRef.current) return;
+    thumbsStarted.current = true;
+    (async () => {
+      const pdf = pdfRef.current;
+      const tArr = Array(pdf.numPages).fill(null);
+      for (let i = 1; i <= pdf.numPages; i++) {
+        await yieldToMain();
+        tArr[i - 1] = await renderPage(pdf, i, 0.3);
+        setThumbs([...tArr]);
+      }
+    })();
+  }, [showThumbs]);
 
   // ── Navigation ──────────────────────────────────────────────
   const isFlipping = !!flipState;
@@ -429,30 +486,19 @@ export default function PDFFlipbook() {
         minHeight: "100vh",
         display: "flex", flexDirection: "column",
         overflow: "hidden", position: "relative",
-        background: "radial-gradient(ellipse at 55% 35%, #1c2640 0%, #0b1020 100%)",
+        // Grid texture and the two soft "ambient glows" are background layers.
+        // They used to be absolutely positioned divs sized in % of this
+        // container, so they moved when the PDF loaded and the container
+        // resized — Lighthouse counted that as a 0.43 layout shift.
+        background:
+          "radial-gradient(circle 320px at calc(18% + 250px) calc(18% + 250px), rgba(59,130,246,.07), transparent 70%), " +
+          "radial-gradient(circle 250px at calc(82% - 190px) calc(82% - 190px), rgba(14,165,233,.045), transparent 70%), " +
+          "linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px) 0 0 / 44px 44px, " +
+          "linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px) 0 0 / 44px 44px, " +
+          "radial-gradient(ellipse at 55% 35%, #1c2640 0%, #0b1020 100%)",
       }}
     >
       <h1 className="sr-only">SESS Company Profile &amp; Environmental Test Chamber Brochure</h1>
-      {/* Grid texture */}
-      <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.022,
-        backgroundImage: "linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px)",
-        backgroundSize: "44px 44px",
-      }} />
-
-      {/* Ambient glows */}
-      <div style={{
-        position: "absolute", top: "18%", left: "18%",
-        width: 500, height: 500, borderRadius: "50%",
-        background: "radial-gradient(circle, #3b82f6, transparent 70%)",
-        filter: "blur(70px)", opacity: 0.07, pointerEvents: "none",
-      }} />
-      <div style={{
-        position: "absolute", bottom: "18%", right: "18%",
-        width: 380, height: 380, borderRadius: "50%",
-        background: "radial-gradient(circle, #0ea5e9, transparent 70%)",
-        filter: "blur(70px)", opacity: 0.045, pointerEvents: "none",
-      }} />
 
       {/* ── Thumbnail sidebar ── */}
       <div style={{
@@ -509,6 +555,7 @@ export default function PDFFlipbook() {
                   <button
                     key={i}
                     onClick={() => goTo(sp)}
+                    aria-label={`Go to page ${i + 1}`}
                     style={{
                       position: "relative", borderRadius: 4,
                       overflow: "hidden", padding: 0,
@@ -556,6 +603,7 @@ export default function PDFFlipbook() {
           <button
             onClick={prev}
             disabled={spread === 0 || isFlipping}
+            aria-label="Previous page"
             style={{ ...arrowBtn, opacity: spread === 0 || isFlipping ? 0.18 : 1 }}
             onMouseEnter={e => { if (!(spread === 0 || isFlipping)) { e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.4)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
@@ -888,6 +936,7 @@ export default function PDFFlipbook() {
 
           {/* RIGHT arrow */}
           <button
+            aria-label="Next page"
             onClick={next}
             disabled={spread >= totalSpr - 1 || isFlipping}
             style={{ ...arrowBtn, opacity: spread >= totalSpr - 1 || isFlipping ? 0.18 : 1 }}
@@ -939,6 +988,7 @@ export default function PDFFlipbook() {
               {/* Range input (invisible, interactive) */}
               <input
                 type="range" min={0} max={sliderMax} step={1} value={spread}
+                aria-label="Brochure page"
                 onChange={e => goTo(Number(e.target.value))}
                 style={{
                   position: "absolute", inset: 0,

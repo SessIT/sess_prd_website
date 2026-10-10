@@ -1,14 +1,24 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import EnquiryModal from './EnquiryModal';
-import BrochureModal from './BrochureModal';
-import SearchOverlay from './SearchOverlay';
 import { OPEN_ENQUIRY_EVENT, OPEN_SEARCH_EVENT, OPEN_BROCHURE_EVENT } from './openEnquiry';
 import { getBrochureForPath, getBrochureForProduct } from '../data/productBrochures';
-import suppot from '../assets/Website_Gallery_img/chatbot.png';
-import download from '../assets/Website_Gallery_img/file.png';
+import suppot from '../assets/Website_Gallery_img/chatbot.webp';
+import download from '../assets/Website_Gallery_img/file.webp';
+
+// Modals are code-split: their code (and emailjs) loads on first open instead
+// of on every page load. Once loaded they stay mounted so close animations run.
+const EnquiryModal = lazy(() => import('./EnquiryModal'));
+const BrochureModal = lazy(() => import('./BrochureModal'));
+const SearchOverlay = lazy(() => import('./SearchOverlay'));
+
+// Mount `children` only after `open` has been true once.
+const MountOnFirstOpen = ({ open, children }) => {
+  const [mounted, setMounted] = useState(open);
+  useEffect(() => { if (open) setMounted(true); }, [open]);
+  return mounted || open ? <Suspense fallback={null}>{children}</Suspense> : null;
+};
 
 const EnquiryButtons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -175,6 +185,7 @@ const EnquiryButtons = () => {
             onHoverStart={() => setHoveredBtn('enquiry')}
             onHoverEnd={() => setHoveredBtn(null)}
             onClick={() => setIsModalOpen(true)}
+            aria-label="Send an enquiry"
             style={{
               width: '55px',
               height: '55px',
@@ -203,7 +214,7 @@ const EnquiryButtons = () => {
                 padding: '4px',
               }}
             >
-              <motion.img src={suppot} alt="" />
+              <motion.img src={suppot} alt="" width={45} height={45} />
             </motion.div>
 
             {/* Ripple effect on click */}
@@ -304,6 +315,7 @@ const EnquiryButtons = () => {
             onHoverStart={() => setHoveredBtn('brochure')}
             onHoverEnd={() => setHoveredBtn(null)}
             onClick={() => { setBrochureOverride(null); setIsBrochureOpen(true); }}
+            aria-label="Download brochure"
             style={{
               width: '55px',
               height: '55px',
@@ -339,7 +351,7 @@ const EnquiryButtons = () => {
                 padding: '10px',
               }}
             >
-              <motion.img src={download} alt="" style={{color:'#00b3b3'}} />
+              <motion.img src={download} alt="" width={25} height={31} style={{color:'#00b3b3'}} />
             </motion.div>
 
             {/* Pulse effect on brochure button */}
@@ -379,17 +391,23 @@ const EnquiryButtons = () => {
         </div>
       </div>
 
-      <EnquiryModal
-        isOpen={isModalOpen}
-        onClose={() => { setIsModalOpen(false); setPrefillProduct(''); }}
-        prefillProduct={prefillProduct}
-      />
-      <BrochureModal
-        isOpen={isBrochureOpen}
-        brochure={activeBrochure}
-        onClose={() => { setIsBrochureOpen(false); setBrochureOverride(null); }}
-      />
-      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <MountOnFirstOpen open={isModalOpen}>
+        <EnquiryModal
+          isOpen={isModalOpen}
+          onClose={() => { setIsModalOpen(false); setPrefillProduct(''); }}
+          prefillProduct={prefillProduct}
+        />
+      </MountOnFirstOpen>
+      <MountOnFirstOpen open={isBrochureOpen}>
+        <BrochureModal
+          isOpen={isBrochureOpen}
+          brochure={activeBrochure}
+          onClose={() => { setIsBrochureOpen(false); setBrochureOverride(null); }}
+        />
+      </MountOnFirstOpen>
+      <MountOnFirstOpen open={isSearchOpen}>
+        <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      </MountOnFirstOpen>
     </>
   );
 };

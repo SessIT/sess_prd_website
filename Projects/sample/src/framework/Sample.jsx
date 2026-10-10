@@ -1,28 +1,28 @@
 import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
-// import img1 from "../assets/Website_Gallery_img/img1.jpg";
-// import img2 from "../assets/Website_Gallery_img/img2.jpg";
-// import img3 from "../assets/Website_Gallery_img/img3.jpg";
-// import img4 from "../assets/Website_Gallery_img/img4.jpeg";
-// import img5 from "../assets/Website_Gallery_img/img5.jpeg";
-// import img6 from "../assets/Website_Gallery_img/img6.jpeg";
+// import img1 from "../assets/Website_Gallery_img/img1.webp";
+// import img2 from "../assets/Website_Gallery_img/img2.webp";
+// import img3 from "../assets/Website_Gallery_img/img3.webp";
+// import img4 from "../assets/Website_Gallery_img/img4.webp";
+// import img5 from "../assets/Website_Gallery_img/img5.webp";
+// import img6 from "../assets/Website_Gallery_img/img6.webp";
 // import img7 from "../assets/Website_Gallery_img/img7.png";
-// import img8 from "../assets/Website_Gallery_img/img8.jpeg";
-// import img9 from "../assets/Website_Gallery_img/img9.jpeg";
-import img10 from "../assets/Website_Gallery_img/img10.jpg";
-import img11 from "../assets/Website_Gallery_img/img11.jpg";
-import img12 from "../assets/Website_Gallery_img/img12.jpg";
-import img13 from "../assets/Website_Gallery_img/img13.jpg";
-import img14 from "../assets/Website_Gallery_img/img14.jpg";
-import img15 from "../assets/Website_Gallery_img/img15.jpg";
-import img16 from "../assets/Website_Gallery_img/img16.jpg";
-import img17 from "../assets/Website_Gallery_img/img17.jpg";
-import img18 from "../assets/Website_Gallery_img/img18.jpg";
-import img19 from "../assets/Website_Gallery_img/img19.jpg";
-import img20 from "../assets/Website_Gallery_img/img20.jpg";
-import img21 from "../assets/Website_Gallery_img/img21.jpg";
-import img22 from "../assets/Website_Gallery_img/img22.jpg";
-import img23 from "../assets/Website_Gallery_img/img23.jpg";
+// import img8 from "../assets/Website_Gallery_img/img8.webp";
+// import img9 from "../assets/Website_Gallery_img/img9.webp";
+import img10 from "../assets/Website_Gallery_img/img10.webp";
+import img11 from "../assets/Website_Gallery_img/img11.webp";
+import img12 from "../assets/Website_Gallery_img/img12.webp";
+import img13 from "../assets/Website_Gallery_img/img13.webp";
+import img14 from "../assets/Website_Gallery_img/img14.webp";
+import img15 from "../assets/Website_Gallery_img/img15.webp";
+import img16 from "../assets/Website_Gallery_img/img16.webp";
+import img17 from "../assets/Website_Gallery_img/img17.webp";
+import img18 from "../assets/Website_Gallery_img/img18.webp";
+import img19 from "../assets/Website_Gallery_img/img19.webp";
+import img20 from "../assets/Website_Gallery_img/img20.webp";
+import img21 from "../assets/Website_Gallery_img/img21.webp";
+import img22 from "../assets/Website_Gallery_img/img22.webp";
+import img23 from "../assets/Website_Gallery_img/img23.webp";
 // import img24 from "../assets/Website_Gallery_img/img24.jpg";
 
 const DEFAULT_IMAGES = [
@@ -71,68 +71,68 @@ const DEFAULT_IMAGES = [
   {
     // src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img10,
-    alt: 'Digital artwork'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img11,
-    alt: 'Contemporary art'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img12,
-    alt: 'Geometric pattern'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img13,
-    alt: 'Textured surface'
+    alt: 'SESS test chamber project photo'
   },
   {
     src: img14,
-    alt: 'Social media image'
+    alt: 'SESS test chamber project photo'
   },
   {
     src: img15,
-    alt: 'Abstract art'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1755569309049-98410b94f66d?q=80&w=772&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img16,
-    alt: 'Modern sculpture'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img17,
-    alt: 'Digital artwork'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img18,
-    alt: 'Contemporary art'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img19,
-    alt: 'Geometric pattern'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img20,
-    alt: 'Textured surface'
+    alt: 'SESS test chamber project photo'
   },
   {
     src: img21,
-    alt: 'Social media image'
+    alt: 'SESS test chamber project photo'
   },
   {
     // src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     src: img22,
-    alt: 'Textured surface'
+    alt: 'SESS test chamber project photo'
   },
   {
     src: img23,
-    alt: 'Social media image'
+    alt: 'SESS test chamber project photo'
   },
 ];
 
@@ -910,9 +910,11 @@ export default function DomeGallery({
                 >
                   <div
                     className="item__image absolute block overflow-hidden cursor-pointer bg-gray-200 transition-transform duration-71"
-                    role="button"
-                    tabIndex={0}
-                    aria-label={it.alt || 'Open image'}
+                    // role="img", not "button": dozens of tiles overlap on the 3D sphere,
+                    // so as focusable buttons they failed tap-target size. Click/tap to
+                    // enlarge still works.
+                    role="img"
+                    aria-label={it.alt || 'SESS gallery photo'}
                     onClick={e => {
                       if (draggingRef.current) return;
                       if (movedRef.current) return;

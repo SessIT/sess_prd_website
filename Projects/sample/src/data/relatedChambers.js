@@ -1,15 +1,15 @@
-import batteryTestImage from '../assets/product/Battery.png';
-import climaticTestImage from '../assets/product/Climatic_chamber_front.png';
-import saltSprayImage from '../assets/product/Salt Spray.png';
-import rainTestImage from '../assets/product/Rain Test.png';
-import vibrationTestImage from '../assets/product/VibrationChamber.png';
-import thermalCyclicImage from '../assets/product/Thermal Cyclic.png';
-import flameProofImage from '../assets/product/Flame-Proof Hot Air Oven.png';
-import thermalShockImage from '../assets/product/ThermalShockTestChamber.png';
-import tabletopImage from '../assets/product/TabletopChamber.png';
-import walkInImage from '../assets/product/walkin.png';
-import dustImage from '../assets/product/DustChamber.png';
-import tensileImage from '../assets/product/TensileChamber.png';
+import batteryTestImage from '../assets/product/Battery.webp';
+import climaticTestImage from '../assets/product/Climatic_chamber_front.webp';
+import saltSprayImage from '../assets/product/Salt Spray.webp';
+import rainTestImage from '../assets/product/Rain Test.webp';
+import vibrationTestImage from '../assets/product/VibrationChamber.webp';
+import thermalCyclicImage from '../assets/product/Thermal Cyclic.webp';
+import flameProofImage from '../assets/product/Flame-Proof Hot Air Oven.webp';
+import thermalShockImage from '../assets/product/ThermalShockTestChamber.webp';
+import tabletopImage from '../assets/product/TabletopChamber.webp';
+import walkInImage from '../assets/product/walkin.webp';
+import dustImage from '../assets/product/DustChamber.webp';
+import tensileImage from '../assets/product/TensileChamber.webp';
 
 const chamberCatalog = [
   {

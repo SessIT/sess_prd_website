@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import img1 from '../assets/Website_Gallery_img/popup.jpeg';
+import img1 from '../assets/Website_Gallery_img/popup.webp';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MotionDiv = motion.div;
@@ -10,7 +10,8 @@ const MotionButton = motion.button;
 const POPUP_CONFIG = {
   enabled: true,
   showOnce: false, // Show whenever the site is opened
-  delay: 1000, // Show after 1 second
+  minDelay: 1500, // Earliest it can open (on first scroll/tap/key after this)
+  delay: 12000, // Fallback: open anyway after 12s with no interaction
   routes: ['/'], // Show only when the website first opens on the homepage
   excludeRoutes: [], // Routes where popup shouldn't show
   cookieExpiry: 1, // Days to remember if shown (for showOnce)
@@ -65,13 +66,33 @@ const PopupManager = () => {
     if (!shouldShowOnRoute(location.pathname)) return;
     if (hasPopupBeenShown()) return;
 
-    // Show popup after delay
-    const timer = setTimeout(() => {
+    // Show on the visitor's first interaction (scroll / tap / key), or after
+    // a fallback delay — not while the page is still painting, where the
+    // full-screen overlay hurt LCP / Speed Index and interrupted reading.
+    const events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+    let timer;
+    const show = () => {
+      cleanup();
       hasShownPopup.current = true;
       setShowPopup(true);
-    }, POPUP_CONFIG.delay);
+    };
+    const cleanup = () => {
+      clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, onInteract));
+    };
+    const onInteract = () => {
+      cleanup();
+      timer = setTimeout(show, 600);
+    };
+    const armTimer = setTimeout(() => {
+      events.forEach((e) => window.addEventListener(e, onInteract, { once: true, passive: true }));
+    }, POPUP_CONFIG.minDelay);
+    timer = setTimeout(show, POPUP_CONFIG.delay);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(armTimer);
+      cleanup();
+    };
   }, [location.pathname]); // Re-run when route changes
 
   const handleClose = () => {
@@ -218,7 +239,7 @@ const PopupImg = ({
                         alt={title}
                         onLoad={handleImageLoad}
                         onError={handleImageError}
-                        className={`w-full h-full radius-3xl transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        className={`w-full h-full object-cover radius-3xl transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                       />
                     </div>
                   </MotionDiv>

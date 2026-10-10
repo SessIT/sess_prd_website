@@ -93,7 +93,7 @@ const ServiceCard = ({ item, index }) => (
       {item.tags.map((t, i) => (
         <span key={i}
           className="text-[10px] px-2.5 py-1 rounded-full font-semibold
-                     bg-cyan-50 text-cyan-600 border border-cyan-200/60
+                     bg-cyan-50 text-cyan-700 border border-cyan-200/60
                      group-hover:bg-cyan-100 group-hover:border-cyan-300 transition-all duration-300">
           {t}
         </span>
@@ -142,7 +142,7 @@ const WorkflowStep = ({ step, index, total }) => (
       </div>
     </motion.div>
 
-    <h4 className="mb-1 text-sm font-bold text-slate-200">{step.title}</h4>
+    <h3 className="mb-1 text-sm font-bold text-slate-200">{step.title}</h3>
     <p className="text-xs text-slate-500 leading-relaxed max-w-[130px]">{step.desc}</p>
   </motion.div>
 );

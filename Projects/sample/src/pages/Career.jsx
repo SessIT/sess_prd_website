@@ -308,12 +308,12 @@ export default function CareerPage() {
                 >
                   <div className="flex items-center gap-4">
                     <span className={`text-2xl font-bold ${
-                      activeJob === job.id ? "text-white" : "text-slate-400"
+                      activeJob === job.id ? "text-white" : "text-slate-500"
                     }`}>
                       {job.id}
                     </span>
                     <h3 className={`text-lg font-semibold ${
-                      activeJob === job.id ? "text-white" : "text-cyan-600"
+                      activeJob === job.id ? "text-white" : "text-cyan-700"
                     }`}>
                       {job.title}
                     </h3>
@@ -545,11 +545,12 @@ export default function CareerPage() {
                     <input
                       type="file"
                       name="file"
+                      aria-label="Upload resume (PDF, DOC or DOCX, max 5MB)"
                       onChange={handleChange}
                       className="w-full py-2 px-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 transition-all cursor-pointer"
                     />
                   </div>
-                  <p className="text-xs text-slate-400 mt-1">
+                  <p className="text-xs text-slate-500 mt-1">
                     Accepted formats: PDF, DOC, DOCX (Max 5MB)
                   </p>
                 </div>

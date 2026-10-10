@@ -49,8 +49,10 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 // import ProductVariantDetail from './pages/products/related/Productvariantdetail';
 
 
+// Full viewport height so the footer stays below the fold while a lazy page
+// loads — at 70vh the footer was visible and jumped down (CLS 0.30).
 const RouteFallback = () => (
-  <div style={{ minHeight: '70vh' }} aria-busy="true" />
+  <div style={{ minHeight: '100vh' }} aria-busy="true" />
 );
 
 function AppContent() {
@@ -62,7 +64,7 @@ function AppContent() {
         
         <motion.div
           key="app"
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="min-h-screen"
@@ -76,6 +78,7 @@ function AppContent() {
           <SeoManager />
           {location.pathname !== '/' && <Header />}
           <EnquiryButtons />
+          <main id="main-content">
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -125,6 +128,7 @@ function AppContent() {
             /> */}
             </Routes>
           </Suspense>
+          </main>
           {/* <VideoTest /> */}
           <Footer />
           <ScrollToTop />

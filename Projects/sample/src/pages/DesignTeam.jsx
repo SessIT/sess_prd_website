@@ -5,14 +5,14 @@ import {
   Rocket, Shield, Microscope, Leaf,
   ArrowRight
 } from 'lucide-react';
-import prd_des from '../assets/Website_Gallery_img/sess_prd_des.png';
-import mech_des from '../assets/Website_Gallery_img/sess_mech_des.png';
-import rev_eng from '../assets/Website_Gallery_img/sess_rev_engg.png';
-import elec_sch from '../assets/Website_Gallery_img/sess_elec_schm.png';
-import design_spt from '../assets/Website_Gallery_img/sess_des_spt.png';
-import strc_des from '../assets/Website_Gallery_img/sess_strc_des.png';
-import thermal_engg from '../assets/Website_Gallery_img/sess_them_engg.png';
-import heat_load from '../assets/Website_Gallery_img/sess_heat_calc.png';
+import prd_des from '../assets/Website_Gallery_img/sess_prd_des.webp';
+import mech_des from '../assets/Website_Gallery_img/sess_mech_des.webp';
+import rev_eng from '../assets/Website_Gallery_img/sess_rev_engg.webp';
+import elec_sch from '../assets/Website_Gallery_img/sess_elec_schm.webp';
+import design_spt from '../assets/Website_Gallery_img/sess_des_spt.webp';
+import strc_des from '../assets/Website_Gallery_img/sess_strc_des.webp';
+import thermal_engg from '../assets/Website_Gallery_img/sess_them_engg.webp';
+import heat_load from '../assets/Website_Gallery_img/sess_heat_calc.webp';
 
 /* ─── Floating particle (hero only) ─── */
 const Particle = ({ x, y, size, delay, color }) => (
@@ -47,9 +47,9 @@ const FeatureCard = ({ card, index }) => (
     {/* Bottom (mobile) / Right (desktop) – content */}
     <div className="flex flex-col flex-1 px-5 py-4 min-w-0">
       <div className="flex items-center gap-2 flex-wrap mb-2">
-        <h3 className="text-md font-semibold text-slate-800 group-hover:text-cyan-600 transition-colors duration-200">
+        <h2 className="text-md font-semibold text-slate-800 group-hover:text-cyan-600 transition-colors duration-200">
           {card.title}
-        </h3>
+        </h2>
       </div>
 
       <p className="text-sm text-slate-500 leading-relaxed text-justify">

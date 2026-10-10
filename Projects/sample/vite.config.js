@@ -39,8 +39,52 @@ function seoTags(pathname) {
 }
 
 const SEO_BLOCK = /<!--seo:start-->[\s\S]*?<!--seo:end-->/
-const withSeo = (html, pathname) =>
-  html.replace(SEO_BLOCK, `<!--seo:start-->\n    ${seoTags(pathname)}\n    <!--seo:end-->`)
+const withSeo = (html, pathname, extra = '') =>
+  html.replace(SEO_BLOCK, `<!--seo:start-->
+    ${seoTags(pathname)}${extra}
+    <!--seo:end-->`)
+
+// ─────────────────────────────────────────────────────────
+// Route preloads
+// Pages are lazy-loaded, so without hints the browser only discovers a
+// page's JS (and its hero image) after the main bundle has run. For each
+// route we add <link rel="modulepreload"> for that page's chunks and CSS,
+// and on the homepage a high-priority preload for the LCP hero image.
+// The route → page map is read from App.jsx so it can't drift.
+// ─────────────────────────────────────────────────────────
+const HOME_LCP_IMAGE = /^assets\/prd1-[\w-]+\.webp$/
+
+function routeModules(root) {
+  const app = fs.readFileSync(path.join(root, 'src/App.jsx'), 'utf8')
+  const lazy = {}
+  for (const m of app.matchAll(/const (\w+) = lazy\(\(\) => import\(['"]([^'"]+)['"]\)\)/g)) {
+    lazy[m[1]] = path.resolve(root, 'src', m[2])
+  }
+  const routes = {}
+  for (const m of app.matchAll(/<Route\s+path=["']([^"']+)["']\s+element=\{<(\w+)/g)) {
+    if (lazy[m[2]]) routes[m[1]] = lazy[m[2]]
+  }
+  return routes
+}
+
+function preloadTags(bundle, modulePath, entryFiles) {
+  const noExt = (id) => id && path.normalize(id).replace(/\.[jt]sx?$/, '')
+  const chunk = Object.values(bundle).find((c) => c.type === 'chunk' && noExt(c.facadeModuleId) === path.normalize(modulePath))
+  if (!chunk) return []
+  const js = new Set()
+  const css = new Set()
+  const visit = (c) => {
+    if (!c || js.has(c.fileName) || entryFiles.has(c.fileName)) return
+    js.add(c.fileName)
+    c.viteMetadata?.importedCss?.forEach((f) => css.add(f))
+    c.imports.forEach((f) => visit(bundle[f]))
+  }
+  visit(chunk)
+  return [
+    ...[...css].map((f) => `<link rel="stylesheet" href="/${f}" />`),
+    ...[...js].map((f) => `<link rel="modulepreload" crossorigin href="/${f}" />`),
+  ]
+}
 
 // sitemap.xml is generated from SEO_CONFIG so it never drifts from the routes.
 function sitemapPriority(route) {
@@ -62,22 +106,45 @@ function buildSitemap() {
 
 function seoPrerender() {
   let outDir = 'dist'
+  let root = '.'
+  let bundle = null
   return {
     name: 'seo-prerender',
     configResolved(config) {
+      root = config.root
       outDir = path.resolve(config.root, config.build.outDir)
     },
-    // Dev server + the built dist/index.html get the homepage tags.
+    // Dev server gets the homepage tags; the build rewrites every page below.
     transformIndexHtml: (html) => withSeo(html, '/'),
+    writeBundle(_options, output) {
+      bundle = output
+    },
     closeBundle() {
       const indexFile = path.join(outDir, 'index.html')
-      if (!fs.existsSync(indexFile)) return
+      if (!fs.existsSync(indexFile) || !bundle) return
       const html = fs.readFileSync(indexFile, 'utf8')
-      for (const route of Object.keys(SEO_CONFIG)) {
-        if (route === '/') continue
-        fs.writeFileSync(path.join(outDir, `${route.slice(1)}.html`), withSeo(html, route))
+      const entryFiles = new Set()
+      const entry = Object.values(bundle).find((c) => c.type === 'chunk' && c.isEntry)
+      const collect = (c) => {
+        if (!c || entryFiles.has(c.fileName)) return
+        entryFiles.add(c.fileName)
+        c.imports.forEach((f) => collect(bundle[f]))
       }
-      fs.writeFileSync(path.join(outDir, '404.html'), withSeo(html, '/__not-found__'))
+      collect(entry)
+      const modules = routeModules(root)
+      const lcp = Object.keys(bundle).find((f) => HOME_LCP_IMAGE.test(f))
+
+      const write = (file, route, seoPath = route) => {
+        const tags = modules[route] ? preloadTags(bundle, modules[route], entryFiles) : []
+        if (route === '/' && lcp) tags.unshift(`<link rel="preload" as="image" href="/${lcp}" fetchpriority="high" />`)
+        const extra = tags.length ? '\n    ' + tags.join('\n    ') : ''
+        fs.writeFileSync(path.join(outDir, file), withSeo(html, seoPath, extra))
+      }
+
+      for (const route of Object.keys(SEO_CONFIG)) {
+        write(route === '/' ? 'index.html' : `${route.slice(1)}.html`, route)
+      }
+      write('404.html', '*', '/__not-found__')
       fs.writeFileSync(path.join(outDir, 'sitemap.xml'), buildSitemap())
     },
   }

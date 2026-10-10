@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Award, Lightbulb, Users, HeartHandshake } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import cert1 from "../assets/clients/ISO_cert.jpg";
-import cert2 from "../assets/clients/Tuv_cert.jpg";
-import cert3 from "../assets/clients/startup_cert.png";
-import MD from '../assets/Website_Gallery_img/md.png';
-import TD from '../assets/Website_Gallery_img/td.png';
-import icon6 from '../assets/Website_Gallery_img/1.jpg.jpeg';
-import icon5 from '../assets/Website_Gallery_img/2.png';
-import icon4 from '../assets/Website_Gallery_img/3.png';
-import icon3 from '../assets/Website_Gallery_img/4.png';
-import icon2 from '../assets/Website_Gallery_img/5.png';
-import icon1 from '../assets/Website_Gallery_img/6.png';
+import cert1 from "../assets/clients/ISO_cert.webp";
+import cert2 from "../assets/clients/Tuv_cert.webp";
+import cert3 from "../assets/clients/startup_cert.webp";
+import MD from '../assets/Website_Gallery_img/md.webp';
+import TD from '../assets/Website_Gallery_img/td.webp';
+import icon6 from '../assets/Website_Gallery_img/1.jpg.webp';
+import icon5 from '../assets/Website_Gallery_img/2.webp';
+import icon4 from '../assets/Website_Gallery_img/3.webp';
+import icon3 from '../assets/Website_Gallery_img/4.webp';
+import icon2 from '../assets/Website_Gallery_img/5.webp';
+import icon1 from '../assets/Website_Gallery_img/6.webp';
 import cert1Pdf from "../assets/Website_Gallery_img/ISO_certificate.pdf";
 import cert2Pdf from "../assets/Website_Gallery_img/pro_certificate.pdf";
 import cert3Pdf from "../assets/Website_Gallery_img/about_msme.pdf";
@@ -219,14 +219,46 @@ const YouTubeVideo = ({ videoUrl }) => {
   };
 
   const videoId = getYouTubeId(videoUrl);
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`;
+  // Click-to-play facade: show the thumbnail and load YouTube's player only when
+  // the visitor presses play. Embedding the player up front set third-party
+  // cookies (Lighthouse Best Practices) and downloaded ~1 MB of player script.
+  const [playing, setPlaying] = useState(false);
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+
+  if (!playing) {
+    return (
+      <button
+        type="button"
+        onClick={() => setPlaying(true)}
+        aria-label="Play SESS company video"
+        className="group relative block w-full h-full overflow-hidden bg-black"
+      >
+        <img
+          src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          width={480}
+          height={360}
+          className="absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+        />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="flex items-center justify-center w-16 h-11 rounded-xl bg-red-600 shadow-lg transition-transform duration-200 group-hover:scale-110">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        </span>
+      </button>
+    );
+  }
 
   return (
     <div className="w-full h-full bg-black">
       <iframe
         className="w-full h-full"
         src={embedUrl}
-        title="YouTube video player"
+        title="SESS company video"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
@@ -681,7 +713,7 @@ export default function AboutUs() {
                   <span
                     style={{
                       display: "block",
-                      color: "var(--color-primary-500)",
+                      color: "var(--color-primary-700)",
                       fontFamily: "var(--font-body)",
                       fontWeight: "var(--font-weight-semibold)",
                       fontSize: "var(--text-sm)",
@@ -703,7 +735,7 @@ export default function AboutUs() {
                     }}
                   >
                     Innovating Testing Solutions{" "}
-                    <span style={{ color: "var(--color-primary-500)" }}>
+                    <span style={{ color: "var(--color-primary-700)" }}>
                       Since 2010
                     </span>
                   </h2>
@@ -839,7 +871,7 @@ export default function AboutUs() {
                   </div>
                   <div className="pl-4 mt-8 text-center">
                     <p className=" text-slate-800 text-md">P Alagueaswari</p>
-                    <span className="text-sm text-cyan-500 ">Managing Director</span>
+                    <span className="text-sm text-cyan-700">Managing Director</span>
                   </div>
                 </div>
 
@@ -880,7 +912,7 @@ export default function AboutUs() {
                   </div>
                   <div className="pl-4 mt-8 text-center">
                     <p className=" text-slate-800 text-md">A Paramanantham</p>
-                    <span className="text-sm text-cyan-500 ">Technical Director</span>
+                    <span className="text-sm text-cyan-700">Technical Director</span>
                   </div>
                 </div>
               </div>

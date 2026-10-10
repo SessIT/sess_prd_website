@@ -17,20 +17,20 @@ import {
 } from "framer-motion";
 
 /* ─── Image imports ──────────────────────────────────────── */
-import image1 from "../assets/clients/guideline1.jpg";
-import image2 from "../assets/clients/guideline2.jpg";
-import image3 from "../assets/clients/guideline3.jpg";
-import image4 from "../assets/clients/guideline4.jpg";
-import image5 from "../assets/clients/guideline6.jpg";
-import img1 from "../assets/Website_Gallery_img/img1.jpg";
-import img2 from "../assets/Website_Gallery_img/img2.jpg";
-import img3 from "../assets/Website_Gallery_img/img3.jpg";
-import img4 from "../assets/Website_Gallery_img/img4.jpeg";
-import img5 from "../assets/Website_Gallery_img/img5.jpeg";
-import img6 from "../assets/Website_Gallery_img/img6.jpeg";
-import img7 from "../assets/Website_Gallery_img/img7-photo.jpg";
-import img8 from "../assets/Website_Gallery_img/img8.jpeg";
-import img9 from "../assets/Website_Gallery_img/img9.jpeg";
+import image1 from "../assets/clients/guideline1.webp";
+import image2 from "../assets/clients/guideline2.webp";
+import image3 from "../assets/clients/guideline3.webp";
+import image4 from "../assets/clients/guideline4.webp";
+import image5 from "../assets/clients/guideline6.webp";
+import img1 from "../assets/Website_Gallery_img/img1.webp";
+import img2 from "../assets/Website_Gallery_img/img2.webp";
+import img3 from "../assets/Website_Gallery_img/img3.webp";
+import img4 from "../assets/Website_Gallery_img/img4.webp";
+import img5 from "../assets/Website_Gallery_img/img5.webp";
+import img6 from "../assets/Website_Gallery_img/img6.webp";
+import img7 from "../assets/Website_Gallery_img/img7-photo.webp";
+import img8 from "../assets/Website_Gallery_img/img8.webp";
+import img9 from "../assets/Website_Gallery_img/img9.webp";
 
 /* ─── Responsive hook ────────────────────────────────────── */
 function useWindowWidth() {
@@ -337,6 +337,7 @@ function CarouselPanel() {
             whileTap={{ scale: 0.93 }}
             onClick={() => snapTo(active - 1)}
             disabled={active === 0}
+            aria-label="Previous slide"
             className="flex items-center justify-center w-8 h-8 rounded-full"
             style={{
               background: "rgba(255,255,255,.06)",
@@ -357,24 +358,32 @@ function CarouselPanel() {
             </svg>
           </motion.button>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center">
             {slides.map((_, i) => (
-              <motion.button
+              // 24px hit area (tap-target size); the visible pill is the inner span
+              <button
                 key={i}
+                type="button"
                 onClick={() => snapTo(i)}
-                animate={{
-                  width: i === active ? 22 : 5,
-                  opacity: i === active ? 1 : 0.3,
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="h-[5px] rounded-full"
-                style={{
-                  background:
-                    i === active
-                      ? slides[active].accent
-                      : "rgba(255,255,255,.4)",
-                }}
-              />
+                aria-label={`Go to slide ${i + 1}`}
+                aria-current={i === active ? "true" : undefined}
+                className="flex items-center justify-center w-6 h-6"
+              >
+                <motion.span
+                  animate={{
+                    width: i === active ? 22 : 5,
+                    opacity: i === active ? 1 : 0.3,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  className="block h-[5px] rounded-full"
+                  style={{
+                    background:
+                      i === active
+                        ? slides[active].accent
+                        : "rgba(255,255,255,.4)",
+                  }}
+                />
+              </button>
             ))}
           </div>
 
@@ -383,6 +392,7 @@ function CarouselPanel() {
             whileTap={{ scale: 0.93 }}
             onClick={() => snapTo(active + 1)}
             disabled={active === N - 1}
+            aria-label="Next slide"
             className="flex items-center justify-center w-8 h-8 rounded-full"
             style={{
               background: "rgba(255,255,255,.06)",
@@ -581,6 +591,7 @@ function ImageLightbox({ item, onClose }) {
 
         {/* Close button — top-right corner */}
         <motion.button
+          aria-label="Close"
           className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center z-10"
           style={{
             background: "rgba(0,0,0,0.6)",
@@ -790,7 +801,7 @@ export default function CombinedLayout() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap');
+        /* Sora + DM Mono are loaded once in index.html (a nested @import here was a slow, chained request) */
       `}</style>
 
       <div style={{ width: "100%", background: "#060810" }}>
