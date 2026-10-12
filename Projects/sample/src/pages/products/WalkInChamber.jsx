@@ -7,26 +7,26 @@ import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, AlertTriangle, Flame, } from 'lucide-react';
 //ImageCarousel import function
 
-import walkinchamber from '../../assets/product/walkin.webp';
-import walkinsideview from '../../assets/product/walkinSide.webp';
-import walkinrearview from '../../assets/product/walkinRear.webp';
-import walkindrawing from '../../assets/product/walkinDrawing.webp';
+import walkinchamber from '../../assets/product/SESS_walkinchamber_Common.webp';
+import walkinsideview from '../../assets/product/SESS_walkinchambersideview_WalkInChamberPage.webp';
+import walkinrearview from '../../assets/product/SESS_walkinchamberrearview_WalkInChamberPage.webp';
+import walkindrawing from '../../assets/product/SESS_walkinchamberdrawing_WalkInChamberPage.webp';
 
 // Related Product Images
-import relatedThermalShock from '../../assets/product/Thermal Shock.webp';
-import prd2 from '../../assets/product/CO2 Test Chamber.webp';
-import prd3 from '../../assets/product/Environmetal.webp';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
+import relatedThermalShock from '../../assets/product/SESS_thermalshockchamberrelated_Common.webp';
+import prd2 from '../../assets/product/SESS_co2testchamber_ProductPages.webp';
+import prd3 from '../../assets/product/SESS_environmentaltestchamber_Common.webp';
+import prd4 from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
 
 // Controller touch screen image
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp'
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp'
 
-import thermalShockHeroBg from '../../assets/product/WalkInBg.webp';
+import thermalShockHeroBg from '../../assets/product/SESS_walkinchamberbackground_WalkInChamberPage.webp';
 
 // Product Data
 const WalkInChamberProduct = {

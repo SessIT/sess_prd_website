@@ -7,23 +7,23 @@ import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, } from 'lucide-react';
 //ImageCarousel import function
 
-import Thermalfullimage from '../../assets/product/Thermalfullview.webp';
-import plcview from '../../assets/product/Rearview.webp';
-import Thermalcyclicdiagram from '../../assets/product/thermalcyclicdrawing.webp';
+import Thermalfullimage from '../../assets/product/SESS_thermalcyclicchamberfullview_ThermalCyclicChamberPage.webp';
+import plcview from '../../assets/product/SESS_thermalcyclicchamberrearview_ThermalCyclicChamberPage.webp';
+import Thermalcyclicdiagram from '../../assets/product/SESS_thermalcyclicchamberdrawing_ThermalCyclicChamberPage.webp';
 // Related Product Images
-import ThermalCyclicImage from '../../assets/product/Thermal Cyclic.webp';
-import prd2 from '../../assets/product/CO2 Test Chamber.webp';
-import prd3 from '../../assets/product/Environmetal.webp';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
+import ThermalCyclicImage from '../../assets/product/SESS_thermalcyclicchamber_Common.webp';
+import prd2 from '../../assets/product/SESS_co2testchamber_ProductPages.webp';
+import prd3 from '../../assets/product/SESS_environmentaltestchamber_Common.webp';
+import prd4 from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
 // Controller touch screen image 
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp'
-import ChamberModelSelection from "../../assets/product/Chamber-Model-Selection.webp";
-import thermalbg from '../../assets/product/thermalbg.webp';
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp'
+import ChamberModelSelection from "../../assets/product/SESS_chambermodelselection_Common.webp";
+import thermalbg from '../../assets/product/SESS_thermalcyclicchamberbackground_ThermalCyclicChamberPage.webp';
 // Product Data
 const ThermalCyclicChamber = {
   id: 'thermal-cyclic-test-chamber',

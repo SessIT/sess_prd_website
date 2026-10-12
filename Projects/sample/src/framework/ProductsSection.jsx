@@ -10,18 +10,18 @@ import FloatingIcons from './UI/FloatingIcons';
 import FloatingOrbs from './UI/FloatingOrbs';
 
 // Import your product images
-import Product1 from '../assets/product/Climatic_chamber_front.webp';
-import Product2 from '../assets/product/Salt Spray.webp';
-import Product3 from '../assets/product/Rain Test.webp';
-import Product4 from '../assets/product/VibrationChamber.webp';
-import Product5 from '../assets/product/Thermal Cyclic.webp';
-import Product6 from '../assets/product/TabletopChamber.webp';
-import Product7 from '../assets/product/walkin.webp';
-import Product8 from '../assets/product/DustChamber.webp';
-import Product9 from '../assets/product/Flame-Proof Hot Air Oven.webp';
-import Product10 from '../assets/product/Battery.webp';
-import Product11 from '../assets/product/ThermalShockTestChamber.webp';
-import Product12 from '../assets/product/TensileChamber.webp';
+import Product1 from '../assets/product/SESS_climatictestchamber_Common.webp';
+import Product2 from '../assets/product/SESS_saltspraytestchamber_Common.webp';
+import Product3 from '../assets/product/SESS_raintestchamber_Common.webp';
+import Product4 from '../assets/product/SESS_vibrationchamber_Common.webp';
+import Product5 from '../assets/product/SESS_thermalcyclicchamber_Common.webp';
+import Product6 from '../assets/product/SESS_tabletoptestchamber_Common.webp';
+import Product7 from '../assets/product/SESS_walkinchamber_Common.webp';
+import Product8 from '../assets/product/SESS_dustchamber_Common.webp';
+import Product9 from '../assets/product/SESS_flameproofhotairoven_Common.webp';
+import Product10 from '../assets/product/SESS_batterytestchamber_Common.webp';
+import Product11 from '../assets/product/SESS_thermalshockchamber_Common.webp';
+import Product12 from '../assets/product/SESS_tensilechamber_Common.webp';
 
 const products = [
   { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temperature and humidity control', badge: 'Top Rated' },
@@ -253,7 +253,6 @@ const ProductCard = ({ product, index, isAnimating, isDark }) => {
             to={product.link}
             className="mt-1 inline-flex items-center justify-between gap-2 px-[0.85rem] py-[0.52rem] rounded-[10px] text-[0.73rem] font-bold no-underline transition-all duration-[220ms]"
             style={{
-              color: col.main,
               background: hovered ? col.main : col.soft,
               color: hovered ? '#fff' : col.main,
               border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)'}`,

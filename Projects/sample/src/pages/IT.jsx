@@ -7,12 +7,12 @@ import {
 } from 'lucide-react';
 import TechStack from '../framework/UI/TechStack';
 
-import web_dev from '../assets/Website_Gallery_img/sess_web_dev.webp';
-import webapp_dev from '../assets/Website_Gallery_img/sess_webapp_dev.webp';
-import soft_dev from '../assets/Website_Gallery_img/sess_soft_dev.webp';
-import digi_mkt from '../assets/Website_Gallery_img/sess_digi_mart.webp';
-import sms_email from '../assets/Website_Gallery_img/sess_bulk_sms_email.webp';
-import seo_social from '../assets/Website_Gallery_img/sess_seo.webp';
+import web_dev from '../assets/Website_Gallery_img/SESS_websitedevelopment_ITPage.webp';
+import webapp_dev from '../assets/Website_Gallery_img/SESS_webappdevelopment_ITPage.webp';
+import soft_dev from '../assets/Website_Gallery_img/SESS_softwaredevelopment_ITPage.webp';
+import digi_mkt from '../assets/Website_Gallery_img/SESS_digitalmarketing_ITPage.webp';
+import sms_email from '../assets/Website_Gallery_img/SESS_bulksmsemail_ITPage.webp';
+import seo_social from '../assets/Website_Gallery_img/SESS_seosocialmedia_ITPage.webp';
 /* ─── Floating particle (hero only) ─── */
 const Particle = ({ x, y, size, delay, color }) => (
   <motion.div

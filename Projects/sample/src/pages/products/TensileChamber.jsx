@@ -9,26 +9,26 @@ import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap
 
 // TODO: Replace these with your actual Flame-Proof Hot Air Oven photos.
 // (Front view, full/angled view, control panel view, engineering drawing)
-import tensile from '../../assets/product/TensileChamber.webp';
-import tensileFront from '../../assets/product/TensileFront.webp';
-import tensileSide from '../../assets/product/TensileSide.webp';
-import tensileDrawing from '../../assets/product/TensileDrawing.webp';
+import tensile from '../../assets/product/SESS_tensilechamber_Common.webp';
+import tensileFront from '../../assets/product/SESS_tensilechamberfrontview_TensileChamberPage.webp';
+import tensileSide from '../../assets/product/SESS_tensilechambersideview_TensileChamberPage.webp';
+import tensileDrawing from '../../assets/product/SESS_tensilechamberdrawing_TensileChamberPage.webp';
 
 // Related Product Images
-import relatedOven1 from '../../assets/product/Salt Spray.webp';
-import prd2 from '../../assets/product/CO2 Test Chamber.webp';
-import prd3 from '../../assets/product/Environmetal.webp';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
+import relatedOven1 from '../../assets/product/SESS_saltspraytestchamber_Common.webp';
+import prd2 from '../../assets/product/SESS_co2testchamber_ProductPages.webp';
+import prd3 from '../../assets/product/SESS_environmentaltestchamber_Common.webp';
+import prd4 from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
 
 // Controller touch screen image
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp'
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp'
 
-import ovenHeroBg from '../../assets/product/TensileChamberBg.webp';
+import ovenHeroBg from '../../assets/product/SESS_tensilechamberbackground_TensileChamberPage.webp';
 
 // Product Data
 const TensileChamberProduct = {
@@ -191,50 +191,6 @@ const TensileChamberProduct = {
     ],
   },
  
-  // Section 4: Controller Features
-  controller: {
-    title: 'Touchscreen Intelligent Fire-Safety Controller',
-    subtitle: 'Advanced PLC-based control system for safe, precision battery testing',
-    image: prd5,
-    features: [
-      {
-        id: 1,
-        title: 'Intuitive Touchscreen Interface',
-        description: 'PLC-controlled system with manual and profile-based operation modes for simple, reliable operation',
-        icon: '📱',
-      },
-      {
-        id: 2,
-        title: 'Real-time CO & Trend Monitoring',
-        description: 'Live trend graphs and continuous CO-level data logging for full visibility into oven safety status',
-        icon: '📊',
-      },
-      {
-        id: 3,
-        title: 'Programmable Test Profiles',
-        description: 'Create, save, and run custom temperature profiles up to 200°C for repeatable safety testing',
-        icon: '⚙️',
-      },
-      {
-        id: 4,
-        title: 'User Access & Login Control',
-        description: 'Secure login and user management ensures only authorized access to critical safety settings',
-        icon: '🔒',
-      },
-      {
-        id: 5,
-        title: 'Alarm & Auto Shutdown Indicators',
-        description: 'Visual and audible alarms trigger an automatic shutdown the moment CO levels exceed safe limits',
-        icon: '🚨',
-      },
-      {
-        id: 6,
-        title: 'Data Management',
-        description: 'Config and data screens for complete traceability and compliance reporting',
-        icon: '💾',
-      },
-    ],
-  },
   // Section 5: Related Products
   relatedProducts: [
     {

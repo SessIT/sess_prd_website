@@ -17,20 +17,20 @@ import {
 } from "framer-motion";
 
 /* ─── Image imports ──────────────────────────────────────── */
-import image1 from "../assets/clients/guideline1.webp";
-import image2 from "../assets/clients/guideline2.webp";
-import image3 from "../assets/clients/guideline3.webp";
-import image4 from "../assets/clients/guideline4.webp";
-import image5 from "../assets/clients/guideline6.webp";
-import img1 from "../assets/Website_Gallery_img/img1.webp";
-import img2 from "../assets/Website_Gallery_img/img2.webp";
-import img3 from "../assets/Website_Gallery_img/img3.webp";
-import img4 from "../assets/Website_Gallery_img/img4.webp";
-import img5 from "../assets/Website_Gallery_img/img5.webp";
-import img6 from "../assets/Website_Gallery_img/img6.webp";
-import img7 from "../assets/Website_Gallery_img/img7-photo.webp";
-import img8 from "../assets/Website_Gallery_img/img8.webp";
-import img9 from "../assets/Website_Gallery_img/img9.webp";
+import image1 from "../assets/clients/SESS_testchambersafeoperationblog_Common.webp";
+import image2 from "../assets/clients/SESS_testchambermaintenanceblog_Common.webp";
+import image3 from "../assets/clients/SESS_solartestchamberblog_Common.webp";
+import image4 from "../assets/clients/SESS_oemvslocalrewindingblog_Common.webp";
+import image5 from "../assets/clients/SESS_refrigerantleakageblog_Common.webp";
+import img1 from "../assets/Website_Gallery_img/SESS_exhibitionstall01_Homepage.webp";
+import img2 from "../assets/Website_Gallery_img/SESS_exhibitionstall02_Homepage.webp";
+import img3 from "../assets/Website_Gallery_img/SESS_exhibitionteam_Homepage.webp";
+import img4 from "../assets/Website_Gallery_img/SESS_exhibitionstall03_Homepage.webp";
+import img5 from "../assets/Website_Gallery_img/SESS_exhibitionstall04_Homepage.webp";
+import img6 from "../assets/Website_Gallery_img/SESS_exhibitionstall05_Homepage.webp";
+import img7 from "../assets/Website_Gallery_img/SESS_exhibitionrecap_Homepage.webp";
+import img8 from "../assets/Website_Gallery_img/SESS_exhibitionvisitors01_Homepage.webp";
+import img9 from "../assets/Website_Gallery_img/SESS_exhibitionvisitors02_Homepage.webp";
 
 /* ─── Responsive hook ────────────────────────────────────── */
 function useWindowWidth() {

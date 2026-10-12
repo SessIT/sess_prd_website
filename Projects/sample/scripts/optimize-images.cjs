@@ -5,6 +5,8 @@
 //   its original is regenerated.
 // Only .webp is kept in src/assets (unused PNG/JPG originals were removed) —
 // after converting a new image, delete its .png/.jpg original.
+// Naming: SESS_<subject>_<Page>.webp, e.g. SESS_climatictestchamber_Homepage.webp
+// (<Page> = Homepage, AboutUsPage, DustChamberPage..., Common if used on several pages).
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');

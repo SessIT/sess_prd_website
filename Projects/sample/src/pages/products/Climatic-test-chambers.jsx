@@ -6,27 +6,27 @@ import BackToRelatedChamber from '../../component/BackToRelatedChamber';
 import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, } from 'lucide-react';
 //ImageCarousel import function
-import climatic from '../../assets/product/Climatic_chamber_front.webp';
-import Fullview from '../../assets/product/full_view.webp';
-import plcview from '../../assets/product/plc.webp';
-import diagram from '../../assets/product/Drawing.webp';
+import climatic from '../../assets/product/SESS_climatictestchamber_Common.webp';
+import Fullview from '../../assets/product/SESS_climatictestchamberfullview_ClimaticTestChamberPage.webp';
+import plcview from '../../assets/product/SESS_climatictestchamberplcpanel_ClimaticTestChamberPage.webp';
+import diagram from '../../assets/product/SESS_climatictestchamberdrawing_ClimaticTestChamberPage.webp';
 // Related Product Images
-import saltSprayImage from '../../assets/product/Salt Spray.webp';
-import batteryTestImage from '../../assets/product/Battery.webp';
-import rainTestImage from '../../assets/product/Rain Test.webp';
-import vibrationTestImage from '../../assets/product/VibrationChamber.webp';
+import saltSprayImage from '../../assets/product/SESS_saltspraytestchamber_Common.webp';
+import batteryTestImage from '../../assets/product/SESS_batterytestchamber_Common.webp';
+import rainTestImage from '../../assets/product/SESS_raintestchamber_Common.webp';
+import vibrationTestImage from '../../assets/product/SESS_vibrationchamber_Common.webp';
 // Controller touch screen image 
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp';
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp';
 
 
 // Flowchart Image 
-import ChamberModelSelection from "../../assets/product/Chamber-Model-Selection.webp";
-import heroBg from '../../assets/product/hero-bg.webp';
+import ChamberModelSelection from "../../assets/product/SESS_chambermodelselection_Common.webp";
+import heroBg from '../../assets/product/SESS_climatictestchamberbackground_ClimaticTestChamberPage.webp';
 // Product Data
 const climaticTestChamberProduct = {
   id: 'climatic-test-chamber',

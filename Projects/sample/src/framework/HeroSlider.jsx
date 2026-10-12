@@ -10,12 +10,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import Slider1 from "../assets/prd1.webp";
-import Slider2 from "../assets/prd2.webp";
-import Slider3 from "../assets/prd3.webp";
-import Slider1Sm from "../assets/prd1-640.webp";
-import Slider2Sm from "../assets/prd2-640.webp";
-import Slider3Sm from "../assets/prd3-640.webp";
+import Slider1 from "../assets/SESS_batterytestchamberbanner_Homepage.webp";
+import Slider2 from "../assets/SESS_thermalcyclicchamberbanner_Homepage.webp";
+import Slider3 from "../assets/SESS_flameproofovenbanner_Homepage.webp";
+import Slider1Sm from "../assets/SESS_batterytestchamberbanner_Homepage_mobile.webp";
+import Slider2Sm from "../assets/SESS_thermalcyclicchamberbanner_Homepage_mobile.webp";
+import Slider3Sm from "../assets/SESS_flameproofovenbanner_Homepage_mobile.webp";
 
 // Phones get the 640w file (~half the bytes). Keep in sync with the hero
 // preload in vite.config.js (imagesizes must match for the preload to be used).

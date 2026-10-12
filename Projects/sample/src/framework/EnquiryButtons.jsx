@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { OPEN_ENQUIRY_EVENT, OPEN_SEARCH_EVENT, OPEN_BROCHURE_EVENT } from './openEnquiry';
 import { getBrochureForPath, getBrochureForProduct } from '../data/productBrochures';
-import suppot from '../assets/Website_Gallery_img/chatbot.webp';
-import download from '../assets/Website_Gallery_img/file.webp';
+import suppot from '../assets/Website_Gallery_img/SESS_chatbotbutton_Common.webp';
+import download from '../assets/Website_Gallery_img/SESS_brochuredownloadbutton_Common.webp';
 
 // Modals are code-split: their code (and emailjs) loads on first open instead
 // of on every page load. Once loaded they stay mounted so close animations run.

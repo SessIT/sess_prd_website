@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Logo from '../assets/sess_logo_png.webp';
+import Logo from '../assets/SESS_logo_Common.webp';
 
 const Preloader = () => {
   return (

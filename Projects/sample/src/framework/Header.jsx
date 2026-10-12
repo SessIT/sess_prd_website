@@ -8,10 +8,10 @@ import {
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 import { openEnquiry, openSearch } from "./openEnquiry";
-import Logo from "../assets/sess_logo_png.webp";
-import LogoWhite from "../assets/sess_logo_white.webp";
-import LogoSm from "../assets/sess_logo_png-400.webp";
-import LogoWhiteSm from "../assets/sess_logo_white-400.webp";
+import Logo from "../assets/SESS_logo_Common.webp";
+import LogoWhite from "../assets/SESS_logowhite_Common.webp";
+import LogoSm from "../assets/SESS_logo_Common_small.webp";
+import LogoWhiteSm from "../assets/SESS_logowhite_Common_small.webp";
 
 const Header = () => {
   const [isOpen, setIsOpen]               = useState(false);

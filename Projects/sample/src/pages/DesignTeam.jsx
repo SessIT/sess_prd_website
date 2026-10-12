@@ -5,14 +5,14 @@ import {
   Rocket, Shield, Microscope, Leaf,
   ArrowRight
 } from 'lucide-react';
-import prd_des from '../assets/Website_Gallery_img/sess_prd_des.webp';
-import mech_des from '../assets/Website_Gallery_img/sess_mech_des.webp';
-import rev_eng from '../assets/Website_Gallery_img/sess_rev_engg.webp';
-import elec_sch from '../assets/Website_Gallery_img/sess_elec_schm.webp';
-import design_spt from '../assets/Website_Gallery_img/sess_des_spt.webp';
-import strc_des from '../assets/Website_Gallery_img/sess_strc_des.webp';
-import thermal_engg from '../assets/Website_Gallery_img/sess_them_engg.webp';
-import heat_load from '../assets/Website_Gallery_img/sess_heat_calc.webp';
+import prd_des from '../assets/Website_Gallery_img/SESS_productdesign_DesignTeamPage.webp';
+import mech_des from '../assets/Website_Gallery_img/SESS_mechanicaldesign_DesignTeamPage.webp';
+import rev_eng from '../assets/Website_Gallery_img/SESS_reverseengineering_DesignTeamPage.webp';
+import elec_sch from '../assets/Website_Gallery_img/SESS_electricalschematics_DesignTeamPage.webp';
+import design_spt from '../assets/Website_Gallery_img/SESS_designsupport_DesignTeamPage.webp';
+import strc_des from '../assets/Website_Gallery_img/SESS_structuraldesign_DesignTeamPage.webp';
+import thermal_engg from '../assets/Website_Gallery_img/SESS_thermalengineering_DesignTeamPage.webp';
+import heat_load from '../assets/Website_Gallery_img/SESS_heatloadcalculation_DesignTeamPage.webp';
 
 /* ─── Floating particle (hero only) ─── */
 const Particle = ({ x, y, size, delay, color }) => (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import img1 from '../assets/Website_Gallery_img/popup.webp';
+import img1 from '../assets/Website_Gallery_img/SESS_itservicespopup_Common.webp';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MotionDiv = motion.div;

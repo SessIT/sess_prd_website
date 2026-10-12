@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {motion} from 'framer-motion';
-import img1 from '../assets/product/Environmetal.webp'
+import img1 from '../assets/product/SESS_environmentaltestchamber_Common.webp'
 import ProductsSection from "../framework/ProductsSection";
 
 const Particle = ({ x, y, size, delay, color }) => (

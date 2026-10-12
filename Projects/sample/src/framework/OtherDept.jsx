@@ -6,12 +6,11 @@ import {
   ArrowRight,
   ComputerIcon,
 } from "lucide-react";
-import dsteam from "../assets/clients/design-team-thumb.webp";
-import bgImage from "../assets/clients/bg-square.webp";
-import labview from "../assets/clients/labview.svg";
-import bgplc from '../assets/Website_Gallery_img/labview-thumb.webp';
-import bgit from '../assets/Website_Gallery_img/ITbg-thumb.webp';
-import labimg from '../assets/clients/labview.webp';
+import dsteam from "../assets/clients/SESS_productdesignteam_Common.webp";
+import bgImage from "../assets/clients/SESS_gridpattern_Common.webp";
+import bgplc from '../assets/Website_Gallery_img/SESS_plcprogramming_Common.webp';
+import bgit from '../assets/Website_Gallery_img/SESS_itinfrastructure_Common.webp';
+import labimg from '../assets/clients/SESS_labviewlogo_Common.webp';
 import { SectionHeader } from './SharedUI';
 
 /* ═══════════════════════════════════════════════════════════

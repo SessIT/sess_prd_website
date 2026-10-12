@@ -7,24 +7,24 @@ import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, Droplets, } from 'lucide-react';
 //ImageCarousel import function
 
-import TabletopFront from '../../assets/product/TabletopChamber.webp';
-import TabletopSide from '../../assets/product/Tabletop-sideview.webp';
-import RearviewTT from '../../assets/product/Tabletop-rearview.webp';
-import Tabletopdiagram from '../../assets/product/Tabletop-drawing.webp';
+import TabletopFront from '../../assets/product/SESS_tabletoptestchamber_Common.webp';
+import TabletopSide from '../../assets/product/SESS_tabletoptestchambersideview_TabletopChamberPage.webp';
+import RearviewTT from '../../assets/product/SESS_tabletoptestchamberrearview_TabletopChamberPage.webp';
+import Tabletopdiagram from '../../assets/product/SESS_tabletoptestchamberdrawing_TabletopChamberPage.webp';
 // Related Product Images
-import RainFront from '../../assets/product/Rain Test.webp';
-import prd2 from '../../assets/product/CO2 Test Chamber.webp';
-import prd3 from '../../assets/product/Environmetal.webp';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
+import RainFront from '../../assets/product/SESS_raintestchamber_Common.webp';
+import prd2 from '../../assets/product/SESS_co2testchamber_ProductPages.webp';
+import prd3 from '../../assets/product/SESS_environmentaltestchamber_Common.webp';
+import prd4 from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
 // Controller touch screen image 
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp'
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp'
 
-import Rainherobg from '../../assets/product/TabletopChamberBg.webp';
+import Rainherobg from '../../assets/product/SESS_tabletoptestchamberbackground_TabletopChamberPage.webp';
 
 // Product Data
 const TabletopTestChamber = {

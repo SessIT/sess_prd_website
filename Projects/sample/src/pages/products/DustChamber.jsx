@@ -8,26 +8,26 @@ import { openEnquiry, openBrochure } from '../../framework/openEnquiry';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap, Shield, Thermometer, Wind, Activity, Settings2, Monitor, Wifi, Lock, BarChart3, ChevronDown, Share2, Mail, Facebook, Link2, X as CloseIcon, AlertTriangle, Flame, } from 'lucide-react';
 //ImageCarousel import function
 
-import DustFrontView from '../../assets/product/DustChamber.webp';
-import DustSide from '../../assets/product/Dustchamber-Sideview.webp';
-import DustRear from '../../assets/product/Dustchamber-Rearview.webp';
-import Dustdrawing from '../../assets/product/Dustchamber-drawing.webp';
+import DustFrontView from '../../assets/product/SESS_dustchamber_Common.webp';
+import DustSide from '../../assets/product/SESS_dustchambersideview_DustChamberPage.webp';
+import DustRear from '../../assets/product/SESS_dustchamberrearview_DustChamberPage.webp';
+import Dustdrawing from '../../assets/product/SESS_dustchamberdrawing_DustChamberPage.webp';
 
 // Related Product Images
-import relatedBattery1 from '../../assets/product/Salt Spray.webp';
-import prd2 from '../../assets/product/CO2 Test Chamber.webp';
-import prd3 from '../../assets/product/Environmetal.webp';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
+import relatedBattery1 from '../../assets/product/SESS_saltspraytestchamber_Common.webp';
+import prd2 from '../../assets/product/SESS_co2testchamber_ProductPages.webp';
+import prd3 from '../../assets/product/SESS_environmentaltestchamber_Common.webp';
+import prd4 from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
 
 // Controller touch screen image
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp'
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp'
 
-import batteryHeroBg from '../../assets/product/DustChamber1Bg.webp';
+import batteryHeroBg from '../../assets/product/SESS_dustchamberbackground_DustChamberPage.webp';
 
 // Product Data
 // Dust Chamber — Product Data

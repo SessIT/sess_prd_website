@@ -9,26 +9,26 @@ import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Layers, Gauge, Zap
 
 // TODO: Replace these with your actual Flame-Proof Hot Air Oven photos.
 // (Front view, full/angled view, control panel view, engineering drawing)
-import ovenFrontView from '../../assets/product/Flame-proof Hot Air Oven.webp';
-import ovenFullView from '../../assets/product/FlameHotAirOven_full_view.webp';
-import ovenControlPanel from '../../assets/product/FlameProof_side_view.webp';
-import ovenDrawing from '../../assets/product/FlameProofddrawing.webp';
+import ovenFrontView from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
+import ovenFullView from '../../assets/product/SESS_flameproofhotairovenfullview_FlameProofOvenPage.webp';
+import ovenControlPanel from '../../assets/product/SESS_flameproofhotairovensideview_FlameProofOvenPage.webp';
+import ovenDrawing from '../../assets/product/SESS_flameproofhotairovendrawing_FlameProofOvenPage.webp';
 
 // Related Product Images
-import relatedOven1 from '../../assets/product/Salt Spray.webp';
-import prd2 from '../../assets/product/CO2 Test Chamber.webp';
-import prd3 from '../../assets/product/Environmetal.webp';
-import prd4 from '../../assets/product/Flame-Proof Hot Air Oven.webp';
+import relatedOven1 from '../../assets/product/SESS_saltspraytestchamber_Common.webp';
+import prd2 from '../../assets/product/SESS_co2testchamber_ProductPages.webp';
+import prd3 from '../../assets/product/SESS_environmentaltestchamber_Common.webp';
+import prd4 from '../../assets/product/SESS_flameproofhotairoven_Common.webp';
 
 // Controller touch screen image
-import prd5 from '../../assets/product/controller.webp';
-import prd6 from '../../assets/product/Manual mode.webp';
-import prd7 from '../../assets/product/Refrigeration.webp';
-import prd8 from '../../assets/product/User Login.webp';
-import prd9 from '../../assets/product/graph.webp';
-import prd10 from '../../assets/product/DataLog.webp'
+import prd5 from '../../assets/product/SESS_touchscreencontroller_ProductPages.webp';
+import prd6 from '../../assets/product/SESS_controllermanualmode_ProductPages.webp';
+import prd7 from '../../assets/product/SESS_controllerrefrigeration_ProductPages.webp';
+import prd8 from '../../assets/product/SESS_controlleruserlogin_ProductPages.webp';
+import prd9 from '../../assets/product/SESS_controllertrendgraph_ProductPages.webp';
+import prd10 from '../../assets/product/SESS_controllerdatalog_ProductPages.webp'
 
-import ovenHeroBg from '../../assets/product/HotAirOven.webp';
+import ovenHeroBg from '../../assets/product/SESS_flameproofhotairovenbackground_FlameProofOvenPage.webp';
 
 // Product Data
 const FlameProofHotAirOvenProduct = {

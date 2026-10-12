@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import logo from "../assets/sess_fav_icon.webp";
-import icon from '../assets/Website_Gallery_img/whatsapp-thumb.webp'
+import logo from "../assets/SESS_logoicon_Homepage.webp";
+import icon from '../assets/Website_Gallery_img/SESS_whatsappicon_Homepage.webp'
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);

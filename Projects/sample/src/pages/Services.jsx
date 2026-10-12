@@ -7,12 +7,12 @@ import OtherDepartmentsSection from "../framework/OtherDept";
 import { SectionHeader } from "../framework/SharedUI";
 
 // Import achievement images directly
-import client1 from "../assets/clients/client1.webp";
-import client2 from "../assets/clients/client2.webp";
-import client3 from "../assets/clients/client3.webp";
-import client4 from "../assets/clients/client4.webp";
-import client5 from "../assets/clients/client5.webp";
-import client6 from "../assets/clients/client6.webp";
+import client1 from "../assets/clients/SESS_keminlogo_Common.webp";
+import client2 from "../assets/clients/SESS_escollegeofnursinglogo_Common.webp";
+import client3 from "../assets/clients/SESS_orchidpharmalogo_Common.webp";
+import client4 from "../assets/clients/SESS_aavinlogo_Common.webp";
+import client5 from "../assets/clients/SESS_samvardhanamothersonlogo_Common.webp";
+import client6 from "../assets/clients/SESS_cavinkarelogo_Common.webp";
 
 // ── Icon map (id → MUI icon component) ────────────────────────────────────
 const iconMap = {

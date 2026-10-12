@@ -4,7 +4,7 @@ import { motion, useInView, useMotionValue, useTransform, useSpring } from 'fram
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { openEnquiry } from './openEnquiry';
-import Logo from '../assets/sess_logo_white.webp';
+import Logo from '../assets/SESS_logowhite_Common.webp';
 
 /* ─── Magnetic Social Button ───────────────────────── */
 const MagneticSocial = ({ icon: Icon, url, label, delay }) => {

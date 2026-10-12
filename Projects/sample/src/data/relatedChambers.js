@@ -1,15 +1,15 @@
-import batteryTestImage from '../assets/product/Battery.webp';
-import climaticTestImage from '../assets/product/Climatic_chamber_front.webp';
-import saltSprayImage from '../assets/product/Salt Spray.webp';
-import rainTestImage from '../assets/product/Rain Test.webp';
-import vibrationTestImage from '../assets/product/VibrationChamber.webp';
-import thermalCyclicImage from '../assets/product/Thermal Cyclic.webp';
-import flameProofImage from '../assets/product/Flame-Proof Hot Air Oven.webp';
-import thermalShockImage from '../assets/product/ThermalShockTestChamber.webp';
-import tabletopImage from '../assets/product/TabletopChamber.webp';
-import walkInImage from '../assets/product/walkin.webp';
-import dustImage from '../assets/product/DustChamber.webp';
-import tensileImage from '../assets/product/TensileChamber.webp';
+import batteryTestImage from '../assets/product/SESS_batterytestchamber_Common.webp';
+import climaticTestImage from '../assets/product/SESS_climatictestchamber_Common.webp';
+import saltSprayImage from '../assets/product/SESS_saltspraytestchamber_Common.webp';
+import rainTestImage from '../assets/product/SESS_raintestchamber_Common.webp';
+import vibrationTestImage from '../assets/product/SESS_vibrationchamber_Common.webp';
+import thermalCyclicImage from '../assets/product/SESS_thermalcyclicchamber_Common.webp';
+import flameProofImage from '../assets/product/SESS_flameproofhotairoven_Common.webp';
+import thermalShockImage from '../assets/product/SESS_thermalshockchamber_Common.webp';
+import tabletopImage from '../assets/product/SESS_tabletoptestchamber_Common.webp';
+import walkInImage from '../assets/product/SESS_walkinchamber_Common.webp';
+import dustImage from '../assets/product/SESS_dustchamber_Common.webp';
+import tensileImage from '../assets/product/SESS_tensilechamber_Common.webp';
 
 const chamberCatalog = [
   {

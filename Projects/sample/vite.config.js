@@ -52,8 +52,8 @@ const withSeo = (html, pathname, extra = '') =>
 // and on the homepage a high-priority preload for the LCP hero image.
 // The route → page map is read from App.jsx so it can't drift.
 // ─────────────────────────────────────────────────────────
-const HOME_LCP_IMAGE = /^assets\/prd1-(?!640-)[\w-]+\.webp$/
-const HOME_LCP_IMAGE_SM = /^assets\/prd1-640-[\w-]+\.webp$/
+const HOME_LCP_IMAGE = /^assets\/SESS_batterytestchamberbanner_Homepage-[\w-]+\.webp$/
+const HOME_LCP_IMAGE_SM = /^assets\/SESS_batterytestchamberbanner_Homepage_mobile-[\w-]+\.webp$/
 // Must match HERO_SIZES in src/framework/HeroSlider.jsx
 const HOME_LCP_SIZES = '(max-width: 767px) calc(100vw - 4rem), 680px'
 
@@ -107,6 +107,20 @@ function buildSitemap() {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
 }
 
+// Windows can briefly lock a just-written file (Defender scan, a preview
+// server or editor reading dist/) and writeFileSync then fails with
+// UNKNOWN/EBUSY/EPERM. Retry for up to ~2s before giving up.
+function writeFileRetry(file, data) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return fs.writeFileSync(file, data)
+    } catch (err) {
+      if (attempt >= 20 || !['UNKNOWN', 'EBUSY', 'EPERM', 'EACCES'].includes(err.code)) throw err
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 100)
+    }
+  }
+}
+
 function seoPrerender() {
   let outDir = 'dist'
   let root = '.'
@@ -145,14 +159,14 @@ function seoPrerender() {
           tags.unshift(`<link rel="preload" as="image" href="/${lcp}"${srcset} fetchpriority="high" />`)
         }
         const extra = tags.length ? '\n    ' + tags.join('\n    ') : ''
-        fs.writeFileSync(path.join(outDir, file), withSeo(html, seoPath, extra))
+        writeFileRetry(path.join(outDir, file), withSeo(html, seoPath, extra))
       }
 
       for (const route of Object.keys(SEO_CONFIG)) {
         write(route === '/' ? 'index.html' : `${route.slice(1)}.html`, route)
       }
       write('404.html', '*', '/__not-found__')
-      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), buildSitemap())
+      writeFileRetry(path.join(outDir, 'sitemap.xml'), buildSitemap())
     },
   }
 }

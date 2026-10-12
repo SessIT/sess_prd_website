@@ -11,18 +11,18 @@ import FloatingIcons from './UI/FloatingIcons';
 import FloatingOrbs from './UI/FloatingOrbs';
 
 // Import your product images
-import Product1 from '../assets/product/Climatic_chamber_front-thumb.webp';
-import Product2 from '../assets/product/Salt Spray-thumb.webp';
-import Product3 from '../assets/product/Rain Test-thumb.webp';
-import Product4 from '../assets/product/VibrationChamber-thumb.webp';
-import Product5 from '../assets/product/Thermal Cyclic-thumb.webp';
-import Product6 from '../assets/product/TabletopChamber-thumb.webp';
-import Product7 from '../assets/product/walkin-thumb.webp';
-import Product8 from '../assets/product/DustChamber-thumb.webp';
-import Product9 from '../assets/product/Flame-Proof Hot Air Oven-thumb.webp';
-import Product10 from '../assets/product/Battery-thumb.webp';
-import Product11 from '../assets/product/ThermalShockTestChamber-thumb.webp';
-import Product12 from '../assets/product/TensileChamber-thumb.webp';
+import Product1 from '../assets/product/SESS_climatictestchamber_Homepage.webp';
+import Product2 from '../assets/product/SESS_saltspraytestchamber_Homepage.webp';
+import Product3 from '../assets/product/SESS_raintestchamber_Homepage.webp';
+import Product4 from '../assets/product/SESS_vibrationchamber_Homepage.webp';
+import Product5 from '../assets/product/SESS_thermalcyclicchamber_Homepage.webp';
+import Product6 from '../assets/product/SESS_tabletoptestchamber_Homepage.webp';
+import Product7 from '../assets/product/SESS_walkinchamber_Homepage.webp';
+import Product8 from '../assets/product/SESS_dustchamber_Homepage.webp';
+import Product9 from '../assets/product/SESS_flameproofhotairoven_Homepage.webp';
+import Product10 from '../assets/product/SESS_batterytestchamber_Homepage.webp';
+import Product11 from '../assets/product/SESS_thermalshockchamber_Homepage.webp';
+import Product12 from '../assets/product/SESS_tensilechamber_Homepage.webp';
 
 const products = [
   { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temperature and humidity control', badge: 'Top Rated' },

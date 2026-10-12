@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import img1 from '../assets/clients/guideline1.webp';
-import img2 from '../assets/clients/guideline2.webp';
-import img3 from '../assets/clients/guideline3.webp';
-import img4 from '../assets/clients/guideline4.webp';
-import img5 from '../assets/clients/guideline6.webp';
+import img1 from '../assets/clients/SESS_testchambersafeoperationblog_Common.webp';
+import img2 from '../assets/clients/SESS_testchambermaintenanceblog_Common.webp';
+import img3 from '../assets/clients/SESS_solartestchamberblog_Common.webp';
+import img4 from '../assets/clients/SESS_oemvslocalrewindingblog_Common.webp';
+import img5 from '../assets/clients/SESS_refrigerantleakageblog_Common.webp';
 
 const ITEMS = [
   { image: img1, url: "https://sesschennai.blogspot.com/2024/08/ensuring-safe-operation-of-test.html", title: "Safe Operation of Test Chambers" },
