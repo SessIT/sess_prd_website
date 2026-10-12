@@ -34,7 +34,7 @@
 
     <!-- Google Analytics (gtag.js, GA4 G-767CWP2X0J) + Google Tag Manager — deferred.
          Both scripts (~300 KB) load after the page has rendered: on the first
-         scroll/tap/key, or 4s after window load, whichever comes first.
+         scroll/tap/key, or 8s after window load, whichever comes first.
          Commands pushed to dataLayer before that are queued, not lost.
          (GA4 page views come from gtag.js, not from the GTM container.) -->
     <script>
@@ -63,7 +63,7 @@
           add('https://www.googletagmanager.com/gtm.js?id=GTM-NNF6VTK4');
         }
         events.forEach(function (e) { window.addEventListener(e, load, { once: true, passive: true }); });
-        window.addEventListener('load', function () { setTimeout(load, 4000); });
+        window.addEventListener('load', function () { setTimeout(load, 8000); });
       })();
     </script>
   </head>

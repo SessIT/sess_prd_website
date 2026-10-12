@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
 // Home Components
@@ -8,22 +8,40 @@ import Header from '../framework/Header';
 
 // Below-the-fold sections are code-split so the hero (the LCP element) can
 // render without first downloading and running every section's code.
-const AboutSection = lazy(() => import('../framework/AboutSection'));
-const OtherDept = lazy(() => import('../framework/OtherDept'));
-const ProductsSection = lazy(() => import('../framework/DemoProducts'));
-const ServicesSection = lazy(() => import('../framework/ServicesSection'));
-const CounterSection = lazy(() => import('../framework/CounterSection'));
-const TestimonialsSection = lazy(() => import('../framework/TestimonialsSection'));
-const ClientsSection = lazy(() => import('../framework/ClientsSection'));
-const NewsSection = lazy(() => import('../framework/NewsSection'));
-const Social = lazy(() => import('../framework/SocialMedia'));
-const WhatsAppWidget = lazy(() => import('../framework/WhatsAppWidget'));
+const sectionLoaders = {
+  AboutSection: () => import('../framework/AboutSection'),
+  OtherDept: () => import('../framework/OtherDept'),
+  ProductsSection: () => import('../framework/DemoProducts'),
+  ServicesSection: () => import('../framework/ServicesSection'),
+  CounterSection: () => import('../framework/CounterSection'),
+  TestimonialsSection: () => import('../framework/TestimonialsSection'),
+  ClientsSection: () => import('../framework/ClientsSection'),
+  NewsSection: () => import('../framework/NewsSection'),
+  Social: () => import('../framework/SocialMedia'),
+  WhatsAppWidget: () => import('../framework/WhatsAppWidget'),
+};
+const AboutSection = lazy(sectionLoaders.AboutSection);
+const OtherDept = lazy(sectionLoaders.OtherDept);
+const ProductsSection = lazy(sectionLoaders.ProductsSection);
+const ServicesSection = lazy(sectionLoaders.ServicesSection);
+const CounterSection = lazy(sectionLoaders.CounterSection);
+const TestimonialsSection = lazy(sectionLoaders.TestimonialsSection);
+const ClientsSection = lazy(sectionLoaders.ClientsSection);
+const NewsSection = lazy(sectionLoaders.NewsSection);
+const Social = lazy(sectionLoaders.Social);
+const WhatsAppWidget = lazy(sectionLoaders.WhatsAppWidget);
 // import VideoTest from "../component/VideoTest"; // Video section hidden — re-enable here when needed
 
 const HomePage = () => {
-  // Scroll progress via framer-motion (no React re-render or layout read per scroll)
-  const { scrollYProgress } = useScroll();
   const { theme } = useTheme();
+
+  // React suspends on the first lazy section and only then requests the next,
+  // which chained ~10 requests one after another on slow mobile networks.
+  // Start every section download in parallel once the hero has painted
+  // (the browser's module map dedupes import(), so nothing is fetched twice).
+  useEffect(() => {
+    Object.values(sectionLoaders).forEach((load) => load());
+  }, []);
 
   // Reinitialize Facebook SDK after component renders
   useEffect(() => {
@@ -45,14 +63,9 @@ const HomePage = () => {
       className="bg-white"
     >
       {/* Scroll Progress Bar */}
-      <motion.div
-        className={`fixed top-0 left-0 z-50 h-1 bg-gradient-to-r ${progressBarGradient}`}
-        style={{
-          width: '100%',
-          scaleX: scrollYProgress,
-          transformOrigin: 'left'
-        }}
-      />
+      {/* Pure CSS scroll-driven animation (.scroll-progress in index.css) —
+          no JS scroll listener or layout reads; hidden where unsupported. */}
+      <div className={`scroll-progress fixed top-0 left-0 z-50 h-1 w-full bg-gradient-to-r ${progressBarGradient}`} />
 
       <Header />
       {/* Single page-level H1 for SEO; slider headings are H2s */}

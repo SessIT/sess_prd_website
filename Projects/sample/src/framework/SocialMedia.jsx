@@ -378,15 +378,7 @@ export default function SocialMediaSection() {
 
       {/* Aurora Gradient Layer */}
       <div className="absolute inset-0 z-0">
-        <motion.div
-          animate={{
-            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+        <div
           style={{
             width: '200%',
             height: '200%',
@@ -405,18 +397,11 @@ export default function SocialMediaSection() {
       {/* Floating Light Waves */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {[...Array(3)].map((_, i) => (
-          <motion.div
+          <div
             key={i}
-            animate={{
-              x: [0, 100, -100, 0],
-              y: [0, -50, 50, 0],
-            }}
-            transition={{
-              duration: 12 + i * 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            className="sess-wave"
             style={{
+              animationDuration: `${12 + i * 4}s`,
               position: 'absolute',
               width: '400px',
               height: '400px',

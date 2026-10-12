@@ -51,11 +51,12 @@ const BgLines = ({ isDark }) => {
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: 'var(--border-radius-xl)', zIndex: 0, pointerEvents: 'none' }}>
       {/* Drifting diagonal lines */}
       {lines.map(i => (
-        <motion.div
+        <div
           key={i}
-          animate={{ x: [0, 18, 0], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 4 + i * 0.7, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 }}
+          className="sess-drift-line"
           style={{
+            animationDuration: `${4 + i * 0.7}s`,
+            animationDelay: `${i * 0.4}s`,
             position: 'absolute',
             top: `${-10 + i * 14}%`,
             left: '-10%',
@@ -67,20 +68,20 @@ const BgLines = ({ isDark }) => {
         />
       ))}
       {/* Subtle corner glow */}
-      <motion.div
-        animate={{ opacity: [0.3, 0.7, 0.3] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="sess-glow"
         style={{
+          animationDuration: '3.5s',
           position: 'absolute', bottom: '-20%', right: '-10%',
           width: '220px', height: '220px', borderRadius: '50%',
           background: 'radial-gradient(circle, var(--color-primary-400), transparent 70%)',
           opacity: 0.15, filter: 'blur(30px)',
         }}
       />
-      <motion.div
-        animate={{ opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      <div
+        className="sess-glow"
         style={{
+          animationDuration: '4.5s', animationDelay: '1s',
           position: 'absolute', top: '-10%', left: '-10%',
           width: '160px', height: '160px', borderRadius: '50%',
           background: 'radial-gradient(circle, var(--color-secondary-400), transparent 70%)',
@@ -350,15 +351,10 @@ Sri Easwari Scientific Solution Pvt Ltd is a leading provider of environmental t
           }}
         >
           {/* Pulse ring (always active animation) */}
-          <motion.div
-            animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{
-              duration: 2.2,
-              repeat: Infinity,
-              ease: "easeOut",
-              delay: i * 0.3,
-            }}
+          <div
+            className="sess-pulse-ring"
             style={{
+              animationDelay: `${i * 0.3}s`,
               position: "absolute",
               top: "50%",
               left: "50%",

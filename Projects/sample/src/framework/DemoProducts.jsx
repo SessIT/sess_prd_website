@@ -11,18 +11,18 @@ import FloatingIcons from './UI/FloatingIcons';
 import FloatingOrbs from './UI/FloatingOrbs';
 
 // Import your product images
-import Product1 from '../assets/product/Climatic_chamber_front.webp';
-import Product2 from '../assets/product/Salt Spray.webp';
-import Product3 from '../assets/product/Rain Test.webp';
-import Product4 from '../assets/product/VibrationChamber.webp';
-import Product5 from '../assets/product/Thermal Cyclic.webp';
-import Product6 from '../assets/product/TabletopChamber.webp';
-import Product7 from '../assets/product/walkin.webp';
-import Product8 from '../assets/product/DustChamber.webp';
-import Product9 from '../assets/product/Flame-Proof Hot Air Oven.webp';
-import Product10 from '../assets/product/Battery.webp';
-import Product11 from '../assets/product/ThermalShockTestChamber.webp';
-import Product12 from '../assets/product/TensileChamber.webp';
+import Product1 from '../assets/product/Climatic_chamber_front-thumb.webp';
+import Product2 from '../assets/product/Salt Spray-thumb.webp';
+import Product3 from '../assets/product/Rain Test-thumb.webp';
+import Product4 from '../assets/product/VibrationChamber-thumb.webp';
+import Product5 from '../assets/product/Thermal Cyclic-thumb.webp';
+import Product6 from '../assets/product/TabletopChamber-thumb.webp';
+import Product7 from '../assets/product/walkin-thumb.webp';
+import Product8 from '../assets/product/DustChamber-thumb.webp';
+import Product9 from '../assets/product/Flame-Proof Hot Air Oven-thumb.webp';
+import Product10 from '../assets/product/Battery-thumb.webp';
+import Product11 from '../assets/product/ThermalShockTestChamber-thumb.webp';
+import Product12 from '../assets/product/TensileChamber-thumb.webp';
 
 const products = [
   { id: 1, name: 'Climatic Test Chamber', category: 'industry', image: Product1, link: '/climatic-test-chamber', description: 'Precision climate control for reliable testing', specs: 'Temperature and humidity control', badge: 'Top Rated' },
@@ -339,15 +339,18 @@ const ProductsSection = () => {
           50%  { transform: translate(30px,-20px) scale(1.06); }
           100% { transform: translate(-20px,30px) scale(0.95); }
         }
+        /* Shimmer sweep: moves with transform (compositor-only); animating
+           background-position repainted the button every frame. */
         @keyframes shimmerPass {
-          0%,100% { background-position: -100% 0; }
-          50%     { background-position:  200% 0; }
+          0%,100% { transform: translate3d(-100%,0,0); }
+          50%     { transform: translate3d(100%,0,0); }
         }
         .animate-shimmer-btn {
           animation: shimmerPass 2.8s ease-in-out infinite;
-          background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
-          background-size: 200% 100%;
+          background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+          will-change: transform;
         }
+        @media (prefers-reduced-motion: reduce) { .animate-shimmer-btn { animation: none; } }
       `}</style>
 
       <div className="relative z-10 max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

@@ -6,14 +6,17 @@ import { ThemeProvider } from './context/ThemeContext';
 
 // Layout Components
 import Header from './framework/Header';
-import Footer from './framework/Footer';
 // import Preloader from './framework/Preloader';
 
 // Common Components
 import EnquiryButtons from './framework/EnquiryButtons';
-import ScrollToTop from './framework/ScrollToTop';
-import PopupManager from './framework/Popmng';
 import SeoManager from './seo/SeoManager';
+
+// Below-the-fold / deferred chrome — kept out of the main bundle so the
+// first paint (and the homepage hero) doesn't wait on them.
+const Footer = lazy(() => import('./framework/Footer'));
+const ScrollToTop = lazy(() => import('./framework/ScrollToTop'));
+const PopupManager = lazy(() => import('./framework/Popmng'));
 
 // Page Components (lazy-loaded for route-level code splitting)
 const HomePage = lazy(() => import('./pages/Home'));
@@ -130,9 +133,11 @@ function AppContent() {
           </Suspense>
           </main>
           {/* <VideoTest /> */}
-          <Footer />
-          <ScrollToTop />
-          <PopupManager />
+          <Suspense fallback={null}>
+            <Footer />
+            <ScrollToTop />
+            <PopupManager />
+          </Suspense>
           {/* <WhatsAppWidget /> */}
         </motion.div>
       }

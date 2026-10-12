@@ -3,7 +3,8 @@
 // - New `import x from './foo.png'` imports are converted to foo.webp and rewritten.
 // - If you replace an original (foo.png/.jpg) later, re-run: any .webp older than
 //   its original is regenerated.
-// Originals are kept; only the .webp files end up in the build.
+// Only .webp is kept in src/assets (unused PNG/JPG originals were removed) —
+// after converting a new image, delete its .png/.jpg original.
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');

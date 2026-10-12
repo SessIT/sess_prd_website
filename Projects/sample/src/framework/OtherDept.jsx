@@ -6,11 +6,11 @@ import {
   ArrowRight,
   ComputerIcon,
 } from "lucide-react";
-import dsteam from "../assets/clients/design-team.webp";
+import dsteam from "../assets/clients/design-team-thumb.webp";
 import bgImage from "../assets/clients/bg-square.webp";
 import labview from "../assets/clients/labview.svg";
-import bgplc from '../assets/Website_Gallery_img/labview.webp';
-import bgit from '../assets/Website_Gallery_img/ITbg.webp';
+import bgplc from '../assets/Website_Gallery_img/labview-thumb.webp';
+import bgit from '../assets/Website_Gallery_img/ITbg-thumb.webp';
 import labimg from '../assets/clients/labview.webp';
 import { SectionHeader } from './SharedUI';
 

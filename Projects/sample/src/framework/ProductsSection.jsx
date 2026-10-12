@@ -412,15 +412,18 @@ const ProductsSection = () => {
           50%  { transform: translate(30px,-20px) scale(1.06); }
           100% { transform: translate(-20px,30px) scale(0.95); }
         }
+        /* Shimmer sweep: moves with transform (compositor-only); animating
+           background-position repainted the button every frame. */
         @keyframes shimmerPass {
-          0%,100% { background-position: -100% 0; }
-          50%     { background-position:  200% 0; }
+          0%,100% { transform: translate3d(-100%,0,0); }
+          50%     { transform: translate3d(100%,0,0); }
         }
         .animate-shimmer-btn {
           animation: shimmerPass 2.8s ease-in-out infinite;
-          background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
-          background-size: 200% 100%;
+          background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+          will-change: transform;
         }
+        @media (prefers-reduced-motion: reduce) { .animate-shimmer-btn { animation: none; } }
       `}</style>
 
       {/* ─── Main container ─── */}

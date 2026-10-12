@@ -873,3 +873,72 @@ label {
     background-attachment: scroll !important;
   }
 }
+
+/* Compositor-only loop animations (transform only, run off the main thread).
+   Replaces framer-motion `repeat: Infinity` loops that ran in JS every frame. */
+@keyframes sess-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--marquee-distance, -1000px), 0, 0); }
+}
+.sess-marquee {
+  display: inline-block;
+  will-change: transform;
+  animation: sess-marquee var(--marquee-duration, 30s) linear infinite;
+}
+@keyframes sess-orb-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(40px, -20px, 0); }
+}
+@keyframes sess-orb-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-30px, 30px, 0); }
+}
+.sess-orb-a { will-change: transform; animation: sess-orb-a 10s ease-in-out infinite; }
+.sess-orb-b { will-change: transform; animation: sess-orb-b 12s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .sess-marquee, .sess-orb-a, .sess-orb-b { animation: none; }
+}
+
+/* Homepage reading-progress bar, driven by the page scroll on the compositor. */
+.scroll-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: sess-scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes sess-scroll-progress {
+  to { transform: scaleX(1); }
+}
+
+@keyframes sess-wave {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  33% { transform: translate3d(100px, -50px, 0); }
+  66% { transform: translate3d(-100px, 50px, 0); }
+}
+.sess-wave { will-change: transform; animation: sess-wave 12s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sess-wave { animation: none; } }
+
+/* AboutSection background: drifting lines + pulsing glows (opacity/translate only) */
+@keyframes sess-drift-line {
+  0%, 100% { translate: 0 0; opacity: 0.5; }
+  50% { translate: 18px 0; opacity: 1; }
+}
+.sess-drift-line { animation: sess-drift-line 4s ease-in-out infinite; }
+@keyframes sess-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+.sess-glow { will-change: opacity; animation: sess-glow 3.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sess-drift-line, .sess-glow { animation: none; } }
+
+/* AboutSection timeline dots — pulse ring (scale/opacity, compositor-only) */
+@keyframes sess-pulse-ring {
+  0%, 100% { scale: 1; opacity: 0.5; }
+  50% { scale: 2; opacity: 0; }
+}
+.sess-pulse-ring { will-change: transform, opacity; animation: sess-pulse-ring 2.2s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sess-pulse-ring { animation: none; } }

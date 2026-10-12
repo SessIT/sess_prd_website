@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../assets/sess_fav_icon.webp";
-import icon from '../assets/Website_Gallery_img/whatsapp.webp'
+import icon from '../assets/Website_Gallery_img/whatsapp-thumb.webp'
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,7 @@ const WhatsAppWidget = () => {
             </div>
 
             {/* Close */}
-            <button onClick={() => setIsOpen(false)} className="text-lg">
+            <button onClick={() => setIsOpen(false)} className="text-lg" aria-label="Close WhatsApp chat">
               ✕
             </button>
           </div>
@@ -60,6 +60,7 @@ const WhatsAppWidget = () => {
       {/* ✅ WhatsApp Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
         className="p-0 rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center"
       >
         <img

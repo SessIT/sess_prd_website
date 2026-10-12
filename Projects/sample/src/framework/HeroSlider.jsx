@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -13,6 +13,14 @@ import "swiper/css/pagination";
 import Slider1 from "../assets/prd1.webp";
 import Slider2 from "../assets/prd2.webp";
 import Slider3 from "../assets/prd3.webp";
+import Slider1Sm from "../assets/prd1-640.webp";
+import Slider2Sm from "../assets/prd2-640.webp";
+import Slider3Sm from "../assets/prd3-640.webp";
+
+// Phones get the 640w file (~half the bytes). Keep in sync with the hero
+// preload in vite.config.js (imagesizes must match for the preload to be used).
+const HERO_SIZES = "(max-width: 767px) calc(100vw - 4rem), 680px";
+const AUTOPLAY = { delay: 5000, disableOnInteraction: false };
 
 // IMPORTANT: declare OUTSIDE the component, only once
 const MotionLink = motion(Link);
@@ -20,6 +28,7 @@ const MotionLink = motion(Link);
 const slides = [
   {
     image: Slider1,
+    imageSm: Slider1Sm,
     title: "Battery Test Chamber",
     subtitle: '"Industrial-Grade Battery Validation Starts Here."',
     description: "Our chambers replicate real-world stress to ensure battery systems meet the highest safety and reliability standards.",
@@ -27,6 +36,7 @@ const slides = [
   },
   {
     image: Slider2,
+    imageSm: Slider2Sm,
     title: "Thermal Cyclic Test Chamber",
     subtitle: '"Precision Testing for Thermal Resilience."',
     description: "Accelerate validation of thermal resilience with accurate and programmable transition control.",
@@ -34,6 +44,7 @@ const slides = [
   },
   {
     image: Slider3,
+    imageSm: Slider3Sm,
     title: "Flame Proof Oven",
     subtitle: '"Where Heat Meets Hazard, We Deliver Confidence."',
     description: "Engineered to perform where failure isn't an option. Our flameproof systems ensure safety in the most demanding industrial zones.",
@@ -44,6 +55,31 @@ const slides = [
 const HeroSlider = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const swiperRef = useRef(null);
+  const autoplayStarted = useRef(false);
+
+  // Autoplay starts on the visitor's first interaction, or 10s after load.
+  // Rotating while a slow phone is still rendering made slide 2 (a lazy,
+  // low-priority image) the LCP element instead of the preloaded slide 1.
+  useEffect(() => {
+    const events = ["scroll", "pointerdown", "keydown", "touchstart"];
+    let timer;
+    const start = () => {
+      cleanup();
+      autoplayStarted.current = true;
+      swiperRef.current?.autoplay?.start();
+    };
+    const onLoad = () => { timer = setTimeout(start, 10000); };
+    const cleanup = () => {
+      clearTimeout(timer);
+      window.removeEventListener("load", onLoad);
+      events.forEach((e) => window.removeEventListener(e, start));
+    };
+    events.forEach((e) => window.addEventListener(e, start, { once: true, passive: true }));
+    if (document.readyState === "complete") onLoad();
+    else window.addEventListener("load", onLoad);
+    return cleanup;
+  }, []);
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -106,6 +142,8 @@ const HeroSlider = () => {
         modules={[Navigation, Pagination, Autoplay]}
         navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
         onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          if (!autoplayStarted.current) swiper.autoplay?.stop();
           setTimeout(() => {
             if (swiper.params && swiper.navigation) {
               swiper.params.navigation.prevEl = prevRef.current;
@@ -116,7 +154,7 @@ const HeroSlider = () => {
           });
         }}
         pagination={{ clickable: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        autoplay={AUTOPLAY}
         loop={true}
         className="w-full"
         style={{ minHeight: "calc(100vh - 100px)" }}
@@ -130,24 +168,21 @@ const HeroSlider = () => {
                 background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
               }}
             >
-              <div className="absolute inset-0 z-0">
-                <motion.div
-                  className="w-full h-full"
-                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                  style={{
-                    background: isDark
-                      ? "linear-gradient(270deg, #020617, #0f172a, #111827, #020617)"
-                      : "linear-gradient(270deg, var(--color-neutral-50), var(--color-neutral-100), var(--color-neutral-0), var(--color-neutral-50))",
-                    backgroundSize: "400% 400%",
-                  }}
-                />
-              </div>
+              {/* Static gradient + slowly drifting orbs. The orbs animate with CSS
+                  transforms only (compositor thread); the old framer-motion loops
+                  animated background-position and repainted every frame. */}
+              <div
+                className="absolute inset-0 z-0"
+                style={{
+                  background: isDark
+                    ? "linear-gradient(270deg, #020617, #0f172a, #111827, #020617)"
+                    : "linear-gradient(270deg, var(--color-neutral-50), var(--color-neutral-100), var(--color-neutral-0), var(--color-neutral-50))",
+                }}
+              />
 
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <motion.div
-                  animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                <div
+                  className="sess-orb-a"
                   style={{
                     position: "absolute", top: "2.5rem", right: "5rem",
                     width: "288px", height: "288px", borderRadius: "50%",
@@ -155,9 +190,8 @@ const HeroSlider = () => {
                     background: isDark ? "var(--color-primary-500)" : "var(--color-primary-200)",
                   }}
                 />
-                <motion.div
-                  animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
-                  transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                <div
+                  className="sess-orb-b"
                   style={{
                     position: "absolute", bottom: "2.5rem", left: "6rem",
                     width: "288px", height: "288px", borderRadius: "50%",
@@ -251,6 +285,8 @@ const HeroSlider = () => {
                 <motion.img
                   key={index}
                   src={slide.image}
+                  srcSet={`${slide.imageSm} 640w, ${slide.image} 900w`}
+                  sizes={HERO_SIZES}
                   alt={slide.title}
                   width={900}
                   height={765}

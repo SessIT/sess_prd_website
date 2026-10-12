@@ -10,6 +10,8 @@ import { useTheme } from "../context/ThemeContext";
 import { openEnquiry, openSearch } from "./openEnquiry";
 import Logo from "../assets/sess_logo_png.webp";
 import LogoWhite from "../assets/sess_logo_white.webp";
+import LogoSm from "../assets/sess_logo_png-400.webp";
+import LogoWhiteSm from "../assets/sess_logo_white-400.webp";
 
 const Header = () => {
   const [isOpen, setIsOpen]               = useState(false);
@@ -148,7 +150,6 @@ const Header = () => {
           zIndex: 40, // Changed from 50 to 40
           background: isDark ? "var(--color-neutral-900)" : "var(--gradient-brand)",
           borderBottom: isDark ? "1px solid var(--border-default)" : "none",
-          backdropFilter: "blur(10px)",
         }}
       >
         <div className="mx-auto px-4">
@@ -169,16 +170,15 @@ const Header = () => {
 
             {/* Contact — Mobile (icons only) */}
             <div className="flex lg:hidden shrink-0 items-center space-x-3">
-              <a href="tel:+919444427748"           className="hover:opacity-80"><FaPhone /></a>
-              <a href="mailto:easwari.kjsb@gmail.com" className="hover:opacity-80"><FaEnvelope /></a>
+              <a href="tel:+919444427748"           className="hover:opacity-80" aria-label="Call +91 94444 27748"><FaPhone aria-hidden="true" /></a>
+              <a href="mailto:easwari.kjsb@gmail.com" className="hover:opacity-80" aria-label="Email easwari.kjsb@gmail.com"><FaEnvelope aria-hidden="true" /></a>
             </div>
 
             {/* Marquee — Desktop */}
             <div className="hidden lg:flex flex-1 min-w-0 overflow-hidden items-center" style={{ marginLeft: "clamp(1.5rem, 4vw, 5rem)", marginRight: "clamp(8rem, 14vw, 12rem)" }}>
-              <motion.div
-                animate={{ x: [0, -1000] }}
-                transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
-                className="whitespace-nowrap"
+              <div
+                className="whitespace-nowrap sess-marquee"
+                style={{ "--marquee-distance": "-1000px", "--marquee-duration": "30s" }}
               >
                 {marqueeItems.map((item, i) => (
                   <span key={i} className="mx-4">
@@ -186,7 +186,7 @@ const Header = () => {
                     {i < marqueeItems.length - 1 && <span className="mx-4 opacity-50">✦</span>}
                   </span>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             {/* Social Icons + Plus — Desktop */}
@@ -201,7 +201,7 @@ const Header = () => {
                     {socialLinks.map((s, i) => (
                       <motion.a key={i} href={s.url} target="_blank" rel="noopener noreferrer"
                         initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.05 }}
-                        whileHover={{ scale: 1.1 }} style={socialBtnStyle} title={s.name}
+                        whileHover={{ scale: 1.1 }} style={socialBtnStyle} title={s.name} aria-label={s.name}
                       >
                         <span style={{ fontSize: "12px" }}>{s.icon}</span>
                       </motion.a>
@@ -218,10 +218,9 @@ const Header = () => {
 
             {/* Marquee — Mobile */}
             <div className="flex lg:hidden min-w-0 flex-1 overflow-hidden mx-3">
-              <motion.div
-                animate={{ x: [0, -500] }}
-                transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 15, ease: "linear" } }}
-                className="whitespace-nowrap"
+              <div
+                className="whitespace-nowrap sess-marquee"
+                style={{ "--marquee-distance": "-500px", "--marquee-duration": "15s" }}
               >
                 {marqueeItems.map((item, i) => (
                   <span key={i} className="mx-2" style={{ fontSize: "10px" }}>
@@ -229,7 +228,7 @@ const Header = () => {
                     {i < marqueeItems.length - 1 && <span className="mx-2 opacity-50">✦</span>}
                   </span>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             {/* Social + Theme — Mobile overlay */}
@@ -245,6 +244,7 @@ const Header = () => {
                       <motion.a key={i} href={s.url} target="_blank" rel="noopener noreferrer"
                         initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.05 }}
                         style={{ ...socialBtnStyle, padding: "4px" }}
+                        aria-label={s.name}
                       >
                         <span style={{ fontSize: "10px" }}>{s.icon}</span>
                       </motion.a>
@@ -254,11 +254,13 @@ const Header = () => {
               </AnimatePresence>
               <motion.button whileTap={{ scale: 0.95 }} onClick={() => setShowSocialIcons(!showSocialIcons)}
                 style={{ ...socialBtnStyle, padding: "4px" }}
+                aria-label="Social media" aria-expanded={showSocialIcons}
               >
                 <FaPlus size={10} />
               </motion.button>
               <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme}
                 style={{ ...themeBtnStyle, padding: "4px" }}
+                aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
               >
                 {isDark ? <FaSun size={10} /> : <FaMoon size={10} />}
               </motion.button>
@@ -305,10 +307,11 @@ const Header = () => {
             <Link to="/" className="relative z-50 shrink min-w-0">
               <img
                 src={isDark ? LogoWhite : Logo}
+                srcSet={isDark ? `${LogoWhiteSm} 400w, ${LogoWhite} 480w` : `${LogoSm} 400w, ${Logo} 640w`}
+                sizes="(max-width: 639px) 222px, (max-width: 1023px) 271px, 295px"
                 alt="SESS"
                 width={295}
                 height={48}
-                fetchPriority="high"
                 className="h-9 sm:h-11 lg:h-12 w-auto max-w-full object-contain"
               />
             </Link>
@@ -496,7 +499,8 @@ const Header = () => {
               >
                 <FaSearch style={{ fontSize: "20px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
               </button>
-            <button onClick={() => setIsOpen(!isOpen)} className="relative z-50 p-2">
+            <button onClick={() => setIsOpen(!isOpen)} className="relative z-50 p-2"
+              aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen}>
               {isOpen
                 ? <FaTimes  style={{ fontSize: "24px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
                 : <FaBars   style={{ fontSize: "24px", color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)" }} />
@@ -535,18 +539,8 @@ const Header = () => {
                       boxShadow: "var(--shadow-2xl)",
                     }}
                   >
-                    <button
-                      type="button"
-                      onClick={() => setIsOpen(false)}
-                      className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full"
-                      style={{
-                        color: isDark ? "var(--text-heading)" : "var(--color-neutral-800)",
-                        background: isDark ? "var(--surface-raised)" : "var(--color-neutral-100)",
-                      }}
-                      aria-label="Close navigation menu"
-                    >
-                      <FaTimes style={{ fontSize: "20px" }} />
-                    </button>
+                    {/* No separate close button here — the header's menu toggle sits
+                        above the drawer (z-50) and turns into the ✕. */}
                     <div className="pt-24 pb-8 px-6">
                       {/* Request Quote CTA — mobile */}
                       <motion.button

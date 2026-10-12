@@ -52,7 +52,10 @@ const withSeo = (html, pathname, extra = '') =>
 // and on the homepage a high-priority preload for the LCP hero image.
 // The route → page map is read from App.jsx so it can't drift.
 // ─────────────────────────────────────────────────────────
-const HOME_LCP_IMAGE = /^assets\/prd1-[\w-]+\.webp$/
+const HOME_LCP_IMAGE = /^assets\/prd1-(?!640-)[\w-]+\.webp$/
+const HOME_LCP_IMAGE_SM = /^assets\/prd1-640-[\w-]+\.webp$/
+// Must match HERO_SIZES in src/framework/HeroSlider.jsx
+const HOME_LCP_SIZES = '(max-width: 767px) calc(100vw - 4rem), 680px'
 
 function routeModules(root) {
   const app = fs.readFileSync(path.join(root, 'src/App.jsx'), 'utf8')
@@ -133,10 +136,14 @@ function seoPrerender() {
       collect(entry)
       const modules = routeModules(root)
       const lcp = Object.keys(bundle).find((f) => HOME_LCP_IMAGE.test(f))
+      const lcpSm = Object.keys(bundle).find((f) => HOME_LCP_IMAGE_SM.test(f))
 
       const write = (file, route, seoPath = route) => {
         const tags = modules[route] ? preloadTags(bundle, modules[route], entryFiles) : []
-        if (route === '/' && lcp) tags.unshift(`<link rel="preload" as="image" href="/${lcp}" fetchpriority="high" />`)
+        if (route === '/' && lcp) {
+          const srcset = lcpSm ? ` imagesrcset="/${lcpSm} 640w, /${lcp} 900w" imagesizes="${HOME_LCP_SIZES}"` : ''
+          tags.unshift(`<link rel="preload" as="image" href="/${lcp}"${srcset} fetchpriority="high" />`)
+        }
         const extra = tags.length ? '\n    ' + tags.join('\n    ') : ''
         fs.writeFileSync(path.join(outDir, file), withSeo(html, seoPath, extra))
       }

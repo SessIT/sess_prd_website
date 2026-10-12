@@ -1,0 +1,38 @@
+# Sri Easwari Scientific Solution Pvt Ltd (SESS)
+
+> Manufacturer of environmental test chambers in Chennai, India, since 2010. SESS designs, builds, installs and services climatic, thermal shock, thermal cycling, salt spray, battery, rain, dust, vibration, walk-in, tabletop and tensile test chambers, and provides LabVIEW/PLC automation and IT solutions.
+
+Contact: sales@sess.co.in · +91 94444 27748 · Iyyappanthangal, Chennai 600 122, Tamil Nadu, India.
+
+## Products
+
+- [All environmental test chambers](https://www.sess.co.in/products): overview of the full product range
+- [Climatic Test Chamber](https://www.sess.co.in/climatic-test-chamber): temperature and humidity testing (IEC 60068-2-1/-2/-30/-78)
+- [Thermal Shock Chamber](https://www.sess.co.in/thermal-shock-chamber): two-zone rapid hot/cold transfer testing
+- [Thermal Cyclic Chamber](https://www.sess.co.in/thermal-cyclic-chamber): rapid temperature change and stress screening (IEC 60068-2-14)
+- [Salt Spray Test Chamber](https://www.sess.co.in/salt-spray-test-chamber): corrosion testing (ISO 9227, IS 9000)
+- [Battery Test Chamber](https://www.sess.co.in/battery-test-chamber): EV and lithium-ion cell, module and pack testing
+- [Rain Test Chamber](https://www.sess.co.in/rain-test-chamber): IPX1–IPX9K water ingress testing (IEC 60529, ISO 20653)
+- [Dust Test Chamber](https://www.sess.co.in/dust-chamber): IP5X/IP6X dust ingress testing (IEC 60529, ISO 20653)
+- [Vibration Combined Climatic Chamber](https://www.sess.co.in/vibration-test-chamber): combined vibration, temperature and humidity testing
+- [Walk-In Chamber](https://www.sess.co.in/walk-in-chamber): room-size temperature and humidity chambers
+- [Tabletop Test Chamber](https://www.sess.co.in/tabletop-test-chamber): compact benchtop climatic chamber
+- [Tensile Test Chamber](https://www.sess.co.in/tensile-chamber): temperature chamber for universal testing machines (UTM)
+- [Flame Proof Hot Air Oven](https://www.sess.co.in/flame-proof-hot-air-oven): drying and heating for hazardous areas
+
+## Company and services
+
+- [About SESS](https://www.sess.co.in/about)
+- [Services, AMC and calibration](https://www.sess.co.in/services)
+- [Custom chamber design](https://www.sess.co.in/design)
+- [LabVIEW and PLC automation](https://www.sess.co.in/labview-plc)
+- [IT solutions](https://www.sess.co.in/it)
+- [Brochure](https://www.sess.co.in/brochure)
+- [Contact and quotes](https://www.sess.co.in/contact)
+
+## Optional
+
+- [News and blogs](https://www.sess.co.in/news)
+- [Gallery](https://www.sess.co.in/gallery)
+- [Careers](https://www.sess.co.in/career)
+- [Sitemap](https://www.sess.co.in/sitemap.xml)
