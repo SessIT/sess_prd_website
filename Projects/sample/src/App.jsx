@@ -1,6 +1,6 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LazyMotion } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
 // import VideoTest from "./component/VideoTest";
 
@@ -32,6 +32,8 @@ const NewsBlogs = lazy(() => import('./pages/NewsBlogs'));
 const Design = lazy(() => import('./pages/DesignTeam'));
 const IT = lazy(() => import('./pages/IT'));
 const LabviewPage = lazy(() => import('./pages/Labview'));
+const ERPPage = lazy(() => import('./pages/ERP'));
+const HRMSPage = lazy(() => import('./pages/HRMS'));
 const ClimaticTestChambers = lazy(() => import('./pages/products/Climatic-test-chambers'));
 const SaltSprayChamber = lazy(() => import('./pages/products/Salt-spray-test-chambers'));
 const RainTestChamber = lazy(() => import('./pages/products/Rain-test-chamber'));
@@ -54,22 +56,49 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Full viewport height so the footer stays below the fold while a lazy page
 // loads — at 70vh the footer was visible and jumped down (CLS 0.30).
+// Animation engine for the `m` components (Header, EnquiryButtons), fetched
+// after the main bundle instead of shipped inside it.
+const loadMotionFeatures = () => import('./motionFeatures').then((r) => r.default);
+
 const RouteFallback = () => (
   <div style={{ minHeight: '100vh' }} aria-busy="true" />
 );
 
+// Footer, scroll-to-top and the popup are never above the fold at load, and
+// the Footer pulls in the full framer-motion. Mount them once the page has
+// loaded and the browser is idle (or on the first scroll/tap/key), so their
+// code doesn't compete with the hero for the main thread.
+function useAfterLoadIdle() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+    let idleId;
+    let timer;
+    const go = () => setReady(true);
+    const schedule = () => {
+      if ('requestIdleCallback' in window) idleId = window.requestIdleCallback(go, { timeout: 2500 });
+      else timer = setTimeout(go, 1200);
+    };
+    events.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, go));
+      window.removeEventListener('load', schedule);
+      if (idleId) window.cancelIdleCallback(idleId);
+      clearTimeout(timer);
+    };
+  }, []);
+  return ready;
+}
+
 function AppContent() {
   const location = useLocation();
+  const showDeferredChrome = useAfterLoadIdle();
 
   return (
-    <AnimatePresence exitBeforeEnter>
-      {
-        
-        <motion.div
-          key="app"
-          initial={false}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+    <LazyMotion features={loadMotionFeatures}>
+        <div
           className="min-h-screen"
           style={{
             backgroundColor: 'var(--bg-primary)',
@@ -96,6 +125,8 @@ function AppContent() {
               <Route path="/career" element={<Career />} />
               <Route path="/news" element={<NewsBlogs />} />
               <Route path="/labview-plc" element={<LabviewPage />} />
+              <Route path="/erp" element={<ERPPage />} />
+              <Route path="/hrms" element={<HRMSPage />} />
               <Route path="/climatic-test-chamber" element={<ClimaticTestChambers />} />
               <Route path="/salt-spray-test-chamber" element={<SaltSprayChamber />} />
               <Route path="/rain-test-chamber" element={<RainTestChamber />} />
@@ -133,15 +164,16 @@ function AppContent() {
           </Suspense>
           </main>
           {/* <VideoTest /> */}
-          <Suspense fallback={null}>
-            <Footer />
-            <ScrollToTop />
-            <PopupManager />
-          </Suspense>
+          {showDeferredChrome && (
+            <Suspense fallback={null}>
+              <Footer />
+              <ScrollToTop />
+              <PopupManager />
+            </Suspense>
+          )}
           {/* <WhatsAppWidget /> */}
-        </motion.div>
-      }
-    </AnimatePresence>
+        </div>
+    </LazyMotion>
   );
 }
 

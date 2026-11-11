@@ -65,7 +65,7 @@ const SECTIONS = [
   {
     title: '10. Contact',
     body: [
-      `Questions about these terms: Sri Easwari Scientific Solution Pvt Ltd, Iyyappanthangal, Chennai — 600 122. Email: easwari.kjsb@gmail.com · Phone: +91 94444 27748.`,
+      `Questions about these terms: Sri Easwari Scientific Solution Pvt Ltd, Iyyappanthangal, Chennai — 600 122. Email: easwari.kjsb@gmail.com · Phone: +91 75488 73688.`,
     ],
   },
 ];

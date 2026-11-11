@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { FaTimes, FaFilePdf, FaDownload, FaCheckCircle, FaLock } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import { useTheme } from '../context/ThemeContext';
 import { COMPANY_BROCHURE } from '../data/productBrochures';
+import { ReCaptcha, RECAPTCHA_ENABLED, captchaParams, CAPTCHA_REQUIRED_MESSAGE } from './ReCaptcha';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -56,6 +57,8 @@ function downloadPdf(url, brochure) {
 const BrochureModal = ({ isOpen, onClose, brochure = COMPANY_BROCHURE }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const captchaRef = useRef(null);
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
@@ -115,6 +118,7 @@ const BrochureModal = ({ isOpen, onClose, brochure = COMPANY_BROCHURE }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    if (RECAPTCHA_ENABLED && !captchaToken) { alert(CAPTCHA_REQUIRED_MESSAGE); return; }
     setStatus('submitting');
     try {
       if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
@@ -131,12 +135,15 @@ const BrochureModal = ({ isOpen, onClose, brochure = COMPANY_BROCHURE }) => {
           message: `📄 ${brochure.title} download request from the website (lead-capture form).`,
           interested_in: brochure.product,
           products: `Brochure Download — ${brochure.product}`,
+          ...captchaParams(captchaToken),
         },
         EMAILJS_PUBLIC_KEY
       );
+      captchaRef.current?.reset();
       setStatus('success');
       setTimeout(openPdf, 700);
     } catch (err) {
+      captchaRef.current?.reset();
       console.error(err);
       // Lead capture failed — never block the visitor from the brochure itself.
       setStatus('error');
@@ -309,6 +316,8 @@ const BrochureModal = ({ isOpen, onClose, brochure = COMPANY_BROCHURE }) => {
                       </button>.
                     </div>
                   )}
+
+                  <ReCaptcha ref={captchaRef} onChange={setCaptchaToken} theme={isDark ? 'dark' : 'light'} />
 
                   <motion.button
                     type="submit"

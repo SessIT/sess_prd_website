@@ -2,7 +2,7 @@
 
 > Manufacturer of environmental test chambers in Chennai, India, since 2010. SESS designs, builds, installs and services climatic, thermal shock, thermal cycling, salt spray, battery, rain, dust, vibration, walk-in, tabletop and tensile test chambers, and provides LabVIEW/PLC automation and IT solutions.
 
-Contact: sales@sess.co.in · +91 94444 27748 · Iyyappanthangal, Chennai 600 122, Tamil Nadu, India.
+Contact: sales@sess.co.in · +91 75488 73688 (office) · Sales – TD: +91 94444 27748 · Iyyappanthangal, Chennai 600 122, Tamil Nadu, India.
 
 ## Products
 
@@ -27,6 +27,8 @@ Contact: sales@sess.co.in · +91 94444 27748 · Iyyappanthangal, Chennai 600 122
 - [Custom chamber design](https://www.sess.co.in/design)
 - [LabVIEW and PLC automation](https://www.sess.co.in/labview-plc)
 - [IT solutions](https://www.sess.co.in/it)
+- [SESS ERP for manufacturing](https://www.sess.co.in/erp): connected project, purchase, stores, HR and service workflows (planned launch April 2027)
+- [SESS HRMS](https://www.sess.co.in/hrms): HR, attendance and payroll — fingerprint + face-verified on-site punch-in, personal/team chat, event scheduling and task management; web app for HR plus the SESS Employee mobile app
 - [Brochure](https://www.sess.co.in/brochure)
 - [Contact and quotes](https://www.sess.co.in/contact)
 

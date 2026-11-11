@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+// `m` = framer-motion's lightweight component; the engine loads via LazyMotion (App.jsx)
+import { m as motion, AnimatePresence } from "framer-motion";
 import {
   FaBars, FaTimes, FaChevronDown, FaPhone, FaEnvelope,
   FaSun, FaMoon, FaPlus, FaInstagram, FaFacebookF, FaTwitter, FaBlog,
@@ -95,6 +96,8 @@ const Header = () => {
         { path: "/design",  label: "Design Services" },
         { path: "/labview-plc", label: "LabView & PLC" },
         { path: "/it",    label: "Software Development - IT" },
+        { path: "/erp",   label: "SESS ERP" },
+        { path: "/hrms",  label: "SESS HRMS" },
       ],
     },
     {
@@ -157,9 +160,9 @@ const Header = () => {
 
             {/* Contact — Desktop */}
             <div className="hidden lg:flex items-center space-x-4">
-              <a href="tel:+919444427748" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+              <a href="tel:+917548873688" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
                 <FaPhone style={{ fontSize: "10px" }} />
-                <span>+91 94444 27748</span>
+                <span>+91 75488 73688</span>
               </a>
               <span className="opacity-50">|</span>
               <a href="mailto:easwari.kjsb@gmail.com" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
@@ -170,7 +173,7 @@ const Header = () => {
 
             {/* Contact — Mobile (icons only) */}
             <div className="flex lg:hidden shrink-0 items-center space-x-3">
-              <a href="tel:+919444427748"           className="hover:opacity-80" aria-label="Call +91 94444 27748"><FaPhone aria-hidden="true" /></a>
+              <a href="tel:+917548873688"           className="hover:opacity-80" aria-label="Call +91 75488 73688"><FaPhone aria-hidden="true" /></a>
               <a href="mailto:easwari.kjsb@gmail.com" className="hover:opacity-80" aria-label="Email easwari.kjsb@gmail.com"><FaEnvelope aria-hidden="true" /></a>
             </div>
 

@@ -54,7 +54,7 @@ const SECTIONS = [
   {
     title: '7. Your Rights',
     body: [
-      `You may request access to, correction of, or deletion of the personal information you have shared with us. To exercise any of these rights, write to us at easwari.kjsb@gmail.com or call +91 94444 27748.`,
+      `You may request access to, correction of, or deletion of the personal information you have shared with us. To exercise any of these rights, write to us at easwari.kjsb@gmail.com or call +91 75488 73688.`,
     ],
   },
   {
@@ -78,7 +78,7 @@ const SECTIONS = [
   {
     title: '11. Contact Us',
     body: [
-      `For any privacy-related questions or requests: Sri Easwari Scientific Solution Pvt Ltd, Iyyappanthangal, Chennai — 600 122. Email: easwari.kjsb@gmail.com · Phone: +91 94444 27748.`,
+      `For any privacy-related questions or requests: Sri Easwari Scientific Solution Pvt Ltd, Iyyappanthangal, Chennai — 600 122. Email: easwari.kjsb@gmail.com · Phone: +91 75488 73688.`,
     ],
   },
 ];

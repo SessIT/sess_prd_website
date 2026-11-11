@@ -281,10 +281,16 @@ const Footer = () => {
                   transition={{ delay: 0.4 }} viewport={{ once: true }}
                 >
                   <span className="text-slate-500 text-xs uppercase tracking-widest block mb-0.5">Phone</span>
-                  <a href="tel:+919444427748"
+                  <a href="tel:+917548873688"
                     className="text-teal-400 hover:text-teal-300 transition-colors duration-200">
-                    +91 94444 27748
+                    +91 75488 73688
                   </a>
+                  <span className="block mt-1 text-xs text-slate-400">
+                    Sales – TD:{' '}
+                    <a href="tel:+919444427748" className="text-teal-400 hover:text-teal-300 transition-colors duration-200">
+                      +91 94444 27748
+                    </a>
+                  </span>
                 </motion.p>
 
                 <motion.div

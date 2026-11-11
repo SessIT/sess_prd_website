@@ -15,6 +15,7 @@ import {
   useTransform,
   animate,
 } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 /* ─── Image imports ──────────────────────────────────────── */
 import image1 from "../assets/clients/SESS_testchambersafeoperationblog_Common.webp";
@@ -99,7 +100,7 @@ const items = [
    NEWS CAROUSEL CARD
    — image-only background, "Learn More" appears on hover
 ════════════════════════════════════════════════════════════ */
-function CarouselCard({ slide, index, x, CARD_W, CARD_H, STEP, onCardClick }) {
+function CarouselCard({ slide, index, x, CARD_W, CARD_H, STEP, onCardClick, showImage }) {
   const offset = useTransform(x, (v) => index + v / STEP);
   const scale = useTransform(
     offset,
@@ -146,7 +147,7 @@ function CarouselCard({ slide, index, x, CARD_W, CARD_H, STEP, onCardClick }) {
       <div
         className="relative w-full h-full rounded-[22px] overflow-hidden shadow-2xl group cursor-grab active:cursor-grabbing"
         style={{
-          backgroundImage: `url(${slide.img})`,
+          backgroundImage: showImage ? `url(${slide.img})` : undefined,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -218,6 +219,9 @@ function CarouselPanel() {
   const N = slides.length;
   const x = useMotionValue(0);
   const dragging = useRef(false);
+  // Card photos are CSS backgrounds (no loading="lazy"), ~700 KB in total:
+  // only fetch them once the carousel is within ~one screen of the viewport.
+  const [nearRef, near] = useInView({ triggerOnce: true, rootMargin: "800px 0px" });
 
   const snapTo = (idx) => {
     const c = Math.max(0, Math.min(N - 1, idx));
@@ -242,6 +246,7 @@ function CarouselPanel() {
 
   return (
     <div
+      ref={nearRef}
       className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden py-6"
       style={{ background: "#080a12" }}
     >
@@ -309,6 +314,7 @@ function CarouselPanel() {
               CARD_W={CARD_W}
               CARD_H={CARD_H}
               STEP={STEP}
+              showImage={near}
               onCardClick={(idx) => {
                 if (!dragging.current && idx !== active) snapTo(idx);
               }}

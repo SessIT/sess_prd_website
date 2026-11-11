@@ -1,14 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import { motion } from "framer-motion";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+// Swiper (JS + CSS) loads only when the carousel goes live — see HeroSwiper.jsx.
+const HeroSwiper = lazy(() => import("./HeroSwiper"));
 
 import Slider1 from "../assets/SESS_batterytestchamberbanner_Homepage.webp";
 import Slider2 from "../assets/SESS_thermalcyclicchamberbanner_Homepage.webp";
@@ -20,10 +16,8 @@ import Slider3Sm from "../assets/SESS_flameproofovenbanner_Homepage_mobile.webp"
 // Phones get the 640w file (~half the bytes). Keep in sync with the hero
 // preload in vite.config.js (imagesizes must match for the preload to be used).
 const HERO_SIZES = "(max-width: 767px) calc(100vw - 4rem), 680px";
-const AUTOPLAY = { delay: 5000, disableOnInteraction: false };
+const HERO_MIN_H = "calc(100vh - 100px)";
 
-// IMPORTANT: declare OUTSIDE the component, only once
-const MotionLink = motion(Link);
 
 const slides = [
   {
@@ -55,19 +49,24 @@ const slides = [
 const HeroSlider = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const swiperRef = useRef(null);
-  const autoplayStarted = useRef(false);
 
-  // Autoplay starts on the visitor's first interaction, or 10s after load.
-  // Rotating while a slow phone is still rendering made slide 2 (a lazy,
-  // low-priority image) the LCP element instead of the preloaded slide 1.
+  // index.html paints a static copy of slide 1 (#hero-shell, see heroShell in
+  // vite.config.js) before any JS runs. Drop it before this hero's first paint.
+  useLayoutEffect(() => {
+    document.getElementById("hero-shell")?.remove();
+  }, []);
+
+  // The carousel goes live (Swiper loads, autoplay starts) on the visitor's
+  // first interaction, or 10s after load. Until then slide 1 is plain markup:
+  // Swiper's init forced a full-page layout (~450ms on a throttled phone) in
+  // the middle of page load, and rotating early made slide 2 the LCP element.
+  const [live, setLive] = useState(false);
   useEffect(() => {
     const events = ["scroll", "pointerdown", "keydown", "touchstart"];
     let timer;
     const start = () => {
       cleanup();
-      autoplayStarted.current = true;
-      swiperRef.current?.autoplay?.start();
+      setLive(true);
     };
     const onLoad = () => { timer = setTimeout(start, 10000); };
     const cleanup = () => {
@@ -108,6 +107,145 @@ const HeroSlider = () => {
     e.currentTarget.style.color       = isDark ? "var(--text-body)" : "var(--color-neutral-500)";
   };
 
+  const renderSlide = (slide, index) => (
+    <div
+      className="relative flex items-center w-full overflow-hidden"
+      style={{
+        minHeight: "calc(100vh - 100px)",
+        background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
+      }}
+    >
+      {/* Static gradient + slowly drifting orbs. The orbs animate with CSS
+          transforms only (compositor thread); the old framer-motion loops
+          animated background-position and repainted every frame. */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: isDark
+            ? "linear-gradient(270deg, #020617, #0f172a, #111827, #020617)"
+            : "linear-gradient(270deg, var(--color-neutral-50), var(--color-neutral-100), var(--color-neutral-0), var(--color-neutral-50))",
+        }}
+      />
+
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div
+          className="sess-orb-a"
+          style={{
+            position: "absolute", top: "2.5rem", right: "5rem",
+            width: "288px", height: "288px", borderRadius: "50%",
+            filter: "blur(48px)", opacity: 0.20,
+            background: isDark ? "var(--color-primary-500)" : "var(--color-primary-200)",
+          }}
+        />
+        <div
+          className="sess-orb-b"
+          style={{
+            position: "absolute", bottom: "2.5rem", left: "6rem",
+            width: "288px", height: "288px", borderRadius: "50%",
+            filter: "blur(48px)", opacity: 0.20,
+            background: isDark ? "var(--color-secondary-500)" : "var(--color-secondary-100)",
+          }}
+        />
+      </div>
+
+      {/* Centered content row — capped so ultra-wide (2K/4K) screens
+          don't push the text to the far-left edge of the viewport */}
+      <div className="relative z-10 flex flex-col md:flex-row items-center w-full max-w-[1760px] mx-auto">
+      <div className="w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:pl-24">
+        {/* No JS animation here: slide 1 is the LCP element and must paint
+            at once; Swiper mounts every slide at load, so slides 2-3 used to
+            finish their entrance offscreen. Kept framer-motion out of the
+            homepage's critical path. */}
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="min-w-0" style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "var(--text-sm)",
+              fontWeight: "var(--font-weight-semibold)",
+              letterSpacing: "var(--tracking-wider)",
+              textTransform: "uppercase",
+              color: "var(--color-primary-500)",
+            }}>
+              {slide.title}
+            </span>
+            <div style={{ flex: 1, height: "1px", background: isDark ? "var(--border-default)" : "var(--color-neutral-300)" }} />
+          </div>
+
+          <h2
+            className="text-center mb-5"
+            style={{
+              color: isDark ? "var(--text-heading)" : "var(--color-neutral-900)",
+              fontFamily: "var(--font-display)",
+              fontWeight: "var(--font-weight-bold)",
+              fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
+              lineHeight: "var(--leading-tight)",
+            }}
+          >
+            {slide.subtitle}
+          </h2>
+
+          <p
+            className="text-center leading-relaxed mb-6 max-w-sm mx-auto"
+            style={{
+              fontSize: "var(--text-sm)",
+              color: isDark ? "var(--text-body)" : "var(--color-neutral-500)",
+              lineHeight: "var(--leading-relaxed)",
+            }}
+          >
+            {slide.description}
+          </p>
+
+          <div className="flex justify-center">
+            <Link
+              to={slide.link}
+              className="hover:scale-[1.04] active:scale-[0.96]"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "var(--space-3)",
+                padding: "var(--space-3) var(--space-5)",
+                borderRadius: "var(--border-radius-full)",
+                // primary-700: white text on primary-500 failed WCAG contrast (2.6:1)
+                background: "var(--color-primary-700)",
+                color: "var(--color-neutral-0)",
+                fontSize: "var(--text-xs)",
+                fontWeight: "var(--font-weight-semibold)",
+                textTransform: "uppercase",
+                letterSpacing: "var(--tracking-widest)",
+                textDecoration: "none",
+                transition: "var(--transition-base)",
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = "#006060"}
+              onMouseLeave={e => e.currentTarget.style.background = "var(--color-primary-700)"}
+            >
+              Learn More<span className="sr-only"> about the {slide.title}</span>
+              <FaArrowRight style={{ fontSize: "12px" }} />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full md:w-[55%] flex items-center justify-center px-8 py-10 md:py-0">
+        <img
+          key={index}
+          src={slide.image}
+          srcSet={`${slide.imageSm} 640w, ${slide.image} 900w`}
+          sizes={HERO_SIZES}
+          alt={slide.title}
+          width={900}
+          height={765}
+          fetchPriority={index === 0 ? "high" : "low"}
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding={index === 0 ? "sync" : "async"}
+          className="w-full h-auto max-w-lg xl:max-w-xl object-contain drop-shadow-xl"
+          style={{ maxHeight: "100vh" }}
+        />
+      </div>
+      </div>
+    </div>
+  );
+  const staticSlide = <div className="w-full" style={{ minHeight: HERO_MIN_H }}>{renderSlide(slides[0], 0)}</div>;
+
   return (
     <section
       style={{
@@ -138,173 +276,11 @@ const HeroSlider = () => {
         <FaArrowRight style={{ fontSize: "14px" }} />
       </button>
 
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-          if (!autoplayStarted.current) swiper.autoplay?.stop();
-          setTimeout(() => {
-            if (swiper.params && swiper.navigation) {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-              swiper.navigation.init();
-              swiper.navigation.update();
-            }
-          });
-        }}
-        pagination={{ clickable: true }}
-        autoplay={AUTOPLAY}
-        loop={true}
-        className="w-full"
-        style={{ minHeight: "calc(100vh - 100px)" }}
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            <div
-              className="relative flex items-center w-full overflow-hidden"
-              style={{
-                minHeight: "calc(100vh - 100px)",
-                background: isDark ? "var(--color-neutral-950)" : "var(--bg-subtle)",
-              }}
-            >
-              {/* Static gradient + slowly drifting orbs. The orbs animate with CSS
-                  transforms only (compositor thread); the old framer-motion loops
-                  animated background-position and repainted every frame. */}
-              <div
-                className="absolute inset-0 z-0"
-                style={{
-                  background: isDark
-                    ? "linear-gradient(270deg, #020617, #0f172a, #111827, #020617)"
-                    : "linear-gradient(270deg, var(--color-neutral-50), var(--color-neutral-100), var(--color-neutral-0), var(--color-neutral-50))",
-                }}
-              />
-
-              <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <div
-                  className="sess-orb-a"
-                  style={{
-                    position: "absolute", top: "2.5rem", right: "5rem",
-                    width: "288px", height: "288px", borderRadius: "50%",
-                    filter: "blur(48px)", opacity: 0.20,
-                    background: isDark ? "var(--color-primary-500)" : "var(--color-primary-200)",
-                  }}
-                />
-                <div
-                  className="sess-orb-b"
-                  style={{
-                    position: "absolute", bottom: "2.5rem", left: "6rem",
-                    width: "288px", height: "288px", borderRadius: "50%",
-                    filter: "blur(48px)", opacity: 0.20,
-                    background: isDark ? "var(--color-secondary-500)" : "var(--color-secondary-100)",
-                  }}
-                />
-              </div>
-
-              {/* Centered content row — capped so ultra-wide (2K/4K) screens
-                  don't push the text to the far-left edge of the viewport */}
-              <div className="relative z-10 flex flex-col md:flex-row items-center w-full max-w-[1760px] mx-auto">
-              <div className="w-full md:w-[45%] flex flex-col justify-center px-8 md:px-16 py-10 md:py-0 lg:pl-24">
-                <motion.div
-                  key={`text-${index}`}
-                  // First slide renders immediately (it is the LCP element);
-                  // later slides keep their entrance animation.
-                  initial={index === 0 ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
-                >
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="min-w-0" style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-sm)",
-                      fontWeight: "var(--font-weight-semibold)",
-                      letterSpacing: "var(--tracking-wider)",
-                      textTransform: "uppercase",
-                      color: "var(--color-primary-500)",
-                    }}>
-                      {slide.title}
-                    </span>
-                    <div style={{ flex: 1, height: "1px", background: isDark ? "var(--border-default)" : "var(--color-neutral-300)" }} />
-                  </div>
-
-                  <h2
-                    className="text-center mb-5"
-                    style={{
-                      color: isDark ? "var(--text-heading)" : "var(--color-neutral-900)",
-                      fontFamily: "var(--font-display)",
-                      fontWeight: "var(--font-weight-bold)",
-                      fontSize: "clamp(var(--text-2xl), 3vw, var(--text-3xl))",
-                      lineHeight: "var(--leading-tight)",
-                    }}
-                  >
-                    {slide.subtitle}
-                  </h2>
-
-                  <p
-                    className="text-center leading-relaxed mb-6 max-w-sm mx-auto"
-                    style={{
-                      fontSize: "var(--text-sm)",
-                      color: isDark ? "var(--text-body)" : "var(--color-neutral-500)",
-                      lineHeight: "var(--leading-relaxed)",
-                    }}
-                  >
-                    {slide.description}
-                  </p>
-
-                  <div className="flex justify-center">
-                    <MotionLink
-                      to={slide.link}
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.96 }}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "var(--space-3)",
-                        padding: "var(--space-3) var(--space-5)",
-                        borderRadius: "var(--border-radius-full)",
-                        // primary-700: white text on primary-500 failed WCAG contrast (2.6:1)
-                        background: "var(--color-primary-700)",
-                        color: "var(--color-neutral-0)",
-                        fontSize: "var(--text-xs)",
-                        fontWeight: "var(--font-weight-semibold)",
-                        textTransform: "uppercase",
-                        letterSpacing: "var(--tracking-widest)",
-                        textDecoration: "none",
-                        transition: "var(--transition-base)",
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.background = "#006060"}
-                      onMouseLeave={e => e.currentTarget.style.background = "var(--color-primary-700)"}
-                    >
-                      Learn More<span className="sr-only"> about the {slide.title}</span>
-                      <FaArrowRight style={{ fontSize: "12px" }} />
-                    </MotionLink>
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="w-full md:w-[55%] flex items-center justify-center px-8 py-10 md:py-0">
-                <motion.img
-                  key={index}
-                  src={slide.image}
-                  srcSet={`${slide.imageSm} 640w, ${slide.image} 900w`}
-                  sizes={HERO_SIZES}
-                  alt={slide.title}
-                  width={900}
-                  height={765}
-                  fetchPriority={index === 0 ? "high" : "low"}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  decoding={index === 0 ? "sync" : "async"}
-                  initial={index === 0 ? false : { opacity: 0, x: -40, scale: 0.96 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="w-full h-auto max-w-lg xl:max-w-xl object-contain drop-shadow-xl"
-                  style={{ maxHeight: "100vh" }}
-                />
-              </div>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {live ? (
+        <Suspense fallback={staticSlide}>
+          <HeroSwiper slides={slides} renderSlide={renderSlide} prevRef={prevRef} nextRef={nextRef} minHeight={HERO_MIN_H} />
+        </Suspense>
+      ) : staticSlide}
     </section>
   );
 };

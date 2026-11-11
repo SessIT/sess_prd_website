@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// `m` = framer-motion's lightweight component; the engine loads via LazyMotion (App.jsx)
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { OPEN_ENQUIRY_EVENT, OPEN_SEARCH_EVENT, OPEN_BROCHURE_EVENT } from './openEnquiry';

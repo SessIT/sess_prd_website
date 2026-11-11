@@ -1,5 +1,4 @@
-import React, { useEffect, lazy, Suspense } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
 // Home Components
@@ -39,9 +38,47 @@ const HomePage = () => {
   // which chained ~10 requests one after another on slow mobile networks.
   // Start every section download in parallel once the hero has painted
   // (the browser's module map dedupes import(), so nothing is fetched twice).
+  // Wait for window load + an idle slot so this parse/compile work doesn't land
+  // in the page's loading window (it counted toward Total Blocking Time).
+  // A first scroll/tap mounts the sections and fetches them right away anyway.
   useEffect(() => {
-    Object.values(sectionLoaders).forEach((load) => load());
+    let idleId;
+    let timer;
+    const preload = () => Object.values(sectionLoaders).forEach((load) => load());
+    const schedule = () => {
+      if ('requestIdleCallback' in window) idleId = window.requestIdleCallback(preload, { timeout: 3000 });
+      else timer = setTimeout(preload, 1500);
+    };
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
+    return () => {
+      window.removeEventListener('load', schedule);
+      if (idleId) window.cancelIdleCallback(idleId);
+      clearTimeout(timer);
+    };
   }, []);
+
+  // Below-the-fold sections mount on the visitor's first scroll/tap/key, or as
+  // soon as their placeholder comes near the viewport (tall screens, crawlers
+  // that render with a tall viewport). Mounting all ten at load was 0.5–1s of
+  // main-thread work while the page was still becoming interactive.
+  const [showSections, setShowSections] = useState(false);
+  const sectionsRef = useRef(null);
+  useEffect(() => {
+    if (showSections) return;
+    const events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+    const show = () => setShowSections(true);
+    events.forEach((e) => window.addEventListener(e, show, { once: true, passive: true }));
+    const io = new IntersectionObserver(
+      (entries) => entries.some((e) => e.isIntersecting) && show(),
+      { rootMargin: '0px' }
+    );
+    if (sectionsRef.current) io.observe(sectionsRef.current);
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, show));
+      io.disconnect();
+    };
+  }, [showSections]);
 
   // Reinitialize Facebook SDK after component renders
   useEffect(() => {
@@ -56,12 +93,7 @@ const HomePage = () => {
     : 'from-blue-600 via-cyan-600 to-blue-600';
 
   return (
-    <motion.div
-      initial={false}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="bg-white"
-    >
+    <div className="bg-white">
       {/* Scroll Progress Bar */}
       {/* Pure CSS scroll-driven animation (.scroll-progress in index.css) —
           no JS scroll listener or layout reads; hidden where unsupported. */}
@@ -73,23 +105,30 @@ const HomePage = () => {
         Environmental Test Chamber Manufacturer in India – Sri Easwari Scientific Solution (SESS)
       </h1>
       <HeroSlider />
-      {/* 100vh placeholder keeps the footer below the fold while sections load (no layout shift) */}
-      <Suspense fallback={<div style={{ minHeight: '100vh' }} aria-busy="true" />}>
-        <AboutSection />
-        <OtherDept />
-        {/*dept section*/}
-        <ProductsSection />
-        <ServicesSection />
-        <CounterSection />
-        <TestimonialsSection />
-        <ClientsSection />      
-        <NewsSection /> 
-        <Social />
-        {/* <VideoTest /> */}
+      {/* 100vh placeholder keeps the footer below the fold until the sections
+          mount and load (no layout shift). One Suspense boundary per section, so
+          each mounts in its own small commit as its chunk arrives. */}
+      {showSections ? (
+        <>
+          <Suspense fallback={<div style={{ minHeight: '100vh' }} aria-busy="true" />}>
+            <AboutSection />
+          </Suspense>
+          {[OtherDept, ProductsSection, ServicesSection, CounterSection, TestimonialsSection,
+            ClientsSection, NewsSection, Social].map((Section, i) => (
+            <Suspense key={i} fallback={null}>
+              <Section />
+            </Suspense>
+          ))}
+        </>
+      ) : (
+        <div ref={sectionsRef} style={{ minHeight: '100vh' }} aria-busy="true" />
+      )}
+      <Suspense fallback={null}>
         <WhatsAppWidget />
       </Suspense>
+      {/* <VideoTest /> — video section hidden; re-enable above when needed */}
       {/* <CTASection /> */}
-    </motion.div>
+    </div>
   );
 };
 

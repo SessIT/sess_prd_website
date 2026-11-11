@@ -26,7 +26,7 @@ export const ORGANIZATION = {
     'Manufacturer of environmental test chambers in Chennai, India — climatic, thermal shock, salt spray, battery, rain, dust, vibration and walk-in chambers.',
   foundingDate: '2010',
   email: 'sales@sess.co.in',
-  telephone: '+91-94444-27748',
+  telephone: '+91-75488-73688',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Door No 2/298, ANE Garden, Perumal Kovil Street, Srinivasapuram, Paraniputhur Post, Iyyappanthangal',
@@ -38,7 +38,7 @@ export const ORGANIZATION = {
   contactPoint: [
     {
       '@type': 'ContactPoint',
-      telephone: '+91-94444-27748',
+      telephone: '+91-75488-73688',
       contactType: 'sales',
       email: 'sales@sess.co.in',
       areaServed: 'IN',
@@ -62,14 +62,18 @@ export const DEFAULT_SEO = {
   image: DEFAULT_IMAGE,
 };
 
+// `h1` is the page's main heading in the prerendered HTML that crawlers and
+// SEO checkers read before JS runs (vite.config.js); defaults to `name`.
+
 // `product` marks product pages: adds a Products breadcrumb and a product share image.
 // (No schema.org Product: without a price/offer Google Search Console flags it as invalid.)
 const product = (name, slug) => ({ product: { name, image: `/images/og/${slug}.jpg` }, image: `/images/og/${slug}.jpg` });
 
 export const SEO_CONFIG = {
-  '/': { ...DEFAULT_SEO, name: 'Home' },
+  '/': { ...DEFAULT_SEO, name: 'Home', h1: 'Environmental Test Chamber Manufacturer in India – Sri Easwari Scientific Solution (SESS)' },
   '/about': {
     name: 'About Us',
+    h1: 'About SESS – Environmental Test Chamber Manufacturer in Chennai',
     title: `About SESS | Test Chamber Manufacturer Since 2010`,
     description:
       'Sri Easwari Scientific Solution Pvt Ltd (SESS) has designed and built environmental test chambers in Chennai since 2010, serving 500+ clients across India.',
@@ -78,6 +82,7 @@ export const SEO_CONFIG = {
   },
   '/products': {
     name: 'Products',
+    h1: 'Environmental Test Chambers – Complete Product Range',
     title: `Environmental Test Chambers – Full Product Range | ${SITE}`,
     description:
       'Explore SESS environmental test chambers: climatic, thermal shock, thermal cycling, salt spray, battery, rain, dust, vibration, walk-in and tabletop models.',
@@ -86,6 +91,7 @@ export const SEO_CONFIG = {
   },
   '/services': {
     name: 'Services',
+    h1: 'Test Chamber Installation, Calibration, Service & AMC',
     title: `Test Chamber Service, AMC & Calibration in India | ${SITE}`,
     description:
       'Installation, preventive maintenance, calibration, refurbishment and AMC for environmental test chambers — fast on-site support across India from SESS.',
@@ -94,6 +100,7 @@ export const SEO_CONFIG = {
   },
   '/gallery': {
     name: 'Gallery',
+    h1: 'Gallery – SESS Test Chamber Installations & Facility',
     title: `Gallery – Test Chamber Installations & Facility | ${SITE}`,
     description:
       'Photos of SESS environmental test chambers, client installations, manufacturing facility and turnkey testing laboratory projects delivered across India.',
@@ -102,6 +109,7 @@ export const SEO_CONFIG = {
   },
   '/career': {
     name: 'Careers',
+    h1: 'Careers at Sri Easwari Scientific Solution, Chennai',
     title: `Careers at SESS – Engineering Jobs in Chennai | ${SITE}`,
     description:
       'Join Sri Easwari Scientific Solution in Chennai. Openings in mechanical design, refrigeration, production, field service and PLC/LabVIEW automation.',
@@ -110,6 +118,7 @@ export const SEO_CONFIG = {
   },
   '/news': {
     name: 'News & Blogs',
+    h1: 'News & Blogs on Environmental Testing',
     title: `News & Blogs – Environmental Testing Insights | ${SITE}`,
     description:
       'News, articles and insights from SESS on environmental testing, test chamber technology, IEC/ISO testing standards, exhibitions and company updates.',
@@ -118,14 +127,16 @@ export const SEO_CONFIG = {
   },
   '/contact': {
     name: 'Contact Us',
+    h1: 'Contact SESS for Test Chamber Quotes & Support',
     title: `Contact SESS Chennai – Test Chamber Quote & Support`,
     description:
-      'Contact Sri Easwari Scientific Solution, Chennai, for test chamber quotes, service and support. Call +91 94444 27748 or email sales@sess.co.in.',
+      'Contact Sri Easwari Scientific Solution, Chennai, for test chamber quotes, service and support. Call +91 75488 73688 or email sales@sess.co.in.',
     keywords:
       'contact SESS, test chamber quote, environmental chamber enquiry, test chamber supplier Chennai, SESS phone number, SESS address',
   },
   '/brochure': {
     name: 'Brochure',
+    h1: 'SESS Company Profile & Environmental Test Chamber Brochure',
     title: `Company Profile & Product Brochure | ${SITE}`,
     description:
       'View the SESS company profile and product brochure online — specifications for our full range of environmental test chambers and testing solutions.',
@@ -134,6 +145,7 @@ export const SEO_CONFIG = {
   },
   '/design': {
     name: 'Design Team',
+    h1: 'Custom Test Chamber Design & Engineering',
     title: `Custom Test Chamber Design & Engineering | ${SITE}`,
     description:
       'SESS design team engineers custom environmental test chambers — 3D CAD, refrigeration and airflow design, control panels and special-purpose test rigs.',
@@ -142,6 +154,7 @@ export const SEO_CONFIG = {
   },
   '/labview-plc': {
     name: 'LabVIEW & PLC',
+    h1: 'LabVIEW & PLC Automation and Data Acquisition',
     title: `LabVIEW & PLC Automation, Data Acquisition | ${SITE}`,
     description:
       'Custom LabVIEW and PLC automation from SESS — test-bench control, data acquisition (DAQ), SCADA/HMI and test chamber integration for industry and labs.',
@@ -150,14 +163,34 @@ export const SEO_CONFIG = {
   },
   '/it': {
     name: 'IT Solutions',
+    h1: 'IT & Software Solutions for Labs and Industry',
     title: `IT & Software Solutions for Labs and Industry | ${SITE}`,
     description:
       'SESS IT team builds test data management, reporting dashboards, web apps and custom software for testing laboratories and manufacturing companies.',
     keywords:
       'IT solutions Chennai, test data management software, laboratory software, custom software development, web application development',
   },
+  '/erp': {
+    name: 'SESS ERP',
+    h1: 'SESS ERP — Built Around the Work of Manufacturing',
+    title: `ERP Software for Manufacturing & Service Businesses | ${SITE}`,
+    description:
+      'SESS ERP connects project, purchase, stores, production, HR and service workflows for manufacturing businesses. Explore dashboards — launching April 2027.',
+    keywords:
+      'ERP for manufacturing, manufacturing ERP India, ERP software Chennai, project costing ERP, purchase and inventory management, stores management software, SESS ERP',
+  },
+  '/hrms': {
+    name: 'SESS HRMS',
+    h1: 'SESS HRMS — HR, Attendance & Payroll Software with Mobile App',
+    title: `HRMS Software with Attendance & Payroll App | ${SITE}`,
+    description:
+      'SESS HRMS: fingerprint & face-verified on-site punch-in, team chat, events, task management, leave approvals and payroll reports — web + mobile app.',
+    keywords:
+      'HRMS software India, face recognition attendance app, biometric attendance, geofence attendance, payroll software Chennai, employee mobile app, team chat and task management, leave management system, SESS HRMS',
+  },
   '/climatic-test-chamber': {
     name: 'Climatic Test Chamber',
+    h1: 'Climatic Test Chamber (Temperature & Humidity)',
     title: `Climatic Test Chamber (Temperature & Humidity) | ${SITE}`,
     description:
       'Climatic test chambers for temperature and humidity testing to IEC 60068-2-1/-2/-30/-78. Precise control, PLC/HMI, data logging and custom sizes.',
@@ -167,6 +200,7 @@ export const SEO_CONFIG = {
   },
   '/battery-test-chamber': {
     name: 'Battery Test Chamber',
+    h1: 'Battery Test Chamber for EV & Lithium-ion Cells',
     title: `Battery Test Chamber for EV & Li-ion Cells | ${SITE}`,
     description:
       'Battery test chambers for EV and lithium-ion cells, modules and packs — temperature cycling with safety-focused construction and custom configurations.',
@@ -176,6 +210,7 @@ export const SEO_CONFIG = {
   },
   '/salt-spray-test-chamber': {
     name: 'Salt Spray Test Chamber',
+    h1: 'Salt Spray Test Chamber for Corrosion Testing',
     title: `Salt Spray Test Chamber – Corrosion Testing | ${SITE}`,
     description:
       'Salt spray (fog) test chambers for corrosion testing to ISO 9227 and IS 9000. Corrosion-proof build, precise fog control and custom chamber sizes.',
@@ -185,6 +220,7 @@ export const SEO_CONFIG = {
   },
   '/rain-test-chamber': {
     name: 'Rain Test Chamber',
+    h1: 'Rain Test Chamber for IPX1–IPX9K Water Ingress Testing',
     title: `Rain Test Chamber – IPX1 to IPX9K Testing | ${SITE}`,
     description:
       'Rain test chambers for IPX1–IPX9K water ingress testing of enclosures, automotive parts and electronics as per IEC 60529 and ISO 20653.',
@@ -194,6 +230,7 @@ export const SEO_CONFIG = {
   },
   '/vibration-test-chamber': {
     name: 'Vibration Test Chamber',
+    h1: 'Vibration Combined Climatic Test Chamber',
     title: `Vibration Combined Climatic Test Chamber | ${SITE}`,
     description:
       'Combined vibration and climatic test chambers (AGREE) for automotive, electronics and defence testing to IEC 60068-2-6/-64 and MIL-STD-810.',
@@ -203,6 +240,7 @@ export const SEO_CONFIG = {
   },
   '/thermal-cyclic-chamber': {
     name: 'Thermal Cyclic Chamber',
+    h1: 'Thermal Cycling Chamber for Rapid Temperature Change Testing',
     title: `Thermal Cycling Chamber – Rapid Temperature Test | ${SITE}`,
     description:
       'Thermal cycling chambers for rapid temperature change testing and stress screening of electronics to IEC 60068-2-14, with programmable profiles.',
@@ -212,6 +250,7 @@ export const SEO_CONFIG = {
   },
   '/thermal-shock-chamber': {
     name: 'Thermal Shock Chamber',
+    h1: 'Two-Zone Thermal Shock Test Chamber',
     title: `Thermal Shock Test Chamber – Two-Zone | ${SITE}`,
     description:
       'Two-zone thermal shock test chambers for rapid hot-to-cold transfer testing of electronic components and assemblies, with fast recovery times.',
@@ -221,6 +260,7 @@ export const SEO_CONFIG = {
   },
   '/flame-proof-hot-air-oven': {
     name: 'Flame Proof Hot Air Oven',
+    h1: 'Flame Proof Hot Air Oven',
     title: `Flame Proof Hot Air Oven Manufacturer | ${SITE}`,
     description:
       'Flame proof hot air ovens for safe drying, curing and heating in hazardous areas — flameproof construction with precise, uniform temperature control.',
@@ -230,6 +270,7 @@ export const SEO_CONFIG = {
   },
   '/tabletop-test-chamber': {
     name: 'Tabletop Test Chamber',
+    h1: 'Tabletop (Benchtop) Climatic Test Chamber',
     title: `Tabletop (Benchtop) Climatic Test Chamber | ${SITE}`,
     description:
       'Compact tabletop climatic test chambers for temperature and humidity testing in labs with limited space — benchtop size, full-size performance.',
@@ -239,6 +280,7 @@ export const SEO_CONFIG = {
   },
   '/walk-in-chamber': {
     name: 'Walk-In Chamber',
+    h1: 'Walk-In Environmental Test Chamber',
     title: `Walk-In Environmental Test Chamber | ${SITE}`,
     description:
       'Walk-in environmental chambers for large products and vehicles — custom room-size temperature and humidity test chambers built to your specification.',
@@ -248,6 +290,7 @@ export const SEO_CONFIG = {
   },
   '/dust-chamber': {
     name: 'Dust Test Chamber',
+    h1: 'Dust Test Chamber for IP5X / IP6X Testing',
     title: `Dust Test Chamber – IP5X / IP6X Testing | ${SITE}`,
     description:
       'Dust test chambers for IP5X/IP6X and IP5K/IP6K dust ingress testing of enclosures and automotive parts as per IEC 60529 and ISO 20653.',
@@ -257,6 +300,7 @@ export const SEO_CONFIG = {
   },
   '/tensile-chamber': {
     name: 'Tensile Test Chamber',
+    h1: 'Tensile Test Chamber for UTM Temperature Testing',
     title: `Tensile Test Chamber for UTM – Temp Testing | ${SITE}`,
     description:
       'Environmental tensile test chambers that fit universal testing machines (UTM) for material testing at controlled high and low temperatures.',
@@ -289,6 +333,7 @@ export const NOT_FOUND_SEO = {
   description: DEFAULT_SEO.description,
   keywords: DEFAULT_SEO.keywords,
   noindex: true,
+  h1: 'Page Not Found',
 };
 
 // Full SEO record for a path: merges defaults, resolves absolute URLs and
@@ -327,5 +372,5 @@ export function resolveSeo(pathname) {
     }),
   };
 
-  return { ...seo, url, image, noindex: !!seo.noindex, jsonLd };
+  return { ...seo, h1: seo.h1 || seo.name, url, image, noindex: !!seo.noindex, jsonLd };
 }

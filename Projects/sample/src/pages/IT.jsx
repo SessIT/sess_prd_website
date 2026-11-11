@@ -169,8 +169,8 @@ const ItTeam = () => {
     {
       id: 2,
       icon: <Gauge className="w-5 h-5 text-emerald-500" strokeWidth={1.5} />,
-      title: 'Web Application Development',
-      description: 'Our web application development services deliver scalable, secure, and high-performance solutions. We create custom web apps using the latest technologies to streamline business operations. Improve user experience with fast, responsive, and cloud-based applications.',
+      title: 'Web & Mobile Apps Dev',
+      description: 'Our Web & Mobile application development services deliver scalable, secure, and high-performance solutions. We create custom web apps using the latest technologies to streamline business operations. Improve user experience with fast, responsive, and cloud-based applications.',
       tags: ['UX/UI', 'Optimized', 'Interactive'],
       image: webapp_dev,
     },

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes } from 'react-icons/fa';
 // import axios from 'axios';
 import { useTheme } from '../context/ThemeContext';
 import emailjs from '@emailjs/browser';
+import { ReCaptcha, RECAPTCHA_ENABLED, captchaParams, CAPTCHA_REQUIRED_MESSAGE } from './ReCaptcha';
 
 const EMAILJS_SERVICE_ID =
   import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -21,6 +22,8 @@ const MotionButton = motion.button;
 const EnquiryModal = ({ isOpen, onClose, prefillProduct = '' }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const captchaRef = useRef(null);
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', company: '',
@@ -312,6 +315,11 @@ const EnquiryModal = ({ isOpen, onClose, prefillProduct = '' }) => {
     return;
   }
 
+  if (RECAPTCHA_ENABLED && !captchaToken) {
+    alert(CAPTCHA_REQUIRED_MESSAGE);
+    return;
+  }
+
   setIsSubmitting(true);
 
   try {
@@ -352,7 +360,7 @@ const EnquiryModal = ({ isOpen, onClose, prefillProduct = '' }) => {
 await emailjs.send(
   EMAILJS_SERVICE_ID,
   EMAILJS_TEMPLATE_ID,
-  emailData,
+  { ...emailData, ...captchaParams(captchaToken) },
   EMAILJS_PUBLIC_KEY
 );
 
@@ -385,6 +393,7 @@ await emailjs.send(
     console.error(error);
     setSubmitStatus('error');
   } finally {
+    captchaRef.current?.reset();
     setIsSubmitting(false);
   }
 };
@@ -722,6 +731,8 @@ await emailjs.send(
                   />
                 </div>
               </div>
+
+              <ReCaptcha ref={captchaRef} onChange={setCaptchaToken} theme={isDark ? 'dark' : 'light'} style={{ marginTop: 'var(--space-6)' }} />
 
               {/* Submit Button */}
               <div style={{ marginTop: 'var(--space-6)' }}>

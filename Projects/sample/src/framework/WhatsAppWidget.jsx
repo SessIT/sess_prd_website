@@ -46,7 +46,7 @@ const WhatsAppWidget = () => {
           {/* Button */}
           <div className="p-3 border-t">
             <a
-              href="https://api.whatsapp.com/send?phone=919444427748&text=Hello"
+              href="https://api.whatsapp.com/send?phone=917548873688&text=Hello"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center bg-[#00b3b3] text-white py-2 rounded-lg hover:bg-[#048d8d] transition"

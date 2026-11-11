@@ -28,18 +28,22 @@ const ServicesSection = () => {
   const isDark = theme === 'dark';
 
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  // CSS backgrounds ignore loading="lazy": fetch the photo only once the
+  // section is within ~one screen of the viewport, not during page load.
+  const [bgRef, bgNear] = useInView({ triggerOnce: true, rootMargin: '800px 0px' });
+  const setRefs = (el) => { ref(el); bgRef(el); };
 
   /* Overlay opacity — slightly lighter in light mode so the bg image breathes */
   const overlayBg = isDark ? 'rgba(0, 0, 0, 0.66)' : 'rgba(0, 0, 0, 0.5)';
 
   return (
     <section
-      ref={ref}
+      ref={setRefs}
       className="bg-fixed-desktop"
       style={{
         position: 'relative',
         padding: 'var(--space-20) 0',
-        backgroundImage: `url(${ServicesBg})`,
+        backgroundImage: bgNear ? `url(${ServicesBg})` : undefined,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

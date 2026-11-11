@@ -34,8 +34,8 @@ const testimonials = [
     color: 'var(--color-primary-400)',
   },
   {
-    name: 'Priya Ramesh',
-    role: 'Product Engineer',
+    name: 'Ilamparithi D',
+    role: 'Software Engineer',
     text: 'Delivered precise results. Zero downtime in 18 months of continuous operation.',
     avatar: 'PR',
     color: 'var(--color-primary-400)',
@@ -45,7 +45,7 @@ const testimonials = [
 /* ── Card ─────────────────────────────────────────────────────────────────── */
 const TestimonialCard = ({ t }) => (
   <div
-    className="flex-shrink-0 w-72 mx-3 rounded-2xl p-6 flex flex-col"
+    className="flex flex-col flex-shrink-0 p-6 mx-3 w-72 rounded-2xl"
     style={{
       background: 'rgba(15, 15, 25, 0.78)',
       backdropFilter: 'blur(16px)',
@@ -63,14 +63,14 @@ const TestimonialCard = ({ t }) => (
     </div> */}
 
     {/* Quote */}
-    <p className="text-sm text-gray-300 leading-relaxed italic flex-1">
+    <p className="flex-1 text-sm italic leading-relaxed text-gray-300">
       "{t.text}"
     </p>
 
     {/* Author */}
-    <div className="flex items-center gap-3 mt-5 pt-4 border-t border-white/10">
+    <div className="flex items-center gap-3 pt-4 mt-5 border-t border-white/10">
       <div
-        className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+        className="flex items-center justify-center flex-shrink-0 text-xs font-bold text-white rounded-full w-9 h-9"
         style={{
           background: `linear-gradient(135deg, ${t.color}, ${t.color}88)`,
         }}
@@ -78,7 +78,7 @@ const TestimonialCard = ({ t }) => (
         {t.avatar}
       </div>
       <div>
-        <div className="text-sm text-white font-semibold leading-tight">{t.name}</div>
+        <div className="text-sm font-semibold leading-tight text-white">{t.name}</div>
         <div className="text-xs mt-0.5 font-medium" style={{ color: t.color }}>
           {t.role}
         </div>
@@ -96,7 +96,7 @@ const MarqueeRow = ({ items }) => {
 
   return (
     <div
-      className="overflow-hidden w-full"
+      className="w-full overflow-hidden"
       style={{
         maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
         WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',

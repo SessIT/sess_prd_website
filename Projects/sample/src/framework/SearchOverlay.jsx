@@ -25,6 +25,8 @@ const SEARCH_INDEX = [
   { title: 'Design Services', path: '/design', group: 'Services', keywords: 'cad mechanical product design engineering' },
   { title: 'LabView & PLC', path: '/labview-plc', group: 'Services', keywords: 'automation programming scada controls' },
   { title: 'Software Development - IT', path: '/it', group: 'Services', keywords: 'web development seo digital marketing software' },
+  { title: 'SESS ERP', path: '/erp', group: 'Services', keywords: 'erp manufacturing software purchase stores inventory production project cost hr payroll' },
+  { title: 'SESS HRMS', path: '/hrms', group: 'Services', keywords: 'hrms hr software attendance payroll leave employee app mobile punch in biometric fingerprint face verification geofence chat team chat events tasks reimbursement payslip' },
   { title: 'Our Services', path: '/services', group: 'Services', keywords: 'support installation maintenance training calibration' },
   // Company
   { title: 'About Us', path: '/about', group: 'Company', keywords: 'company sess sri easwari scientific solution history' },

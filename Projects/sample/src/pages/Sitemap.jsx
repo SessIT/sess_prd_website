@@ -45,6 +45,8 @@ const SECTIONS = [
       { label: 'Design Services', path: '/design' },
       { label: 'LabView & PLC', path: '/labview-plc' },
       { label: 'Software Development - IT', path: '/it' },
+      { label: 'SESS ERP', path: '/erp' },
+      { label: 'SESS HRMS', path: '/hrms' },
     ],
   },
   {

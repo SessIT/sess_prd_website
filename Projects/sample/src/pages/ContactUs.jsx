@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import { ReCaptcha, RECAPTCHA_ENABLED, captchaParams, CAPTCHA_REQUIRED_MESSAGE } from '../framework/ReCaptcha';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -309,6 +310,8 @@ const PartnerCard = ({ item, index }) => (
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState('idle');
+  const captchaRef = useRef(null);
+  const [captchaToken, setCaptchaToken] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
 
@@ -336,6 +339,10 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
+  if (RECAPTCHA_ENABLED && !captchaToken) {
+    alert(CAPTCHA_REQUIRED_MESSAGE);
+    return;
+  }
   setFormStatus('submitting');
 
   try {
@@ -348,6 +355,7 @@ const Contact = () => {
       email: formData.email || 'Not specified',
       phone: formData.phone || 'Not specified',
       message: formData.message || 'Not specified',
+      ...captchaParams(captchaToken),
     };
 
     await emailjs.send(
@@ -357,6 +365,7 @@ const Contact = () => {
       EMAILJS_PUBLIC_KEY
     );
 
+    captchaRef.current?.reset();
     setFormStatus('success');
 
     setFormData({
@@ -369,6 +378,7 @@ const Contact = () => {
     setTimeout(() => setFormStatus('idle'), 3500);
   } catch (error) {
     console.error('EmailJS Error:', error);
+    captchaRef.current?.reset();
     setFormStatus('error');
     setTimeout(() => setFormStatus('idle'), 3000);
   }
@@ -391,7 +401,7 @@ const Contact = () => {
   // 9 department contacts — rendered in a 3×3 grid
   const chennaiDepartmentContacts = [
     { badge: 'MD', department: 'Managing Director',   phone: '+91 94444 59430', email: 'info@gmail.com' },
-    { badge: 'TD', department: 'Technical Director',  phone: '+91 94444 27748', email: 'sales@sess.co.in' },
+    { badge: 'TD', department: 'Sales – TD',          phone: '+91 94444 27748', email: 'sales@sess.co.in' },
     { badge: 'AD', department: 'Administrative',      phone: '+91 75488 73688', email: 'admin@sess.co.in' },
     { badge: 'HR', department: 'Human Resources',     phone: '+91 75488 70106', email: 'hr@sess.co.in' },
     { badge: 'PM', department: 'Production Manager',  phone: '+91 75488 70206', email: 'easwari.kjsb@sess.co.in' },
@@ -410,7 +420,7 @@ const Contact = () => {
   // 3 regional partners
   const partnerCards = [
     { name: 'ARVISPEC LLP',  phone: '+91 94444 59430', email: 'Pune & Hyderabad' },
-    { name: 'Undre Enterprises', phone: '+91 94444 27748', email: 'Pune' },
+    { name: 'Undre Enterprises', phone: '+91 75488 73688', email: 'Pune' },
     { name: 'Kurban Ali Dynamic',  phone: '+91 75488 74688', email: 'Delhi' },
   ];
 
@@ -613,6 +623,8 @@ const Contact = () => {
                     </div>
 
                     <FloatingInput label="Your Message" id="message" name="message" as="textarea" rows={5} value={formData.message} onChange={handleChange} required placeholder="Tell us about your requirements…" />
+
+                    <ReCaptcha ref={captchaRef} onChange={setCaptchaToken} />
 
                     <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row">
                       <MagneticButton
