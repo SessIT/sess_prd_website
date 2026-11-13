@@ -9,11 +9,11 @@ import { SectionHeader } from './SharedUI';
 
 /* ─── Timeline data (top = latest) ───────────────────────────────── */
 const MILESTONES = [
-  { year: '2026', tag: 'Present', label: 'Tech Upgrading...',    desc: 'Serving 500+ clients worldwide with advanced R&D and cutting-edge environmental test chambers.',    side: 'right' },
+  { year: '2026', tag: 'Present', label: 'Tech Upgrading...',    desc: 'Serving 250+ clients worldwide with advanced R&D and cutting-edge environmental test chambers.',    side: 'right' },
   { year: '2025', tag: 'Recent',  label: 'New Product House', desc: 'Renewed ISO 9001 certification and launched next-generation climatic & thermal chamber lineup.',     side: 'left'  },
   { year: '2020', tag: '10 Yrs',  label: 'Product Development',   desc: 'Expanded service network across 20+ states — 300+ satisfied industrial and pharma clients.',           side: 'right' },
   { year: '2015', tag: '5 Yrs',   label: 'Expansion Phase',       desc: 'Achieved ISO 9001 quality certification; crossed 100 clients with a dedicated after-sales team.',       side: 'left'  },
-  { year: '2010', tag: 'Founded', label: 'Initial Growth',  desc: 'Sri Easwari Scientific Solutions Pvt Ltd incorporated in Chennai — beginning 15+ years of excellence.', side: 'right' },
+  { year: '2010', tag: 'Founded', label: 'Initial Growth',  desc: 'Sri Easwari Scientific Solutions Pvt Ltd incorporated in Chennai — beginning 16+ years of excellence.', side: 'right' },
 ];
 
 const startYear = 2010;

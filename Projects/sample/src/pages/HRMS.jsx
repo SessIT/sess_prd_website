@@ -131,7 +131,7 @@ const faqs = [
 
 /* Fictional sample data for the illustrative mock-ups. */
 const sampleStaff = [
-  { n: 'Ilamparithi D', role: 'Accounts Executive', id: 'EMP-1012', st: 'In', t: '09:12 AM', late: false },
+  { n: 'Ilamparithi D', role: 'Software Engineer', id: 'EMP-1012', st: 'In', t: '09:12 AM', late: false },
   { n: 'Surendar', role: 'Design Engineer', id: 'EMP-1027', st: 'In', t: '09:41 AM', late: true },
   { n: 'Mageshwari', role: 'HR Executive', id: 'EMP-1004', st: 'In', t: '08:58 AM', late: false },
   { n: 'Aishu', role: 'Service Engineer', id: 'EMP-1033', st: 'Out', t: '05:46 PM', late: false },

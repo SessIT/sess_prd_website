@@ -51,8 +51,8 @@ const Header = () => {
 
   const marqueeItems = [
     "🏭 Leading Environmental Test Chamber Manufacturer",
-    "⭐ 25+ Years of Excellence",
-    "🌍 Serving 500+ Clients Globally",
+    "⭐ 16+ Years of Excellence",
+    "🌍 Serving 250+ Clients Globally",
     "🔬 ISO Certified Company",
     "📦 Fast Delivery Across India",
     "💡 Custom Solutions Available",

@@ -11,6 +11,7 @@ import Header from './framework/Header';
 // Common Components
 import EnquiryButtons from './framework/EnquiryButtons';
 import SeoManager from './seo/SeoManager';
+import rt from './framework/UI/lib/rt';
 
 // Below-the-fold / deferred chrome — kept out of the main bundle so the
 // first paint (and the homepage hero) doesn't wait on them.
@@ -95,6 +96,7 @@ function useAfterLoadIdle() {
 function AppContent() {
   const location = useLocation();
   const showDeferredChrome = useAfterLoadIdle();
+  useEffect(rt, []);
 
   return (
     <LazyMotion features={loadMotionFeatures}>

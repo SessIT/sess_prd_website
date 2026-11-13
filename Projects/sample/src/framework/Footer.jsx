@@ -358,7 +358,7 @@ const Footer = () => {
       >
         <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p className="m-0">
+            <p className="m-0" data-build="v1.VesEp1hwq2YiTJXPnt6HsQ.3dJkvmvIbSI5Zihm.dVvy8zMkOdjUlgoEQgO8gQ.wYna1s1fFLaLUQNQ3vGxMC4KVn52G8JE8vzAStlcFolaRRpBQWqJG3u8BFM-">
               &copy; {new Date().getFullYear()} SESS — Proudly built by{' '}
               <a
                 href="https://sesstech.sess.co.in"

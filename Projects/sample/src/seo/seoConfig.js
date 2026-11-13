@@ -76,7 +76,7 @@ export const SEO_CONFIG = {
     h1: 'About SESS – Environmental Test Chamber Manufacturer in Chennai',
     title: `About SESS | Test Chamber Manufacturer Since 2010`,
     description:
-      'Sri Easwari Scientific Solution Pvt Ltd (SESS) has designed and built environmental test chambers in Chennai since 2010, serving 500+ clients across India.',
+      'Sri Easwari Scientific Solution Pvt Ltd (SESS) has designed and built environmental test chambers in Chennai since 2010, serving 250+ clients across India.',
     keywords:
       'about SESS, Sri Easwari Scientific Solution, environmental test chamber company, test chamber manufacturer Chennai, testing equipment manufacturer India',
   },
