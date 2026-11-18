@@ -131,12 +131,12 @@ const faqs = [
 
 /* Fictional sample data for the illustrative mock-ups. */
 const sampleStaff = [
-  { n: 'Ilamparithi D', role: 'Software Engineer', id: 'EMP-1012', st: 'In', t: '09:12 AM', late: false },
-  { n: 'Surendar', role: 'Design Engineer', id: 'EMP-1027', st: 'In', t: '09:41 AM', late: true },
-  { n: 'Mageshwari', role: 'HR Executive', id: 'EMP-1004', st: 'In', t: '08:58 AM', late: false },
-  { n: 'Aishu', role: 'Service Engineer', id: 'EMP-1033', st: 'Out', t: '05:46 PM', late: false },
-  { n: 'Divya N', role: 'Software Developer', id: 'EMP-1045', st: 'No punch', t: '—', late: false },
-  { n: 'Rahul P', role: 'Production Supervisor', id: 'EMP-1019', st: 'In', t: '09:03 AM', late: false },
+  { n: 'User 1', role: 'Software Engineer', id: 'EMP-1012', st: 'In', t: '09:12 AM', late: false },
+  { n: 'User 2', role: 'Design Engineer', id: 'EMP-1027', st: 'In', t: '09:41 AM', late: true },
+  { n: 'User 3', role: 'HR Executive', id: 'EMP-1004', st: 'In', t: '08:58 AM', late: false },
+  { n: 'User 4', role: 'Service Engineer', id: 'EMP-1033', st: 'Out', t: '05:46 PM', late: false },
+  { n: 'User 5', role: 'Software Developer', id: 'EMP-1045', st: 'No punch', t: '—', late: false },
+  { n: 'User 6', role: 'Production Supervisor', id: 'EMP-1019', st: 'In', t: '09:03 AM', late: false },
 ];
 const avatarColors = ['#00b3b3', '#2a56a6', '#8b5cf6', '#f59e0b', '#ec4899', '#10b981'];
 const initials = (n) => n.split(' ').map((p) => p[0]).join('').slice(0, 2);
@@ -324,7 +324,7 @@ function PhoneScreen({ screen }) {
       <div className="h-full bg-slate-50">
         <div className="px-4 pb-8 text-white pt-7 rounded-b-3xl" style={{ background: APP_BLUE }}>
           <span className="block text-[10px] opacity-80">Good morning,</span>
-          <span className="block text-sm font-bold">Ilamparithi D</span>
+          <span className="block text-sm font-bold">User 1</span>
           <span className="block text-[9px] opacity-80">General shift · 09:00 – 18:00</span>
         </div>
         <div className="flex flex-col items-center -mt-6">

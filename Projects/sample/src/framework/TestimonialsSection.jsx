@@ -34,7 +34,7 @@ const testimonials = [
     color: 'var(--color-primary-400)',
   },
   {
-    name: 'Ilamparithi D',
+    name: 'Praveen R',
     role: 'Software Engineer',
     text: 'Delivered precise results. Zero downtime in 18 months of continuous operation.',
     avatar: 'PR',

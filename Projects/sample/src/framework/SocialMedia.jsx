@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from '../context/ThemeContext';
-import { FaFacebookF } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaArrowRight, FaImages, FaNewspaper, FaShareAlt } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { SectionHeader } from './SharedUI';
 
 /* ─────────────────────────────────────────────
@@ -53,32 +55,90 @@ function FadeIn({ children, delay = 0, dir = "up", className = "", style = {} })
 }
 
 /* ─────────────────────────────────────────────
-   FACEBOOK FEED — Dynamic (real FB Page embed)
+   SOCIAL CHANNELS — replaces the Facebook Page embed, which was often
+   blocked by browsers/ad-blockers and rendered as an empty box.
 ───────────────────────────────────────────── */
-function FbFeed({ isDark }) {
+const CHANNELS = [
+  { name: 'Facebook',  handle: 'SESS Chennai',  blurb: 'Company news & events',          icon: FaFacebookF, color: '#1877F2', url: 'https://www.facebook.com/profile.php?id=100067759313976' },
+  { name: 'Instagram', handle: '@sesschennai',  blurb: 'Chambers, installs & team life', icon: FaInstagram, color: '#E1306C', url: 'https://www.instagram.com/sesschennai/' },
+  { name: 'YouTube',   handle: '@sesschennai',  blurb: 'Product demos & walkthroughs',   icon: FaYoutube,   color: '#FF0000', url: 'https://www.youtube.com/@sesschennai' },
+  { name: 'LinkedIn',  handle: 'SESS Chennai',  blurb: 'Industry updates & careers',     icon: FaLinkedinIn,color: '#0A66C2', url: 'https://linkedin.com/in/sess-chennai/' },
+  { name: 'X',         handle: '@sesschennai',  blurb: 'Quick updates & announcements',  icon: FaXTwitter,  color: '#111111', url: 'https://x.com/sesschennai' },
+];
+
+const EXPLORE = [
+  { label: 'Photo Gallery', sub: 'Our chambers & facility', to: '/gallery', icon: FaImages },
+  { label: 'News & Blogs',  sub: 'Reliability testing insights', to: '/news', icon: FaNewspaper },
+];
+
+function SocialChannels({ isDark }) {
+  const text = isDark ? '#f1f5f9' : '#0f172a';
+  const muted = isDark ? '#94a3b8' : '#64748b';
+  const tileBg = isDark ? 'rgba(255,255,255,0.04)' : '#ffffff';
+  const tileBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.08)';
+
   return (
-    <div className="flex justify-center items-center w-full h-full">
-      {/* No data-width: with adapt-container-width the SDK measures the
-          container, so the iframe never overflows a narrow column. */}
-      <div
-        className="fb-page"
-        style={{ width: '100%', maxWidth: '100%' }}
-        data-href="https://www.facebook.com/sesschennai"
-        data-tabs="timeline"
-        data-height="400"
-        data-small-header="true"
-        data-adapt-container-width="true"
-        data-hide-cover="true"
-        data-show-facepile="true"
-      >
-        <blockquote
-          cite="https://www.facebook.com/sesschennai"
-          className="fb-xfbml-parse-ignore"
-        >
-          <a href="https://www.facebook.com/sesschennai">
-            Sri Easwari Scientific Solution
+    <div className="flex flex-col gap-5 w-full">
+      <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: muted, lineHeight: 1.6 }}>
+        Follow SESS for new chamber launches, installation stories, product demos and
+        updates from our team in Chennai.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {CHANNELS.map(({ name, handle, blurb, icon: Icon, color, url }, i) => (
+          <a
+            key={name}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`SESS on ${name} (${handle})`}
+            title={handle}
+            className={`group flex items-center gap-3 rounded-xl p-3 transition-all duration-300 hover:-translate-y-0.5${
+              i === CHANNELS.length - 1 && CHANNELS.length % 2 ? ' sm:col-span-2' : ''
+            }`}
+            style={{ background: tileBg, border: `1px solid ${tileBorder}` }}
+          >
+            <span
+              className="flex items-center justify-center shrink-0 rounded-lg w-10 h-10 text-white text-lg"
+              style={{ background: color }}
+            >
+              <Icon />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-semibold truncate" style={{ color: text, fontSize: 'var(--text-sm)' }}>
+                {name}
+              </span>
+              <span className="block truncate" style={{ color: muted, fontSize: 'var(--text-xs)' }}>{blurb}</span>
+            </span>
+            <FaArrowRight
+              className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+              style={{ color: '#00b3b3', fontSize: 12 }}
+            />
           </a>
-        </blockquote>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {EXPLORE.map(({ label, sub, to, icon: Icon }) => (
+          <Link
+            key={to}
+            to={to}
+            className="group flex items-center gap-3 rounded-xl p-4 transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: isDark ? 'rgba(0,179,179,0.12)' : 'rgba(0,179,179,0.08)',
+              border: '1px solid rgba(0,179,179,0.3)',
+            }}
+          >
+            <span className="flex items-center justify-center shrink-0 rounded-lg w-10 h-10 text-white" style={{ background: '#00b3b3' }}>
+              <Icon />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-semibold" style={{ color: text, fontSize: 'var(--text-sm)' }}>{label}</span>
+              <span className="block truncate" style={{ color: muted, fontSize: 'var(--text-xs)' }}>{sub}</span>
+            </span>
+            <FaArrowRight className="shrink-0 transition-transform duration-300 group-hover:translate-x-1" style={{ color: '#00b3b3', fontSize: 12 }} />
+          </Link>
+        ))}
       </div>
     </div>
   );
@@ -295,58 +355,6 @@ export default function SocialMediaSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
-  /* ── Load Facebook SDK — only once the section is near the viewport,
-     so its ~440 KB of scripts/images don't slow the initial page load ── */
-  const [loadFb, setLoadFb] = useState(false);
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLoadFb(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: '800px 0px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!loadFb) return;
-    if (window.FB) {
-      window.FB.XFBML.parse();
-      return;
-    }
-
-    window.fbAsyncInit = function () {
-      window.FB.init({ xfbml: true, version: "v18.0" });
-      window.FB.XFBML.parse();
-    };
-
-    const script = document.createElement("script");
-    script.src = "https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0";
-    script.async = true;
-    script.defer = true;
-    script.crossOrigin = "anonymous";
-    document.body.appendChild(script);
-  }, [loadFb]);
-
-  /* ── Re-adapt the FB iframe when the viewport is resized ──
-     adapt-container-width only measures at parse time, so without this the
-     fixed-size iframe overflows after any resize/zoom change. */
-  useEffect(() => {
-    let timer;
-    const onResize = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => window.FB?.XFBML?.parse(), 400);
-    };
-    window.addEventListener("resize", onResize);
-    return () => { clearTimeout(timer); window.removeEventListener("resize", onResize); };
-  }, []);
-
   /* ── Section visibility for animation ── */
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -455,26 +463,25 @@ export default function SocialMediaSection() {
                         color: '#ffffff',
                       }}
                     >
-                      <FaFacebookF className="text-white" />
+                      <FaShareAlt className="text-white" />
                     </div>
-                    <h3 
+                    <h3
                       className="font-bold text-lg"
                       style={{
                         color: 'var(--color-primary-500)',
                       }}
                     >
-                      Facebook Feed
+                      Follow Our Journey
                     </h3>
                   </div>
                 </div>
                 <div
-                  className="p-4 flex-1 flex items-center justify-center"
+                  className="p-5 lg:p-6 flex-1 flex items-center"
                   style={{
                     backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : '#f9fafb',
-                    minHeight: '408px',
                   }}
                 >
-                  <FbFeed isDark={isDark} />
+                  <SocialChannels isDark={isDark} />
                 </div>
               </div>
             </FadeIn>
